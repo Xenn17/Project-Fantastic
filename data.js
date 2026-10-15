@@ -11,16 +11,14 @@
   4. Biarkan photo kosong ("") jika foto belum tersedia.
 
   CATATAN DATA:
-  Kolom year yang diterima adalah 2022, sedangkan narasi sejarah menyebut 2024
-  / Season 33. Nilai yang diberikan sengaja dipertahankan; silakan konfirmasi
-  tahun yang benar sebelum website dipublikasikan.
+  F4NTASTIC berdiri pada 2024 / Season 33.
 */
 
 window.F4NTASTIC_DATA = {
   squad: {
     name: "WE ARE FANTASTIC",
     slogan: "WE ARE F4NTASTIC, WE ARE FAMILY.",
-    year: "2022",
+    year: "2024",
     historyTitle: "SEJARAH BERDIRINYA F4NTASTIC",
     history: [
       "F4NTASTIC berdiri sejak tahun 2024, tepatnya pada Season 33, yang didirikan oleh Keff / BEIVONG.",

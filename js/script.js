@@ -161,10 +161,54 @@
     addMarqueeItems();
   }
 
-  if (data.communityStats) {
-    $("#statMembers").textContent = Number(data.communityStats.activeMembers).toLocaleString("id-ID");
-    $("#statDivisions").textContent = Number(data.communityStats.divisions).toLocaleString("id-ID");
-    $("#statAchievements").textContent = Number(data.communityStats.achievements).toLocaleString("id-ID");
+  // Statistik dihitung dari nol saat bloknya mulai terlihat.
+  const statItems = data.communityStats ? [
+    [$("#statMembers"), data.communityStats.activeMembers],
+    [$("#statDivisions"), data.communityStats.divisions],
+    [$("#statAchievements"), data.communityStats.achievements],
+  ] : [];
+
+  const animateStats = () => {
+    if (!statItems.length || animateStats.started) return;
+    animateStats.started = true;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const duration = 3200;
+
+    statItems.forEach(([element, value], index) => {
+      if (!element) return;
+      const target = Math.max(0, Number(value) || 0);
+      if (reducedMotion) {
+        element.textContent = target.toLocaleString("id-ID");
+        return;
+      }
+
+      const start = performance.now();
+      const tick = now => {
+        const progress = Math.min((now - start - index * 260) / duration, 1);
+        if (progress < 0) {
+          window.requestAnimationFrame(tick);
+          return;
+        }
+        const eased = 1 - Math.pow(1 - progress, 3);
+        element.textContent = Math.round(target * eased).toLocaleString("id-ID");
+        if (progress < 1) window.requestAnimationFrame(tick);
+      };
+      element.textContent = "0";
+      window.requestAnimationFrame(tick);
+    });
+  };
+
+  const statsSection = $(".community-stats");
+  if (statsSection && "IntersectionObserver" in window) {
+    const statsObserver = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        animateStats();
+        statsObserver.disconnect();
+      }
+    }, { threshold: 0.3 });
+    statsObserver.observe(statsSection);
+  } else {
+    animateStats();
   }
 
   const officialSocials = $("#officialSocials");
@@ -200,6 +244,80 @@
     mainNav.classList.remove("is-open");
     document.body.classList.remove("menu-open");
   }));
+
+  // Modal persyaratan join team.
+  const joinModal = $("#joinModal");
+  const joinOpenButton = $("#joinOpenButton");
+  const joinRequirements = $("#joinRequirements");
+  const joinAgreeButton = $("#joinAgreeButton");
+  const joinReadStatus = $("#joinReadStatus");
+  let previousFocus;
+  const closeJoinModal = () => {
+    if (!joinModal) return;
+    joinModal.hidden = true;
+    document.body.classList.remove("menu-open");
+    if (previousFocus) previousFocus.focus();
+  };
+  const markRequirementsRead = () => {
+    if (!joinRequirements || !joinAgreeButton) return;
+    const reachedEnd = joinRequirements.scrollTop + joinRequirements.clientHeight >= joinRequirements.scrollHeight - 8;
+    if (reachedEnd) {
+      joinAgreeButton.disabled = false;
+      if (joinReadStatus) joinReadStatus.textContent = "Persyaratan sudah dibaca. Kamu bisa melanjutkan.";
+    }
+  };
+  if (joinModal && joinOpenButton && joinRequirements && joinAgreeButton) {
+    joinOpenButton.addEventListener("click", () => {
+      previousFocus = document.activeElement;
+      joinModal.hidden = false;
+      joinRequirements.scrollTop = 0;
+      joinAgreeButton.disabled = true;
+      if (joinReadStatus) joinReadStatus.textContent = "Scroll sampai akhir persyaratan untuk mengaktifkan tombol setuju.";
+      document.body.classList.add("menu-open");
+      window.setTimeout(() => {
+        markRequirementsRead();
+        joinRequirements.focus();
+      }, 0);
+    });
+    joinRequirements.addEventListener("scroll", markRequirementsRead, { passive: true });
+    joinModal.querySelectorAll("[data-join-close]").forEach(button => button.addEventListener("click", closeJoinModal));
+    joinAgreeButton.addEventListener("click", () => {
+      if (joinAgreeButton.disabled) return;
+      closeJoinModal();
+      window.location.href = "join-form.html";
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !joinModal.hidden) closeJoinModal();
+    });
+  }
+
+  // Tandai menu yang sesuai dengan bagian halaman yang sedang terlihat.
+  const navLinks = [...mainNav.querySelectorAll('a[href^="#"]')];
+  const navSections = navLinks
+    .map(link => {
+      const target = link.getAttribute("href");
+      const section = document.querySelector(target);
+      return { link, section, id: target.slice(1) };
+    })
+    .filter(item => item.section);
+  const setActiveNav = id => navLinks.forEach(link => {
+    const active = link.getAttribute("href") === `#${id}`;
+    link.classList.toggle("is-active", active);
+    if (active) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+  setActiveNav("home");
+  const updateActiveNav = () => {
+    const marker = window.scrollY + Math.min(window.innerHeight * .34, 260);
+    let current = navSections[0]?.id || "home";
+    navSections.forEach(({ section, id }) => {
+      if (section.getBoundingClientRect().top + window.scrollY <= marker) current = id;
+    });
+    setActiveNav(current);
+  };
+  window.addEventListener("scroll", updateActiveNav, { passive: true });
+  window.addEventListener("resize", updateActiveNav);
+  updateActiveNav();
 
   // Animasi masuk saat bagian halaman mulai terlihat.
   const revealItems = document.querySelectorAll(".reveal");

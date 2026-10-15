@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090909" />
+    <meta name="description" content="Pendaftaran Join Team F4NTASTIC." />
+    <link rel="icon" type="image/jpeg" href="assets/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css?v=20261016-logoform" />
+    <title>Join Team F4NT — Pendaftaran</title>
+  </head>
+  <body class="join-form-page">
+    <div class="page-glow" aria-hidden="true"></div>
+    <header class="site-header form-header">
+      <a class="brand" href="index.html#home" aria-label="Kembali ke F4NTASTIC">
+        <span class="brand-mark">F<span>4</span>N'T</span>
+        <span class="brand-caption">WE ARE FANTASTIC</span>
+      </a>
+      <a class="form-back" href="index.html#join-team">← KEMBALI</a>
+    </header>
+
+    <main class="join-form-main">
+      <section class="join-form-hero section-shell">
+        <div class="form-hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> F4NT / APPLICATION 01</p>
+          <h1>TAKE YOUR<br /><span class="gold-text">PLACE.</span></h1>
+          <p>
+            Isi data dengan jujur dan lengkap. Setiap informasi membantu kami
+            memahami role, pengalaman, dan potensi kamu di dalam tim.
+          </p>
+          <div class="form-hero-mark"><img src="assets/logo-official.webp" alt="Logo resmi F4NTASTIC" /></div>
+        </div>
+        <div class="application-card">
+          <div class="application-heading">
+            <span>JOIN TEAM F4NT</span><strong>2024 / OPEN</strong>
+          </div>
+          <form id="joinForm" novalidate>
+            <div class="form-section-label">01 / DATA DIRI</div>
+            <div class="form-grid two-columns">
+              <label>Nama lengkap<input name="name" type="text" placeholder="Nama kamu" required /></label>
+              <label>Nama in-game<input name="ign" type="text" placeholder="IGN / nickname" required /></label>
+              <label>Usia<input name="age" type="number" min="13" max="99" placeholder="Contoh: 19" required /></label>
+              <label>Jenis kelamin<select name="gender" required><option value="">Pilih</option><option>Cowok</option><option>Cewek</option></select></label>
+            </div>
+
+            <div class="form-section-label">02 / ROLE &amp; EXPERIENCE</div>
+            <div class="form-grid two-columns">
+              <label>Role utama<select name="role" required><option value="">Pilih role</option><option>XP</option><option>MID</option><option>MM</option><option>JUNG</option><option>SUPPORT</option></select></label>
+              <label>Role cadangan<select name="secondaryRole"><option value="">Pilih role</option><option>XP</option><option>MID</option><option>MM</option><option>JUNG</option><option>SUPPORT</option></select></label>
+              <label>Rank tertinggi<input name="highestRank" type="text" placeholder="Contoh: 400 bintang" required /></label>
+              <label>Rank season sekarang<input name="currentRank" type="text" placeholder="Contoh: 250 bintang" required /></label>
+            </div>
+
+            <div class="form-section-label">03 / HERO PERFORMANCE</div>
+            <div class="form-grid two-columns">
+              <label>Hero andalan<input name="mainHero" type="text" placeholder="Contoh: Joy / Moskov" required /></label>
+              <label>WR hero season sekarang<input name="heroWinRate" type="text" placeholder="Contoh: 70%" required /></label>
+              <label>Hero lain yang bisa<input name="otherHeroes" type="text" placeholder="Hero lain yang kamu kuasai" required /></label>
+              <label>ID ML<input name="mlId" type="text" placeholder="Masukkan ID Mobile Legends" required /></label>
+            </div>
+
+            <div class="form-section-label">04 / KONTAK</div>
+            <div class="form-grid two-columns">
+              <label>Nomor WhatsApp<input name="whatsapp" type="tel" placeholder="08xxxxxxxxxx" required /></label>
+              <label>Username Discord<input name="discord" type="text" placeholder="username#0000 atau username" /></label>
+            </div>
+
+            <label class="upload-field">Screenshot profil ML lengkap
+              <input name="screenshots" type="file" accept="image/*" multiple required />
+              <span class="upload-box"><strong>＋</strong><span>Pilih screenshot profil</span><small>Rank, WR hero, dan profil ML</small></span>
+            </label>
+            <label class="agreement-check"><input type="checkbox" name="agreement" required /><span>Saya mengisi data dengan jujur dan siap mengikuti proses seleksi F4NTASTIC.</span></label>
+            <label class="agreement-check rules-agreement"><input type="checkbox" name="rulesAgreement" required /><span>Saya setuju dan akan menaati peraturan F4NTASTIC.</span></label>
+            <button class="button button-primary submit-application" type="submit" disabled>Kirim Pendaftaran <span>↗</span></button>
+            <p class="form-status" id="formStatus" role="status"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer form-footer">
+      <a class="brand" href="index.html#home">
+        <span class="brand-mark">F<span>4</span>N'T</span>
+        <span class="brand-caption">WE ARE FANTASTIC</span>
+      </a>
+      <p class="footer-slogan">WE ARE F4NTASTIC, WE ARE FAMILY.</p>
+      <div class="footer-socials" aria-label="Media sosial resmi">
+        <a class="social-chip footer-social-chip" href="https://www.instagram.com/f4nt.official" target="_blank" rel="noopener noreferrer"><span class="social-mark">◎</span>Instagram</a>
+        <a class="social-chip footer-social-chip" href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener noreferrer"><span class="social-mark">♪</span>TikTok</a>
+        <a class="social-chip footer-social-chip" href="https://discord.gg/tUr7tMkVn" target="_blank" rel="noopener noreferrer"><span class="social-mark">◈</span>Discord</a>
+      </div>
+      <a href="index.html#home" class="back-top">KEMBALI KE ATAS ↑</a>
+    </footer>
+    <div class="rules-modal" id="rulesModal" hidden>
+      <div class="join-modal-backdrop" data-rules-close></div>
+      <section class="join-dialog" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+        <header class="join-dialog-header">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> F4NT / SQUAD RULES</p>
+            <h2 id="rulesTitle">PERATURAN<br /><span class="gold-text">F4NT.</span></h2>
+          </div>
+          <button class="join-close" type="button" data-rules-close aria-label="Tutup peraturan">×</button>
+        </header>
+        <div class="join-modal-scroll rules-scroll" id="rulesScroll" tabindex="0">
+          <p class="join-modal-intro">Baca dan pahami seluruh peraturan berikut sebelum menyatakan persetujuan.</p>
+          <div class="rules-list">
+            <article><b>☠️ DILARANG KERAS RW / DK</b><p>Jika terbukti melakukan RW/DK, TBPB, 02.30, atau membawa low tier, member akan langsung dikeluarkan tanpa toleransi.</p></article>
+            <article><b>☠️ DILARANG TOXIC / BLAME / SALING MENYALAHKAN</b><p>Jaga attitude kepada member maupun orang luar. Masalah personal diselesaikan melalui japri, bukan di grup.</p></article>
+            <article><b>☠️ PRIVASI GROUP</b><p>Dilarang menyebarkan, screenshot, atau membagikan isi grup chat kepada pihak luar atau publik.</p></article>
+            <article><b>☠️ CHAT ALL INGAME</b><p>Dilarang chat all yang bersifat personal atau memicu drama, termasuk membuat konten dengan caption yang merendahkan, menyindir, atau menyinggung seseorang.</p></article>
+            <article><b>☠️ IDENTITAS SQUAD</b><p>Player baru wajib mengganti nickname dengan format <strong>x F4N’T</strong>, contoh: Kakayenn x F4N’T. Format ini wajib digunakan selama minimal <strong>2 season atau 6 bulan</strong>.</p></article>
+            <article><b>☠️ MRO PLAYER BARU</b><p>Player baru wajib mengikuti MRO bersama sesama divisi squad sebagai bagian dari proses adaptasi, pengenalan anggota, dan pembentukan kekompakan tim.</p></article>
+            <article><b>☠️ ANTI CIRCLE-CIRCLEAN</b><p>Dilarang membentuk circle atau grup eksklusif yang membuat member lain merasa tidak dianggap. Grup khusus hanya diperbolehkan untuk keperluan party.</p></article>
+            <article><b>☠️ DILARANG DOUBLE SQUAD / DOUBLE TITLE</b><p>Member tidak diperbolehkan memiliki squad, marga, atau title lain selain F4NTASTIC.</p></article>
+            <article><b>☠️ DILARANG NINJA TANPA ALASAN</b><p>Tidak boleh ninja tanpa alasan karena dapat menimbulkan salah paham dan masalah antar member.</p></article>
+            <article><b>☠️ KELUAR SQUAD TANPA KONFIRMASI</b><p>Member yang keluar tanpa konfirmasi kepada leader dianggap tidak menghargai squad dan dapat terkena kick permanent dari F4NT.</p></article>
+            <article><b>☠️ TAG GROUP SW UNTUK KONTEN ML</b><p>Tag grup di status WhatsApp hanya diperbolehkan untuk hal yang berkaitan dengan ML. Dilarang untuk konten pribadi atau di luar ML.</p></article>
+            <article><b>☠️ PEMINJAMAN AKUN</b><p>Dilarang meminjamkan akun kecuali kepada orang yang benar-benar trusted. Segala risiko menjadi tanggung jawab pribadi.</p></article>
+            <article><b>☠️ PENJOKI MENCARI ORANG</b><p>Dilarang mencari orang di grup chat role. Utamakan mencari party di GC filter masing-masing.</p></article>
+            <article><b>☠️ DILARANG AFK / TROLLING</b><p>Dilarang AFK dengan sengaja, trolling, atau bermain tidak serius saat mabar squad.</p></article>
+            <article><b>☠️ HARGAI SESAMA MEMBER</b><p>Dilarang merendahkan rank, skill, hero pool, atau performa member lain. Sampaikan kritik dengan cara yang baik.</p></article>
+            <article><b>☠️ BUCIN</b><p>Bucin boleh, tetapi jangan membawa masalah hubungan pribadi ke urusan squad. Jika mengganggu squad, admin berhak menindak.</p></article>
+            <article><b>☠️ EVALUASI &amp; PENGELUARAN ANGGOTA</b><p>Evaluasi dilakukan mingguan atau bulanan berdasarkan keaktifan, performa bermain, serta sikap di dalam maupun di luar game.</p></article>
+          </div>
+          <p class="join-modal-end">Setelah mencapai bagian ini, checkbox persetujuan akan aktif.</p>
+        </div>
+        <footer class="join-dialog-footer"><p id="rulesReadStatus">Scroll sampai akhir untuk mengaktifkan tombol setuju.</p><div class="join-dialog-actions"><button class="button button-quiet" type="button" data-rules-close>Batalkan</button><button class="button button-primary" id="rulesAgreeButton" type="button" disabled>Setuju <span>↗</span></button></div></footer>
+      </section>
+    </div>
+    <script>
+      const form = document.querySelector("#joinForm");
+      const status = document.querySelector("#formStatus");
+      const agreement = form.querySelector('input[name="agreement"]');
+      const rulesAgreement = form.querySelector('input[name="rulesAgreement"]');
+      const submitButton = form.querySelector('button[type="submit"]');
+      const updateSubmitState = () => { submitButton.disabled = !(agreement.checked && rulesAgreement.checked); };
+      agreement.addEventListener("change", updateSubmitState);
+      rulesAgreement.addEventListener("change", () => {
+        if (!rulesAgreement.checked) rulesAccepted = false;
+        updateSubmitState();
+      });
+
+      const rulesModal = document.querySelector("#rulesModal");
+      const rulesScroll = document.querySelector("#rulesScroll");
+      const rulesAgreeButton = document.querySelector("#rulesAgreeButton");
+      const rulesReadStatus = document.querySelector("#rulesReadStatus");
+      const rulesClose = document.querySelectorAll("[data-rules-close]");
+      let rulesAccepted = false;
+      let rulesCooldownStarted = false;
+      let rulesReadComplete = false;
+      let rulesCooldownDone = false;
+      let rulesReady = false;
+      let rulesCooldownTimer;
+      const defaultRulesButtonText = "Setuju";
+      const closeRules = () => { rulesModal.hidden = true; document.body.classList.remove("menu-open"); };
+      const resetRulesConsent = () => {
+        rulesAccepted = false;
+        rulesReady = false;
+        rulesCooldownStarted = false;
+        rulesReadComplete = false;
+        rulesCooldownDone = false;
+        rulesAgreement.checked = false;
+        window.clearInterval(rulesCooldownTimer);
+        updateSubmitState();
+        closeRules();
+      };
+      const checkRulesRead = () => {
+        if (rulesScroll.scrollTop + rulesScroll.clientHeight >= rulesScroll.scrollHeight - 8) {
+          rulesReadComplete = true;
+          if (rulesCooldownDone) {
+            rulesReady = true;
+            rulesAgreeButton.disabled = false;
+            rulesReadStatus.textContent = "Peraturan sudah dibaca. Kamu bisa menyetujui sekarang.";
+          } else {
+            rulesReadStatus.textContent = "Baca sampai selesai. Tombol akan aktif setelah hitungan selesai.";
+          }
+        }
+      };
+      const startRulesCooldown = () => {
+        rulesCooldownStarted = true;
+        rulesAgreeButton.disabled = true;
+        let remaining = 10;
+        rulesAgreeButton.innerHTML = `${defaultRulesButtonText} (${remaining}) <span>↗</span>`;
+        rulesReadStatus.textContent = "Baca seluruh peraturan. Tombol Setuju sedang menghitung mundur.";
+        window.clearInterval(rulesCooldownTimer);
+        rulesCooldownTimer = window.setInterval(() => {
+          remaining -= 1;
+          if (remaining <= 0) {
+            window.clearInterval(rulesCooldownTimer);
+            rulesCooldownDone = true;
+            rulesReady = rulesReadComplete;
+            rulesAgreeButton.disabled = !rulesReadComplete;
+            rulesAgreeButton.innerHTML = rulesReadComplete ? `${defaultRulesButtonText} <span>↗</span>` : `${defaultRulesButtonText} (selesaikan bacaan) <span>↗</span>`;
+            rulesReadStatus.textContent = rulesReadComplete ? "Peraturan sudah dibaca. Kamu bisa menyetujui sekarang." : "Scroll sampai akhir peraturan untuk mengaktifkan tombol.";
+            return;
+          }
+          rulesAgreeButton.innerHTML = `${defaultRulesButtonText} (${remaining}) <span>↗</span>`;
+        }, 1000);
+      };
+      rulesAgreement.addEventListener("click", event => {
+        if (rulesAccepted) return;
+        event.preventDefault();
+        rulesModal.hidden = false;
+        rulesScroll.scrollTop = 0;
+        rulesAccepted = false;
+        rulesReady = false;
+        rulesCooldownStarted = false;
+        rulesReadComplete = false;
+        rulesCooldownDone = false;
+        window.clearInterval(rulesCooldownTimer);
+        startRulesCooldown();
+        document.body.classList.add("menu-open");
+        rulesScroll.focus();
+      });
+      rulesAgreeButton.addEventListener("click", () => {
+        if (!rulesReady) return;
+        rulesAccepted = true;
+        rulesAgreement.checked = true;
+        updateSubmitState();
+        closeRules();
+      });
+      rulesScroll.addEventListener("scroll", checkRulesRead, { passive: true });
+      rulesClose.forEach(button => button.addEventListener("click", resetRulesConsent));
+      document.addEventListener("keydown", event => { if (event.key === "Escape" && !rulesModal.hidden) resetRulesConsent(); });
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        status.textContent = "Data siap dikirim. Hubungi Keff melalui WhatsApp untuk melanjutkan proses seleksi.";
+        status.classList.add("is-success");
+        status.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    </script>
+  </body>
+</html>

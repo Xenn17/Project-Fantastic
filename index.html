@@ -8,6 +8,7 @@
       name="description"
       content="WE ARE F4NTASTIC, WE ARE FAMILY. Kenali perjalanan, visi, founder, dan pengurus F4NTASTIC."
     />
+    <link rel="icon" type="image/jpeg" href="assets/favicon.ico" />
     <title>WE ARE FANTASTIC — We Are Family</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,16 +16,16 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="data.js" defer></script>
-    <script src="js/script.js" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=20261016-joinmodal4" />
+    <script src="data.js?v=2024" defer></script>
+    <script src="js/script.js?v=20261016-joinmodal" defer></script>
   </head>
   <body>
     <div class="page-glow" aria-hidden="true"></div>
-    <header class="site-header" id="top">
+    <header class="site-header">
       <a
         class="brand"
-        href="#top"
+        href="#home"
         aria-label="WE ARE FANTASTIC, kembali ke beranda"
       >
         <span class="brand-mark">F<span>4</span>N'T</span>
@@ -39,17 +40,19 @@
         <span></span><span></span>
       </button>
       <nav class="main-nav" id="mainNav" aria-label="Navigasi utama">
+        <a href="#home">Home</a>
         <a href="#about">Tentang</a>
-        <a href="#vision">Visi &amp; Tujuan</a>
         <a href="#logo-history">Riwayat Logo</a>
+        <a href="#vision">Visi &amp; Tujuan</a>
         <a href="#founder">Founder</a>
         <a href="#admins">Pengurus</a>
+        <a href="#join-team">Join Team</a>
         <a href="#connect" class="nav-cta">Hubungi Kami <span>↗</span></a>
       </nav>
     </header>
 
     <main>
-      <section class="hero section-shell">
+      <section class="hero section-shell" id="home">
         <div class="hero-copy reveal">
           <p class="eyebrow">
             <span class="eyebrow-line"></span> MOBILE LEGENDS COMMUNITY
@@ -87,7 +90,7 @@
             <span class="emblem-bottom">FANTASTIC FAMILY</span>
           </div>
           <div class="floating-label label-top">
-            <span>EST.</span><strong id="heroYear">2022</strong>
+            <span>EST.</span><strong id="heroYear">2024</strong>
           </div>
           <div class="floating-label label-bottom">
             <span>ONE TEAM</span><strong>ONE FAMILY</strong>
@@ -120,7 +123,7 @@
           <div class="about-aside reveal">
             <div class="vertical-word">OUR JOURNEY</div>
             <div class="about-stamp">
-              <span>F4N'T</span><small>EST. <b id="aboutYear">2022</b></small>
+              <span>F4N'T</span><small>EST. <b id="aboutYear">2024</b></small>
             </div>
           </div>
           <div class="about-content reveal">
@@ -276,6 +279,36 @@
         </div>
       </section>
 
+      <section class="join-section section" id="join-team">
+        <div class="section-shell join-layout">
+          <div class="join-copy reveal">
+            <p class="eyebrow">
+              <span class="eyebrow-line"></span> OPEN RECRUITMENT / 05
+            </p>
+            <h2>READY TO BE<br /><span class="gold-text">F4NTASTIC?</span></h2>
+            <p>
+              Punya semangat, mau berkembang, dan siap tumbuh bareng keluarga
+              F4NTASTIC? Mulai langkahmu bersama kami.
+            </p>
+            <button class="button button-primary join-button" id="joinOpenButton" type="button">
+              Aku Mau Join F4NT Dungg<span>↗</span>
+            </button>
+            <small class="join-note">Form pendaftaran segera dibuka.</small>
+          </div>
+          <div class="join-panel reveal">
+            <div class="join-panel-top">
+              <span>F4NT / JOIN TEAM</span><strong>✦</strong>
+            </div>
+            <h3>Satu tujuan.<br /><span class="gold-text">Satu keluarga.</span></h3>
+            <div class="join-points">
+              <div><span>01</span><p>Siap berkembang bersama.</p></div>
+              <div><span>02</span><p>Menjunjung loyalitas dan respect.</p></div>
+              <div><span>03</span><p>Membawa nama F4NTASTIC dengan bangga.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="connect-section" id="connect">
         <div class="connect-lines" aria-hidden="true"></div>
         <div class="section-shell connect-inner reveal">
@@ -298,7 +331,7 @@
     </main>
 
     <footer class="site-footer">
-      <a class="brand" href="#top"
+      <a class="brand" href="#home"
         ><span class="brand-mark">F<span>4</span>N'T</span
         ><span class="brand-caption">WE ARE FANTASTIC</span></a
       >
@@ -308,7 +341,71 @@
         id="footerSocials"
         aria-label="Media sosial resmi"
       ></div>
-      <a href="#top" class="back-top">KEMBALI KE ATAS ↑</a>
+      <a href="#home" class="back-top">KEMBALI KE ATAS ↑</a>
     </footer>
+
+    <div class="join-modal" id="joinModal" hidden>
+      <div class="join-modal-backdrop" data-join-close></div>
+      <section class="join-dialog" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle">
+        <header class="join-dialog-header">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> F4NT / JOIN TEAM</p>
+            <h2 id="joinModalTitle">PERSYARATAN<br /><span class="gold-text">JOIN F4NT.</span></h2>
+          </div>
+          <button class="join-close" type="button" data-join-close aria-label="Tutup persyaratan">×</button>
+        </header>
+        <div class="join-modal-scroll" id="joinRequirements" tabindex="0">
+          <p class="join-modal-intro">
+            Baca seluruh informasi berikut sebelum mendaftar. F4NTASTIC mencari
+            player yang siap berkembang, menghargai tim, dan menjaga nama baik keluarga.
+          </p>
+          <div class="requirement-block">
+            <span class="requirement-label">01 / ROLE &amp; MINIMUM WR</span>
+            <h3>Persyaratan dasar</h3>
+            <ul>
+              <li><strong>Player cowok:</strong> pemain dengan rank minimal <b>400++ bintang</b>.</li>
+              <li><strong>Player cewek:</strong> user MID, MM, JUNG, atau XP dengan rank minimal <b>200++ bintang</b>.</li>
+              <li><strong>Player cewek Support:</strong> rank minimal <b>350 bintang</b>.</li>
+            </ul>
+          </div>
+          <div class="requirement-block">
+            <span class="requirement-label">02 / SPECIAL CONSIDERATION</span>
+            <h3>Ketentuan role khusus</h3>
+            <p>
+              Khusus role XP dan user Johnson, rank di bawah 400 masih dapat dipertimbangkan.
+              Batas minimumnya berada di kisaran <b>200–300 bintang</b>, dengan fokus murni pada
+              role XP atau user Johnson.
+            </p>
+          </div>
+          <div class="requirement-block">
+            <span class="requirement-label">03 / HERO PERFORMANCE</span>
+            <h3>Penilaian Grade Hero</h3>
+            <p>
+              WR hero pada season saat ini diharapkan berada di kisaran <b>65–75%</b>.
+              Penilaian dilakukan berdasarkan <b>Grade Hero</b>, jadi kirimkan data yang
+              terlihat jelas dan terbaru.
+            </p>
+          </div>
+          <div class="requirement-block submission-block">
+            <p class="join-contact-copy">
+              Kami sebenarnya terbuka untuk berbagai kemungkinan. Jika ingin dipertimbangkan
+              untuk rank, role, atau kondisi tertentu, silakan hubungi kami melalui WhatsApp
+              lewat tombol di bawah ini.
+            </p>
+            <a class="join-contact whatsapp-button" href="https://wa.me/6281335350504" target="_blank" rel="noopener noreferrer">
+              <span>HUBUNGI VIA WHATSAPP</span><strong>↗</strong>
+            </a>
+          </div>
+          <p class="join-modal-end">Dengan menekan setuju, kamu menyatakan sudah membaca dan memahami seluruh persyaratan di atas.</p>
+        </div>
+        <footer class="join-dialog-footer">
+          <p id="joinReadStatus">Scroll sampai akhir persyaratan untuk mengaktifkan tombol setuju.</p>
+          <div class="join-dialog-actions">
+            <button class="button button-quiet" type="button" data-join-close>Batalkan</button>
+            <button class="button button-primary" id="joinAgreeButton" type="button" disabled>Setuju <span>↗</span></button>
+          </div>
+        </footer>
+      </section>
+    </div>
   </body>
 </html>
