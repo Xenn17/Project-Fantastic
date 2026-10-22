@@ -6,3 +6,27 @@
 .brand small{grid-column:2;grid-row:2;align-self:start}.brand strong{grid-column:2;grid-row:1;align-self:end}
 .brand{grid-template-columns:38px max-content;column-gap:9px}.brand-logo{width:38px;height:38px}
 @media(max-width:780px){.brand{grid-template-columns:32px max-content}.brand-logo{width:32px;height:32px}}
+
+/* Login experience */
+.login-screen{isolation:isolate;background:radial-gradient(circle at 50% 45%,rgba(216,180,90,.09),transparent 36%),#080808}
+.login-screen:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(115deg,transparent 0 48%,rgba(216,180,90,.035) 49%,transparent 50%),linear-gradient(25deg,transparent 0 62%,rgba(255,255,255,.025) 63%,transparent 64%);background-size:100% 100%,100% 100%}
+.noise{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");mix-blend-mode:screen}
+.login-card{position:relative;animation:loginCardIn .8s cubic-bezier(.2,.8,.2,1) both;border-color:rgba(216,180,90,.42);box-shadow:0 30px 100px rgba(0,0,0,.75),0 0 0 1px rgba(216,180,90,.06),0 0 70px rgba(216,180,90,.08);overflow:hidden}
+.login-card:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:scanLine 3.5s ease-in-out infinite}
+.login-card:after{content:"";position:absolute;width:180px;height:180px;right:-105px;bottom:-105px;border:1px solid rgba(216,180,90,.2);border-radius:50%;box-shadow:0 0 0 14px rgba(216,180,90,.025),0 0 0 28px rgba(216,180,90,.02);pointer-events:none}
+.mark{align-items:center;margin-bottom:38px}.mark-lockup{display:flex;align-items:center;gap:10px}.mark-lockup img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(216,180,90,.35))}.mark-lockup strong{font:900 36px var(--display);letter-spacing:-1px}.mark-lockup strong span{color:var(--gold)}
+.kicker i{display:inline-block;width:6px;height:6px;margin-right:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(216,180,90,.5);animation:statusPulse 1.8s infinite;vertical-align:1px}
+.login-card h1{animation:headingIn .7s .2s both}.login-card .copy{max-width:320px}.login-card form{animation:formIn .7s .3s both}
+label input{border-color:rgba(255,255,255,.12);transition:border-color .25s,box-shadow .25s,background .25s,transform .25s}label input::placeholder{color:#555}label input:hover{background:#10100f}label input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(216,180,90,.09),0 0 22px rgba(216,180,90,.08);transform:translateY(-1px)}
+.login-card button{position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s,background .25s}.login-card button:before{content:"";position:absolute;inset:0;transform:translateX(-110%);background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transition:transform .55s}.login-card button:hover{transform:translateY(-2px);background:var(--bright);box-shadow:0 10px 25px rgba(216,180,90,.2)}.login-card button:hover:before{transform:translateX(110%)}.login-card button span{position:relative}
+.login-card a{transition:color .25s,transform .25s}.login-card a:hover{color:var(--gold);transform:translateX(3px)}
+.orbit{opacity:.8;animation:orbitFloat 12s ease-in-out infinite}.orbit.b{animation-delay:-5s}.orbit.c{width:420px;height:420px;right:12%;top:-190px;border-color:rgba(216,180,90,.1);animation:orbitSpin 28s linear infinite}
+@keyframes loginCardIn{from{opacity:0;transform:translateY(22px) scale(.97);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@keyframes headingIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+@keyframes formIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes scanLine{0%,100%{transform:translateX(-25%);opacity:.4}50%{transform:translateX(25%);opacity:1}}
+@keyframes statusPulse{70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@keyframes orbitFloat{0%,100%{transform:rotate(-27deg) translate(0)}50%{transform:rotate(-24deg) translate(10px,-12px)}}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.login-card,.login-card h1,.login-card form,.orbit,.orbit.c,.login-card:before,.kicker i{animation:none}}
+@media(max-width:500px){.login-card{padding:31px 24px}.mark-lockup img{width:32px;height:32px}.mark-lockup strong{font-size:32px}.mark small{font-size:7px;letter-spacing:1.4px}.login-card h1{font-size:65px}}
