@@ -29,3 +29,41 @@ for insert to anon with check (bucket_id = 'application-screenshots');
 drop policy if exists "Allow public application screenshot reads" on storage.objects;
 create policy "Allow public application screenshot reads" on storage.objects
 for select to anon using (bucket_id = 'application-screenshots');
+
+-- Bersihkan duplikat lama terlebih dahulu jika index gagal dibuat.
+-- Query ini mempertahankan data paling awal untuk setiap ID ML dan nomor WhatsApp.
+-- Jalankan hanya setelah memeriksa hasil SELECT-nya.
+--
+-- WITH ranked AS (
+--   SELECT id, row_number() OVER (
+--     PARTITION BY lower(regexp_replace(trim(ml_id), '[^a-zA-Z0-9]', '', 'g'))
+--     ORDER BY created_at, id
+--   ) AS rn
+--   FROM public.applications
+--   WHERE trim(coalesce(ml_id, '')) <> ''
+-- )
+-- DELETE FROM public.applications a USING ranked r
+-- WHERE a.id = r.id AND r.rn > 1;
+
+-- Setelah duplikat lama dibersihkan, jalankan index berikut.
+drop index if exists public.applications_ml_id_unique;
+create unique index applications_ml_id_unique
+on public.applications (lower(regexp_replace(trim(ml_id), '[^a-zA-Z0-9]', '', 'g')))
+where trim(coalesce(ml_id, '')) <> '';
+
+drop index if exists public.applications_whatsapp_unique;
+create unique index applications_whatsapp_unique
+on public.applications ((case
+  when regexp_replace(trim(whatsapp), '[^0-9]', '', 'g') like '0%' then '62' || substring(regexp_replace(trim(whatsapp), '[^0-9]', '', 'g') from 2)
+  when regexp_replace(trim(whatsapp), '[^0-9]', '', 'g') like '8%' then '62' || regexp_replace(trim(whatsapp), '[^0-9]', '', 'g')
+  else regexp_replace(trim(whatsapp), '[^0-9]', '', 'g')
+end))
+where trim(coalesce(whatsapp, '')) <> '';
+
+-- Status proses seleksi admin.
+alter table public.applications add column if not exists status text not null default 'pending';
+alter table public.applications add column if not exists accepted_at timestamptz;
+alter table public.applications add column if not exists rejected_at timestamptz;
+drop policy if exists "Allow admin panel updates" on public.applications;
+create policy "Allow admin panel updates" on public.applications
+for update to anon using (true) with check (true);

@@ -162,6 +162,9 @@
       const resultTitle = document.querySelector("#formResultTitle");
       const resultMessage = document.querySelector("#formResultMessage");
       const resultMark = document.querySelector("#formResultMark");
+      const normalizeKey = value => String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const normalizePhone = value => { const digits = String(value || "").replace(/\D/g, ""); return digits.startsWith("0") ? `62${digits.slice(1)}` : digits.startsWith("8") ? `62${digits}` : digits; };
+      const submitLockKey = "f4nt-application-submitted";
       const showResult = (ok, message) => { resultTitle.textContent = ok ? "Pendaftaran berhasil" : "Pendaftaran gagal"; resultMessage.textContent = message; resultMark.textContent = ok ? "✓" : "!"; resultModal.hidden = false; };
       document.querySelector("#formResultClose").addEventListener("click", () => { resultModal.hidden = true; });
       const agreement = form.querySelector('input[name="agreement"]');
@@ -291,15 +294,24 @@
           "KONTAK", `WhatsApp: ${values.whatsapp}`, `Discord: ${values.discord}`, `Screenshot profil: ${files}`, "",
           "Saya sudah mengisi data dengan jujur dan menyetujui peraturan F4NTASTIC."
         ].join("\n");
-        status.textContent = "Menyimpan pendaftaran…";
+        const submitLock = Number(localStorage.getItem(submitLockKey) || 0);
+        if (submitLock && Date.now() - submitLock < 10 * 60 * 1000) { showResult(false, "Pendaftaran baru saja dikirim. Tunggu 10 menit sebelum mengirim lagi."); return; }
+        submitButton.disabled = true;
+        status.textContent = "Memeriksa data pendaftaran…";
         status.classList.remove("is-success");
         const supabaseClient = window.supabase.createClient("https://uxkieyunztzhiwrocnei.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4a2lleXVuenR6aGl3cm9jbmVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzMDQwODIsImV4cCI6MjEwNzg4MDA4Mn0.nlWhlGbagxwZ2-XeHEa195n5sQmRtXn3xutTISDXR70" );
+        const { data: existing, error: duplicateCheckError } = await supabaseClient.from("applications").select("id,ml_id,whatsapp");
+        if (duplicateCheckError) { submitButton.disabled = false; showResult(false, "Gagal memeriksa data lama. Coba lagi."); return; }
+        const mlKey = normalizeKey(values.mlId), waKey = normalizePhone(values.whatsapp);
+        const duplicate = (existing || []).find(item => normalizeKey(item.ml_id) === mlKey || normalizePhone(item.whatsapp) === waKey);
+        if (duplicate) { submitButton.disabled = false; showResult(false, "Data dengan ID ML atau nomor WhatsApp tersebut sudah pernah didaftarkan."); return; }
+        status.textContent = "Mengunggah pendaftaran…";
         const uploadedScreenshots = [];
         for (const file of selectedFiles) {
           const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
           const path = `${Date.now()}-${crypto.randomUUID()}-${safeName}`;
           const upload = await supabaseClient.storage.from("application-screenshots").upload(path, file, { upsert: false, contentType: file.type });
-          if (upload.error) { showResult(false, `Upload screenshot gagal: ${upload.error.message}`); return; }
+          if (upload.error) { submitButton.disabled = false; showResult(false, `Upload screenshot gagal: ${upload.error.message}`); return; }
           uploadedScreenshots.push(supabaseClient.storage.from("application-screenshots").getPublicUrl(path).data.publicUrl);
         }
         const { error } = await supabaseClient.from("applications").insert({
@@ -309,7 +321,8 @@
           other_heroes: values.otherHeroes, ml_id: values.mlId, whatsapp: values.whatsapp,
           discord: values.discord, screenshots: uploadedScreenshots.join("\n") || files
         });
-        if (error) { showResult(false, error.message); console.error("Supabase insert error", error); return; }
+        if (error) { submitButton.disabled = false; showResult(false, error.message); console.error("Supabase insert error", error); return; }
+        localStorage.setItem(submitLockKey, String(Date.now()));
         showResult(true, "Data kamu sudah tersimpan di database.");
         status.classList.add("is-success");
         form.reset();
