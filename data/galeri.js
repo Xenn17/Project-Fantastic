@@ -597,7 +597,7 @@ window.GALERI_DATA = [
     "hero": "BELERICK",
     "nickname": "Sara x F4N'T",
     "judul": "BELERICK",
-    "deskripsi": "Princess Belerick in F4N'TASTIC",
+    "deskripsi": "Princess global belerick pertama di fant",
     "gambar": "assets/galeri/WhatsApp Image 2026-10-19 at 15.18.49.jpeg",
     "tanggal": ""
   },
@@ -629,6 +629,16 @@ window.GALERI_DATA = [
     "judul": "ARGUS",
     "deskripsi": "Dewa Argus",
     "gambar": "assets/galeri/WhatsApp Image 2026-10-22 at 11.33.15.jpeg",
+    "tanggal": ""
+  },
+
+  {
+    "kategori": "GLOBAL #1",
+    "hero": "EDITH",
+    "nickname": "Edith istriku x F4N'T",
+    "judul": "EDITH",
+    "deskripsi": "Edith is my bini gwegh",
+    "gambar": "assets/galeri/edith Image 2026-10-22 at 20.46.01.jpeg",
     "tanggal": ""
   },
 
@@ -2277,7 +2287,7 @@ window.GALERI_DATA = [
   },
   {
     kategori: "FANTASTIC COMPE",
-    judul: "NEWBIE X PAPAH JAHAT COMPE",
+    judul: "FANTASTIC NEWBIE",
     deskripsi: "",
     roster: {
       jungler: "Kate x F4N'T",
