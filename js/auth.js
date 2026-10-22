@@ -5,11 +5,12 @@
   const busy = (form, state, label) => { const button = form.querySelector("button"); button.disabled = state; button.textContent = state ? "MEMPROSES..." : label; };
   const register = document.querySelector("#registerForm");
   if (register) register.addEventListener("submit", async e => {
-    e.preventDefault(); const name = register.querySelector("#registerName").value.trim(); const email = register.querySelector("#registerEmail").value.trim().toLowerCase(); const username = register.querySelector("#registerUsername").value.trim().toLowerCase(); const password = register.querySelector("#registerPassword").value; const out = register.querySelector("#registerMessage");
-    if (!name || !email || !username || !password) return msg(out, "Semua kolom wajib diisi.");
+    e.preventDefault(); const name = register.querySelector("#registerUsername").value.trim(); const email = register.querySelector("#registerEmail").value.trim().toLowerCase(); const username = register.querySelector("#registerUsername").value.trim().toLowerCase(); const password = register.querySelector("#registerPassword").value; const confirm = register.querySelector("#registerPasswordConfirm").value; const out = register.querySelector("#registerMessage");
+    if (!name || !email || !username || !password || !confirm) return msg(out, "Semua kolom wajib diisi.");
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return msg(out, "Format email belum valid.");
     if (!/^[a-z0-9._-]{3,24}$/.test(username)) return msg(out, "Username 3–24 karakter dan hanya boleh huruf kecil, angka, titik, garis bawah, atau strip.");
     if (password.length < 6) return msg(out, "Password minimal 6 karakter.");
+    if (password !== confirm) return msg(out, "Ulangi password harus sama.");
     busy(register, true, "BUAT AKUN");
     try { const { data: exists, error: checkError } = await db.from("profiles").select("id").eq("username", username).maybeSingle(); if (checkError) throw checkError; if (exists) return msg(out, "Username sudah digunakan.");
     const { data, error } = await db.auth.signUp({ email, password, options: { data: { full_name: name, username } } }); if (error) return msg(out, error.message.includes("already registered") ? "Email sudah terdaftar." : error.message); if (!data.user) return msg(out, "Akun belum dapat dibuat. Coba lagi.");
@@ -24,4 +25,7 @@
     const { data, error } = await db.auth.signInWithPassword({ email, password }); if (error) return msg(out, "Email/username atau password belum sesuai.");
     sessionStorage.setItem("f4ntastic-user", JSON.stringify({ id: data.user.id, email: data.user.email, name: data.user.user_metadata?.full_name || "Member" })); msg(out, "Login berhasil. Mengarahkan...", true); setTimeout(() => location.href = "index.html", 650); } catch (error) { msg(out, readable(error)); } finally { busy(login, false, "MASUK KE COMMUNITY"); }
   });
+  document.querySelectorAll(".password-toggle").forEach(toggle => toggle.addEventListener("click", () => { const input = document.getElementById(toggle.dataset.target); const visible = input.type === "text"; input.type = visible ? "password" : "text"; toggle.classList.toggle("is-visible", !visible); toggle.setAttribute("aria-label", visible ? "Tampilkan password" : "Sembunyikan password"); }));
+  const google = document.querySelector("#googleLogin");
+  if (google) google.addEventListener("click", async () => { google.disabled = true; google.textContent = "MENGHUBUNGKAN..."; const { error } = await db.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${location.origin}/index.html` } }); if (error) { google.disabled = false; google.innerHTML = '<span class="google-g">G</span> LOGIN DENGAN GOOGLE'; const out = document.querySelector("#loginMessage"); msg(out, readable(error)); } });
 })();
