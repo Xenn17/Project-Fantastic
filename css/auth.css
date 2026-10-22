@@ -15,3 +15,5 @@
 .auth-card .password-wrap input{padding-right:48px}
 .auth-card .password-wrap .password-toggle{position:absolute;z-index:2;top:50%;right:0;width:44px;height:100%;min-height:0;margin:0!important;padding:0!important;display:grid;place-items:center;border:0!important;background:transparent!important;color:#777!important;box-shadow:none!important;transform:translateY(-50%)!important;line-height:1}
 .auth-card .password-wrap .password-toggle:hover,.auth-card .password-wrap .password-toggle.is-visible{color:var(--gold)!important;background:transparent!important}
+.google-g{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;margin-right:8px;border:0;border-radius:0;vertical-align:-5px;color:inherit}
+.google-g svg{display:block;width:19px;height:19px}
