@@ -1142,3 +1142,5 @@ body::after { opacity: .34; }
 .main-nav .nav-login:hover{color:#111;background:var(--gold);box-shadow:0 8px 22px rgba(216,180,90,.18);transform:translateY(-2px)}
 .nav-login-dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor}
 @media(max-width:650px){.main-nav .nav-login{justify-content:center;margin-top:12px;padding:13px!important}}
+
+.profile-alert{color:#ef7568;font-size:16px;line-height:0;margin-left:2px;text-shadow:0 0 10px rgba(239,117,104,.6)}

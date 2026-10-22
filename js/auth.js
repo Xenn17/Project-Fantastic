@@ -35,7 +35,7 @@
     if (password.length < 6) return msg(out, "Password minimal 6 karakter.");
     if (password !== confirm) return msg(out, "Ulangi password harus sama.");
     busy(register, true, "BUAT AKUN");
-    try { const { data: exists, error: checkError } = await db.from("profiles").select("id").eq("username", username).maybeSingle(); if (checkError) throw checkError; if (exists) return msg(out, "Username sudah digunakan.");
+    try { const { data: exists, error: checkError } = await db.from("profiles").select("id").eq("username", username).maybeSingle(); if (checkError) throw checkError; if (exists) return msg(out, "Username sudah digunakan."); const { data: emailExists, error: emailCheckError } = await db.from("profiles").select("id").eq("email", email).maybeSingle(); if (emailCheckError) throw emailCheckError; if (emailExists) return msg(out, "Email sudah terdaftar. Gunakan email lain atau masuk ke akunmu.");
     const { data, error } = await db.auth.signUp({ email, password, options: { data: { full_name: name, username } } }); if (error) return msg(out, error.message.includes("already registered") ? "Email sudah terdaftar." : readable(error)); if (!data.user) return msg(out, "Akun belum dapat dibuat. Coba lagi.");
     const { error: profileError } = await db.from("profiles").insert({ id: data.user.id, full_name: name, username, email }); if (profileError) return msg(out, "Akun dibuat, tetapi profil gagal disimpan. Jalankan supabase-auth.sql terlebih dahulu.");
     msg(out, "Akun berhasil dibuat. Cek email untuk verifikasi, lalu masuk.", true); register.reset(); } catch (error) { msg(out, readable(error)); } finally { busy(register, false, "BUAT AKUN"); }
@@ -46,9 +46,19 @@
     if (!identity || !password) return msg(out, "Email/username dan password wajib diisi."); busy(login, true, "MASUK KE COMMUNITY");
     try { if (!identity.includes("@")) { const { data: profile, error } = await db.from("profiles").select("email").eq("username", identity).maybeSingle(); if (error) throw error; if (!profile) return msg(out, "Username tidak ditemukan."); email = profile.email; }
     const { data, error } = await db.auth.signInWithPassword({ email, password }); if (error) return msg(out, readable(error));
-    sessionStorage.setItem("f4ntastic-user", JSON.stringify({ id: data.user.id, email: data.user.email, name: data.user.user_metadata?.full_name || "Member" })); msg(out, "Login berhasil. Mengarahkan...", true); setTimeout(() => location.href = "index.html", 650); } catch (error) { msg(out, readable(error)); } finally { busy(login, false, "MASUK KE COMMUNITY"); }
+    sessionStorage.setItem("f4ntastic-user", JSON.stringify({ id: data.user.id, email: data.user.email, name: data.user.user_metadata?.full_name || "Member", username: data.user.user_metadata?.username || identity.split("@")[0] })); msg(out, "Login berhasil. Mengarahkan...", true); setTimeout(() => location.href = "index.html", 650); } catch (error) { msg(out, readable(error)); } finally { busy(login, false, "MASUK KE COMMUNITY"); }
   });
-  document.querySelectorAll(".password-toggle").forEach(toggle => toggle.addEventListener("click", () => { const input = document.getElementById(toggle.dataset.target); const visible = input.type === "text"; input.type = visible ? "password" : "text"; toggle.classList.toggle("is-visible", !visible); toggle.setAttribute("aria-label", visible ? "Tampilkan password" : "Sembunyikan password"); }));
+  document.querySelectorAll(".password-toggle").forEach(toggle => toggle.addEventListener("click", event => {
+    event.preventDefault();
+    const input = document.getElementById(toggle.dataset.target);
+    if (!input) return;
+    const visible = input.getAttribute("type") === "text";
+    const nextType = visible ? "password" : "text";
+    input.setAttribute("type", nextType);
+    toggle.dataset.visible = String(!visible);
+    toggle.classList.toggle("is-visible", !visible);
+    toggle.setAttribute("aria-label", visible ? "Tampilkan password" : "Sembunyikan password");
+  }));
   const google = document.querySelector("#googleLogin");
   if (google) google.addEventListener("click", async () => { google.disabled = true; google.textContent = "MENGHUBUNGKAN..."; const { error } = await db.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${location.origin}/index.html` } }); if (error) { google.disabled = false; google.innerHTML = '<span class="google-g">G</span> LOGIN DENGAN GOOGLE'; const out = document.querySelector("#loginMessage"); msg(out, readable(error)); } });
 })();

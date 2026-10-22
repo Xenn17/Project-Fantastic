@@ -7,3 +7,10 @@ drop policy if exists "Users can create own profile" on public.profiles;
 create policy "Users can create own profile" on public.profiles for insert to anon, authenticated with check (true);
 drop policy if exists "Users can update own profile" on public.profiles;
 create policy "Users can update own profile" on public.profiles for update to authenticated using (auth.uid() = id) with check (auth.uid() = id);
+
+-- Data wajib profil member.
+alter table public.profiles add column if not exists phone text;
+alter table public.profiles add column if not exists ml_id text;
+alter table public.profiles add column if not exists ml_server text;
+alter table public.profiles add column if not exists gender text;
+alter table public.profiles add column if not exists birth_date date;
