@@ -2305,14 +2305,44 @@ window.GALERI_DATA = [
     judul: "FANTASTIC GLORY",
     deskripsi: "",
     roster: {
-      jungler: "Belum diisi",
-      exp: "Belum diisi",
-      mid: "Belum diisi",
-      roam: "Belum diisi",
-      gold: "Belum diisi"
+      jungler: "Kyuu x F4N'T",
+      exp: "Zeyeaa x F4N'T",
+      mid: "4rc3l1io x F4N'T",
+      roam: "Pik:3 x F4N'T",
+      gold: "rykie x F4N'T"
     },
     tanggal: "",
     gambar: "assets/galeri/team-achievement-offline-004-whatsapp-image-2026-10-18-at-21-19-15.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "FANTASTIC ",
+    judul: "FANTASTIC LADIES",
+    deskripsi: "",
+    roster: {
+      jungler: "Naca x F4N'T",
+      exp: "•°RaRa x F4N'T",
+      mid: "Pimelaa x F4N'T",
+      roam: "Necуαα x F4N'T",
+      gold: "Achantha x F4N'T"
+    },
+    tanggal: "",
+    gambar: "assets/galeri/ladies Image 2026-10-23 at 12.48.26.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "FANTASTIC ",
+    judul: "FANTASTIC FOUR",
+    deskripsi: "",
+    roster: {
+      jungler: "Gen x F4N'T",
+      exp: "Kise x F4N'T",
+      mid: "Ken x F4N'T",
+      roam: "Antares x F4N'T",
+      gold: "Yamhz x F4N'T"
+    },
+    tanggal: "",
+    gambar: "assets/galeri/fant four Image 2026-10-23 at 12.48.26.jpeg",
     tipe: "gambar",
   },
 ];
