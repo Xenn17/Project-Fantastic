@@ -236,7 +236,7 @@ window.F4NTASTIC_DATA = {
     "🏆 F4NT ABSURD", "🏆 F4NT WOWMEAT", "🏆 F4NT NETIX", "🏆 F4NT 21",
     "🏆 F4NT LEGION", "🏆 F4NT ATHERIA LADIES 🦋", "🏆 F4NT DIVINE", "🏆 F4NT FOUR",
     "🏆 F4NT ICONWIC", "🏆 F4NT NEWBIE", "🏆 F4NT AURA", "🏆 F4NT STECY",
-    "🏆 F4NT SMANELL", "🏆 F4NT VISKHASKY", "🏆 F4NT DYNASTY","🏆 FANT FANCANCY LADIES 🦋"
+    "🏆 F4NT SMANELL", "🏆 F4NT VISKHASKY", "🏆 F4NT DYNASTY","🏆 F4NT FANCANCY LADIES 🦋"
   ],
 
   communityStats: { activeMembers: 1093, divisions: 46, achievements: 135 },
