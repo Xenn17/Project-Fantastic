@@ -698,6 +698,14 @@ window.GALERI_DATA = [
     gambar: "assets/galeri/memory-meet4.webp",
     tipe: "gambar",
   },
+  {
+    kategori: "Memory",
+    judul: "FANT NV",
+    deskripsi: "ISI DESKRIPSI DI SINI",
+    tanggal: "",
+    gambar: "assets/galeri/fant nv Image 2026-10-23 at 15.00.03.jpeg",
+    tipe: "gambar",
+  },
 
   // Konten tambahan dari team: nama diseragamkan menjadi Fantastic agar mudah diedit.
   {
@@ -1555,7 +1563,7 @@ window.GALERI_DATA = [
   },
   {
     "kategori": "Memory",
-    "judul": "Fantastic",
+    "judul": "FANT JABODETABEK",
     "deskripsi": "Kenangan dan momen kebersamaan keluarga WE ARE FANTASTIC.",
     "tanggal": "",
     "gambar": "assets/galeri/team-memory-156-whatsapp-image-2026-10-18-at-17-00-01.jpeg",
