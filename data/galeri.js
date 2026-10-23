@@ -2316,7 +2316,7 @@ window.GALERI_DATA = [
     tipe: "gambar",
   },
   {
-    kategori: "FANTASTIC ",
+    kategori: "FANTASTIC COMPE",
     judul: "FANTASTIC LADIES",
     deskripsi: "",
     roster: {
@@ -2331,7 +2331,7 @@ window.GALERI_DATA = [
     tipe: "gambar",
   },
   {
-    kategori: "FANTASTIC ",
+    kategori: "FANTASTIC COMPE",
     judul: "FANTASTIC FOUR",
     deskripsi: "",
     roster: {
