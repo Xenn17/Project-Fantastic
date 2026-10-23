@@ -2317,7 +2317,7 @@ window.GALERI_DATA = [
   },
   {
     kategori: "FANTASTIC COMPE",
-    judul: "FANTASTIC LADIES",
+    judul: "FANTASTIC FANCANCY",
     deskripsi: "",
     roster: {
       jungler: "Naca x F4N'T",
@@ -2327,7 +2327,7 @@ window.GALERI_DATA = [
       gold: "Achantha x F4N'T"
     },
     tanggal: "",
-    gambar: "assets/galeri/ladies Image 2026-10-23 at 12.48.26.jpeg",
+    gambar: "assets/galeri/Fantastic Fancancy Rev.png",
     tipe: "gambar",
   },
   {
