@@ -239,7 +239,7 @@ window.F4NTASTIC_DATA = {
     "🏆 F4NT SMANELL", "🏆 F4NT VISKHASKY", "🏆 F4NT DYNASTY","🏆 F4NT FANCANCY LADIES 🦋"
   ],
 
-  communityStats: { activeMembers: 1093, divisions: 46, achievements: 135 },
+  communityStats: { activeMembers: 1093, divisions: 46, achievements: 140 },
 
   officialSocials: [
     {
