@@ -1547,6 +1547,46 @@ window.GALERI_DATA = [
   },
   {
     "kategori": "Achievement Online",
+    "judul": "FANT FOUR",
+    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    "tanggal": "",
+    "gambar": "assets/galeri/fant four apre.png",
+    "tipe": "gambar"
+  },
+  {
+    "kategori": "Achievement Online",
+    "judul": "FANT FOUR",
+    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    "tanggal": "",
+    "gambar": "assets/galeri/fant four baik 2026-10-24 at 12.17.36.jpeg",
+    "tipe": "gambar"
+  },
+  {
+    "kategori": "Achievement Online",
+    "judul": "FANT GV",
+    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    "tanggal": "",
+    "gambar": "assets/galeri/fant gv 2026-10-24 at 12.12.46.jpeg",
+    "tipe": "gambar"
+  },
+  {
+    "kategori": "Achievement Online",
+    "judul": "FANT HORE",
+    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    "tanggal": "",
+    "gambar": "assets/galeri/fant hore 2026-10-24 at 12.12.46.jpeg",
+    "tipe": "gambar"
+  },
+  {
+    "kategori": "Achievement Online",
+    "judul": "FANT HORE",
+    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    "tanggal": "",
+    "gambar": "assets/galeri/Fant hore 608.jpg",
+    "tipe": "gambar"
+  },
+  {
+    "kategori": "Achievement Online",
     "judul": "FANT MRO MALAY",
     "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     "tanggal": "",
