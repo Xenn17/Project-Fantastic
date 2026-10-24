@@ -1259,3 +1259,21 @@ body::after { opacity: .34; }
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+  .site-header { padding-inline: 12px; }
+  .brand { grid-template-columns: 29px max-content; column-gap: 6px; }
+  .brand-logo { width: 29px; height: 29px; }
+  .brand-mark { font-size: 22px; }
+  .brand-caption { font-size: 6px; letter-spacing: 1px; }
+  .menu-toggle { padding-inline: 4px; }
+  .main-nav,
+  .main-nav.is-open {
+    top: 72px;
+    padding: 14px 14px calc(24px + env(safe-area-inset-bottom));
+  }
+  .main-nav > a { min-height: 46px; padding-block: 13px; }
+  .main-nav.is-open > .nav-account .nav-login.is-account-link { min-height: 58px; }
+  .main-nav.is-open > .header-quick-links { flex-wrap: nowrap; }
+  .main-nav.is-open > .header-quick-links a { min-width: max-content; }
+}
