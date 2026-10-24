@@ -1157,15 +1157,8 @@ body::after { opacity: .34; }
 .nav-account-copy{display:flex;flex-direction:column;min-width:0;gap:3px;text-align:left;line-height:1.1}
 .nav-account-copy strong{max-width:145px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#f5f0e2;font-size:10px;font-weight:800}
 .nav-account-copy small{color:#c5a85f;font-size:8px;font-weight:700;letter-spacing:.25px;white-space:nowrap}
-.nav-account-toggle{display:grid;place-items:center;align-self:stretch;min-width:28px;border:1px solid rgba(216,180,90,.35);border-radius:4px;background:#111;color:var(--gold-bright);cursor:pointer;transition:background .2s ease,border-color .2s ease}
-.nav-account-toggle:hover,.nav-account-toggle:focus-visible{background:#272115;border-color:var(--gold)}
-.nav-account-menu{position:absolute;z-index:50;top:calc(100% + 8px);right:0;min-width:160px;padding:6px;border:1px solid rgba(216,180,90,.35);background:rgba(10,10,10,.98);box-shadow:0 16px 35px #000b}
-.nav-account-menu[hidden]{display:none}
-.nav-account-menu a,.nav-account-menu button{display:block;width:100%;padding:11px 12px;border:0;background:transparent;color:#e7e2d6;text-align:left;text-decoration:none;font:700 10px var(--body,Arial,sans-serif);cursor:pointer}
-.nav-account-menu a:hover,.nav-account-menu button:hover{background:rgba(216,180,90,.1);color:var(--gold-bright)}
-.nav-account-menu button:disabled{opacity:.65;cursor:wait}
-@media(max-width:780px){.main-nav .nav-account{width:100%;display:flex;align-items:stretch;margin-top:12px}.main-nav .nav-account .nav-login.is-account-link{flex:1;max-width:none;justify-content:flex-start;margin:0;padding:9px 12px!important}.nav-account-copy strong{max-width:calc(100vw - 180px)}.nav-account-toggle{min-height:48px;min-width:44px}.nav-account-menu{top:calc(100% + 5px);right:0;min-width:180px}.main-nav .nav-login:not(.is-account-link){justify-content:center;margin-top:12px}}
-@media(prefers-reduced-motion:reduce){.main-nav .nav-login,.nav-account-toggle{transition:none!important}}
+@media(max-width:780px){.main-nav .nav-account{width:100%;display:flex;align-items:stretch;margin-top:12px}.main-nav .nav-account .nav-login.is-account-link{flex:1;max-width:none;justify-content:flex-start;margin:0;padding:9px 12px!important}.nav-account-copy strong{max-width:calc(100vw - 180px)}.main-nav .nav-login:not(.is-account-link){justify-content:center;margin-top:12px}}
+@media(prefers-reduced-motion:reduce){.main-nav .nav-login{transition:none!important}}
 
 /* Mobile account placement: account identity stays at the top of the opened nav. */
 @media(max-width:780px){
@@ -1173,5 +1166,6 @@ body::after { opacity: .34; }
   .main-nav.is-open>.nav-account .nav-login.is-account-link{min-height:54px}
   .main-nav.is-open>.nav-account .nav-account-copy strong{font-size:12px}
   .main-nav.is-open>.nav-account .nav-account-copy small{font-size:9px}
-  .main-nav.is-open>.nav-account .nav-account-menu{top:calc(100% + 4px)}
 }
+/* Account opens directly to the profile; no secondary dropdown arrow. */
+.nav-account{display:inline-flex}

@@ -42,14 +42,11 @@
       accountPlaceholder = document.createComment("F4NTASTIC account nav position");
       link.parentNode.insertBefore(accountPlaceholder, link);
       link.parentNode.insertBefore(wrap, link); wrap.appendChild(link);
-      const toggle = document.createElement("button"); toggle.type = "button"; toggle.className = "nav-account-toggle"; toggle.setAttribute("aria-label", "Buka menu akun"); toggle.setAttribute("aria-expanded", "false"); toggle.innerHTML = '<span aria-hidden="true">⌄</span>'; wrap.appendChild(toggle);
-      const menu = document.createElement("div"); menu.className = "nav-account-menu"; menu.hidden = true; menu.innerHTML = '<a href="profile.html">Profil Saya</a><button type="button" class="nav-account-logout">Keluar</button>'; wrap.appendChild(menu);
-      toggle.addEventListener("click", () => { const open = menu.hidden; menu.hidden = !open; toggle.setAttribute("aria-expanded", String(open)); });
-      menu.querySelector("a").addEventListener("click", () => { menu.hidden = true; toggle.setAttribute("aria-expanded", "false"); });
-      menu.querySelector(".nav-account-logout").addEventListener("click", async () => { const out = menu.querySelector(".nav-account-logout"); out.disabled = true; out.textContent = "Keluar..."; const { error } = await db.auth.signOut({ scope: "local" }); if (error) { out.disabled = false; out.textContent = "Gagal keluar — coba lagi"; return; } try { localStorage.removeItem("f4ntastic-user"); sessionStorage.removeItem("f4ntastic-user"); } catch {} location.href = "index.html?logout=" + Date.now(); });
-      document.addEventListener("click", event => { if (!wrap.contains(event.target)) { menu.hidden = true; toggle.setAttribute("aria-expanded", "false"); } });
     }
     link.href = "profile.html"; link.classList.add("is-account-link"); link.innerHTML = `<span class="nav-avatar">${avatar ? `<img src="${avatar.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}" alt="" loading="lazy">` : `<span>${name.charAt(0).toUpperCase()}</span>`}</span><span class="nav-account-copy"><strong>${escapeHTML(label)}</strong><small>${role}</small></span>`; link.setAttribute("aria-label", `Buka profil ${name}`);
+    // Akun membuka profil langsung; jangan sisipkan tombol chevron/dropdown.
+    const oldToggle = wrap.querySelector(".nav-account-toggle");
+    if (oldToggle) oldToggle.remove();
   }
   function escapeHTML(value) { return String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]); }
   async function sync() {

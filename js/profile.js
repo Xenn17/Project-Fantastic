@@ -27,17 +27,28 @@
     const { data: { session }, error: sessionError } = await db.auth.getSession();
     if (sessionError || !session?.user) { location.replace("login.html?next=profile.html"); return; }
     user = session.user;
-    const { data, error } = await db.from("profiles").select("id,email,username,full_name,phone,ml_id,ml_server,gender,birth_date,role,avatar_url,avatar_updated_at").eq("id", user.id).maybeSingle();
+    let { data, error } = await db.from("profiles").select("id,email,username,full_name,phone,ml_id,ml_server,gender,birth_date,role,avatar_url,avatar_updated_at").eq("id", user.id).maybeSingle();
+    // Older projects may still have the original, smaller profiles table. Load
+    // the available identity fields so the account page remains usable and
+    // show the migration hint instead of failing during initial render.
+    let needsMigration = false;
+    if (error && /column .* does not exist|schema cache|relation .* does not exist/i.test(String(error.message || error))) {
+      const fallback = await db.from("profiles").select("id,email,username,full_name,role").eq("id", user.id).maybeSingle();
+      data = fallback.data; error = fallback.error; needsMigration = !fallback.error;
+    }
     if (error) { $("accountStatus").textContent = "DATABASE BELUM SIAP"; say(`Gagal membaca profil: ${prettyError(error)}`); return; }
     profilePersisted = Boolean(data);
     profile = data || { id: user.id, email: user.email, username: user.user_metadata?.username || user.email?.split("@")[0], full_name: user.user_metadata?.full_name || "", role: "member" };
     const label = profile.username || user.email?.split("@")[0] || "member", name = profile.full_name || label;
-    $("profileName").textContent = name; $("profileHandle").textContent = `@${label}`; $("profileEmail").value = user.email || profile.email || "";
+    $("profileName").textContent = name; $("profileHandle").textContent = `@${label}`;
     const role = profile.role === "developer" ? "DEVELOPER F4NTASTIC" : profile.role === "admin" ? "ADMIN F4NTASTIC" : "MEMBER F4NTASTIC";
     $("profileRole").textContent = role; $("profileRole").classList.toggle("is-developer", profile.role === "developer"); showAvatar(profile.avatar_url, name); updateCompletion(profile);
     for (const id of ["fullName", "phone", "mlId", "mlServer", "gender", "birthDate"]) { const column = { fullName: "full_name", phone: "phone", mlId: "ml_id", mlServer: "ml_server", gender: "gender", birthDate: "birth_date" }[id]; $(id).value = profile[column] || ""; }
     $("accountStatus").textContent = "SESI AKTIF"; setCooldown();
-    if (!data) say("Profil belum memiliki baris data. Simpan data diri untuk membuatnya.");
+    if (needsMigration) {
+      $("accountStatus").textContent = "MIGRASI DIPERLUKAN";
+      say("Profil terbaca, tetapi struktur database lama. Jalankan supabase-auth.sql di Supabase SQL Editor sebelum menyimpan data diri.");
+    } else if (!data) say("Profil belum memiliki baris data. Simpan data diri untuk membuatnya.");
   }
   form.addEventListener("submit", async event => {
     event.preventDefault(); if (busy || !user) return;
