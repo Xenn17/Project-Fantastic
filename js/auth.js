@@ -77,5 +77,18 @@
   });
   document.querySelectorAll(".password-toggle").forEach(toggle => toggle.addEventListener("click", event => { event.preventDefault(); const input = document.getElementById(toggle.dataset.target); if (!input) return; const visible = input.type === "text"; input.type = visible ? "password" : "text"; toggle.classList.toggle("is-visible", !visible); toggle.setAttribute("aria-label", visible ? "Tampilkan password" : "Sembunyikan password"); }));
   const google = document.querySelector("#googleLogin");
-  if (google) google.addEventListener("click", async () => { google.disabled = true; google.textContent = "MENGHUBUNGKAN..."; try { const { error } = await db.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${location.origin}/index.html` } }); if (error) throw error; } catch (error) { google.disabled = false; google.innerHTML = '<span class="google-g">G</span> LOGIN DENGAN GOOGLE'; msg(document.querySelector("#loginMessage"), readable(error)); } });
+  if (google) {
+    const googleDefaultHTML = google.innerHTML;
+    const resetGoogleButton = () => { google.disabled = false; google.innerHTML = googleDefaultHTML; };
+    // Safari/Chrome may restore this page from the back-forward cache while
+    // retaining the temporary OAuth loading state.
+    window.addEventListener("pageshow", resetGoogleButton);
+    google.addEventListener("click", async () => {
+      google.disabled = true; google.textContent = "MENGHUBUNGKAN...";
+      try {
+        const { error } = await db.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${location.origin}/index.html` } });
+        if (error) throw error;
+      } catch (error) { resetGoogleButton(); msg(document.querySelector("#loginMessage"), readable(error)); }
+    });
+  }
 })();
