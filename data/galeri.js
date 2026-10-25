@@ -430,7 +430,7 @@ window.GALERI_DATA = [
     nickname: "Fufuu x F4N'T",
     judul: "RUBY",
     deskripsi: "Semua orang pernah muda, tapi nggak semua orang pernah Global.",
-    gambar: "assets/galeri/hero-Fᴜfuu-x-f4n-t.webp",
+    gambar: "assets/galeri/hero-F%23U1d1cfuu-x-f4n-t.webp",
     tanggal: "",
   },
 

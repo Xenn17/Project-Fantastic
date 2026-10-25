@@ -3,7 +3,7 @@
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4a2lleXVuenR6aGl3cm9jbmVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzMDQwODIsImV4cCI6MjEwNzg4MDA4Mn0.nlWhlGbagxwZ2-XeHEa195n5sQmRtXn3xutTISDXR70";
   const navLinks = [...document.querySelectorAll(".nav-login")];
   if (!navLinks.length || !window.supabase) return;
-  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: window.localStorage } });
+  const db = window.getF4GalleryClient ? window.getF4GalleryClient() : window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: window.localStorage } });
   const safeText = (value, fallback) => typeof value === "string" && value.trim() ? value.trim() : fallback;
   const mobileNavQuery = window.matchMedia("(max-width: 780px)");
   let accountPlaceholder = null;

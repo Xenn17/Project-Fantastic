@@ -17,7 +17,7 @@ Deno.serve(async (req) => {
   const admin = createClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
   const { data, error } = await admin
     .from("gallery_photos")
-    .select("id, title, description, image_path, sort_order, created_at, category:gallery_categories(name)")
+    .select("id, title, description, image_path, media_type, sort_order, created_at, category:gallery_categories(name)")
     .eq("is_published", true)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
@@ -34,6 +34,7 @@ Deno.serve(async (req) => {
       description: photo.description ?? "",
       category: category?.name ?? "",
       imageUrl: signed.signedUrl,
+      mediaType: photo.media_type || "image",
       createdAt: photo.created_at,
       sortOrder: photo.sort_order,
     };
