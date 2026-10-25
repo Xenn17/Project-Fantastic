@@ -1,0 +1,59 @@
+(() => {
+"use strict";
+const cfg=window.F4_GALLERY_SUPABASE_CONFIG;
+const $=s=>document.querySelector(s);
+const loginPanel=$("#loginPanel"),dash=$("#dashboardPanel"),loginForm=$("#managerLogin");
+if(!cfg?.url||!cfg?.publishableKey||cfg.publishableKey.includes("ISI_PUBLISHABLE")) {
+  $("#loginMessage").textContent="Konfigurasi belum lengkap. Isi Publishable key proyek Supabase Galeri di js/gallery-supabase-config.js.";
+  $("#loginMessage").className="notice error";
+  loginForm.addEventListener("submit",e=>{e.preventDefault();$("#loginMessage").textContent="Isi Publishable key terlebih dahulu."});
+  return;
+}
+const db=window.supabase.createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+let role=null,categories=[],photos=[],signedCache=new Map();
+const notice=(text,ok=false)=>{const n=$("#dashboardMessage");n.textContent=text;n.className=`notice ${ok?"success":"error"}`};
+const loginNotice=(text,ok=false)=>{const n=$("#loginMessage");n.textContent=text;n.className=`notice ${ok?"success":"error"}`};
+const safeName=s=>String(s||"file").normalize("NFKD").replace(/[^a-zA-Z0-9._-]+/g,"-").slice(-90);
+const getSigned=async path=>{if(!path)return "";const old=signedCache.get(path);if(old&&old.until>Date.now())return old.url;const {data,error}=await db.storage.from("gallery-photos").createSignedUrl(path,1800);if(error)throw error;signedCache.set(path,{url:data.signedUrl,until:Date.now()+1700000});return data.signedUrl};
+const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function getRole(user){const {data,error}=await db.from("gallery_managers").select("username,role").eq("id",user.id).maybeSingle();if(error)throw error;if(!data||!["admin","developer"].includes(data.role))throw new Error("Akun berhasil login, tetapi belum terdaftar sebagai Admin/Developer pada tabel gallery_managers.");return data}
+async function boot(){
+ const {data:{session},error}=await db.auth.getSession();if(error)throw error;if(!session){loginPanel.hidden=false;dash.hidden=true;return}
+ try{const manager=await getRole(session.user);role=manager.role;loginPanel.hidden=true;dash.hidden=false;$("#managerIdentity").textContent=`Masuk sebagai ${manager.username} · ${role.toUpperCase()}`;$("#managerAdminPanel").hidden=role!=="developer";await loadData();if(role==="developer")await loadManagers()}catch(e){await db.auth.signOut();loginPanel.hidden=false;dash.hidden=true;loginNotice(e.message)}
+}
+async function loadData(){
+ const [catRes,photoRes]=await Promise.all([db.from("gallery_categories").select("id,name").order("name"),db.from("gallery_photos").select("id,category_id,title,description,image_path,sort_order,is_published,created_at").order("sort_order").order("created_at",{ascending:false})]);
+ if(catRes.error)throw catRes.error;if(photoRes.error)throw photoRes.error;categories=catRes.data||[];photos=photoRes.data||[];
+ $("#categoryCount").textContent=categories.length;$("#photoCount").textContent=photos.length;$("#draftCount").textContent=photos.filter(p=>!p.is_published).length;
+ const opts=categories.map(c=>`<option value="${c.id}">${escapeHtml(c.name)}</option>`).join("");$("#photoCategory").innerHTML=opts;$("#filterCategory").innerHTML='<option value="">Semua kategori</option>'+opts;renderPhotos();
+}
+function renderPhotos(){
+ const filter=$("#filterCategory").value;const items=photos.filter(p=>!filter||p.category_id===filter);const wrap=$("#photoList");wrap.replaceChildren();
+ if(!items.length){const p=document.createElement("p");p.className="empty-state";p.textContent="Belum ada foto pada pilihan ini.";wrap.append(p);return}
+ items.forEach(p=>{const c=categories.find(x=>x.id===p.category_id);const row=document.createElement("article");row.className="photo-row";const img=document.createElement("img");img.alt="";img.loading="lazy";img.src="assets/logo-transparant.png";getSigned(p.image_path).then(url=>{img.src=url}).catch(()=>{});const info=document.createElement("div");info.className="photo-info";const h=document.createElement("h3");h.textContent=p.title;const d=document.createElement("p");d.textContent=`${c?.name||"Kategori tidak ditemukan"} · Urutan ${p.sort_order} · ${p.description||"Tanpa deskripsi"}`;const badge=document.createElement("span");badge.className=`pill ${p.is_published?"published":""}`;badge.textContent=p.is_published?"PUBLISHED":"DRAFT";info.append(h,d,badge);const actions=document.createElement("div");actions.className="photo-actions";
+ const edit=document.createElement("button");edit.textContent="EDIT";edit.addEventListener("click",()=>editPhoto(p));const order=document.createElement("button");order.textContent="URUTAN";order.addEventListener("click",()=>changeOrder(p));const pub=document.createElement("button");pub.className="publish";pub.textContent=p.is_published?"JADIKAN DRAFT":"PUBLIKASIKAN";pub.addEventListener("click",()=>togglePublish(p));const del=document.createElement("button");del.className="delete";del.textContent="HAPUS";del.addEventListener("click",()=>deletePhoto(p));actions.append(edit,order,pub,del);row.append(img,info,actions);wrap.append(row)});
+}
+async function logAction(action,target,details={}){try{await db.from("gallery_activity_logs").insert({actor_id:(await db.auth.getUser()).data.user?.id,action,target_id:target,details})}catch{}}
+async function createCategory(e){e.preventDefault();const name=$("#newCategoryName").value.trim();if(!name)return;const {error}=await db.from("gallery_categories").insert({name});if(error)return notice(error.message);$("#categoryForm").reset();notice("Kategori berhasil ditambahkan.",true);await loadData()}
+async function uploadPhoto(e){
+ e.preventDefault();const file=$("#photoFile").files[0];if(!file)return notice("Pilih file foto terlebih dahulu.");if(!["image/jpeg","image/png","image/webp"].includes(file.type))return notice("Format file harus JPG, PNG, atau WEBP.");if(file.size>10*1024*1024)return notice("Ukuran file maksimal 10 MB.");
+ const button=$("#photoForm button[type=submit]");button.disabled=true;notice("Mengunggah foto sebagai draft…");
+ let path=null;
+ try{path=`${(await db.auth.getUser()).data.user.id}/${Date.now()}-${safeName(file.name)}`;const {error:upErr}=await db.storage.from("gallery-photos").upload(path,file,{contentType:file.type,upsert:false});if(upErr)throw upErr;
+ const {data:{user}}=await db.auth.getUser();const {data,error}=await db.from("gallery_photos").insert({category_id:$("#photoCategory").value,title:$("#photoTitle").value.trim(),description:$("#photoDescription").value.trim(),image_path:path,sort_order:0,is_published:false,created_by:user.id}).select("id").single();if(error)throw error;
+ await logAction("photo_uploaded",data.id,{title:$("#photoTitle").value.trim()});$("#photoForm").reset();$("#uploadPreview").hidden=true;notice("Foto berhasil diunggah sebagai draft. Publikasikan setelah diperiksa.",true);await loadData();
+ }catch(err){if(path)await db.storage.from("gallery-photos").remove([path]);notice(err.message||"Upload gagal.")}finally{button.disabled=false}
+}
+async function editPhoto(p){const title=prompt("Judul foto:",p.title);if(title===null)return;if(!title.trim())return alert("Judul tidak boleh kosong.");const description=prompt("Deskripsi foto:",p.description||"");if(description===null)return;const order=prompt("Urutan (angka; lebih kecil tampil lebih dahulu):",String(p.sort_order));if(order===null)return;const n=Number(order);if(!Number.isInteger(n))return alert("Urutan harus berupa angka bulat.");const {error}=await db.from("gallery_photos").update({title:title.trim(),description:description.trim(),sort_order:n,updated_at:new Date().toISOString()}).eq("id",p.id);if(error)return notice(error.message);await logAction("photo_updated",p.id,{title:title.trim()});notice("Perubahan foto disimpan.",true);await loadData()}
+async function changeOrder(p){const value=prompt("Masukkan urutan (angka bulat):",String(p.sort_order));if(value===null)return;const n=Number(value);if(!Number.isInteger(n))return alert("Urutan harus berupa angka bulat.");const {error}=await db.from("gallery_photos").update({sort_order:n,updated_at:new Date().toISOString()}).eq("id",p.id);if(error)return notice(error.message);await loadData();notice("Urutan diperbarui.",true)}
+async function togglePublish(p){const action=p.is_published?"menjadikan draft":"mempublikasikan";if(!confirm(`Yakin ${action} foto “${p.title}”?`))return;const {error}=await db.from("gallery_photos").update({is_published:!p.is_published,updated_at:new Date().toISOString()}).eq("id",p.id);if(error)return notice(error.message);await logAction(p.is_published?"photo_unpublished":"photo_published",p.id);notice(p.is_published?"Foto kembali menjadi draft.":"Foto dipublikasikan.",true);await loadData()}
+async function deletePhoto(p){if(!confirm(`Hapus permanen “${p.title}” beserta file fotonya?`))return;const {error}=await db.from("gallery_photos").delete().eq("id",p.id);if(error)return notice(error.message);const {error:storageError}=await db.storage.from("gallery-photos").remove([p.image_path]);if(storageError)notice(`Data foto dihapus, tetapi file Storage gagal dihapus: ${storageError.message}`);else notice("Foto dan file berhasil dihapus.",true);await logAction("photo_deleted",p.id,{title:p.title});await loadData()}
+async function loadManagers(){const {data,error}=await db.from("gallery_managers").select("id,username,role,created_at").order("created_at");if(error){$("#managerList").textContent=`Belum dapat memuat pengelola: ${error.message}`;return}const list=$("#managerList");list.replaceChildren();(data||[]).forEach(m=>{const row=document.createElement("div");row.className="manager-item";const info=document.createElement("span");info.textContent=`${m.username} · ${m.role.toUpperCase()} · ${m.id}`;row.append(info);list.append(row)})}
+async function saveManager(e){e.preventDefault();if(role!=="developer")return;const id=$("#newManagerId").value.trim(),username=$("#newManagerName").value.trim(),newRole=$("#newManagerRole").value;if(!/^[0-9a-f-]{36}$/i.test(id))return notice("UUID akun tidak valid.");const {error}=await db.from("gallery_managers").upsert({id,username,role:newRole},{onConflict:"id"});if(error)return notice(error.message);$("#managerForm").reset();notice("Role pengelola disimpan.",true);await loadManagers()}
+loginForm.addEventListener("submit",async e=>{e.preventDefault();const b=loginForm.querySelector("button[type=submit]");b.disabled=true;try{const {error}=await db.auth.signInWithPassword({email:$("#managerEmail").value.trim(),password:$("#managerPassword").value});if(error)throw error;await boot()}catch(err){loginNotice(err.message)}finally{b.disabled=false}});
+$("#logoutButton").addEventListener("click",async()=>{await db.auth.signOut();loginPanel.hidden=false;dash.hidden=true;loginNotice("Kamu sudah keluar.",true)});
+$("#photoForm").addEventListener("submit",uploadPhoto);$("#categoryForm").addEventListener("submit",createCategory);$("#filterCategory").addEventListener("change",renderPhotos);$("#managerForm").addEventListener("submit",saveManager);
+$("#photoFile").addEventListener("change",()=>{const f=$("#photoFile").files[0];if(!f){$("#uploadPreview").hidden=true;return}$("#previewImage").src=URL.createObjectURL(f);$("#uploadPreview").hidden=false});
+db.auth.onAuthStateChange((event)=>{if(event==="SIGNED_OUT"){loginPanel.hidden=false;dash.hidden=true}});
+boot().catch(e=>loginNotice(e.message));
+})();

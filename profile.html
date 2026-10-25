@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090909">
+  <title>Profil Akun — F4NTASTIC</title><link rel="icon" href="assets/logo-transparant.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+<main class="profile-page"><section class="profile-shell">
+  <a class="profile-back" href="index.html">← KEMBALI KE WEBSITE</a>
+  <header class="profile-hero">
+    <div class="profile-avatar-wrap"><div class="profile-avatar" id="avatar" aria-label="Foto profil">F</div><span class="avatar-online-dot" aria-hidden="true"></span></div>
+    <div class="profile-hero-copy"><p class="profile-kicker">— F4NTASTIC ACCOUNT / PROFILE</p><h1 id="profileName">Profil Member</h1><p class="profile-handle" id="profileHandle">@member</p><div class="profile-role" id="profileRole">MEMBER F4NTASTIC</div></div>
+    <span class="profile-badge">F4NTASTIC FAMILY</span>
+  </header>
+  <section class="avatar-panel" aria-labelledby="avatarTitle"><div class="avatar-panel-copy"><p class="profile-kicker">ACCOUNT PERSONALIZATION</p><h2 id="avatarTitle">FOTO PROFIL.</h2><p>Pilih foto JPG, PNG, atau WebP maksimal 5 MB. Pratinjau tersedia sebelum foto disimpan.</p><p class="avatar-cooldown" id="avatarCooldown" aria-live="polite">Memeriksa status foto profil…</p></div><div class="avatar-controls"><label class="avatar-file-label" for="avatarFile">PILIH FOTO</label><input id="avatarFile" type="file" accept="image/jpeg,image/png,image/webp" hidden><button type="button" id="uploadAvatar" class="profile-secondary" disabled>SIMPAN FOTO</button><button type="button" id="cancelAvatar" class="profile-text-button" hidden>Batalkan pratinjau</button></div></section>
+  <div class="profile-layout">
+    <section class="profile-panel"><div class="panel-heading"><div><p class="profile-kicker">01 / MEMBER INFORMATION</p><h2>DATA DIRI.</h2><p class="panel-description">Pastikan informasi akunmu benar dan dapat diperbarui.</p></div><span class="required-note">* WAJIB DIISI</span></div>
+      <form id="profileForm" novalidate>
+        <fieldset class="profile-group"><legend>Informasi Pribadi</legend><div class="profile-fields"><label for="fullName">NAMA LENGKAP *<input id="fullName" name="full_name" autocomplete="name" required maxlength="100" placeholder="Nama lengkap kamu"></label><label for="phone">NOMOR TELEPON *<input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="24" placeholder="08xxxxxxxxxx"></label></div><div class="profile-fields"><label for="gender">JENIS KELAMIN *<select id="gender" name="gender" required><option value="">Pilih jenis kelamin</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></label><label for="birthDate">TANGGAL LAHIR *<input id="birthDate" name="birth_date" type="date" required></label></div></fieldset>
+        <fieldset class="profile-group"><legend>Identitas Mobile Legends</legend><div class="profile-fields"><label for="mlId">ID MOBILE LEGENDS *<input id="mlId" name="ml_id" inputmode="numeric" required maxlength="30" placeholder="Contoh: 123456789"></label><label for="mlServer">SERVER ML *<input id="mlServer" name="ml_server" inputmode="numeric" required maxlength="12" placeholder="Contoh: 1234"></label></div></fieldset>
+        <p class="profile-status-message" id="profileStatus" role="status" aria-live="polite"></p><button class="profile-save" id="saveProfile" type="submit">SIMPAN DATA DIRI <span aria-hidden="true">↗</span></button>
+      </form>
+    </section>
+    <aside class="profile-side"><p class="profile-kicker">02 / ACCOUNT OVERVIEW</p><h2>WELCOME<br><b>TO F4NT.</b></h2><div class="side-item"><small>STATUS PROFIL</small><strong id="completion" class="profile-status">MEMERIKSA…</strong></div><div class="side-item"><small>STATUS AKUN</small><strong id="accountStatus">SESI AKTIF</strong></div><p class="side-copy">Data profil digunakan untuk melengkapi identitas member F4NTASTIC. Jaga keamanan akun dan jangan bagikan informasi login.</p><a class="profile-secondary profile-link" href="index.html">KEMBALI KE BERANDA <span aria-hidden="true">↗</span></a><button class="profile-logout" id="logout" type="button">KELUAR DARI AKUN <span aria-hidden="true">↗</span></button></aside>
+  </div>
+</section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/profile.js?v=20261024-2"></script>
+</body></html>
