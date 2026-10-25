@@ -157,3 +157,4 @@
 #deleteAlbumButton{display:block!important;width:100%;margin-top:10px!important;border:1px solid rgba(220,92,82,.65)!important;background:transparent!important;color:#e58a7e!important}#deleteAlbumButton:hover{background:#b94f48!important;color:#fff!important}
 .category-empty-state[hidden]{display:none!important}
 .all-moment-card{position:relative}.all-moment-edit{left:12px;right:auto;top:12px}
+.gallery-add-category,.gallery-add-album,.category-edit-icon,.album-edit-icon{display:none!important}.is-gallery-developer .gallery-add-category,.is-gallery-developer .gallery-add-album{display:inline-flex!important}.is-gallery-developer .category-edit-icon,.is-gallery-developer .album-edit-icon{display:grid!important}
