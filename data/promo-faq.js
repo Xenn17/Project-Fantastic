@@ -1,0 +1,28 @@
+/* FAQ content is kept separate so the team can edit, remove, or reorder entries. */
+window.F4NTPromoFAQ = [
+ ['Apa itu layanan promosi F4NTASTIC?','Layanan untuk membahas peluang publikasi dan kolaborasi bersama WE ARE F4NTASTIC. Bentuk akhirnya ditentukan melalui konsultasi.'],
+ ['Siapa yang dapat mengajukan promosi?','Brand, pemilik produk, penyelenggara event, layanan gaming, dan komunitas dapat menghubungi admin untuk ditinjau.'],
+ ['Apakah hanya untuk produk gaming?','Tidak. Promosi umum maupun gaming dapat dibahas selama relevan dan sesuai ketentuan komunitas.'],
+ ['Apa perbedaan paket LEGEND, MYTHIC, dan IMMORTAL?','Ketiganya merupakan tingkatan awal untuk membantu diskusi ruang lingkup dan format kolaborasi. Detail benefit dikonfirmasi sebelum persetujuan.'],
+ ['Kanal apa saja yang dapat digunakan?','Kanal resmi yang tersedia dapat dipertimbangkan sesuai jenis materi, jadwal, dan kesepakatan.'],
+ ['Bagaimana cara mengajukan promosi?','Hubungi admin melalui tombol WhatsApp di halaman ini, lalu jelaskan kebutuhan promosi secara singkat.'],
+ ['Bagaimana memilih paket yang sesuai?','Sampaikan tujuan, target, jenis materi, dan kebutuhanmu. Admin akan membantu membahas pilihan yang relevan.'],
+ ['Apakah bisa meminta paket khusus?','Bisa dibahas. Ketersediaan dan bentuk paket khusus bergantung pada kebutuhan serta kesepakatan kedua pihak.'],
+ ['Apakah semua pengajuan pasti diterima?','Tidak. Admin perlu meninjau relevansi materi, ketersediaan kanal, dan kesesuaian dengan ketentuan komunitas.'],
+ ['Materi apa yang perlu disiapkan?','Siapkan informasi brand atau layanan, teks promosi, visual, tautan yang diperlukan, serta jadwal pilihan bila ada.'],
+ ['Berapa lama proses promosi?','Durasi dan jadwal dibahas saat konsultasi. Jangan menganggap pengajuan langsung tayang sebelum ada konfirmasi.'],
+ ['Bisakah jadwal publikasi diubah?','Perubahan dapat diajukan kepada admin. Persetujuannya mengikuti kesiapan materi dan jadwal yang tersedia.'],
+ ['Apakah materi dapat direvisi?','Kebutuhan revisi dibahas sebelum publikasi. Materi final harus dikonfirmasi bersama admin.'],
+ ['Bisakah kerja sama diperpanjang?','Perpanjangan dapat dibicarakan kembali berdasarkan hasil evaluasi, kebutuhan, dan kesepakatan baru.'],
+ ['Apakah ada biaya untuk setiap paket?','Informasi biaya, jika berlaku, akan dikomunikasikan langsung oleh admin sebelum kesepakatan. Tidak ada harga resmi yang ditetapkan di halaman ini.'],
+ ['Bagaimana ketentuan pembayaran dan pembatalan?','Ketentuan pembayaran, perubahan, atau pembatalan wajib dikonfirmasi langsung dengan admin sebelum menyetujui kerja sama.'],
+ ['Apakah jangkauan atau penjualan dijamin?','Tidak. Hasil promosi seperti jangkauan, interaksi, atau penjualan tidak dapat dijamin dan dapat dipengaruhi banyak faktor.'],
+ ['Apakah layanan gaming boleh dipromosikan?','Dapat diajukan untuk ditinjau. Admin akan memastikan materi dan layanannya sesuai ketentuan yang berlaku.'],
+ ['Materi seperti apa yang dapat ditolak?','Materi yang melanggar hukum, menyesatkan, atau bertentangan dengan ketentuan komunitas dapat ditolak.'],
+ ['Bagaimana jika ada kesalahan pada materi?','Segera hubungi admin. Penanganan dan kemungkinan koreksi bergantung pada jenis kesalahan serta status publikasi.'],
+ ['Bagaimana cara menghubungi admin?','Gunakan tombol Hubungi via WhatsApp pada halaman ini untuk memulai percakapan.'],
+ ['Apakah F4NTASTIC menerima sponsor event?','Pengajuan sponsorship event dapat dibahas dengan mengirimkan gambaran acara, tanggal, kebutuhan, dan bentuk kerja sama yang diharapkan.'],
+ ['Apakah komunitas lain bisa berkolaborasi?','Bisa mengajukan ide kolaborasi. Bentuknya akan dibahas sesuai tujuan dan kesesuaian kedua komunitas.'],
+ ['Apakah saya harus menyediakan materi promosi sendiri?','Sampaikan kebutuhanmu saat konsultasi. Format dan tanggung jawab penyediaan materi perlu disepakati sebelum proses berjalan.'],
+ ['Kapan promosi dianggap terkonfirmasi?','Setelah ruang lingkup, materi, dan jadwal mendapatkan konfirmasi dari admin serta ketentuan kerja sama telah disepakati.']
+];
