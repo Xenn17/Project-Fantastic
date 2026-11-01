@@ -16,9 +16,9 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css?v=20261024-nav4" />
+    <link rel="stylesheet" href="css/style.css?v=20261101-nav6" />
     <script src="data.js?v=20261018-logo" defer></script>
-    <script src="js/script.js?v=20261018-icon-system" defer></script>
+    <script src="js/script.js?v=20261101-scrollspy" defer></script>
   </head>
   <body>
     <div class="page-glow" aria-hidden="true"></div>
@@ -31,6 +31,7 @@
         <span class="brand-lockup"><img class="brand-logo" src="assets/logo-transparant.png" alt="" aria-hidden="true" /><span class="brand-mark">F<span>4</span>N'T</span></span>
         <span class="brand-caption">WE ARE FANTASTIC</span>
       </a>
+      <details class="nav-services nav-services-header" aria-label="Layanan F4NTASTIC"><summary>Layanan <span aria-hidden="true">⌄</span></summary><div class="nav-services-menu"><a href="https://wa.me/6287844013152" target="_blank" rel="noopener noreferrer">Info JOKI</a><a href="https://whatsapp.com/channel/0029VbDTIENCsU9K0rX7Jx3I" target="_blank" rel="noopener noreferrer">Jual Beli Akun ML</a><a href="https://whatsapp.com/channel/0029VbCmz0j2kNFy8yoCH01n" target="_blank" rel="noopener noreferrer">Paid Edit Konten Video</a></div></details>
       <button
         class="menu-toggle"
         id="menuToggle"
@@ -39,15 +40,16 @@
       >
         <span></span><span></span>
       </button>
-      <div class="header-quick-links header-quick-links-desktop" aria-label="Layanan F4NTASTIC"><a href="https://wa.me/6287844013152" target="_blank" rel="noopener noreferrer">Info JOKI</a><a href="https://whatsapp.com/channel/0029VbDTIENCsU9K0rX7Jx3I" target="_blank" rel="noopener noreferrer">Jual Beli Akun ML</a><a href="https://whatsapp.com/channel/0029VbCmz0j2kNFy8yoCH01n" target="_blank" rel="noopener noreferrer">Paid Edit Konten Video</a></div><nav class="main-nav" id="mainNav" aria-label="Navigasi utama">
+      <nav class="main-nav" id="mainNav" aria-label="Navigasi utama">
         <a href="#home">Home</a>
         <a href="#about">Tentang</a>
         <a href="#gallery-feature" data-gallery-nav>Galeri</a>
+        <a href="#promotion">Promosi</a>
         <a href="#join-team">Join Team</a>
+        <a href="#report-hub" title="Posko Pengaduan Member">Posko</a>
         <a href="#connect" class="nav-cta">Hubungi Kami <span class="icon-arrow icon-arrow-up" aria-hidden="true"></span></a>
-        <a href="sponsor.html">Promosi</a>
         <a href="login.html" class="nav-login"><span class="nav-login-dot"></span> Masuk</a>
-      <div class="header-quick-links" aria-label="Layanan F4NTASTIC"><a href="https://wa.me/6287844013152" target="_blank" rel="noopener noreferrer">Info JOKI</a><a href="https://whatsapp.com/channel/0029VbDTIENCsU9K0rX7Jx3I" target="_blank" rel="noopener noreferrer">Jual Beli Akun ML</a><a href="https://whatsapp.com/channel/0029VbCmz0j2kNFy8yoCH01n" target="_blank" rel="noopener noreferrer">Paid Edit Konten Video</a></div></nav>
+      <details class="nav-services nav-services-mobile"><summary>Layanan <span aria-hidden="true">⌄</span></summary><div class="nav-services-menu"><a href="https://wa.me/6287844013152" target="_blank" rel="noopener noreferrer">Info JOKI</a><a href="https://whatsapp.com/channel/0029VbDTIENCsU9K0rX7Jx3I" target="_blank" rel="noopener noreferrer">Jual Beli Akun ML</a><a href="https://whatsapp.com/channel/0029VbCmz0j2kNFy8yoCH01n" target="_blank" rel="noopener noreferrer">Paid Edit Konten Video</a></div></details></nav>
     </header>
 
     <main>
@@ -297,6 +299,31 @@
         </div>
       </section>
 
+      <section class="promotion-section section" id="promotion" aria-labelledby="promotion-title">
+        <div class="section-shell promotion-layout">
+          <div class="promotion-copy reveal">
+            <p class="eyebrow"><span class="eyebrow-line"></span> F4NTASTIC PARTNERSHIP / 07</p>
+            <h2 id="promotion-title">GROW<br /><span class="gold-text">TOGETHER.</span></h2>
+            <p>
+              Buka peluang kolaborasi bersama komunitas F4NTASTIC untuk brand,
+              produk, event, dan partnership yang relevan dengan keluarga kami.
+            </p>
+            <a class="button button-primary" href="sponsor.html">
+              LIHAT PAKET PROMOSI <span class="icon-arrow icon-arrow-up" aria-hidden="true"></span>
+            </a>
+          </div>
+          <div class="promotion-panel reveal">
+            <div class="promotion-panel-top"><span>F4NT / COLLABORATION</span><strong>✦</strong></div>
+            <h3>COMMUNITY<br /><span class="gold-text">MEETS OPPORTUNITY.</span></h3>
+            <div class="promotion-points">
+              <div><span>01</span><p>Jangkau komunitas yang aktif dan relevan.</p></div>
+              <div><span>02</span><p>Format kerja sama fleksibel sesuai kebutuhan.</p></div>
+              <div><span>03</span><p>Komunikasi langsung bersama admin F4NTASTIC.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="join-section section" id="join-team">
         <div class="section-shell join-layout">
           <div class="join-copy reveal">
@@ -323,6 +350,21 @@
               <div><span>02</span><p>Menjunjung loyalitas dan respect.</p></div>
               <div><span>03</span><p>Membawa nama F4NTASTIC dengan bangga.</p></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="report-strip" id="report-hub" aria-labelledby="report-strip-title">
+        <div class="section-shell report-strip-inner reveal">
+          <div class="report-strip-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> MEMBER CARE / INTERNAL / 08</p>
+            <h2 id="report-strip-title">POSKO<br /><span class="gold-text">PENGADUAN.</span></h2>
+            <p>Ruang aman untuk member F4NTASTIC menyampaikan masalah, melaporkan perilaku yang merugikan, dan meminta bantuan tim internal.</p>
+            <div class="report-strip-trust"><span>● MEMBER ONLY</span><span>● PRIVATE REVIEW</span><span>● EVIDENCE FIRST</span></div>
+          </div>
+          <div class="report-strip-action">
+            <div class="report-strip-panel"><span>F4NT / CARE CHANNEL</span><strong>ONE TEAM.<br /><b>WE LOOK AFTER OUR OWN.</b></strong><i>Laporkan dengan fakta, bukan emosi.</i></div>
+            <a class="button button-primary" href="pengaduan.html">BUKA POSKO PENGADUAN <span class="icon-arrow icon-arrow-up" aria-hidden="true"></span></a>
           </div>
         </div>
       </section>
@@ -421,5 +463,5 @@
         </footer>
       </section>
     </div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/session-nav.js?v=20261024-1"></script></body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/session-nav.js?v=20261101-presence"></script></body>
 </html>

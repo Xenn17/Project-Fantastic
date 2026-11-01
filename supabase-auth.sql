@@ -18,6 +18,10 @@ alter table public.profiles add column if not exists birth_date date;
 alter table public.profiles add column if not exists role text not null default 'member';
 alter table public.profiles add column if not exists avatar_url text;
 alter table public.profiles add column if not exists avatar_updated_at timestamptz;
+alter table public.profiles add column if not exists presence_mode text not null default 'auto';
+alter table public.profiles add column if not exists last_seen timestamptz;
+alter table public.profiles drop constraint if exists profiles_presence_mode_check;
+alter table public.profiles add constraint profiles_presence_mode_check check (presence_mode in ('auto','busy','offline'));
 
 -- Only allow known roles; all new rows default to member.
 alter table public.profiles drop constraint if exists profiles_role_check;
@@ -102,7 +106,13 @@ begin
     if new.avatar_url is not null then new.avatar_updated_at := now(); end if;
     return new;
   end if;
-  if auth.uid() is not null and new.role is distinct from old.role then
+  if auth.uid() is not null and old.id = auth.uid() then
+    -- Pemilik akun tidak boleh mengganti role/identitas; pertahankan nilai lama
+    -- alih-alih melempar error, karena upsert memicu cabang INSERT lebih dulu.
+    new.role := old.role;
+    new.username := old.username;
+    new.email := old.email;
+  elsif auth.uid() is not null and new.role is distinct from old.role then
     raise exception 'Role cannot be changed by the account owner';
   end if;
   if auth.uid() is not null and (new.username is distinct from old.username or new.id is distinct from old.id or (new.email is distinct from old.email and not exists(select 1 from auth.users au where au.id = auth.uid() and lower(au.email) = lower(new.email)))) then
@@ -135,4 +145,23 @@ drop policy if exists "F4 avatars delete own folder" on storage.objects;
 create policy "F4 avatars upload own folder" on storage.objects for insert to authenticated with check (bucket_id='f4ntastic-avatars' and (storage.foldername(name))[1] = auth.uid()::text);
 create policy "F4 avatars update own folder" on storage.objects for update to authenticated using (bucket_id='f4ntastic-avatars' and (storage.foldername(name))[1] = auth.uid()::text) with check (bucket_id='f4ntastic-avatars' and (storage.foldername(name))[1] = auth.uid()::text);
 create policy "F4 avatars delete own folder" on storage.objects for delete to authenticated using (bucket_id='f4ntastic-avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- Identitas gameplay & showcase profil member.
+alter table public.profiles add column if not exists main_hero text;
+alter table public.profiles add column if not exists favorite_heroes text[] not null default '{}';
+alter table public.profiles add column if not exists profile_gallery text[] not null default '{}';
+alter table public.profiles add column if not exists game_role text;
+alter table public.profiles drop constraint if exists profiles_game_role_check;
+alter table public.profiles add constraint profiles_game_role_check check (game_role in ('jungler','gold','exp','roam','mid'));
+
+-- Bucket showcase: maksimal 3 foto pamer profil, publik-baca.
+insert into storage.buckets(id, name, public, file_size_limit, allowed_mime_types)
+values('f4ntastic-showcase','f4ntastic-showcase', true, 10485760, array['image/jpeg','image/png','image/webp'])
+on conflict (id) do update set public = true, file_size_limit = 10485760, allowed_mime_types = excluded.allowed_mime_types;
+drop policy if exists "Showcase upload own folder" on storage.objects;
+drop policy if exists "Showcase update own folder" on storage.objects;
+drop policy if exists "Showcase delete own folder" on storage.objects;
+create policy "Showcase upload own folder" on storage.objects for insert to authenticated with check (bucket_id='f4ntastic-showcase' and (storage.foldername(name))[1] = auth.uid()::text);
+create policy "Showcase update own folder" on storage.objects for update to authenticated using (bucket_id='f4ntastic-showcase' and (storage.foldername(name))[1] = auth.uid()::text) with check (bucket_id='f4ntastic-showcase' and (storage.foldername(name))[1] = auth.uid()::text);
+create policy "Showcase delete own folder" on storage.objects for delete to authenticated using (bucket_id='f4ntastic-showcase' and (storage.foldername(name))[1] = auth.uid()::text);
 

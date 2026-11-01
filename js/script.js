@@ -80,13 +80,29 @@
     img.onerror = () => console.warn(`Foto tidak ditemukan: ${path}`);
   }
 
-  $("#heroSlogan").textContent = data.squad.slogan;
-  $("#heroYear").textContent = data.squad.year;
-  $("#visionText").textContent = data.squad.vision;
-  $("#historyLead").textContent = data.squad.historyLead;
-  $("#historyClosing").textContent = data.squad.historyClosing;
+  const setText = (selector, value) => { const node = $(selector); if (node) node.textContent = value; };
+  setText("#heroSlogan", data.squad.slogan);
+  setText("#heroYear", data.squad.year);
+  setText("#visionText", data.squad.vision);
+  setText("#historyLead", data.squad.historyLead);
+  setText("#historyClosing", data.squad.historyClosing);
   setPhoto($(".about-aside"), data.squad.historyPhoto, "Bukti kebersamaan F4NTASTIC");
-  $("#footerYear").textContent = new Date().getFullYear();
+  setText("#footerYear", new Date().getFullYear());
+
+  // Sponsor memakai data.js untuk footer sosial, tetapi tidak memiliki markup homepage.
+  // Isi kebutuhan bersama lalu hentikan blok renderer homepage agar tidak menyentuh null nodes.
+  if (!$("#home")) {
+    const footerSocials = $("#footerSocials");
+    if (footerSocials && Array.isArray(data.officialSocials)) data.officialSocials.forEach(item => {
+      const link = socialLink(item, true);
+      if (link) {
+        link.classList.add("footer-social-chip");
+        link.prepend(createBrandIcon(item.label));
+        footerSocials.append(link);
+      }
+    });
+    return;
+  }
 
   const historyCopy = $("#historyCopy");
   data.squad.history.forEach(paragraph => historyCopy.append(create("p", "", paragraph)));
@@ -355,7 +371,8 @@
       const section = document.querySelector(target);
       return { link, section, id: target.slice(1) };
     })
-    .filter(item => item.section);
+    .filter(item => item.section)
+    .sort((a, b) => a.section.getBoundingClientRect().top - b.section.getBoundingClientRect().top);
   const setActiveNav = id => navLinks.forEach(link => {
     const active = link.getAttribute("href") === `#${id}`;
     link.classList.toggle("is-active", active);

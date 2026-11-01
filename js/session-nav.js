@@ -20,7 +20,7 @@
   }
   mobileNavQuery.addEventListener?.("change", placeAccountForViewport);
   const getProfile = async user => {
-    const { data, error } = await db.from("profiles").select("username,full_name,role,avatar_url,phone,ml_id,ml_server,gender,birth_date").eq("id", user.id).maybeSingle();
+    const { data, error } = await db.from("profiles").select("username,full_name,role,avatar_url,phone,ml_id,ml_server,gender,birth_date,presence_mode,last_seen").eq("id", user.id).maybeSingle();
     if (error) return null;
     return data;
   };
@@ -54,6 +54,7 @@
     if (error || !session?.user) { navLinks.forEach(renderLoggedOut); return; }
     const profile = await getProfile(session.user);
     navLinks.forEach(link => renderLoggedIn(link, session.user, profile));
+    if (profile && (profile.presence_mode || "auto") === "auto") db.from("profiles").update({ last_seen: new Date().toISOString() }).eq("id", session.user.id);
   }
   sync();
   db.auth.onAuthStateChange((_event, session) => { if (session?.user) setTimeout(sync, 0); else navLinks.forEach(renderLoggedOut); });

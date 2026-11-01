@@ -1,0 +1,25 @@
+# Arsip / cadangan besar (bukan bagian dari situs)
+*.zip
+*.rar
+*.7z
+
+# Dependensi & build
+node_modules/
+dist/
+build/
+.vite/
+
+# Sistem operasi & editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Log & cache lokal
+*.log
+.cache/
+
+# Rahasia lokal (jangan pernah commit)
+.env
+.env.local
+.env.*.local

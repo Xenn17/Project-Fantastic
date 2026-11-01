@@ -777,6 +777,37 @@ body::after { opacity: .34; }
 .join-points { border-top: 1px solid var(--hairline); }
 .join-points > div { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 17px 0; border-bottom: 1px solid var(--hairline); }
 .join-points span { color: var(--gold); font-size: 9px; letter-spacing: 1px; }
+
+/* Homepage promotion section: partnership-focused, using the existing editorial language. */
+.promotion-section{position:relative;overflow:hidden;background:linear-gradient(120deg,rgba(207,170,88,.075),transparent 45%),#0d0d0c;border-top:1px solid rgba(207,170,88,.2);border-bottom:1px solid var(--hairline)}
+.promotion-section::after{content:"07";position:absolute;right:5vw;bottom:-65px;color:rgba(207,170,88,.045);font:900 250px/.8 var(--font-display);pointer-events:none}
+.promotion-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:clamp(38px,7vw,110px);align-items:center;position:relative;z-index:1}
+.promotion-copy h2{margin:0;font:800 clamp(62px,8vw,108px)/.84 var(--font-display);letter-spacing:-1.5px}
+.promotion-copy>p:not(.eyebrow){max-width:480px;color:#aaa69d;font-size:13px;line-height:1.9;margin:22px 0 0}
+.promotion-copy .button{margin-top:24px}
+.promotion-panel{padding:clamp(25px,4vw,46px);border:1px solid var(--line);background:linear-gradient(145deg,rgba(25,25,23,.9),rgba(9,9,9,.88));box-shadow:0 20px 55px rgba(0,0,0,.24)}
+.promotion-panel-top{display:flex;justify-content:space-between;color:var(--gold);font-size:9px;font-weight:800;letter-spacing:1.8px}.promotion-panel-top strong{font-size:17px;font-weight:400}
+.promotion-panel h3{margin:48px 0 35px;font:700 clamp(31px,4vw,48px)/.95 var(--font-display)}
+.promotion-points{border-top:1px solid var(--hairline)}.promotion-points>div{display:grid;grid-template-columns:32px 1fr;gap:12px;padding:17px 0;border-bottom:1px solid var(--hairline)}.promotion-points span{color:var(--gold);font-size:9px;letter-spacing:1px}.promotion-points p{margin:0;color:#c2beb5;font-size:11px;line-height:1.7}
+@media(max-width:700px){.promotion-layout{grid-template-columns:1fr;gap:35px}.promotion-copy h2{font-size:clamp(58px,14vw,88px)}.promotion-panel h3{margin-top:35px}.promotion-section::after{font-size:180px;bottom:-40px}}
+
+/* Posko pengaduan preview on the homepage */
+.report-strip{position:relative;overflow:hidden;border-top:1px solid rgba(207,170,88,.22);border-bottom:1px solid var(--hairline);background:radial-gradient(ellipse at 88% 40%,rgba(207,170,88,.12),transparent 35%),linear-gradient(115deg,rgba(207,170,88,.07),transparent 48%),#0a0a0a}
+.report-strip::before{content:"F4";position:absolute;right:4vw;bottom:-70px;color:rgba(207,170,88,.045);font:900 260px/.8 var(--font-display);pointer-events:none}
+.report-strip-inner{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(290px,.9fr);align-items:center;gap:clamp(35px,8vw,120px);padding-block:clamp(52px,7vw,92px);position:relative;z-index:1}
+.report-strip-copy h2{margin:0;font:800 clamp(58px,7vw,96px)/.84 var(--font-display);letter-spacing:-1.5px}
+.report-strip-copy>p:not(.eyebrow){max-width:560px;margin:20px 0 0;color:#aaa69d;font-size:13px;line-height:1.9}
+.report-strip-trust{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px;color:var(--gold);font-size:8px;font-weight:800;letter-spacing:1.3px}
+.report-strip-trust span{padding:7px 9px;border:1px solid rgba(207,170,88,.25);background:rgba(207,170,88,.04)}
+.report-strip-action{display:grid;gap:18px;justify-items:start}
+.report-strip-panel{width:100%;padding:clamp(24px,4vw,42px);border:1px solid var(--line);background:linear-gradient(145deg,rgba(25,25,23,.92),rgba(8,8,8,.92));box-shadow:0 20px 55px rgba(0,0,0,.3)}
+.report-strip-panel>span{display:block;color:var(--gold);font-size:8px;font-weight:800;letter-spacing:1.8px}
+.report-strip-panel strong{display:block;margin-top:34px;font:700 clamp(29px,3.5vw,45px)/.92 var(--font-display)}
+.report-strip-panel strong b{color:var(--gold);font-weight:700}
+.report-strip-panel i{display:block;margin-top:30px;color:var(--muted);font-size:10px;line-height:1.6}
+.report-strip .button{flex:0 0 auto}
+@media(max-width:700px){.report-strip-inner{grid-template-columns:1fr;gap:35px}.report-strip-copy h2{font-size:clamp(58px,14vw,88px)}.report-strip-action{width:100%}.report-strip .button{width:100%}.report-strip::before{font-size:180px;bottom:-40px}}
+
 .join-points p { margin: 0; color: #c5c0b6; font-size: 11px; }
 .join-button { border: 0; cursor: pointer; }
 
@@ -1180,8 +1211,15 @@ body::after { opacity: .34; }
   margin-right: 0;
   min-width: 0;
 }
-.site-header > .main-nav {
+.site-header > .nav-services-header {
+  order: 2;
   margin-left: 0;
+  flex: 0 0 auto;
+}
+.site-header > .menu-toggle { order: 3; }
+.site-header > .main-nav {
+  order: 4;
+  margin-left: auto;
   gap: clamp(14px, 1.7vw, 24px);
   flex-shrink: 0;
 }
@@ -1277,3 +1315,24 @@ body::after { opacity: .34; }
   .main-nav.is-open > .header-quick-links { flex-wrap: nowrap; }
   .main-nav.is-open > .header-quick-links a { min-width: max-content; }
 }
+.forgot-password{display:block;margin:10px 0 0 auto;padding:0;border:0;background:transparent;color:var(--gold);font:600 11px/1.4 var(--font-body);cursor:pointer}.forgot-password:hover{text-decoration:underline;color:#fff}.forgot-password:disabled{opacity:.6;cursor:wait}
+
+/* Shared grid entrance: individual translate keeps editorial card offsets intact. */
+@keyframes gridIn{from{opacity:0;translate:0 14px}to{opacity:1;translate:0 0}}
+.grid-reveal>*{opacity:0;translate:0 14px;transition:opacity .5s ease,translate .5s cubic-bezier(.2,.7,.2,1);transition-delay:calc(min(var(--i,0),6) * 70ms)}
+.grid-reveal.is-visible>*{opacity:1;translate:0 0}
+.grid-reveal>*:hover{transition-delay:0ms}
+
+/* Compact desktop navigation: services stay available without crowding the header. */
+.nav-services{position:relative;display:inline-block;flex:0 0 auto}
+.nav-services summary{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:8px 10px;color:#b7b3ab;font-size:10px;font-weight:800;letter-spacing:.3px;cursor:pointer;list-style:none;transition:color .2s ease,background .2s ease,border-color .2s ease}
+.nav-services summary::-webkit-details-marker{display:none}
+.nav-services summary span{font-size:13px;color:var(--gold);transition:transform .2s ease}
+.nav-services[open] summary,.nav-services summary:hover,.nav-services summary:focus-visible{color:var(--gold-bright);background:rgba(207,170,88,.08);outline:none}
+.nav-services[open] summary span{transform:rotate(180deg)}
+.nav-services-menu{position:absolute;z-index:20;right:0;top:calc(100% + 10px);display:grid;min-width:190px;padding:7px;border:1px solid var(--line);background:rgba(12,12,11,.98);box-shadow:0 18px 45px rgba(0,0,0,.35);backdrop-filter:blur(14px)}
+.nav-services-menu a{display:block;padding:10px 11px;color:#b7b3ab;font-size:9px;letter-spacing:.35px;text-decoration:none;white-space:nowrap;transition:color .18s ease,background .18s ease,transform .18s ease}
+.nav-services-menu a:hover,.nav-services-menu a:focus-visible{color:var(--gold-bright);background:rgba(207,170,88,.1);transform:translateX(2px);outline:none}
+.nav-services-header{display:inline-block}.nav-services-mobile{display:none}
+@media(max-width:780px){.nav-services-header{display:none}.nav-services-mobile{display:block;border-bottom:1px solid rgba(255,255,255,.05)}.nav-services-mobile summary{display:flex;width:100%;min-height:46px;padding:13px 4px;font-size:12px}.nav-services-menu{position:static;min-width:0;margin:0 0 8px;padding:0 0 4px;border:0;border-left:1px solid var(--line);background:transparent;box-shadow:none;backdrop-filter:none}.nav-services-menu a{padding:9px 12px;font-size:10px}.nav-services-menu a:hover,.nav-services-menu a:focus-visible{transform:none}}
+@media(prefers-reduced-motion:reduce){.nav-services summary,.nav-services summary span,.nav-services-menu a{transition:none}}

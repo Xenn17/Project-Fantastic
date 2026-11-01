@@ -57,10 +57,12 @@
       if (!data.user) return msg(out, "Akun belum dapat dibuat. Coba lagi.");
       msg(out, data.session ? "Akun berhasil dibuat. Menyiapkan profil..." : "Akun berhasil dibuat. Cek email untuk verifikasi, lalu masuk.", true);
       register.reset();
-      if (data.session) { await saveDisplayUser(data.user); setTimeout(() => location.href = "index.html", 700); }
+      if (data.session) { await saveDisplayUser(data.user); setTimeout(() => location.href = new URLSearchParams(location.search).get("redirect") || "index.html", 700); }
     } catch (error) { msg(out, readable(error)); }
     finally { busy(register, false, "BUAT AKUN"); }
   });
+  const forgot = document.querySelector("#forgotPassword");
+  if (forgot) forgot.addEventListener("click", async () => { const identity = document.querySelector("#loginIdentity")?.value.trim(); const out = document.querySelector("#loginMessage"); if (!identity || !identity.includes("@")) return msg(out, "Masukkan email akun terlebih dahulu untuk menerima email reset password."); forgot.disabled = true; forgot.textContent = "MENGIRIM..."; try { const { error } = await db.auth.resetPasswordForEmail(identity.toLowerCase(), { redirectTo: `${location.origin}/reset-password.html` }); if (error) throw error; msg(out, "Email reset password sudah dikirim. Cek inbox atau folder spam.", true); } catch (error) { msg(out, readable(error)); } finally { forgot.disabled = false; forgot.textContent = "Lupa password?"; } });
   const login = document.querySelector("#loginForm");
   if (login) login.addEventListener("submit", async e => {
     e.preventDefault(); const identity = login.querySelector("#loginIdentity").value.trim().toLowerCase(); const password = login.querySelector("#loginPassword").value; const out = login.querySelector("#loginMessage");
@@ -71,7 +73,7 @@
       if (!identity.includes("@")) { const { data, error } = await db.rpc("f4_login_email_for_username", { p_username: identity }); if (error) throw error; if (!data) return msg(out, "Username tidak ditemukan."); email = data; }
       const { data, error } = await db.auth.signInWithPassword({ email, password });
       if (error) return msg(out, readable(error));
-      await saveDisplayUser(data.user); msg(out, "Login berhasil. Mengarahkan...", true); setTimeout(() => location.href = "index.html", 500);
+      await saveDisplayUser(data.user); msg(out, "Login berhasil. Mengarahkan...", true); setTimeout(() => location.href = new URLSearchParams(location.search).get("redirect") || "index.html", 500);
     } catch (error) { msg(out, readable(error)); }
     finally { busy(login, false, "MASUK KE COMMUNITY"); }
   });

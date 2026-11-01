@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090909">
+  <title>Posko Pengaduan — F4NTASTIC</title>
+  <link rel="icon" href="assets/logo-transparant.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/report.css?v=20261101-5">
+</head>
+<body>
+  <div class="report-page-bg" aria-hidden="true">
+    <div class="report-grid-lines"></div>
+    <div class="report-glow report-glow-a"></div>
+    <div class="report-glow report-glow-b"></div>
+  </div>
+  <main class="report-page" id="reportPage">
+    <header class="report-header">
+      <a class="report-brand" href="index.html"><span class="report-brand-mark" aria-hidden="true"><img src="assets/logo-transparant.png" alt=""></span><span class="report-brand-copy"><strong>F4N<span>'T</span></strong><small>WE ARE FANTASTIC</small></span></a>
+      <div class="report-header-right">
+        <span class="report-secure-badge" aria-hidden="true">● TERENKRIPSI &amp; PRIVAT</span>
+        <a class="report-back" href="index.html">← KEMBALI KE WEBSITE</a>
+      </div>
+    </header>
+
+    <section class="report-hero">
+      <div class="report-hero-copy">
+        <p class="report-kicker"><span class="report-kicker-dot"></span> F4NTASTIC / MEMBER CARE CHANNEL</p>
+        <h1>POSKO<br><span class="report-hero-gold">PENGADUAN.</span></h1>
+        <p class="report-lead">Sampaikan masalahmu dengan tenang dan jelas. Setiap laporan hanya diproses oleh tim internal F4NTASTIC — aman, tertutup, dan dihormati.</p>
+        <div class="report-trust-row" aria-label="Jaminan kerahasiaan">
+          <div class="report-trust-chip"><span class="report-trust-icon">▣</span><div><strong>100% PRIVAT</strong><small>Hanya tim internal</small></div></div>
+          <div class="report-trust-chip"><span class="report-trust-icon">✦</span><div><strong>BUTUH BUKTI</strong><small>Anti fitnah</small></div></div>
+          <div class="report-trust-chip"><span class="report-trust-icon">⚡</span><div><strong>RESPONSIF</strong><small>Ditindaklanjuti</small></div></div>
+        </div>
+      </div>
+      <div class="report-hero-art" aria-hidden="true">
+        <div class="report-orbit report-orbit-a"></div>
+        <div class="report-orbit report-orbit-b"></div>
+        <div class="report-emblem">
+          <span class="report-emblem-shield">F4NT</span>
+          <b>CARE<br>CHANNEL</b>
+          <i>POSKO PENGADUAN</i>
+        </div>
+      </div>
+    </section>
+
+    <div id="reportGate" class="report-notice" role="status">Memeriksa sesi member…</div>
+
+    <section id="reportApp" class="report-layout" hidden>
+      <div class="report-main">
+        <section class="report-step-guide report-reveal" aria-label="Panduan">
+          <div class="report-step"><span>01</span><p><strong>Pilih kategori</strong><small>Arahkan laporan agar cepat diproses.</small></p></div>
+          <div class="report-step"><span>02</span><p><strong>Ceritakan kronologi</strong><small>Jelaskan apa, kapan, dan siapa yang terlibat.</small></p></div>
+          <div class="report-step"><span>03</span><p><strong>Lampirkan bukti</strong><small>Screenshot atau video mempercepat investigasi.</small></p></div>
+        </section>
+
+        <form id="reportForm" class="report-card report-reveal" novalidate>
+          <div class="report-card-head">
+            <div class="report-card-head-line"></div>
+            <p class="report-kicker">01 / NEW REPORT</p>
+            <h2>KIRIM <span class="report-gold-highlight">LAPORAN.</span></h2>
+            <p>Gunakan fakta yang dapat diverifikasi. Hindari tuduhan tanpa bukti.</p>
+          </div>
+
+          <div class="report-field-grid">
+            <label class="report-field report-field-wide">PLAYER YANG DILAPORKAN *<div class="member-search-wrap"><input id="targetPlayer" type="text" maxlength="100" required autocomplete="off" placeholder="Ketik username atau nama member F4NTASTIC…"><button id="clearMemberSearch" class="member-search-clear" type="button" aria-label="Hapus pilihan" hidden>×</button><div id="memberSuggestions" class="member-suggestions" role="listbox" hidden></div></div><input id="targetPlayerManual" type="hidden"><span class="report-field-line"></span><small id="memberSearchStatus" class="field-help">Ketik minimal 2 karakter untuk mencari member. Player luar komunitas juga bisa ditulis manual.</small></label>
+            <label class="report-field report-field-wide">IDENTITAS TAMBAHAN<input id="targetContact" maxlength="160" placeholder="ID, server, atau kontak jika ada"><span class="report-field-line"></span></label>
+            <label class="report-field">KATEGORI *<select id="category" required><option value="">Pilih kategori</option><option value="bullying">Perundungan</option><option value="scam">Penipuan</option><option value="toxic">Toxic behavior</option><option value="agreement">Pelanggaran kesepakatan</option><option value="internal">Masalah internal komunitas</option><option value="rw">RW — Room Wangi</option><option value="dk">DK — Dukun / Cheat lainnya</option><option value="other">Lainnya</option></select></label>
+            <label class="report-field">TANGGAL KEJADIAN<input id="incidentDate" type="date"></label>
+          </div>
+
+          <label class="report-field report-field-wide">KRONOLOGI KEJADIAN *<textarea id="description" rows="7" maxlength="5000" required placeholder="Ceritakan apa yang terjadi, kapan, dan siapa saja yang terlibat."></textarea><span class="report-char-count" id="charCount">0 / 5000</span></label>
+
+          <label class="report-field report-field-wide report-upload-field">
+            <span class="report-upload-label">BUKTI PENDUKUNG</span>
+            <div class="report-upload-box" id="uploadBox">
+              <span class="report-upload-icon" aria-hidden="true">＋</span>
+              <div><strong>Klik untuk unggah bukti</strong><small>Gambar / video · maks 3 file · 10 MB per file</small></div>
+            </div>
+            <input id="evidence" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple hidden>
+            <div class="report-file-list" id="fileList"></div>
+            <small class="field-help">Bukti disimpan secara privat dan hanya dapat diakses oleh tim internal.</small>
+          </label>
+
+          <label class="report-agreement"><span class="report-agreement-box"><input id="agreement" type="checkbox" required></span><span>Saya menyatakan laporan ini dibuat dengan itikad baik dan informasi yang saya berikan benar.</span></label>
+          <button id="submitReport" class="report-button" type="submit">KIRIM LAPORAN <span aria-hidden="true">→</span></button>
+          <p id="formStatus" class="report-status" role="status"></p>
+        </form>
+      </div>
+
+      <aside class="report-side">
+        <section class="report-card report-history report-reveal">
+          <div class="report-card-head">
+            <div class="report-card-head-line"></div>
+            <p class="report-kicker">02 / MY REPORTS</p>
+            <h2>RIWAYAT.</h2>
+            <p>Pantau status laporanmu di sini.</p>
+          </div>
+          <div id="reportList" class="report-list"><p class="empty-report">Memuat laporan…</p></div>
+        </section>
+
+        <section class="report-card report-info report-reveal">
+          <div class="report-card-head">
+            <p class="report-kicker">NOTE / ETIKA</p>
+            <h2>PANDUAN.</h2>
+          </div>
+          <ul class="report-info-list">
+            <li><span>1</span><p><strong>Lapor dengan bukti.</strong>Laporan tanpa bukti sulit ditindaklanjuti.</p></li>
+            <li><span>2</span><p><strong>Jaga keakuratan.</strong>Jangan menuduh tanpa kejelasan.</p></li>
+            <li><span>3</span><p><strong>Bersabar.</strong>Tim akan meninjau secara bergiliran.</p></li>
+          </ul>
+          <div class="report-info-help"><strong>Membutuhkan bantuan sekarang?</strong><a href="https://wa.me/6287844013152" target="_blank" rel="noopener noreferrer">Hubungi admin F4NTASTIC ↗</a></div>
+        </section>
+      </aside>
+    </section>
+
+    <footer class="report-footer">
+      <span>WE ARE F4NTASTIC, WE ARE FAMILY.</span>
+      <span>F4NTASTIC © <b id="reportYear">2026</b> · INTERNAL MEMBER CHANNEL</span>
+    </footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/report.js?v=20261101-10"></script>
+</body>
+</html>

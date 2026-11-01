@@ -10,13 +10,13 @@ create table if not exists public.applications (
 alter table public.applications enable row level security;
 drop policy if exists "Allow public application inserts" on public.applications;
 create policy "Allow public application inserts" on public.applications
-for insert to anon with check (true);
+for insert to anon, authenticated with check (true);
 drop policy if exists "Allow admin panel reads" on public.applications;
 create policy "Allow admin panel reads" on public.applications
-for select to anon using (true);
+for select to anon, authenticated using (true);
 drop policy if exists "Allow admin panel deletes" on public.applications;
 create policy "Allow admin panel deletes" on public.applications
-for delete to anon using (true);
+for delete to anon, authenticated using (true);
 
 
 -- Screenshot storage for join applications
@@ -66,4 +66,4 @@ alter table public.applications add column if not exists accepted_at timestamptz
 alter table public.applications add column if not exists rejected_at timestamptz;
 drop policy if exists "Allow admin panel updates" on public.applications;
 create policy "Allow admin panel updates" on public.applications
-for update to anon using (true) with check (true);
+for update to anon, authenticated using (true) with check (true);
