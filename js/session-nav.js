@@ -31,11 +31,11 @@
   function renderLoggedIn(link, user, profile) {
     const label = safeText(profile?.username, safeText(user.user_metadata?.username, user.email?.split("@")[0] || "Member"));
     const name = safeText(profile?.full_name, safeText(user.user_metadata?.full_name, label));
-    const normalizedRole = String(profile?.role || "member").toLowerCase();
-    const roleLabels = { developer: "Developer F4NTASTIC", admin: "Admin F4NTASTIC", member: "Member F4NTASTIC" };
-    const role = roleLabels[normalizedRole] || "Member F4NTASTIC";
+    const normalizedRole = String(profile?.role || "tamu").toLowerCase();
+    const roleLabels = { tamu: "Tamu F4NTASTIC", calon_member: "Calon Member F4NTASTIC", member: "Member F4NTASTIC", leader_squad: "Leader Squad F4NTASTIC", admin: "Admin F4NTASTIC", developer: "Developer F4NTASTIC", owner: "Owner F4NTASTIC" };
+    const role = roleLabels[normalizedRole] || "Tamu F4NTASTIC";
     const avatar = profile?.avatar_url || "";
-    try { localStorage.setItem("f4ntastic-user", JSON.stringify({ id: user.id, email: user.email, username: label, name, role: profile?.role || "member", avatar_url: avatar, profileComplete: Boolean(profile?.full_name && profile?.phone && profile?.ml_id && profile?.ml_server && profile?.gender && profile?.birth_date) })); } catch {}
+    try { localStorage.setItem("f4ntastic-user", JSON.stringify({ id: user.id, email: user.email, username: label, name, role: profile?.role || "tamu", avatar_url: avatar, profileComplete: Boolean(profile?.full_name && profile?.phone && profile?.ml_id && profile?.ml_server && profile?.gender && profile?.birth_date) })); } catch {}
     let wrap = link.closest(".nav-account");
     if (!wrap) {
       wrap = document.createElement("div"); wrap.className = "nav-account";

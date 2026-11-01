@@ -15,7 +15,7 @@ alter table public.profiles add column if not exists ml_id text;
 alter table public.profiles add column if not exists ml_server text;
 alter table public.profiles add column if not exists gender text;
 alter table public.profiles add column if not exists birth_date date;
-alter table public.profiles add column if not exists role text not null default 'member';
+alter table public.profiles add column if not exists role text not null default 'tamu';
 alter table public.profiles add column if not exists avatar_url text;
 alter table public.profiles add column if not exists avatar_updated_at timestamptz;
 alter table public.profiles add column if not exists presence_mode text not null default 'auto';
@@ -25,8 +25,8 @@ alter table public.profiles add constraint profiles_presence_mode_check check (p
 
 -- Only allow known roles; all new rows default to member.
 alter table public.profiles drop constraint if exists profiles_role_check;
-alter table public.profiles add constraint profiles_role_check check (role in ('member','admin','developer'));
-alter table public.profiles alter column role set default 'member';
+alter table public.profiles add constraint profiles_role_check check (role in ('tamu','calon_member','member','leader_squad','admin','developer','owner'));
+alter table public.profiles alter column role set default 'tamu';
 
 alter table public.profiles enable row level security;
 revoke all on public.profiles from anon;
@@ -70,7 +70,7 @@ begin
     chosen_username := left(chosen_username, 15) || '_' || substr(replace(new.id::text, '-', ''), 1, 8);
   end if;
   insert into public.profiles(id, full_name, username, email, role)
-  values(new.id, chosen_name, chosen_username, lower(new.email), 'member')
+  values(new.id, chosen_name, chosen_username, lower(new.email), 'tamu')
   on conflict (id) do update set email = excluded.email;
   return new;
 end;
@@ -88,7 +88,7 @@ begin
     candidate := base_username;
     if exists(select 1 from public.profiles where lower(username)=candidate) then candidate := left(base_username,15) || '_' || substr(replace(u.id::text,'-',''),1,8); end if;
     insert into public.profiles(id,full_name,username,email,role)
-    values(u.id, coalesce(nullif(trim(u.raw_user_meta_data->>'full_name'),''),split_part(u.email,'@',1),'Member'), candidate, lower(u.email), 'member')
+    values(u.id, coalesce(nullif(trim(u.raw_user_meta_data->>'full_name'),''),split_part(u.email,'@',1),'Member'), candidate, lower(u.email), 'tamu')
     on conflict (id) do nothing;
   end loop;
 end $$;
@@ -99,7 +99,7 @@ returns trigger language plpgsql security definer set search_path = public, pg_t
 begin
   if tg_op = 'INSERT' then
     if auth.uid() is not null then
-      new.role := 'member';
+      new.role := 'tamu';
       select lower(au.email), coalesce(nullif(lower(trim(au.raw_user_meta_data ->> 'username')), ''), lower(split_part(au.email, '@', 1)))
         into new.email, new.username from auth.users au where au.id = auth.uid();
     end if;

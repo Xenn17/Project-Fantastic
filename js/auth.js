@@ -29,7 +29,7 @@
   const busy = (form, state, label) => { const button = form.querySelector('button[type="submit"]'); if (!button) return; button.disabled = state; button.innerHTML = state ? "MEMPROSES..." : `${label} <span>↗</span>`; };
   const saveDisplayUser = async authUser => {
     const { data: profile } = await db.from("profiles").select("username,full_name,role,avatar_url,phone,ml_id,ml_server,gender,birth_date").eq("id", authUser.id).maybeSingle();
-    const user = { id: authUser.id, email: authUser.email, name: profile?.full_name || authUser.user_metadata?.full_name || "Member", username: profile?.username || authUser.user_metadata?.username || authUser.email?.split("@")[0] || "member", role: profile?.role || "member", avatar_url: profile?.avatar_url || null, profileComplete: Boolean(profile?.full_name && profile?.phone && profile?.ml_id && profile?.ml_server && profile?.gender && profile?.birth_date) };
+    const user = { id: authUser.id, email: authUser.email, name: profile?.full_name || authUser.user_metadata?.full_name || "Member", username: profile?.username || authUser.user_metadata?.username || authUser.email?.split("@")[0] || "member", role: profile?.role || "tamu", avatar_url: profile?.avatar_url || null, profileComplete: Boolean(profile?.full_name && profile?.phone && profile?.ml_id && profile?.ml_server && profile?.gender && profile?.birth_date) };
     try { localStorage.setItem("f4ntastic-user", JSON.stringify(user)); } catch {}
     return user;
   };
@@ -52,7 +52,7 @@
       const { data: exists, error: checkError } = await db.rpc("f4_username_exists", { p_username: username });
       if (checkError) throw checkError;
       if (exists === true) return msg(out, "Username sudah digunakan.");
-      const { data, error } = await db.auth.signUp({ email, password, options: { data: { full_name: name, username, role: "member" } } });
+      const { data, error } = await db.auth.signUp({ email, password, options: { data: { full_name: name, username, role: "tamu" } } });
       if (error) return msg(out, readable(error));
       if (!data.user) return msg(out, "Akun belum dapat dibuat. Coba lagi.");
       msg(out, data.session ? "Akun berhasil dibuat. Menyiapkan profil..." : "Akun berhasil dibuat. Cek email untuk verifikasi, lalu masuk.", true);

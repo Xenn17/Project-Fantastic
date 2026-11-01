@@ -124,11 +124,12 @@
     let { data, error } = await db.from("profiles").select(PROFILE_COLS).eq("id", user.id).maybeSingle();
     if (error) { say(`Gagal membaca profil: ${prettyError(error)}`); return; }
     profilePersisted = Boolean(data);
-    profile = data || { id: user.id, email: user.email, username: user.user_metadata?.username || user.email?.split("@")[0], full_name: user.user_metadata?.full_name || "", role: "member", presence_mode: "auto", favorite_heroes: [], profile_gallery: [] };
+    profile = data || { id: user.id, email: user.email, username: user.user_metadata?.username || user.email?.split("@")[0], full_name: user.user_metadata?.full_name || "", role: "tamu", presence_mode: "auto", favorite_heroes: [], profile_gallery: [] };
     const label = profile.username || user.email?.split("@")[0] || "member", name = profile.full_name || label;
     $("profileName").textContent = name; $("profileHandle").textContent = `@${label}`;
-    const role = profile.role === "developer" ? "DEVELOPER F4NTASTIC" : profile.role === "admin" ? "ADMIN F4NTASTIC" : "MEMBER F4NTASTIC";
-    $("profileRole").textContent = role; $("profileRole").classList.toggle("is-developer", profile.role === "developer");
+    const roleNames = { tamu: "TAMU F4NTASTIC", calon_member: "CALON MEMBER F4NTASTIC", member: "MEMBER F4NTASTIC", leader_squad: "LEADER SQUAD F4NTASTIC", admin: "ADMIN F4NTASTIC", developer: "DEVELOPER F4NTASTIC", owner: "OWNER F4NTASTIC" };
+    const role = roleNames[profile.role] || "TAMU F4NTASTIC";
+    $("profileRole").textContent = role; $("profileRole").classList.toggle("is-developer", ["developer", "owner"].includes(profile.role));
     showAvatar(profile.avatar_url, name); $("presenceMode").value = profile.presence_mode || "auto"; renderPresence(presenceState(profile)); setCooldown();
     const complete = updateCompletion(profile);
     if (complete) switchView(); else switchEdit();

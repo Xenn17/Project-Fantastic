@@ -40,7 +40,23 @@
           <div class="application-heading">
             <span>JOIN TEAM F4NT</span><strong>2026 / OPEN</strong>
           </div>
+          <div class="login-wall" id="loginWall" hidden>
+            <span class="login-wall-mark" aria-hidden="true">🔒</span>
+            <h2>LOGIN DULU<br /><span class="gold-text">YUK.</span></h2>
+            <p>Pendaftaran Join Team F4NTASTIC hanya untuk akun yang sudah login. Masuk atau daftar akun dulu (gratis), lalu kembali ke halaman ini untuk lanjut mendaftar.</p>
+            <div class="login-wall-actions">
+              <a class="button button-primary" href="login.html?redirect=join-form.html">MASUK</a>
+              <a class="button button-quiet" href="register.html?redirect=join-form.html">DAFTAR AKUN</a>
+            </div>
+          </div>
           <form id="joinForm" novalidate>
+            <div class="form-section-label">00 / FOLLOW MEDSOS DULU</div>
+            <div class="follow-grid">
+              <a class="follow-card" href="https://www.instagram.com/f4nt.official" target="_blank" rel="noopener noreferrer"><span class="follow-icon">IG</span><div><strong>Instagram F4NTASTIC</strong><small>@f4nt.official</small></div><span class="follow-open">BUKA ↗</span></a>
+              <a class="follow-card" href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener noreferrer"><span class="follow-icon follow-icon-tiktok">TT</span><div><strong>TikTok F4NTASTIC</strong><small>@official.f4ntastic</small></div><span class="follow-open">BUKA ↗</span></a>
+            </div>
+            <label class="agreement-check required-field"><input type="checkbox" name="followInstagram" required /><span>Sudah follow <strong>Instagram</strong> F4NTASTIC (<a href="https://www.instagram.com/f4nt.official" target="_blank" rel="noopener noreferrer">@f4nt.official</a>)</span></label>
+            <label class="agreement-check required-field"><input type="checkbox" name="followTiktok" required /><span>Sudah follow <strong>TikTok</strong> F4NTASTIC (<a href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener noreferrer">@official.f4ntastic</a>)</span></label>
             <div class="form-section-label">01 / DATA DIRI</div>
             <div class="form-grid two-columns">
               <label class="required-field">Nama lengkap<input name="name" type="text" placeholder="Nama kamu" required /></label>
@@ -165,6 +181,12 @@
       const normalizeKey = value => String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
       const normalizePhone = value => { const digits = String(value || "").replace(/\D/g, ""); return digits.startsWith("0") ? `62${digits.slice(1)}` : digits.startsWith("8") ? `62${digits}` : digits; };
       const submitLockKey = "f4nt-application-submitted";
+      const supabaseClient = window.supabase.createClient("https://uxkieyunztzhiwrocnei.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4a2lleXVuenR6aGl3cm9jbmVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzMDQwODIsImV4cCI6MjEwNzg4MDA4Mn0.nlWhlGbagxwZ2-XeHEa195n5sQmRtXn3xutTISDXR70", { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: window.localStorage } });
+      (async () => {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (!session?.user) { document.querySelector("#loginWall").hidden = false; form.hidden = true; return; }
+        window.f4ntApplicationUser = session.user;
+      })();
       const showResult = (ok, message) => { resultTitle.textContent = ok ? "Pendaftaran berhasil" : "Pendaftaran gagal"; resultMessage.textContent = message; resultMark.textContent = ok ? "✓" : "!"; resultModal.hidden = false; };
       document.querySelector("#formResultClose").addEventListener("click", () => { resultModal.hidden = true; });
       const agreement = form.querySelector('input[name="agreement"]');
@@ -189,6 +211,8 @@
       agreement.addEventListener("change", updateSubmitState);
       form.querySelectorAll("input, select, textarea").forEach(field => field.addEventListener("input", updateSubmitState));
       form.querySelectorAll("input, select").forEach(field => field.addEventListener("change", updateSubmitState));
+      form.querySelectorAll('input[name="followInstagram"], input[name="followTiktok"]').forEach(field => field.addEventListener("change", updateSubmitState));
+      form.querySelectorAll('.follow-card').forEach(card => card.addEventListener("click", () => { setTimeout(updateSubmitState, 300); }));
       rulesAgreement.addEventListener("change", () => {
         if (!rulesAgreement.checked) rulesAccepted = false;
         updateSubmitState();
@@ -279,6 +303,7 @@
       document.addEventListener("keydown", event => { if (event.key === "Escape" && !rulesModal.hidden) resetRulesConsent(); });
       form.addEventListener("submit", async event => {
         event.preventDefault();
+        if (!window.f4ntApplicationUser) { window.location.href = "login.html?redirect=join-form.html"; return; }
         if (!form.checkValidity()) {
           form.reportValidity();
           return;
@@ -299,17 +324,14 @@
         submitButton.disabled = true;
         status.textContent = "Memeriksa data pendaftaran…";
         status.classList.remove("is-success");
-        const supabaseClient = window.supabase.createClient("https://uxkieyunztzhiwrocnei.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4a2lleXVuenR6aGl3cm9jbmVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzMDQwODIsImV4cCI6MjEwNzg4MDA4Mn0.nlWhlGbagxwZ2-XeHEa195n5sQmRtXn3xutTISDXR70" );
-        const { data: existing, error: duplicateCheckError } = await supabaseClient.from("applications").select("id,ml_id,whatsapp");
+        const { data: duplicate, error: duplicateCheckError } = await supabaseClient.rpc("f4_application_duplicate", { p_ml_id: values.mlId, p_whatsapp: values.whatsapp });
         if (duplicateCheckError) { submitButton.disabled = false; showResult(false, "Gagal memeriksa data lama. Coba lagi."); return; }
-        const mlKey = normalizeKey(values.mlId), waKey = normalizePhone(values.whatsapp);
-        const duplicate = (existing || []).find(item => normalizeKey(item.ml_id) === mlKey || normalizePhone(item.whatsapp) === waKey);
         if (duplicate) { submitButton.disabled = false; showResult(false, "Data dengan ID ML atau nomor WhatsApp tersebut sudah pernah didaftarkan."); return; }
         status.textContent = "Mengunggah pendaftaran…";
         const uploadedScreenshots = [];
         for (const file of selectedFiles) {
           const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-          const path = `${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+          const path = `${window.f4ntApplicationUser.id}/${Date.now()}-${crypto.randomUUID()}-${safeName}`;
           const upload = await supabaseClient.storage.from("application-screenshots").upload(path, file, { upsert: false, contentType: file.type });
           if (upload.error) { submitButton.disabled = false; showResult(false, `Upload screenshot gagal: ${upload.error.message}`); return; }
           uploadedScreenshots.push(supabaseClient.storage.from("application-screenshots").getPublicUrl(path).data.publicUrl);

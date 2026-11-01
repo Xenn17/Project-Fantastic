@@ -37,7 +37,7 @@ set search_path = public, pg_temp
 as $$
   select exists (
     select 1 from public.profiles
-    where id = auth.uid() and role in ('admin','developer')
+    where id = auth.uid() and role in ('admin','developer','owner')
   );
 $$;
 revoke all on function public.f4_is_staff() from public;
@@ -64,7 +64,7 @@ create policy "Members create own reports" on public.reports
 for insert to authenticated
 with check (
   reporter_id = auth.uid()
-  and exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('member','admin','developer'))
+  and exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('tamu','calon_member','member','leader_squad','admin','developer','owner'))
 );
 
 drop policy if exists "Members read own reports" on public.reports;
@@ -72,7 +72,7 @@ create policy "Members read own reports" on public.reports
 for select to authenticated
 using (
   reporter_id = auth.uid()
-  or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer'))
+  or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer','owner'))
 );
 
 -- Jika role developer proyek ini disimpan di gallery_managers, perluas policy yang sama.
@@ -84,7 +84,7 @@ begin
     for select to authenticated
     using (
       reporter_id = auth.uid()
-      or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer'))
+      or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer','owner'))
       or exists (select 1 from public.gallery_managers m where m.id = auth.uid() and m.role = 'developer')
     );
   end if;
@@ -93,8 +93,8 @@ end $$;
 drop policy if exists "Admins manage reports" on public.reports;
 create policy "Admins manage reports" on public.reports
 for update to authenticated
-using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer')))
-with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer')));
+using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer','owner')))
+with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer','owner')));
 
 drop policy if exists "Members update own report text" on public.reports;
 create policy "Members update own report text" on public.reports
@@ -128,7 +128,7 @@ for select to authenticated
 using (
   bucket_id='complaint-evidence'
   and ((storage.foldername(name))[1] = auth.uid()::text
-    or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer')))
+    or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role in ('admin','developer','owner')))
 );
 
 drop policy if exists "Members delete own report evidence" on storage.objects;
@@ -143,7 +143,7 @@ returns table (id uuid, username text, full_name text, avatar_url text)
 language sql security definer set search_path = public, pg_temp as $$
   select p.id, p.username, p.full_name, p.avatar_url
   from public.profiles p
-  where p.role in ('member','admin','developer')
+  where p.role in ('tamu','calon_member','member','leader_squad','admin','developer','owner')
   order by p.username asc;
 $$;
 revoke all on function public.f4_member_list() from public;
@@ -156,7 +156,7 @@ returns table (id uuid, username text, full_name text, avatar_url text)
 language sql security definer set search_path = public, pg_temp as $$
   select p.id, p.username, p.full_name, p.avatar_url
   from public.profiles p
-  where p.role in ('member','admin','developer')
+  where p.role in ('tamu','calon_member','member','leader_squad','admin','developer','owner')
     and (lower(p.username) like '%' || lower(trim(p_query)) || '%' or lower(coalesce(p.full_name,'')) like '%' || lower(trim(p_query)) || '%')
   order by p.username asc
   limit 8;
