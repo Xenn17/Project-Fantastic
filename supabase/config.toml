@@ -1,5 +1,8 @@
 [functions.gallery-public-media]
 verify_jwt = false
 
+# verify_jwt=false supaya error function (termasuk error kirim email) tampil
+# sebagai JSON dengan header CORS. Fungsi ini memvalidasi token login + role
+# staff sendiri di dalam kode, jadi tetap aman.
 [functions.send-acceptance-email]
-verify_jwt = true
+verify_jwt = false
