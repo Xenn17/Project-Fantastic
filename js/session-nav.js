@@ -57,7 +57,12 @@
     if (profile && (profile.presence_mode || "auto") === "auto") db.from("profiles").update({ last_seen: new Date().toISOString() }).eq("id", session.user.id);
   }
   sync();
-  db.auth.onAuthStateChange((_event, session) => { if (session?.user) setTimeout(sync, 0); else navLinks.forEach(renderLoggedOut); });
+  db.auth.onAuthStateChange((event, session) => {
+    // Tautan reset password yang mendarat di halaman mana pun (mis. karena
+    // Site URL) otomatis dipindahkan ke halaman pembuat password baru.
+    if (event === "PASSWORD_RECOVERY") { window.location.replace("reset-password.html"); return; }
+    if (session?.user) setTimeout(sync, 0); else navLinks.forEach(renderLoggedOut);
+  });
   const toggle = document.querySelector("#menuToggle"); const mainNav = document.querySelector("#mainNav");
   if (toggle && mainNav) mainNav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => { if (window.matchMedia("(max-width: 780px)").matches) { mainNav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); toggle.setAttribute("aria-label", "Buka navigasi"); } }));
 })();
