@@ -6,3 +6,8 @@ verify_jwt = false
 # staff sendiri di dalam kode, jadi tetap aman.
 [functions.send-acceptance-email]
 verify_jwt = false
+
+# Reset password memakai Resend + token sendiri, tanpa email Supabase Auth.
+# Tokennya sudah acak 32 byte dan disimpan sebagai hash, jadi tidak butuh JWT.
+[functions.password-reset]
+verify_jwt = false
