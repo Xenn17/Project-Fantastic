@@ -105,7 +105,7 @@ Deno.serve(async (req) => {
       if (insertError) throw insertError;
 
       // Bersihkan token lama tanpa menghalangi pengiriman.
-      admin.rpc("f4_cleanup_reset_tokens").catch(() => {});
+      try { await admin.rpc("f4_cleanup_reset_tokens"); } catch (_) {}
 
       const site = (Deno.env.get("F4NT_SITE_URL") || "https://f4ntastic.com").replace(/\/$/, "");
       const link = `${site}/reset-password.html?token=${token}`;

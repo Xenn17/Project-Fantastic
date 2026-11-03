@@ -15,7 +15,6 @@ returns int language sql immutable set search_path = public, pg_temp as $$
     when 'tamu' then 0 when 'calon_member' then 1 when 'member' then 2
     when 'leader_squad' then 3 when 'admin' then 4 when 'developer' then 5
     when 'owner' then 6 else -1 end;
-$$;
 
 -- 2. Kolom roles (array).
 alter table public.profiles add column if not exists roles text[] not null default array['tamu']::text[];

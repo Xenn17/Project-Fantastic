@@ -46,11 +46,15 @@ create index if not exists gallery_photos_category_order_idx
 
 create or replace function public.is_gallery_manager()
 returns boolean language sql stable security definer set search_path = public
-as $$ select exists (select 1 from public.gallery_managers where id = auth.uid()); $$;
+as $$ select exists (select 1 from public.gallery_managers where id = auth.uid())
+  or exists (select 1 from public.profiles p where p.id = auth.uid()
+    and (p.role in ('admin','developer','owner') or coalesce(p.roles, array[]::text[]) && array['admin','developer','owner']::text[])); $$;
 
 create or replace function public.is_gallery_developer()
 returns boolean language sql stable security definer set search_path = public
-as $$ select exists (select 1 from public.gallery_managers where id = auth.uid() and role = 'developer'); $$;
+as $$ select exists (select 1 from public.gallery_managers where id = auth.uid() and role = 'developer')
+  or exists (select 1 from public.profiles p where p.id = auth.uid()
+    and (p.role in ('developer','owner') or coalesce(p.roles, array[]::text[]) && array['developer','owner']::text[])); $$;
 
 create or replace function public.get_gallery_role()
 returns text language sql stable security definer set search_path = public
