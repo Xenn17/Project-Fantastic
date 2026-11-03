@@ -67,3 +67,4 @@ label input{border-color:rgba(255,255,255,.12);transition:border-color .25s,box-
 .admin-nav a:hover{color:var(--gold-bright);border-color:var(--gold)}
 .admin-nav a.is-active{background:var(--gold);color:#111;border-color:var(--gold)}
 @media(max-width:900px){header{gap:10px}.admin-nav a{padding:7px 8px;font-size:7px;letter-spacing:.6px}.admin-nav{gap:4px}}
+.audit-cell strong{display:block;color:#e8d49b;font-size:10px;font-weight:800}.audit-cell small{display:block;margin-top:4px;color:#85827a;font-size:8px;white-space:nowrap}.audit-pending{color:#666;font-size:8px;letter-spacing:.5px;white-space:nowrap}
