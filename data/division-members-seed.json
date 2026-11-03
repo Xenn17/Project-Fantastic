@@ -1,0 +1,1443 @@
+{
+  "source": "Data member yang diberikan user sampai 2026-11-03; role/nickname dipertahankan sesuai sumber. Null ID/role aneh ditandai untuk konfirmasi.",
+  "divisions": {
+    "9": [
+      {
+        "nickname": "Piakk x F4N'T",
+        "ml_id": "63198067",
+        "role": "MID"
+      },
+      {
+        "nickname": "G x FAN'T",
+        "ml_id": "645588335",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "vanavell x F4N'T",
+        "ml_id": "1353084719",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "zee x FAN’T",
+        "ml_id": "450266762",
+        "role": "GOLD/JUNG"
+      },
+      {
+        "nickname": "Ryannqt.",
+        "ml_id": "1479413660",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Clive.",
+        "ml_id": "2182749813",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Kiseyy x F4N'T",
+        "ml_id": "831337304",
+        "role": "EXP"
+      },
+      {
+        "nickname": "♡ RaRa ♡ x F4N'T",
+        "ml_id": "1840294478",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "jjnat × F4N'T",
+        "ml_id": "50057710",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "LISA x F4N’T",
+        "ml_id": "559196182",
+        "role": "MID"
+      },
+      {
+        "nickname": "zαhrαα x F4N'T",
+        "ml_id": "1820193460",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Ajeltiji x F4N'T",
+        "ml_id": "1416302217",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Chαv♡ x F4N'T",
+        "ml_id": "1693061756",
+        "role": "MID"
+      },
+      {
+        "nickname": "CASS1NA",
+        "ml_id": "234633103",
+        "role": "MID"
+      },
+      {
+        "nickname": "cinday x F4N'T",
+        "ml_id": "358343877",
+        "role": "MID"
+      },
+      {
+        "nickname": "Raihaku X F4N'T",
+        "ml_id": "547901400",
+        "role": "JUNG/GOLD"
+      },
+      {
+        "nickname": "Libra x F4N'T",
+        "ml_id": "138807053",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "RyuuFrincee",
+        "ml_id": "693078473",
+        "role": "MID"
+      },
+      {
+        "nickname": "Clows x F4N'T",
+        "ml_id": "585736058",
+        "role": "EXP"
+      },
+      {
+        "nickname": "AWNG ROAM KDA",
+        "ml_id": "1439245537",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Baki.. X F4N’T",
+        "ml_id": null,
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Mighty x F4N'T",
+        "ml_id": "2027590122",
+        "role": "GOLD"
+      }
+    ],
+    "12": [
+      {
+        "nickname": "JessePinkman x F4N'T",
+        "ml_id": "2162532871",
+        "role": "EXP"
+      },
+      {
+        "nickname": "HYE-RAZZ x F4N'T",
+        "ml_id": "1494510392",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Opal X FAN'T",
+        "ml_id": "136370966",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Claa x FAN'T",
+        "ml_id": "1182936754",
+        "role": "MID"
+      },
+      {
+        "nickname": "vinz˃ᴗ˂ x F4N'T",
+        "ml_id": "2105367913",
+        "role": "MID"
+      },
+      {
+        "nickname": "Zᥱlrα x F4N'T",
+        "ml_id": "1339078773",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Fᥱii x F4N'T",
+        "ml_id": "63421239",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "Lannskie x F4N'T",
+        "ml_id": "1034623619",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Vexx X F4N'T",
+        "ml_id": "208012564",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "HayJietzy x F4N'T",
+        "ml_id": "614706781",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "X1oo x F4N’T",
+        "ml_id": "2115815039",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "RamVzT x F4N’T",
+        "ml_id": "1534651081",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Ciell × F4N'T",
+        "ml_id": "1170555581",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Lizzo x F4N'T",
+        "ml_id": "56857533",
+        "role": "JUNG/GOLD"
+      },
+      {
+        "nickname": "MarrTzyy X F4N'T",
+        "ml_id": "1612622071",
+        "role": "EXP/ROAM"
+      },
+      {
+        "nickname": "Alvy x FAN’T",
+        "ml_id": "190956998",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Kafu x F4N'T",
+        "ml_id": "186169925",
+        "role": "MID"
+      },
+      {
+        "nickname": "Kvyn x F4N'T",
+        "ml_id": "1998940683",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Varraca",
+        "ml_id": "68791886",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Kyyou x F4N'T",
+        "ml_id": "380674442",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "SenzTzy x F4N’T",
+        "ml_id": "518854132",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "yuskie",
+        "ml_id": "184835564",
+        "role": "JUNG"
+      }
+    ],
+    "14": [
+      {
+        "nickname": "Rosely²",
+        "ml_id": "1621054629",
+        "role": "MID"
+      },
+      {
+        "nickname": "ZELINE",
+        "ml_id": "415439028",
+        "role": "MID"
+      },
+      {
+        "nickname": "Nebvla x F4N'T",
+        "ml_id": "485463602",
+        "role": "MID"
+      },
+      {
+        "nickname": "Kyra x F4N'T",
+        "ml_id": "905145772",
+        "role": "MID"
+      },
+      {
+        "nickname": "Sheyrin x F4N'T",
+        "ml_id": "1528948371",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Farenn :p",
+        "ml_id": "1328511255",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Shass x F4N'T",
+        "ml_id": "632704544",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Oneye x F4N'T",
+        "ml_id": "1788551355",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Jiu",
+        "ml_id": "1237007583",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "JK x F4N'T",
+        "ml_id": "1772886138",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Aichi x F4N'T",
+        "ml_id": "867541030",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Kendrick x F4N'T",
+        "ml_id": "1417422868",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Xinghann x F4N'T",
+        "ml_id": "1823182193",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Demm x F4N'T",
+        "ml_id": "126381400",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Kiyoqt. X F4N'T",
+        "ml_id": "518894041",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Raìzeu x F4N'T",
+        "ml_id": "1641107341",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Zegion x F4N'T",
+        "ml_id": "102339994",
+        "role": "GOLD"
+      }
+    ],
+    "15": [
+      {
+        "nickname": "Baebekz.",
+        "ml_id": "88115385",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Lowzy",
+        "ml_id": "1064525411",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Byy",
+        "ml_id": "1321946009",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "panji x fant",
+        "ml_id": "1041498641",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "ï†ïñ",
+        "ml_id": "1278453710",
+        "role": "MID"
+      },
+      {
+        "nickname": "Keshi x F4N'T",
+        "ml_id": "438184975",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Svenn x F4N'T",
+        "ml_id": "128783822",
+        "role": "MID"
+      },
+      {
+        "nickname": "Rez x F4N'T",
+        "ml_id": "102595473",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "MOY CANTIK x F4N'T",
+        "ml_id": "107186481",
+        "role": "MID"
+      },
+      {
+        "nickname": "KuroSh x F4N'T",
+        "ml_id": "73179016",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Vinjinemo x F4N'T",
+        "ml_id": "48341344",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "NIC x F4N'T",
+        "ml_id": "333494759",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Rora x F4N'T",
+        "ml_id": "730932384",
+        "role": "MID"
+      },
+      {
+        "nickname": "ilamsqt x F4N'T",
+        "ml_id": "2054337333",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Iyakk x F4N'T",
+        "ml_id": "45400333",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Joan x F4N’T",
+        "ml_id": "240193605",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "oziiyyyyp x F4N'T",
+        "ml_id": "1541613273",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Hy pannsaaa",
+        "ml_id": "2278506666",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "KairulTzy",
+        "ml_id": "340833265",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "JuliTzy x F4N'T",
+        "ml_id": "43021927",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "HIDUPSAWIT",
+        "ml_id": "1629586265",
+        "role": "EXP"
+      },
+      {
+        "nickname": "ilovekey",
+        "ml_id": "148142553",
+        "role": "JUNG/EXP"
+      },
+      {
+        "nickname": "Ke1ko x F4N'T",
+        "ml_id": "468221267",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Niko x JEJE x F4N'T",
+        "ml_id": "960061154",
+        "role": "JUNG/GOLD"
+      }
+    ],
+    "16": [
+      {
+        "nickname": "Geezzz x F4N’T",
+        "ml_id": "73753392",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "kenn x F4N'T",
+        "ml_id": "920820356",
+        "role": "EXP"
+      },
+      {
+        "nickname": "cimora x F4N'T",
+        "ml_id": "672260454",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Nala x Dapptzy",
+        "ml_id": "628964262",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "Mashiro:p x F4N'T",
+        "ml_id": "605711199",
+        "role": "MID/EXP"
+      },
+      {
+        "nickname": "Rain X F4N'T",
+        "ml_id": "947071696",
+        "role": "EXP"
+      },
+      {
+        "nickname": "neyya x F4N'T",
+        "ml_id": "237543385",
+        "role": "MID"
+      },
+      {
+        "nickname": "piepiyo x F4N'T",
+        "ml_id": "1279925799",
+        "role": "MM"
+      },
+      {
+        "nickname": "Farell x F4N'T",
+        "ml_id": "141530298",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Gilangg x F4N'T",
+        "ml_id": "399197573",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "vie x F4N'T",
+        "ml_id": "568335821",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Caldwell x F4N'T",
+        "ml_id": "945483427",
+        "role": "ROAM/EXP"
+      },
+      {
+        "nickname": "j1elskiee x F4N'T",
+        "ml_id": "240237155",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "LionelSisisi x F4N'T",
+        "ml_id": "153159668",
+        "role": "ROAM/EXP"
+      },
+      {
+        "nickname": "Haruto x F4N’T",
+        "ml_id": "1631740990",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Meyc! x F4N'T",
+        "ml_id": "1025520069",
+        "role": "ROSM"
+      },
+      {
+        "nickname": "kye x FAN'T",
+        "ml_id": "1277088873",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Vinn DIORR",
+        "ml_id": "1377859805",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Riiiwutwut x F4N'T",
+        "ml_id": "1147757432",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Drvzy..",
+        "ml_id": "1339739681",
+        "role": "JUNG/GOLD"
+      },
+      {
+        "nickname": "KEL X F4NT",
+        "ml_id": "714948245",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "kakek metal slug",
+        "ml_id": "96616552",
+        "role": "ROAM"
+      }
+    ],
+    "17": [
+      {
+        "nickname": "Monica 냇",
+        "ml_id": "705161333",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "#rαfzholic x F4N'T",
+        "ml_id": "193786736",
+        "role": "MID"
+      },
+      {
+        "nickname": "#biyaholic x FAN'T",
+        "ml_id": "1653796678",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "TT:ZammTzy x F4N'T",
+        "ml_id": "801891874",
+        "role": "ALLROLE"
+      },
+      {
+        "nickname": "Shey x F4N'T",
+        "ml_id": "859615613",
+        "role": "ROAM SUPP"
+      },
+      {
+        "nickname": "Juuran x F4N'T",
+        "ml_id": "1071472668",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "ıuno x F4N'T",
+        "ml_id": "554358637",
+        "role": "EXP"
+      },
+      {
+        "nickname": "joaa bingung..",
+        "ml_id": "305504818",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "I Amven x F4N'T",
+        "ml_id": "683849151",
+        "role": "MID"
+      },
+      {
+        "nickname": "PADUKA DADANG",
+        "ml_id": "881399578",
+        "role": "MID"
+      },
+      {
+        "nickname": "Astral Lost Maxx",
+        "ml_id": "452562834",
+        "role": "MID"
+      },
+      {
+        "nickname": "DAPSKIEEE",
+        "ml_id": "810217012",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Carl Fredricksen",
+        "ml_id": "1079320316",
+        "role": "MID"
+      },
+      {
+        "nickname": "yvnaS x F4N'T",
+        "ml_id": "681444134",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Sanseva x F4N'T",
+        "ml_id": "589598812",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "TT : KINKEXZA",
+        "ml_id": "1222860145",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Yagami x F4N'T",
+        "ml_id": "1718425354",
+        "role": "GOLD/ROAM"
+      },
+      {
+        "nickname": "Mikell x Fant",
+        "ml_id": "66935718",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Suisei God x JO.ID",
+        "ml_id": "159770504",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "niki sayang sanz",
+        "ml_id": "72922434",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "kimm\"",
+        "ml_id": "195396560",
+        "role": "JUNG/GOLD"
+      },
+      {
+        "nickname": "Upil semoga sukses",
+        "ml_id": "1678261376",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "ʟɪɢʜᴛ.",
+        "ml_id": "483288716",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Panggil Zril Paman",
+        "ml_id": "582746090",
+        "role": "EXP"
+      }
+    ],
+    "18": [
+      {
+        "nickname": "V x F4N'T",
+        "ml_id": "2042746164",
+        "role": "EXP/JUNG"
+      },
+      {
+        "nickname": "Jarashyy x F4N'T",
+        "ml_id": "236474017",
+        "role": "JUNG/GOLD"
+      },
+      {
+        "nickname": "ulqionelshyy x F4N'T",
+        "ml_id": "108776888",
+        "role": "ROAM/MID"
+      },
+      {
+        "nickname": "KÈL NY4BU",
+        "ml_id": "975653761",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "diary of dolls",
+        "ml_id": "2224185120",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "EL PowDai",
+        "ml_id": "1992703",
+        "role": "MID/FLEX"
+      },
+      {
+        "nickname": "cessy cookie :p",
+        "ml_id": "901209625",
+        "role": "ROAM"
+      },
+      {
+        "nickname": ". . ℒ'ova x F4N'T",
+        "ml_id": "1112544088",
+        "role": "MID"
+      },
+      {
+        "nickname": "Nath x F4N'T",
+        "ml_id": "669901302",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Caphy Villain Fzply.",
+        "ml_id": "1304289348",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "ohnoo she x F4N'T",
+        "ml_id": "14588891813",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "Ren567 insomnia lagi",
+        "ml_id": "531678473",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Obsessed with Ferlin",
+        "ml_id": "515599096",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "sha idol :p",
+        "ml_id": "1015834761",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "Arszs",
+        "ml_id": "144552590",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Sieghart x F4N'T",
+        "ml_id": "54343584",
+        "role": "JUNG/GOLD/ROAM"
+      },
+      {
+        "nickname": "✮ALISZY✮ x F4N'T",
+        "ml_id": "31959008",
+        "role": "JUNG/ALLROLE"
+      },
+      {
+        "nickname": "Waaz x F4N'T",
+        "ml_id": "138692931",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "JAGOAT x F4N'T",
+        "ml_id": "1816605730",
+        "role": "ROAM/EXP"
+      },
+      {
+        "nickname": "aizlovie..",
+        "ml_id": "901291855",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "dokja",
+        "ml_id": "2042746164",
+        "role": "EXP"
+      },
+      {
+        "nickname": "rrqevos*mochy",
+        "ml_id": "550574211",
+        "role": "JUNG"
+      }
+    ],
+    "23": [
+      {
+        "nickname": "Reyy x F4N'T",
+        "ml_id": "54042515",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "I?ILLAM",
+        "ml_id": "424943829",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "saegoist x F4N'T",
+        "ml_id": "1745693279",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "F!yue x F4N'T",
+        "ml_id": "88523385",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "TT: NaTT x F4N'T",
+        "ml_id": "802314997",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "ucay 98 x F4N'T",
+        "ml_id": "1689455768",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "CilloSS x F4N'T",
+        "ml_id": "2064784534",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "ranntzy x F4N'T",
+        "ml_id": "1612564152",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Tarr Improve x FAN'T",
+        "ml_id": "1040279965",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "HanSkiee",
+        "ml_id": "137313408",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Schwann :p",
+        "ml_id": "914286778",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Ran...",
+        "ml_id": "1177184316",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "GRACETZT x F4N'T",
+        "ml_id": "851846084",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Rup x F4NT",
+        "ml_id": "1339183932",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Vinn x F4N'T",
+        "ml_id": "942405536",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Kisee Carlsen",
+        "ml_id": "64299286",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "icenzy x F4N'T",
+        "ml_id": "120472311",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Kinoy x F4N’T",
+        "ml_id": "190642638",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Clairsqt x F4N’T",
+        "ml_id": "446951452",
+        "role": "MID"
+      },
+      {
+        "nickname": "dinduyyyyy!",
+        "ml_id": "329197496",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Albaficaa x FAN'T",
+        "ml_id": "565184735",
+        "role": "EXP"
+      }
+    ],
+    "25": [
+      {
+        "nickname": "POKKE TAPI OKKE !!",
+        "ml_id": "1963739831",
+        "role": "MID"
+      },
+      {
+        "nickname": "TT : Kribo x F4N'T",
+        "ml_id": "738061630",
+        "role": "MID"
+      },
+      {
+        "nickname": "Cyan x F4N'T",
+        "ml_id": "19359130",
+        "role": "MID"
+      },
+      {
+        "nickname": "Aloeveraa.",
+        "ml_id": "669225365",
+        "role": "MID"
+      },
+      {
+        "nickname": "KettTzy x F4N'T",
+        "ml_id": "67173818",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Mr. Ady x F4N'T",
+        "ml_id": "1807747315",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Vieluffy x F4N'T",
+        "ml_id": "634832968",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "ubby:×",
+        "ml_id": "1673664861",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Espada x F4N'T",
+        "ml_id": "311553459",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Lerb x F4N'T",
+        "ml_id": "1893671346",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Nnael x F4N'T",
+        "ml_id": "2227209520",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Akyla x F4N'T",
+        "ml_id": "1149079670",
+        "role": "EXP"
+      },
+      {
+        "nickname": "SAWAA x F4N'T",
+        "ml_id": "1583382061",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Spyro x F4N'T",
+        "ml_id": "1874169787",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Scarlet x F4N'T",
+        "ml_id": "30808354",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Wayne x F4N'T",
+        "ml_id": "2096425541",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "TT : DyeeGo",
+        "ml_id": "296789006",
+        "role": "GOLD"
+      }
+    ],
+    "27": [
+      {
+        "nickname": "NAFF x F4N'T",
+        "ml_id": "1438596886",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Jiyoo x F4N'T",
+        "ml_id": "1962527309",
+        "role": "ALL ROLE FINAL"
+      },
+      {
+        "nickname": "syg cia x F4N'T",
+        "ml_id": "580952539",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "lIcht",
+        "ml_id": "1365328202695",
+        "role": "JUNG/ROAM"
+      },
+      {
+        "nickname": "REENNN x F4N'T",
+        "ml_id": "609520215",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "ꪜꪱꪀzz x F4N'T",
+        "ml_id": "1056499602",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Hullz X F4N'T",
+        "ml_id": "415746386",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "kei kucink..",
+        "ml_id": "168147438",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Meyy",
+        "ml_id": "13392236422",
+        "role": "EXP"
+      },
+      {
+        "nickname": "KI x F4N'T",
+        "ml_id": "1348873854",
+        "role": "MID"
+      },
+      {
+        "nickname": "BALERION",
+        "ml_id": "364010863",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Luiz x F4N'T",
+        "ml_id": "2254900521",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "zzbaF x F4N'T",
+        "ml_id": "2118595652",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Hermioneee x F'4NT",
+        "ml_id": "1578598342",
+        "role": "EXP"
+      }
+    ],
+    "28": [
+      {
+        "nickname": "Kharaar",
+        "ml_id": "225782445",
+        "role": "EXP"
+      },
+      {
+        "nickname": "JizelSzy",
+        "ml_id": "302267799",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Gery x F4N'T",
+        "ml_id": "725557390",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Elmadskuy",
+        "ml_id": "176963553",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Pall x F4N'T",
+        "ml_id": "143426428",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Envyn x F4N'T",
+        "ml_id": "315989356",
+        "role": "MID"
+      },
+      {
+        "nickname": "Vinn x F4N’T",
+        "ml_id": "93363803",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "레이키(reiji)",
+        "ml_id": "130715619",
+        "role": "MID"
+      },
+      {
+        "nickname": "xinsoo x F4N’T",
+        "ml_id": "103991543",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "cylo..",
+        "ml_id": "600808134",
+        "role": "EXP"
+      },
+      {
+        "nickname": "사랑 x F4N'T kio",
+        "ml_id": "1566475394",
+        "role": "MID"
+      },
+      {
+        "nickname": "Jeyzyy Evergarden",
+        "ml_id": "472019324",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Nael x F4N’T",
+        "ml_id": "1192497017",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Jilskiee x F4N'T",
+        "ml_id": "1419282297",
+        "role": "EXP"
+      },
+      {
+        "nickname": "RELL x F4N'T",
+        "ml_id": "75762386",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Kayy x F4N'T",
+        "ml_id": "68047936",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Kiiballs x F4N'T",
+        "ml_id": "226509578",
+        "role": "MID"
+      },
+      {
+        "nickname": "mimo pejalanlangit",
+        "ml_id": "1951174684",
+        "role": "MID"
+      },
+      {
+        "nickname": "cheresyaa",
+        "ml_id": "1301053075",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Cattyyz x F4N'T",
+        "ml_id": "155319733",
+        "role": "MID"
+      },
+      {
+        "nickname": "Saynore x Citra",
+        "ml_id": "50716870",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Vinzy oky?",
+        "ml_id": "2074292476",
+        "role": "(19701)"
+      },
+      {
+        "nickname": "SUPER GEMAH",
+        "ml_id": null,
+        "role": "ROAM"
+      }
+    ],
+    "30": [
+      {
+        "nickname": "NamiLya x F4NT",
+        "ml_id": "1336456306",
+        "role": "MAGE"
+      },
+      {
+        "nickname": "Agoyy x F4NT",
+        "ml_id": "131223574",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Pioo x F4N'T",
+        "ml_id": "628794869",
+        "role": "ROAM SUPPORT"
+      },
+      {
+        "nickname": "RennTeppelin x F4N'T",
+        "ml_id": "1095906597",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Tiaaw x F4N’T",
+        "ml_id": "237775801",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "s, Zetsu..",
+        "ml_id": "64053745",
+        "role": "MID"
+      },
+      {
+        "nickname": "hira x F4N'T",
+        "ml_id": "1679568249",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Miku <3",
+        "ml_id": "135670875",
+        "role": "MM/JUNG"
+      },
+      {
+        "nickname": "paiz x F4N'T",
+        "ml_id": "54768996",
+        "role": "JUNG/ROAM"
+      },
+      {
+        "nickname": "Jeki Nam ul Nasca",
+        "ml_id": "826245573",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "ell…",
+        "ml_id": "58790742",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Rivaangg",
+        "ml_id": "145685677",
+        "role": "EXP"
+      },
+      {
+        "nickname": "burn z.",
+        "ml_id": "235285873",
+        "role": "JUNG/GOLD"
+      },
+      {
+        "nickname": "Niciaa x F4N'T",
+        "ml_id": "1872469756",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Alvin KEren",
+        "ml_id": "443038319",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Lavender",
+        "ml_id": "446428790",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Laaren x F4N'T",
+        "ml_id": "1817923655",
+        "role": "MID"
+      },
+      {
+        "nickname": "Reynand",
+        "ml_id": "1733049936",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "uriel worst",
+        "ml_id": "282544649",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Piaa x F4N'T",
+        "ml_id": "422491183",
+        "role": "MID"
+      }
+    ],
+    "34": [
+      {
+        "nickname": "Reyno x F4N'T",
+        "ml_id": "64403520",
+        "role": "EXP"
+      },
+      {
+        "nickname": "kirabel x F4N'T",
+        "ml_id": "657892938",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "Ka1Tzy x F4N'T",
+        "ml_id": "2126947821",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Astha x F4N'T",
+        "ml_id": "509138408",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Neifla x F4N'T",
+        "ml_id": "1532151495",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "ilYzKenko x F4N'T",
+        "ml_id": "1906892017",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "Henn x F4N'T",
+        "ml_id": "544302680",
+        "role": "ROAM/JUNG"
+      },
+      {
+        "nickname": "Sh9.. x F4N’T",
+        "ml_id": "130067269",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Nααα x F4N'T",
+        "ml_id": "1023017701",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "ReiiDB x F4N'T",
+        "ml_id": "1373229479",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "IONN x F4N'T",
+        "ml_id": "625787683",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Biel x F4N'T",
+        "ml_id": "250859251",
+        "role": "MID/ROAM"
+      },
+      {
+        "nickname": "Yaen x FAN'T",
+        "ml_id": "566183311",
+        "role": "EXP"
+      },
+      {
+        "nickname": "Vel x F4N'T",
+        "ml_id": "1824465384",
+        "role": "GOLD"
+      }
+    ],
+    "39": [
+      {
+        "nickname": "Katee",
+        "ml_id": "122042492",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "duba x F4N'T",
+        "ml_id": "68376482",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "yawyawKii x F4N'T",
+        "ml_id": "2188844390",
+        "role": "MID"
+      },
+      {
+        "nickname": "DapaaSsy",
+        "ml_id": "131295443",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "senn x claa",
+        "ml_id": "436984293",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Meycy pretty",
+        "ml_id": "999728223",
+        "role": "ROAM/EXP"
+      },
+      {
+        "nickname": "TT:Syifaaa x Bleez",
+        "ml_id": "182037996",
+        "role": "MID"
+      },
+      {
+        "nickname": "Agatha x F4N'T",
+        "ml_id": "231477314",
+        "role": "EXP/ROAM"
+      },
+      {
+        "nickname": "DOFFYYY x F4N'T",
+        "ml_id": "514002010",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Khairiu x F4N'T",
+        "ml_id": "57663299",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Beyon x F4N'T",
+        "ml_id": "747982829",
+        "role": "EXP"
+      },
+      {
+        "nickname": "hanny dah on nieh",
+        "ml_id": "1067350483",
+        "role": "MID"
+      },
+      {
+        "nickname": "Magu dah on nieh",
+        "ml_id": "155011365",
+        "role": "MID"
+      },
+      {
+        "nickname": "Harviaa x F4N'T",
+        "ml_id": "671520931",
+        "role": "GOLD"
+      },
+      {
+        "nickname": "Shee x F4N'T",
+        "ml_id": "905716835",
+        "role": "MID/EXP"
+      },
+      {
+        "nickname": "Jodie x F4N`T",
+        "ml_id": "1908133299",
+        "role": "JUNG"
+      },
+      {
+        "nickname": "Bert x F4N’T",
+        "ml_id": "932987341",
+        "role": "EXP/JUNG"
+      },
+      {
+        "nickname": "Papi jahat x F4N’T",
+        "ml_id": "86054906",
+        "role": "ROAM/EXP"
+      },
+      {
+        "nickname": "jeplaa x F4N'T",
+        "ml_id": "1108430139",
+        "role": "ROAM"
+      },
+      {
+        "nickname": "Suzy x F4N'T",
+        "ml_id": "1544330266",
+        "role": "MID"
+      }
+    ]
+  }
+}
