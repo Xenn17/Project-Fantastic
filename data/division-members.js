@@ -1,7 +1,6 @@
 /* Data anggota Fantastic. Data awal dipertahankan; divisi baru ditambahkan dari pendataan terbaru. */
 window.F4_DIVISION_MEMBER_SEED = {
     "9": [
-        {"nickname": "Piakk x F4N'T","ml_id": "63198067","role": "MID"},
         {"nickname": "G x FAN'T","ml_id": "645588335","role": "GOLD"},
         {"nickname": "vanavell x F4N'T","ml_id": "1353084719","role": "GOLD"},
         {"nickname": "zee x FAN’T","ml_id": "450266762","role": "GOLD/JUNG"},
@@ -21,7 +20,7 @@ window.F4_DIVISION_MEMBER_SEED = {
         {"nickname": "RyuuFrincee","ml_id": "693078473","role": "MID"},
         {"nickname": "Clows x F4N'T","ml_id": "585736058","role": "EXP"},
         {"nickname": "AWNG ROAM KDA","ml_id": "1439245537","role": "ROAM"},
-        {"nickname": "Baki.. X F4N’T","ml_id": null,"role": "JUNG"},
+        {"nickname": "Baki.. X F4N’T","ml_id": "1157742720","role": "JUNG"},
         {"nickname": "Mighty x F4N'T","ml_id": "2027590122","role": "GOLD"}
     ],
     "12": [
@@ -43,13 +42,11 @@ window.F4_DIVISION_MEMBER_SEED = {
         {"nickname": "Alvy x FAN’T","ml_id": "190956998","role": "GOLD"},
         {"nickname": "Kafu x F4N'T","ml_id": "186169925","role": "MID"},
         {"nickname": "Kvyn x F4N'T","ml_id": "1998940683","role": "JUNG"},
-        {"nickname": "Varraca","ml_id": "68791886","role": "JUNG"},
         {"nickname": "Kyyou x F4N'T","ml_id": "380674442","role": "JUNG"},
         {"nickname": "SenzTzy x F4N’T","ml_id": "518854132","role": "GOLD"},
         {"nickname": "yuskie","ml_id": "184835564","role": "JUNG"}
     ],
     "14": [
-        {"nickname": "Rosely²","ml_id": "1621054629","role": "MID"},
         {"nickname": "ZELINE","ml_id": "415439028","role": "MID"},
         {"nickname": "Nebvla x F4N'T","ml_id": "485463602","role": "MID"},
         {"nickname": "Kyra x F4N'T","ml_id": "905145772","role": "MID"},
@@ -126,7 +123,6 @@ window.F4_DIVISION_MEMBER_SEED = {
         {"nickname": "Juuran x F4N'T","ml_id": "1071472668","role": "GOLD"},
         {"nickname": "ıuno x F4N'T","ml_id": "554358637","role": "EXP"},
         {"nickname": "joaa bingung..","ml_id": "305504818","role": "ROAM"},
-        {"nickname": "I Amven x F4N'T","ml_id": "683849151","role": "MID"},
         {"nickname": "PADUKA DADANG","ml_id": "881399578","role": "MID"},
         {"nickname": "Astral Lost Maxx","ml_id": "452562834","role": "MID"},
         {"nickname": "DAPSKIEEE","ml_id": "810217012","role": "GOLD"},
@@ -164,7 +160,7 @@ window.F4_DIVISION_MEMBER_SEED = {
         {"nickname": "Waaz x F4N'T","ml_id": "138692931","role": "GOLD"},
         {"nickname": "JAGOAT x F4N'T","ml_id": "1816605730","role": "ROAM/EXP"},
         {"nickname": "aizlovie..","ml_id": "901291855","role": "GOLD"},
-        {"nickname": "dokja","ml_id": "2042746164","role": "EXP"},
+        {"nickname": "dokja","ml_id": "2086180374","role": "EXP"},
         {"nickname": "rrqevos*mochy","ml_id": "550574211","role": "JUNG"}
     ],
     "23": [
@@ -191,7 +187,6 @@ window.F4_DIVISION_MEMBER_SEED = {
         {"nickname": "Albaficaa x FAN'T","ml_id": "565184735","role": "EXP"}
     ],
     "25": [
-        {"nickname": "POKKE TAPI OKKE !!","ml_id": "1963739831","role": "MID"},
         {"nickname": "TT : Kribo x F4N'T","ml_id": "738061630","role": "MID"},
         {"nickname": "Cyan x F4N'T","ml_id": "19359130","role": "MID"},
         {"nickname": "Aloeveraa.","ml_id": "669225365","role": "MID"},
@@ -201,7 +196,6 @@ window.F4_DIVISION_MEMBER_SEED = {
         {"nickname": "ubby:×","ml_id": "1673664861","role": "ROAM"},
         {"nickname": "Espada x F4N'T","ml_id": "311553459","role": "JUNG"},
         {"nickname": "Lerb x F4N'T","ml_id": "1893671346","role": "JUNG"},
-        {"nickname": "Nnael x F4N'T","ml_id": "2227209520","role": "JUNG"},
         {"nickname": "Akyla x F4N'T","ml_id": "1149079670","role": "EXP"},
         {"nickname": "SAWAA x F4N'T","ml_id": "1583382061","role": "EXP"},
         {"nickname": "Spyro x F4N'T","ml_id": "1874169787","role": "EXP"},
@@ -247,11 +241,10 @@ window.F4_DIVISION_MEMBER_SEED = {
         {"nickname": "cheresyaa","ml_id": "1301053075","role": "JUNG"},
         {"nickname": "Cattyyz x F4N'T","ml_id": "155319733","role": "MID"},
         {"nickname": "Saynore x Citra","ml_id": "50716870","role": "ROAM"},
-        {"nickname": "Vinzy oky?","ml_id": "2074292476","role": "(19701)"},
-        {"nickname": "SUPER GEMAH","ml_id": null,"role": "ROAM"}
+        {"nickname": "Vinzy oky?","ml_id": "2074292476","role": "MID"},
+        {"nickname": "CennSisisi x F4N'T","ml_id": "972159352","role":"EXP"}
     ],
     "30": [
-        {"nickname": "NamiLya x F4NT","ml_id": "1336456306","role": "MAGE"},
         {"nickname": "Agoyy x F4NT","ml_id": "131223574","role": "ROAM"},
         {"nickname": "Pioo x F4N'T","ml_id": "628794869","role": "ROAM SUPPORT"},
         {"nickname": "RennTeppelin x F4N'T","ml_id": "1095906597","role": "JUNG"},
@@ -329,7 +322,6 @@ window.F4_DIVISION_MEMBER_SEED = {
         {"nickname": "pimel","ml_id": "1161781733","role": "ROAM"}
     ],
     "7": [
-        {"nickname": "cheyrα x bryαn >.<","ml_id": "1502612925","role": "ROAM"},
         {"nickname": "BYBYANCAA X FAN'T","ml_id": "1344375667","role": "MID"},
         {"nickname": "Arashi x F4N'T","ml_id": "73849945","role": "MID"},
         {"nickname": "Arbillionsa x F4N'T","ml_id": "1472686309","role": "MID"},
@@ -415,7 +407,7 @@ window.F4_DIVISION_MEMBER_SEED = {
     "13": [
         {"nickname": "harisshy x F4N'T","ml_id": "644403552","role": "JUNG"},
         {"nickname": "kisch⑅ x F4N’T","ml_id": "1667074722","role": "MID/ROAM"},
-        {"nickname": "cayy","ml_id": "476708209","role": null,"notes": "Cuma bisa Granger"},
+        {"nickname": "cayy","ml_id": "476708209","role": "GOLD"},
         {"nickname": "Ju١y Lyonere.","ml_id": "865865921","role": "MM/JUNG"},
         {"nickname": "iffry x F4N'T","ml_id": "984409563","role": "GOLD"},
         {"nickname": "TT: Jepaa x F4N'T","ml_id": "1582699784","role": "ROAM"},
