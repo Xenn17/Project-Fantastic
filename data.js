@@ -166,7 +166,7 @@ window.F4NTASTIC_DATA = {
         { label: "Discord", url: "https://discord.gg/SU8xeYTd" },
         { label: "YouTube", url: "https://youtube.com/@cattyyzztzy?si=7HHcKCNXIoSMcb05" },
         { label: "Instagram", url: "https://instagram.com/dhini_marokochan?srtk=bjhnYzM1bmswNWFr" },
-        { label: "TikTok", url: "tiktok.com/@bangmiraclee" },
+        { label: "TikTok", url: "tiktok.com/@bangmiraclee" }
       ],
     },
     {
