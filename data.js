@@ -159,6 +159,16 @@ window.F4NTASTIC_DATA = {
         { label: "TikTok", url: "https://www.tiktok.com/@innidinni?_r=1&_t=ZS-9AWcWOcrDk5" },
       ],
     },
+     {
+      name: "Miraclee x F4N'T", role: "CASTER LIVE", section: "SUPPORT CREW", bio: "Saya siap belajar menjadi seperti Caster MPL", // Tempel kata-kata personal admin di sini.
+      photo: "assets/Caster.jpeg",
+      socials: [
+        { label: "Discord", url: "https://discord.gg/SU8xeYTd" },
+        { label: "YouTube", url: "https://youtube.com/@cattyyzztzy?si=7HHcKCNXIoSMcb05" },
+        { label: "Instagram", url: "https://instagram.com/dhini_marokochan?srtk=bjhnYzM1bmswNWFr" },
+        { label: "TikTok", url: "tiktok.com/@bangmiraclee" },
+      ],
+    },
     {
       name: "Ersky x F4N'T", role: "ASSISTANT GENERAL", section: "SUPPORT CREW", bio: "tetaplah hidup walaupun tidak berguna", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-7.webp",
