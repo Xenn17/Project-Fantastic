@@ -221,21 +221,33 @@ function reportDetail(r) {
       return `<div class="detail-grid-title">${title}</div><div><small>STATUS</small><strong>${esc(fallback || "Data tidak tersedia")}</strong></div>`;
     return `<div class="detail-grid-title">${title}</div><div><small>USERNAME</small><strong>@${esc(prof.username || "—")}</strong></div><div><small>NAMA LENGKAP</small><strong>${esc(prof.full_name || "—")}</strong></div><div><small>ROLE</small><strong>${roleName(prof.role)}</strong></div><div><small>EMAIL</small><strong>${esc(prof.email || "—")}</strong></div><div><small>TELEPON</small><strong>${esc(prof.phone || "—")}</strong></div><div><small>ML ID / SERVER</small><strong>${esc(prof.ml_id || "—")} (${esc(prof.ml_server || "—")})</strong></div><div><small>GENDER</small><strong>${esc(prof.gender || "—")}</strong></div><div><small>TANGGAL LAHIR</small><strong>${esc(prof.birth_date || "—")}</strong></div>`;
   };
-  const evidenceHtml =
-    Array.isArray(r.evidence_paths) && r.evidence_paths.length
-      ? r.evidence_paths
-          .map(
-            (p, i) =>
-              `<button class="report-evidence" data-path="${esc(p)}">Buka bukti ${i + 1}</button>`,
-          )
-          .join(" ")
-      : "Tidak ada";
+  // Evidence lives in a private bucket: thumbnails render immediately as placeholders, then signed URLs for
+  // every file are requested in one go and filled in (click → in-page viewer, see js/admin-media.js).
+  const evidencePaths = Array.isArray(r.evidence_paths) ? r.evidence_paths.filter(Boolean) : [];
+  const evidenceGroup = `evidence-${r.id}`;
+  const evidenceHtml = evidencePaths.length
+    ? window.F4Media
+      ? F4Media.thumbs(evidencePaths.map((p, i) => ({ path: p, label: `Bukti ${i + 1}` })), { group: evidenceGroup })
+      : evidencePaths.map((p, i) => `<button class="report-evidence" data-path="${esc(p)}">Buka bukti ${i + 1}</button>`).join(" ")
+    : "Tidak ada";
   $("#reportMeta").textContent =
     `#${String(r.id).padStart(3, "0")} · ${REPORT_CAT[r.category] || r.category} · ${r.incident_date || "tanggal tidak diisi"}`;
   $("#reportDetails").innerHTML =
     profileBlock("DATA PELAPOR", r.profiles, r.profiles?.username || "Member") +
     profileBlock("DATA YANG DILAPORKAN", r.targetProfile, r.target_player) +
-    `<div class="detail-grid-title">DETAIL LAPORAN</div><div><small>KRONOLOGI</small><strong>${esc(r.description || "—")}</strong></div><div><small>IDENTITAS TAMBAHAN</small><strong>${esc(r.target_contact || "—")}</strong></div><div><small>BUKTI</small><strong>${evidenceHtml}</strong></div>`;
+    `<div class="detail-grid-title">DETAIL LAPORAN</div><div><small>KRONOLOGI</small><strong>${esc(r.description || "—")}</strong></div><div><small>IDENTITAS TAMBAHAN</small><strong>${esc(r.target_contact || "—")}</strong></div><div class="detail-wide"><small>BUKTI${evidencePaths.length ? ` · ${evidencePaths.length} FILE` : ""}</small><strong>${evidenceHtml}</strong></div>`;
+  if (window.F4Media && evidencePaths.length)
+    db.storage
+      .from("complaint-evidence")
+      .createSignedUrls(evidencePaths, 3600)
+      .then(({ data, error }) => {
+        evidencePaths.forEach((p, i) => {
+          const url = !error && data?.[i]?.signedUrl;
+          if (url) F4Media.resolve(evidenceGroup, i, url);
+          else F4Media.fail(evidenceGroup, i, "Gagal dimuat");
+        });
+      })
+      .catch(() => evidencePaths.forEach((_, i) => F4Media.fail(evidenceGroup, i, "Gagal dimuat")));
   $("#reportNote").value = r.admin_note || "";
   $("#reportStatus").value = r.status;
   document.querySelectorAll(".report-evidence").forEach((b) =>

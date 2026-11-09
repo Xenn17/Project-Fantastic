@@ -505,7 +505,18 @@ function detail(a) {
         </div>`
             : ""
         }
-        <div class="follow-proofs">${proof(igProof, "Bukti follow Instagram")}${proof(ttProof, "Bukti follow TikTok")}</div>
+        ${(() => {
+          // Proofs as inline thumbnails (click → in-page viewer, see js/admin-media.js); missing ones flagged.
+          const items = [
+            { src: igProof, label: "Bukti follow Instagram" },
+            { src: ttProof, label: "Bukti follow TikTok" },
+          ].filter((it) => /^https?:\/\//i.test(it.src || ""));
+          const missing = [!/^https?:\/\//i.test(igProof || "") && "Instagram", !/^https?:\/\//i.test(ttProof || "") && "TikTok"].filter(Boolean);
+          return (
+            (window.F4Media ? F4Media.thumbs(items, { group: `proof-${a.id}` }) : `<div class="follow-proofs">${proof(igProof, "Bukti follow Instagram")}${proof(ttProof, "Bukti follow TikTok")}</div>`) +
+            (missing.length ? `<p class="proof-missing">⚠ Tidak ada bukti follow ${missing.join(" & ")}.</p>` : "")
+          );
+        })()}
         <p>Cek: screenshot menampilkan daftar <b>Following</b> milik pendaftar (username mereka terlihat di atas) dan akun F4NTASTIC ada di daftar itu. Ragu? Cari username dari screenshot di IG/TikTok.</p>
         ${
           socialsReady
@@ -517,14 +528,11 @@ function detail(a) {
   $("#details").innerHTML = followHtml + f
     .map(
       (x) =>
-        `<div><small>${x[0]}</small><strong>${
+        `<div${x[0] === "SCREENSHOT" ? ' class="detail-wide"' : ""}><small>${x[0]}${x[0] === "SCREENSHOT" && plainShots.length ? ` · ${plainShots.length} FOTO` : ""}</small><strong>${
           x[0] === "SCREENSHOT" && plainShots.length
-            ? plainShots
-                .map(
-                  (u, i) =>
-                    `<a href="${esc(u)}" target="_blank" rel="noopener">Buka foto ${i + 1}</a>`,
-                )
-                .join("<br>")
+            ? window.F4Media
+              ? F4Media.thumbs(plainShots.map((u, i) => ({ src: u, label: `Screenshot profil ML ${i + 1}` })), { group: `shots-${a.id}` })
+              : plainShots.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener">Buka foto ${i + 1}</a>`).join("<br>")
             : esc(x[1])
         }</strong></div>`,
     )
