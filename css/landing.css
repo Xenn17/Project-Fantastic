@@ -233,3 +233,11 @@
   .is-landing .gallery-album { transform: none; }
   .is-landing .ticker { margin-top: -18px; }
 }
+
+/* Phones: skip layout/paint of sections that are not near the viewport yet (crew photos, gallery, etc.).
+   `auto` remembers each section's real size once rendered, so anchors/scroll-spy stay accurate. */
+/* Only until html.cv-ready (set by js/fx/landing.js once idle, on the first in-page anchor click, or right
+   away when the URL has a #hash) so anchor targets and scroll-spy always see real section heights. */
+@media (max-width: 720px), (pointer: coarse) {
+  html:not(.cv-ready) .is-landing main > section:not(.intro):not(.ticker) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+}

@@ -22,17 +22,20 @@ const loadFrame = async (src) => {
   }
 };
 
+/* `priority`: progress ratios (0..1) to load right after the first frame, e.g. the frame the intro holds on.
+   Ratios rather than indices because the mobile set has fewer frames than the desktop set. */
 export async function createSequence({ canvas, root = "assets/sequence", priority = [], frameHeight = 1 }) {
   const mobile = matchMedia("(max-width: 720px)").matches;
   const variant = mobile ? "mobile" : "desktop";
   let manifest;
   try {
-    manifest = await (await fetch(`${root}/manifest.json`)).json();
+    manifest = await (await fetch(`${root}/manifest.json`, { cache: "no-cache" })).json();
   } catch {
     return null;
   }
-  const count = manifest.count;
-  const src = (i) => `${root}/${variant}/f_${String(i + 1).padStart(3, "0")}.webp`;
+  const count = manifest[variant]?.count ?? manifest.count;
+  const v = manifest.version ? `?v=${manifest.version}` : "";
+  const src = (i) => `${root}/${variant}/f_${String(i + 1).padStart(3, "0")}.webp${v}`;
   const frames = new Array(count).fill(null);
 
   const ctx = canvas.getContext("2d", { alpha: false });
@@ -87,7 +90,7 @@ export async function createSequence({ canvas, root = "assets/sequence", priorit
       order.push(i);
     }
   };
-  priority.forEach(push);
+  priority.forEach((ratio) => push(Math.round(ratio * (count - 1))));
   for (let i = 8; i < count; i += 8) push(i);
   for (let i = 1; i < count; i++) push(i);
   let cursor = 0;
@@ -102,7 +105,8 @@ export async function createSequence({ canvas, root = "assets/sequence", priorit
       }
     }
   };
-  Promise.all(Array.from({ length: 6 }, worker));
+  // Fewer parallel decodes on phones (CPU + memory headroom).
+  Promise.all(Array.from({ length: mobile ? 3 : 6 }, worker));
 
   return {
     count,

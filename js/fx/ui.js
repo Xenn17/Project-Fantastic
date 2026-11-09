@@ -15,6 +15,13 @@
   progress.className = "fx-progress";
   progress.setAttribute("aria-hidden", "true");
   body.append(progress);
+  // Page height is cached via ResizeObserver (computed during rendering) instead of reading scrollHeight
+  // on every scroll — that read forced the first full-page layout from JS while the page was loading,
+  // a ~280ms freeze on phones.
+  let maxScroll = 0;
+  new ResizeObserver(() => {
+    maxScroll = doc.documentElement.scrollHeight - innerHeight;
+  }).observe(body);
   let ticking = false;
   const onScroll = () => {
     if (ticking) return;
@@ -22,14 +29,15 @@
     requestAnimationFrame(() => {
       ticking = false;
       const y = scrollY;
-      const max = doc.documentElement.scrollHeight - innerHeight;
-      progress.style.setProperty("--p", max > 0 ? (y / max).toFixed(4) : 0);
+      progress.style.setProperty("--p", maxScroll > 0 ? Math.min(1, y / maxScroll).toFixed(4) : 0);
       if (header) header.classList.toggle("is-scrolled", y > 24);
     });
   };
   addEventListener("scroll", onScroll, { passive: true });
   addEventListener("resize", onScroll);
-  onScroll();
+  // Initial state is "top of page" already; reading scrollY right away would force layout during load.
+  // (Restored scroll positions fire a scroll event anyway.)
+  (window.requestIdleCallback || ((f) => setTimeout(f, 300)))(onScroll, { timeout: 1000 });
 
   /* ---------- Reveal stagger: index .reveal siblings so grids cascade in ---------- */
   const stagger = () => {

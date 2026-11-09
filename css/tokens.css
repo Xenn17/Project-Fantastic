@@ -127,3 +127,13 @@ html.f4-arriving::before {
 }
 html.f4-revealing::before { animation: f4-cover-out .55s cubic-bezier(.65, 0, .35, 1) forwards; }
 @keyframes f4-cover-out { to { transform: translateX(calc(100% + 80px)); } }
+
+/* ---------- Phone performance profile ----------
+   Measured with 4x CPU throttling on the landing page: blur filters on reveal elements, backdrop-filters
+   and the full-screen grain were the costliest paint work and caused a visible freeze on phones.
+   Keep the motion (fade + slide), drop the expensive filters. */
+@media (max-width: 720px), (pointer: coarse) {
+  *, *::before, *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .reveal, .reveal.is-visible { filter: none !important; }
+  html::after { display: none; }
+}

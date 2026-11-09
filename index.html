@@ -2,8 +2,9 @@
 <html lang="id">
   <head>
     <meta charset="utf-8" />
+    <script>if(location.hash)document.documentElement.classList.add("cv-ready")</script>
     <!-- page-transition cover: must run before first paint (see css/tokens.css) -->
-    <script>try{if(sessionStorage.getItem("f4-curtain")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement,d=0;r.classList.add("f4-arriving");sessionStorage.removeItem("f4-curtain");var done=function(){r.classList.remove("f4-arriving","f4-revealing")};var go=function(){if(d)return;d=1;requestAnimationFrame(function(){try{r.animate({transform:["translateX(0)","translateX(calc(100% + 80px))"]},{duration:550,easing:"cubic-bezier(.65,0,.35,1)",fill:"forwards",pseudoElement:"::before"}).finished.then(done,done)}catch(e){r.classList.add("f4-revealing");setTimeout(done,600)}})};document.addEventListener("DOMContentLoaded",function(){var ric=window.requestIdleCallback||function(f){return setTimeout(f,50)};ric(function(){requestAnimationFrame(go)},{timeout:200})});setTimeout(go,450)}}catch(e){}</script>
+    <script>try{if(sessionStorage.getItem("f4-curtain")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement,d=0;r.classList.add("f4-arriving");sessionStorage.removeItem("f4-curtain");var done=function(){r.classList.remove("f4-arriving","f4-revealing")};var go=function(){if(d)return;d=1;requestAnimationFrame(function(){try{r.animate({transform:["translateX(0)","translateX(calc(100% + 80px))"]},{duration:550,easing:"cubic-bezier(.65,0,.35,1)",fill:"forwards",pseudoElement:"::before"}).finished.then(done,done)}catch(e){r.classList.add("f4-revealing");setTimeout(done,600)}})};document.addEventListener("DOMContentLoaded",function(){var ric=window.requestIdleCallback||function(f){return setTimeout(f,50)};ric(function(){requestAnimationFrame(go)},{timeout:200})});setTimeout(go,matchMedia("(pointer: coarse)").matches?900:450)}}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#090909" />
     <meta
@@ -19,11 +20,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css?v=20261109-perf" />
-    <link rel="stylesheet" href="css/tokens.css?v=20261109-fast" />
+    <link rel="stylesheet" href="css/tokens.css?v=20261109-mobile" />
     <link rel="stylesheet" href="css/components.css?v=20261109-nav" />
-    <link rel="stylesheet" href="css/landing.css?v=20261109-perf" />
-    <link rel="preload" as="image" href="assets/sequence/desktop/f_001.webp" media="(min-width: 721px)" />
-    <link rel="preload" as="image" href="assets/sequence/mobile/f_001.webp" media="(max-width: 720px)" />
+    <link rel="stylesheet" href="css/landing.css?v=20261109-mobile3" />
     <!-- Import map must precede every module load (incl. modulepreload) — Firefox ignores late maps. -->
     <script type="importmap">
       {
@@ -34,12 +33,12 @@
         }
       }
     </script>
-    <link rel="modulepreload" href="js/fx/landing.js?v=20261109-arrive" />
+    <link rel="modulepreload" href="js/fx/landing.js?v=20261109-mobile3" />
     <script src="data.js?v=20261018-logo" defer></script>
     <script src="js/script.js?v=20261109-arrive2" defer></script>
-    <script src="js/fx/ui.js?v=20261109-nav" defer></script>
+    <script src="js/fx/ui.js?v=20261109-mobile2" defer></script>
     <script src="js/fx/nav.js?v=20261109-arrive2" defer></script>
-    <script type="module" src="js/fx/landing.js?v=20261109-arrive"></script>
+    <script type="module" src="js/fx/landing.js?v=20261109-mobile3"></script>
   </head>
   <body class="is-landing">
     <div class="page-glow" aria-hidden="true"></div>

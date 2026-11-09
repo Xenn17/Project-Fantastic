@@ -2,7 +2,7 @@
    Pinned intro: scroll progress drives the image sequence, stage transform, text chapters and 3D particles.
    NOTE: never write textContent per frame here — i18n.js re-translates the page on every childList mutation.
    Per-frame values go through CSS custom properties / data attributes only. */
-import { createSequence } from "./sequence.js?v=20261109-arrive";
+import { createSequence } from "./sequence.js?v=20261109-mobile";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const intro = document.querySelector("#home.intro");
@@ -23,13 +23,48 @@ if (!reduced) {
     .catch(() => {});
 }
 
-// Last frame of the logo reveal in assets/sequence (the source animation fades to black afterwards).
-const HOLD_FRAME = 190;
+// Where the logo reveal is complete in the source animation (frame 190 of 213), as a ratio so it maps onto
+// both the desktop (213) and the lighter mobile (107) frame sets. The source fades to black afterwards.
+const HOLD = 190 / 212;
+// Phones: skip the WebGL particle layer (~650 KB of Three.js to parse + GPU init) — it is the main cause of
+// a freeze right after the page appears, for an effect that is barely visible on a small screen.
+const LITE = matchMedia("(max-width: 720px), (pointer: coarse)").matches;
 
 const smooth = (a, b, x) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
   return t * t * (3 - 2 * t);
 };
+
+/* ---------- Phones: progressively un-skip off-screen sections (content-visibility, see landing.css) ---------- */
+const docEl = document.documentElement;
+const cvReady = () => docEl.classList.add("cv-ready");
+// In-page anchor (menu link) before sections are measured → render them all first so the target is exact.
+document.addEventListener(
+  "click",
+  (e) => {
+    const a = e.target.closest?.('a[href^="#"], a[href^="index.html#"]');
+    if (!a || docEl.classList.contains("cv-ready")) return;
+    cvReady();
+    void document.body.offsetHeight; // sync layout so Lenis/the browser computes the real target position
+  },
+  true,
+);
+function unskipSectionsWhenIdle() {
+  if (docEl.classList.contains("cv-ready")) return;
+  const sections = [...document.querySelectorAll(".is-landing main > section:not(.intro):not(.ticker)")];
+  const ric = window.requestIdleCallback || ((f) => setTimeout(() => f({ timeRemaining: () => 8 }), 120));
+  const step = () =>
+    ric(
+      () => {
+        const next = sections.shift();
+        if (!next) return cvReady();
+        next.style.contentVisibility = "visible"; // one section per idle slice → no single long freeze
+        step();
+      },
+      { timeout: 1500 },
+    );
+  step();
+}
 
 // When we arrive through the page-transition curtain (html.f4-arriving, see the inline <head> snippet),
 // hold the heavy work — 200+ frame decodes and the WebGL init — until the curtain has fully opened, so the
@@ -51,6 +86,23 @@ const afterArrival = () =>
 async function boot() {
   if (!intro) return;
   await afterArrival();
+  setTimeout(unskipSectionsWhenIdle, 1200);
+  // Arriving with #hash (e.g. index.html#join-team from a sub page): the browser jumps there while the page
+  // is still loading, then JS-rendered content above (crew cards, photos) pushes the target down.
+  // Re-align once everything has settled.
+  if (location.hash.length > 1) {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    const realign = () => {
+      if (!target) return;
+      const y = target.getBoundingClientRect().top + scrollY - 70;
+      if (Math.abs(target.getBoundingClientRect().top - 70) < 4) return;
+      if (window.F4Lenis) window.F4Lenis.scrollTo(y, { immediate: true });
+      else scrollTo(0, y);
+    };
+    if (document.readyState === "complete") requestAnimationFrame(realign);
+    else addEventListener("load", () => requestAnimationFrame(realign), { once: true });
+    setTimeout(realign, 1500);
+  }
   if (reduced) intro.classList.add("is-static");
 
   const film = intro.querySelector("#seqCanvas");
@@ -66,7 +118,7 @@ async function boot() {
   // canvas with a GPU transform, so the canvas is repainted only when the frame index actually changes.
   const isPortrait = () => innerWidth / innerHeight < 0.9;
   const BASE_H = isPortrait() ? 1.02 : 1.38;
-  const seqPromise = createSequence({ canvas: film, priority: [HOLD_FRAME], frameHeight: BASE_H });
+  const seqPromise = createSequence({ canvas: film, priority: [HOLD], frameHeight: BASE_H });
 
   // Three.js is optional: no WebGL / blocked CDN → CSS emblem fallback stays visible.
   let logo = null;
@@ -74,8 +126,8 @@ async function boot() {
   // Cheap capability check — creating a throwaway WebGL context just to probe costs ~15ms; createLogo3D
   // already falls back cleanly (returns null) if the real context cannot be created.
   const webgl = "WebGLRenderingContext" in window;
-  if (webgl && logoCanvas) {
-    import("./logo3d.js?v=20261109-arrive")
+  if (webgl && logoCanvas && !LITE) {
+    import("./logo3d.js?v=20261109-mobile")
       .then(({ createLogo3D }) => createLogo3D({ canvas: logoCanvas, emblem: false }))
       .then((instance) => {
         if (!instance) throw new Error("webgl");
@@ -102,11 +154,10 @@ async function boot() {
     lastP = p;
 
     // Intro animation plays across the first 86% of the pinned scroll and holds on the logo reveal
-    // (it fades to black after HOLD_FRAME, so we never scrub past it).
+    // (it fades to black after HOLD, so we never scrub past it).
     const finale = smooth(0.6, 0.86, p);
     if (seq) {
-      const hold = Math.min(1, HOLD_FRAME / (seq.count - 1));
-      seq.render(Math.min(1, p / 0.86) * hold);
+      seq.render(Math.min(1, p / 0.86) * HOLD);
       const L = isPortrait()
         ? { x: 0.5, y: 0.34 + finale * 0.04, h: 1.02 }
         : { x: 0.68 - finale * 0.18, y: 0.5 - finale * 0.1, h: 1.38 + finale * 0.22 };
