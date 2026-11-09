@@ -202,7 +202,7 @@ function render() {
     ? f
         .map(
           (a, i) =>
-            `<tr class="candidate-row status-${esc(a.status || "pending")}" data-index="${i}"><td><button class="candidate candidate-button" data-index="${i}">${esc(a.name)}</button><span class="ign">@ ${esc(a.ign)}</span></td><td><span class="pill">${esc(a.role)}</span></td><td>${esc(a.current_rank)}</td><td>${esc(a.main_hero)} <small>(${esc(a.hero_win_rate)})</small></td><td>${new Date(a.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" })}</td><td class="audit-cell">${auditHtml(a)}</td><td>${a.status === "pending" ? `<button class="accept" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Terima calon member & kirim email">TERIMA</button> <button class="delete" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Tandai tertolak">TOLAK</button>` : `<button class="reset-status" data-id="${esc(a.id)}" title="Reset status">RESET STATUS</button> <button class="delete permanent-delete" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Hapus permanen">DELETE</button>`}</td></tr>`,
+            `<tr class="candidate-row status-${esc(a.status || "pending")}" data-index="${i}"><td><button class="candidate candidate-button" data-index="${i}">${esc(a.name)}</button><span class="ign">@ ${esc(a.ign)}</span>${a.follow_verified ? ' <span class="pill pill-follow" title="Follow IG & TikTok sudah dicek admin">✓ FOLLOW</span>' : ""}</td><td><span class="pill">${esc(a.role)}</span></td><td>${esc(a.current_rank)}</td><td>${esc(a.main_hero)} <small>(${esc(a.hero_win_rate)})</small></td><td>${new Date(a.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" })}</td><td class="audit-cell">${auditHtml(a)}</td><td>${a.status === "pending" ? `<button class="accept" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Terima calon member & kirim email">TERIMA</button> <button class="delete" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Tandai tertolak">TOLAK</button>` : `<button class="reset-status" data-id="${esc(a.id)}" title="Reset status">RESET STATUS</button> <button class="delete permanent-delete" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Hapus permanen">DELETE</button>`}</td></tr>`,
         )
         .join("")
     : '<tr><td colspan="7" class="empty">Tidak ada kandidat yang cocok.</td></tr>';
@@ -477,7 +477,21 @@ function detail(a) {
     ["DISCORD", a.discord],
     ["SCREENSHOT", a.screenshots],
   ];
-  $("#details").innerHTML = f
+  const socialsReady = "instagram" in a; // false until supabase-application-socials.sql is applied
+  const handle = (base, h) =>
+    h ? `<a href="${esc(base + encodeURIComponent(h))}" target="_blank" rel="noopener">@${esc(h)} ↗</a>` : "— (tidak diisi)";
+  const followHtml = socialsReady
+    ? `<div class="follow-verify ${a.follow_verified ? "is-verified" : ""}"><small>VERIFIKASI FOLLOW</small>
+        <div class="follow-verify-handles">
+          <span>IG ${handle("https://www.instagram.com/", a.instagram)}</span>
+          <span>TikTok ${handle("https://www.tiktok.com/@", a.tiktok)}</span>
+        </div>
+        <p>Cari username di sini: <a href="https://www.instagram.com/f4nt.official/followers/" target="_blank" rel="noopener">Followers IG F4NT ↗</a> · <a href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener">TikTok F4NT ↗</a></p>
+        <button type="button" class="verify-follow" data-id="${esc(a.id)}">${a.follow_verified ? "✓ FOLLOW TERVERIFIKASI — BATALKAN" : "TANDAI FOLLOW TERVERIFIKASI"}</button>
+        ${a.follow_verified && a.follow_verified_at ? `<small class="follow-verify-at">Diverifikasi ${esc(new Date(a.follow_verified_at).toLocaleString("id-ID"))}</small>` : ""}
+      </div>`
+    : `<div class="follow-verify"><small>VERIFIKASI FOLLOW</small><p>Jalankan <b>supabase-application-socials.sql</b> di Supabase untuk menyimpan username IG/TikTok pendaftar.</p></div>`;
+  $("#details").innerHTML = followHtml + f
     .map(
       (x) =>
         `<div><small>${x[0]}</small><strong>${
@@ -494,6 +508,27 @@ function detail(a) {
     )
     .join("");
   $("#overlay").hidden = false;
+  const verifyBtn = $("#details .verify-follow");
+  if (verifyBtn)
+    verifyBtn.onclick = async () => {
+      const next = !a.follow_verified;
+      verifyBtn.disabled = true;
+      verifyBtn.textContent = "MENYIMPAN…";
+      const { error } = await db
+        .from("applications")
+        .update({ follow_verified: next, follow_verified_at: next ? new Date().toISOString() : null })
+        .eq("id", a.id);
+      if (error) {
+        alert(`Gagal menyimpan verifikasi: ${error.message}`);
+        verifyBtn.disabled = false;
+        verifyBtn.textContent = a.follow_verified ? "✓ FOLLOW TERVERIFIKASI — BATALKAN" : "TANDAI FOLLOW TERVERIFIKASI";
+        return;
+      }
+      a.follow_verified = next;
+      a.follow_verified_at = next ? new Date().toISOString() : null;
+      detail(a);
+      render();
+    };
 }
 $("#close").onclick = () => ($("#overlay").hidden = true);
 $("#overlay").onclick = (e) => {

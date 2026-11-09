@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/style.css?v=20261101-nav4" />
     <link rel="stylesheet" href="css/tokens.css?v=20261109-mobile" />
     <link rel="stylesheet" href="css/components.css?v=20261109-nav" />
-    <link rel="stylesheet" href="css/join-form.css?v=20261109-apply" />
+    <link rel="stylesheet" href="css/join-form.css?v=20261109-socials" />
     <title>Join Team F4NT — Pendaftaran</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
@@ -136,6 +136,11 @@
               </div>
               <label class="agreement-check required-field"><input type="checkbox" name="followInstagram" required /><span>Sudah follow <strong>Instagram</strong> F4NTASTIC (<a href="https://www.instagram.com/f4nt.official" target="_blank" rel="noopener noreferrer">@f4nt.official</a>)</span></label>
               <label class="agreement-check required-field"><input type="checkbox" name="followTiktok" required /><span>Sudah follow <strong>TikTok</strong> F4NTASTIC (<a href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener noreferrer">@official.f4ntastic</a>)</span></label>
+              <div class="form-grid two-columns social-handles">
+                <label class="required-field">Username Instagram<span class="handle-input"><i aria-hidden="true">@</i><input name="instagram" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="80" pattern="[A-Za-z0-9._]{1,30}" title="Huruf, angka, titik, atau underscore (tanpa spasi)" placeholder="username IG kamu" required /></span></label>
+                <label class="required-field">Username TikTok<span class="handle-input"><i aria-hidden="true">@</i><input name="tiktok" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="80" pattern="[A-Za-z0-9._]{2,24}" title="Huruf, angka, titik, atau underscore (tanpa spasi)" placeholder="username TikTok kamu" required /></span></label>
+              </div>
+              <p class="apply-hint">🔍 Admin akan mencari username ini di daftar <b>Followers</b> F4NTASTIC sebelum pendaftaran diproses. Pastikan akunnya tidak di-private atau sudah follow dengan akun yang sama.</p>
             </fieldset>
 
             <!-- 02 personal -->
@@ -887,7 +892,7 @@
               .getPublicUrl(path).data.publicUrl,
           );
         }
-        const { error } = await supabaseClient.from("applications").insert({
+        const applicationRow = {
           name: values.name,
           ign: values.ign,
           age: Number(values.age),
@@ -903,7 +908,16 @@
           whatsapp: values.whatsapp,
           discord: values.discord,
           screenshots: uploadedScreenshots.join("\n") || files,
-        });
+          instagram: values.instagram || null,
+          tiktok: values.tiktok || null,
+        };
+        let { error } = await supabaseClient.from("applications").insert(applicationRow);
+        // supabase-application-socials.sql not applied yet → still accept the application without the
+        // social columns instead of blocking every signup.
+        if (error && /instagram|tiktok|column|schema cache/i.test(error.message || "")) {
+          const { instagram, tiktok, ...withoutSocials } = applicationRow;
+          ({ error } = await supabaseClient.from("applications").insert(withoutSocials));
+        }
         if (error) {
           submitButton.disabled = false;
           showResult(false, error.message);
@@ -919,7 +933,7 @@
         document.dispatchEvent(new CustomEvent("f4:apply-submitted"));
       });
     </script>
-    <script src="js/apply-wizard.js?v=20261109-apply"></script>
+    <script src="js/apply-wizard.js?v=20261109-socials"></script>
     <script src="js/i18n.js?v=20261103-i18n18"></script>
       <script src="js/fx/ui.js?v=20261109-mobile2" defer></script>
       <script src="js/fx/nav.js?v=20261109-arrive2" defer></script>

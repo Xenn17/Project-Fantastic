@@ -239,3 +239,9 @@
   .apply-card-holo, .apply-main .is-invalid { animation: none; }
 }
 .apply-main .submit-application:not(:disabled) { color: #120f08; }
+
+/* Social handles with an "@" prefix */
+.apply-main .social-handles { margin-top: 18px; }
+.handle-input { position: relative; display: block; }
+.handle-input i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-style: normal; font-weight: 800; color: var(--gold); pointer-events: none; }
+.apply-main .application-card .handle-input input { padding-left: 32px !important; }

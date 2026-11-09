@@ -68,3 +68,14 @@ label input{border-color:rgba(255,255,255,.12);transition:border-color .25s,box-
 .admin-nav a.is-active{background:var(--gold);color:#111;border-color:var(--gold)}
 @media(max-width:900px){header{gap:10px}.admin-nav a{padding:7px 8px;font-size:7px;letter-spacing:.6px}.admin-nav{gap:4px}}
 .audit-cell strong{display:block;color:#e8d49b;font-size:10px;font-weight:800}.audit-cell small{display:block;margin-top:4px;color:#85827a;font-size:8px;white-space:nowrap}.audit-pending{color:#666;font-size:8px;letter-spacing:.5px;white-space:nowrap}
+/* Follow verification (supabase-application-socials.sql) */
+.detail-grid .follow-verify{grid-column:1/-1;display:grid;gap:10px;padding:16px;background:linear-gradient(130deg,#cfaa581c,#151515);border-left:2px solid var(--gold)}
+.detail-grid .follow-verify.is-verified{background:linear-gradient(130deg,#7cbb8522,#151515);border-left-color:#7cbb85}
+.detail-grid .follow-verify div.follow-verify-handles{display:flex;flex-wrap:wrap;gap:8px 22px;padding:0;background:none;font-size:12px;font-weight:800}
+.follow-verify a{color:var(--bright)}
+.follow-verify p{margin:0;color:#999;font-size:10px;line-height:1.7}
+.verify-follow{justify-self:start;padding:10px 14px;border:1px solid var(--gold);background:var(--gold);color:#111;font-size:9px;font-weight:800;letter-spacing:1px;cursor:pointer}
+.follow-verify.is-verified .verify-follow{background:none;color:#7cbb85;border-color:#7cbb8566}
+.verify-follow:disabled{opacity:.6;cursor:wait}
+.follow-verify-at{color:#7cbb85!important}
+.pill.pill-follow{color:#7cbb85;border-color:#7cbb8566;margin-left:4px;vertical-align:middle}

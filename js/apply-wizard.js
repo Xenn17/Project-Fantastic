@@ -53,6 +53,24 @@
     if (holder && fieldOk(e.target)) holder.classList.remove("is-invalid");
   });
 
+  /* ---------- social handles: accept "@name", profile URLs, spaces → plain username ---------- */
+  const cleanHandle = (raw) => {
+    let v = String(raw || "").trim();
+    const m = v.match(/(?:instagram\.com|tiktok\.com)\/@?([A-Za-z0-9._]+)/i);
+    if (m) v = m[1];
+    return v.replace(/^@+/, "").replace(/\s+/g, "").replace(/[/?#].*$/, "");
+  };
+  ["instagram", "tiktok"].forEach((name) => {
+    const el = form.elements[name];
+    el?.addEventListener("change", () => {
+      const cleaned = cleanHandle(el.value);
+      if (cleaned !== el.value) {
+        el.value = cleaned;
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    });
+  });
+
   /* ---------- navigation ---------- */
   function show(n, { focus = true } = {}) {
     current = Math.max(1, Math.min(steps.length, n));
@@ -154,12 +172,13 @@
 
   /* ---------- review ---------- */
   const REVIEW = [
+    ["Instagram", "instagram"], ["TikTok", "tiktok"],
     ["Nama lengkap", "name"], ["Nama in-game", "ign"], ["Usia", "age"], ["Jenis kelamin", "gender"],
     ["Role utama", "role"], ["Role cadangan", "secondaryRole"], ["Rank tertinggi", "highestRank"],
     ["Rank season sekarang", "currentRank"], ["Hero andalan", "mainHero"], ["WR hero season sekarang", "heroWinRate"],
     ["Hero lain", "otherHeroes"], ["ID ML", "mlId"], ["WhatsApp", "whatsapp"], ["Discord", "discord"],
   ];
-  const STEP_OF = { name: 2, ign: 2, age: 2, gender: 2, role: 3, secondaryRole: 3, highestRank: 3, currentRank: 3, mainHero: 4, heroWinRate: 4, otherHeroes: 4, mlId: 4, whatsapp: 5, discord: 5 };
+  const STEP_OF = { instagram: 1, tiktok: 1, name: 2, ign: 2, age: 2, gender: 2, role: 3, secondaryRole: 3, highestRank: 3, currentRank: 3, mainHero: 4, heroWinRate: 4, otherHeroes: 4, mlId: 4, whatsapp: 5, discord: 5 };
   function renderReview() {
     const dl = $("applyReview");
     const rows = REVIEW.map(([label, name]) => {
@@ -167,7 +186,7 @@
       const dt = document.createElement("dt");
       dt.textContent = label;
       const dd = document.createElement("dd");
-      dd.textContent = val(name) || "—";
+      dd.textContent = val(name) ? (name === "instagram" || name === "tiktok" ? "@" : "") + val(name) : "—";
       const edit = document.createElement("button");
       edit.type = "button";
       edit.className = "review-edit";
@@ -192,7 +211,7 @@
   }
 
   /* ---------- draft autosave (text + choices; files cannot be stored) ---------- */
-  const DRAFT_FIELDS = ["name", "ign", "age", "gender", "role", "secondaryRole", "highestRank", "currentRank", "mainHero", "heroWinRate", "otherHeroes", "mlId", "whatsapp", "discord", "followInstagram", "followTiktok"];
+  const DRAFT_FIELDS = ["name", "ign", "age", "gender", "role", "secondaryRole", "highestRank", "currentRank", "mainHero", "heroWinRate", "otherHeroes", "mlId", "whatsapp", "discord", "followInstagram", "followTiktok", "instagram", "tiktok"];
   let draftTimer = null;
   let draftPaused = false; // after a successful submit: no draft until the user types again
   function saveDraft() {
