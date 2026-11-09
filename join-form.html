@@ -926,19 +926,15 @@
           whatsapp: values.whatsapp,
           discord: values.discord,
           screenshots: uploadedScreenshots.join("\n") || files,
-          instagram: values.instagram || null,
-          tiktok: values.tiktok || null,
           instagram_proof: instagramProofUrl,
           tiktok_proof: tiktokProofUrl,
         };
         let { error } = await supabaseClient.from("applications").insert(applicationRow);
         // supabase-application-socials.sql not applied yet → still accept the application. Nothing is lost:
-        // the handles and proof links are appended (labelled) to the existing screenshots column.
-        if (error && /instagram|tiktok|proof|column|schema cache/i.test(error.message || "")) {
-          const { instagram, tiktok, instagram_proof, tiktok_proof, ...base } = applicationRow;
+        // the proof links are appended (labelled) to the existing screenshots column.
+        if (error && /proof|column|schema cache/i.test(error.message || "")) {
+          const { instagram_proof, tiktok_proof, ...base } = applicationRow;
           const extra = [
-            instagram && `INSTAGRAM: @${instagram}`,
-            tiktok && `TIKTOK: @${tiktok}`,
             instagram_proof && `BUKTI FOLLOW IG: ${instagram_proof}`,
             tiktok_proof && `BUKTI FOLLOW TIKTOK: ${tiktok_proof}`,
           ].filter(Boolean);

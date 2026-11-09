@@ -202,7 +202,7 @@ function render() {
     ? f
         .map(
           (a, i) =>
-            `<tr class="candidate-row status-${esc(a.status || "pending")}" data-index="${i}"><td><button class="candidate candidate-button" data-index="${i}">${esc(a.name)}</button><span class="ign">@ ${esc(a.ign)}</span>${a.follow_verified ? ' <span class="pill pill-follow" title="Follow IG & TikTok sudah dicek admin">✓ FOLLOW</span>' : ""}</td><td><span class="pill">${esc(a.role)}</span></td><td>${esc(a.current_rank)}</td><td>${esc(a.main_hero)} <small>(${esc(a.hero_win_rate)})</small></td><td>${new Date(a.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" })}</td><td class="audit-cell">${auditHtml(a)}</td><td>${a.status === "pending" ? `<button class="accept" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Terima calon member & kirim email">TERIMA</button> <button class="delete" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Tandai tertolak">TOLAK</button>` : `<button class="reset-status" data-id="${esc(a.id)}" title="Reset status">RESET STATUS</button> <button class="delete permanent-delete" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Hapus permanen">DELETE</button>`}</td></tr>`,
+            `<tr class="candidate-row status-${esc(a.status || "pending")}" data-index="${i}"><td><button class="candidate candidate-button" data-index="${i}">${esc(a.name)}</button><span class="ign">@ ${esc(a.ign)}</span></td><td><span class="pill">${esc(a.role)}</span></td><td>${esc(a.current_rank)}</td><td>${esc(a.main_hero)} <small>(${esc(a.hero_win_rate)})</small></td><td>${new Date(a.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" })}</td><td class="audit-cell">${auditHtml(a)}</td><td>${a.status === "pending" ? `<button class="accept" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Terima calon member & kirim email">TERIMA</button> <button class="delete" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Tandai tertolak">TOLAK</button>` : `<button class="reset-status" data-id="${esc(a.id)}" title="Reset status">RESET STATUS</button> <button class="delete permanent-delete" data-id="${esc(a.id)}" data-name="${esc(a.name)}" title="Hapus permanen">DELETE</button>`}</td></tr>`,
         )
         .join("")
     : '<tr><td colspan="7" class="empty">Tidak ada kandidat yang cocok.</td></tr>';
@@ -485,7 +485,6 @@ function detail(a) {
     return line ? line.slice(label.length + 1).trim() : "";
   };
   const plainShots = shotLines.filter((l) => /^https?:\/\//i.test(l));
-  const socialsReady = "instagram" in a; // false until supabase-application-socials.sql is applied
   const igHandle = a.instagram || labelled("INSTAGRAM").replace(/^@/, "");
   const ttHandle = a.tiktok || labelled("TIKTOK").replace(/^@/, "");
   const igProof = a.instagram_proof || labelled("BUKTI FOLLOW IG");
@@ -496,7 +495,7 @@ function detail(a) {
     /^https?:\/\//i.test(url || "")
       ? `<figure><a href="${esc(url)}" target="_blank" rel="noopener" title="Buka ukuran penuh"><img src="${esc(url)}" alt="${esc(label)}" loading="lazy" /></a><figcaption>${esc(label)} ↗</figcaption></figure>`
       : `<figure><span class="no-proof">Tidak ada bukti</span><figcaption>${esc(label)}</figcaption></figure>`;
-  const followHtml = `<div class="follow-verify ${a.follow_verified ? "is-verified" : ""}"><small>VERIFIKASI FOLLOW — CEK SCREENSHOT</small>
+  const followHtml = `<div class="follow-verify"><small>BUKTI FOLLOW — CEK SEBELUM TERIMA</small>
         ${
           igHandle || ttHandle
             ? `<div class="follow-verify-handles">
@@ -517,13 +516,7 @@ function detail(a) {
             (missing.length ? `<p class="proof-missing">⚠ Tidak ada bukti follow ${missing.join(" & ")}.</p>` : "")
           );
         })()}
-        <p>Cek: screenshot menampilkan daftar <b>Following</b> milik pendaftar (username mereka terlihat di atas) dan akun F4NTASTIC ada di daftar itu. Ragu? Cari username dari screenshot di IG/TikTok.</p>
-        ${
-          socialsReady
-            ? `<button type="button" class="verify-follow" data-id="${esc(a.id)}">${a.follow_verified ? "✓ FOLLOW TERVERIFIKASI — BATALKAN" : "TANDAI FOLLOW TERVERIFIKASI"}</button>
-        ${a.follow_verified && a.follow_verified_at ? `<small class="follow-verify-at">Diverifikasi ${esc(new Date(a.follow_verified_at).toLocaleString("id-ID"))}</small>` : ""}`
-            : `<p>Jalankan <b>supabase-application-socials.sql</b> di Supabase untuk mengaktifkan tombol verifikasi.</p>`
-        }
+        <p>Pastikan screenshot menampilkan daftar <b>Following</b> milik pendaftar (username mereka di atas) dan akun F4NTASTIC ada di daftar itu, lalu <b>TERIMA</b> atau <b>TOLAK</b>.</p>
       </div>`;
   $("#details").innerHTML = followHtml + f
     .map(
@@ -537,28 +530,48 @@ function detail(a) {
         }</strong></div>`,
     )
     .join("");
+  renderDrawerActions(a);
   $("#overlay").hidden = false;
-  const verifyBtn = $("#details .verify-follow");
-  if (verifyBtn)
-    verifyBtn.onclick = async () => {
-      const next = !a.follow_verified;
-      verifyBtn.disabled = true;
-      verifyBtn.textContent = "MENYIMPAN…";
-      const { error } = await db
-        .from("applications")
-        .update({ follow_verified: next, follow_verified_at: next ? new Date().toISOString() : null })
-        .eq("id", a.id);
-      if (error) {
-        alert(`Gagal menyimpan verifikasi: ${error.message}`);
-        verifyBtn.disabled = false;
-        verifyBtn.textContent = a.follow_verified ? "✓ FOLLOW TERVERIFIKASI — BATALKAN" : "TANDAI FOLLOW TERVERIFIKASI";
-        return;
+}
+/* Action bar at the bottom of the applicant drawer: same actions as the table row (same confirm dialogs,
+   emails and role updates), then the drawer refreshes to the new status (or closes after a delete). */
+function renderDrawerActions(a) {
+  const modal = $("#overlay .modal");
+  let bar = modal.querySelector(".drawer-actions");
+  if (!bar) {
+    bar = document.createElement("div");
+    bar.className = "drawer-actions";
+    modal.append(bar);
+  }
+  const pending = (a.status || "pending") === "pending";
+  bar.innerHTML = pending
+    ? `<button type="button" class="drawer-accept">TERIMA</button><button type="button" class="drawer-reject">TOLAK</button>`
+    : `<span class="drawer-status status-${esc(a.status)}">${a.status === "accepted" ? "✓ SUDAH DITERIMA" : "✗ SUDAH DITOLAK"}</span><button type="button" class="drawer-reset">RESET STATUS</button><button type="button" class="drawer-delete">DELETE</button>`;
+  const run = (btn, busyText, action) => {
+    btn.onclick = async () => {
+      bar.querySelectorAll("button").forEach((b) => (b.disabled = true));
+      const label = btn.textContent;
+      btn.textContent = busyText;
+      try {
+        await action();
+      } finally {
+        const fresh = apps.find((x) => String(x.id) === String(a.id));
+        if (!fresh) $("#overlay").hidden = true; // permanently deleted
+        else if (!$("#overlay").hidden) detail(fresh); // re-render with the new status (or unchanged if cancelled)
+        else {
+          btn.textContent = label;
+          bar.querySelectorAll("button").forEach((b) => (b.disabled = false));
+        }
       }
-      a.follow_verified = next;
-      a.follow_verified_at = next ? new Date().toISOString() : null;
-      detail(a);
-      render();
     };
+  };
+  if (pending) {
+    run(bar.querySelector(".drawer-accept"), "MENGIRIM EMAIL…", () => acceptApplication(a.id, a.name));
+    run(bar.querySelector(".drawer-reject"), "MENGIRIM EMAIL…", () => removeApplication(a.id, a.name));
+  } else {
+    run(bar.querySelector(".drawer-reset"), "MERESET…", () => resetStatus(a.id));
+    run(bar.querySelector(".drawer-delete"), "MENGHAPUS…", () => deleteApplication(a.id, a.name));
+  }
 }
 $("#close").onclick = () => ($("#overlay").hidden = true);
 $("#overlay").onclick = (e) => {

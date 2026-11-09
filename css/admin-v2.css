@@ -330,3 +330,27 @@ td button:disabled { opacity: .55; cursor: wait; }
   .media-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
   .detail-grid .follow-verify .media-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Applicant drawer: sticky action bar (TERIMA / TOLAK, or RESET STATUS / DELETE) */
+.drawer-actions {
+  position: sticky; bottom: 0; z-index: 3; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin: 22px -30px -40px; padding: 16px 30px 22px;
+  background: #0c0b09; box-shadow: 0 -18px 30px -12px rgba(0, 0, 0, .8); border-top: 1px solid rgba(217, 180, 91, .25);
+}
+.drawer-actions button {
+  flex: 1; min-height: 48px; padding: 12px 18px; border-radius: 99px; cursor: pointer;
+  font-size: 12px; font-weight: 800; letter-spacing: .12em; transition: filter .2s, background .2s, color .2s, transform .2s;
+}
+.drawer-actions button:disabled { opacity: .55; cursor: wait; }
+.drawer-accept { color: #08150b; background: var(--ok); border: 1px solid var(--ok); }
+.drawer-accept:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-1px); }
+.drawer-reject { color: var(--bad); background: rgba(239, 138, 124, .06); border: 1px solid rgba(239, 138, 124, .45); }
+.drawer-reject:not(:disabled):hover { background: var(--bad); color: #160806; }
+.drawer-reset { color: var(--gold-bright, var(--bright)); background: none; border: 1px solid rgba(217, 180, 91, .45); }
+.drawer-reset:not(:disabled):hover { background: rgba(217, 180, 91, .12); }
+.drawer-delete { color: #d0cbc1; background: rgba(255, 255, 255, .03); border: 1px solid rgba(255, 255, 255, .2); }
+.drawer-delete:not(:disabled):hover { background: var(--bad); border-color: var(--bad); color: #160806; }
+.drawer-status { flex-basis: 100%; font-size: 11px; font-weight: 800; letter-spacing: .14em; }
+.drawer-status.status-accepted { color: var(--ok); }
+.drawer-status.status-rejected { color: var(--bad); }
+@media (max-width: 640px) { .drawer-actions { margin: 18px -18px -34px; padding: 14px 18px 18px; } }
