@@ -338,13 +338,14 @@ window.GALERI_DATA = [
   },
 
   {
-    "kategori": "GLOBAL #1",
-    "hero": "CARMILLA",
-    "nickname": "Beivong x F4NT",
-    "judul": "CARMILLA",
-    "deskripsi": "BUFF BIRUMU SEMANGATKU",
-    "gambar": "assets/galeri/team-global-1-155-whatsapp-image-2026-10-18-at-21-23-16.jpeg",
-    "tanggal": ""
+    kategori: "GLOBAL #1",
+    hero: "CARMILLA",
+    nickname: "Beivong x F4NT",
+    judul: "CARMILLA",
+    deskripsi: "BUFF BIRUMU SEMANGATKU",
+    gambar:
+      "assets/galeri/team-global-1-155-whatsapp-image-2026-10-18-at-21-23-16.jpeg",
+    tanggal: "",
   },
 
   {
@@ -363,8 +364,7 @@ window.GALERI_DATA = [
     hero: "POPOL & KUPA",
     nickname: "ClaireAjah x F4N'T",
     judul: "POPOL & KUPA",
-    deskripsi:
-      "Hari Mengendong 4 orang bodoh",
+    deskripsi: "Hari Mengendong 4 orang bodoh",
     gambar: "assets/galeri/hero-Claire-ajah-x-f4n-t.webp",
     tanggal: "",
   },
@@ -374,8 +374,7 @@ window.GALERI_DATA = [
     hero: "YVE",
     nickname: "Vinzy x F4N'T",
     judul: "YVE",
-    deskripsi:
-      "global hasil trio mending bobo aja",
+    deskripsi: "global hasil trio mending bobo aja",
     gambar: "assets/galeri/hero-vinzy-x-f4n-t.webp",
     tanggal: "",
   },
@@ -385,8 +384,7 @@ window.GALERI_DATA = [
     hero: "ALDOUS",
     nickname: "Onezz x F4N'T",
     judul: "ADLOUS",
-    deskripsi:
-      "Tower tuker nyawa = CUAN CUAN CUANNNN 🤑🤑🤑",
+    deskripsi: "Tower tuker nyawa = CUAN CUAN CUANNNN 🤑🤑🤑",
     gambar: "assets/galeri/hero-Onezz-x-f4n-t.webp",
     tanggal: "",
   },
@@ -396,8 +394,7 @@ window.GALERI_DATA = [
     hero: "JOHNSON",
     nickname: "Onezz x F4N'T",
     judul: "JOHNSON",
-    deskripsi:
-      "Lepas Johnson gua bantai 😂",
+    deskripsi: "Lepas Johnson gua bantai 😂",
     gambar: "assets/galeri/WhatsApp a2026-10-22 at 11.12.20 .jpeg",
     tanggal: "",
   },
@@ -407,8 +404,7 @@ window.GALERI_DATA = [
     hero: "HANZO",
     nickname: "Onezz x F4N'T",
     judul: "HANZO",
-    deskripsi:
-      "Ulti hanya untuk clear mid",
+    deskripsi: "Ulti hanya untuk clear mid",
     gambar: "assets/galeri/hero-ones.webp",
     tanggal: "",
   },
@@ -418,8 +414,7 @@ window.GALERI_DATA = [
     hero: "THAMUZ",
     nickname: "Haikaru Kyun x F4N'T",
     judul: "THAMUZ",
-    deskripsi:
-      "ni orang wibu nerd jir",
+    deskripsi: "ni orang wibu nerd jir",
     gambar: "assets/galeri/hero-haikaru-kyun-x-f4n-t.webp",
     tanggal: "",
   },
@@ -493,7 +488,7 @@ window.GALERI_DATA = [
     gambar: "assets/galeri/hero-tuanputri-x-f4nt.webp",
     tanggal: "",
   },
-  
+
   {
     kategori: "GLOBAL #1",
     hero: "DIGGIE",
@@ -509,7 +504,8 @@ window.GALERI_DATA = [
     hero: "DYRROT",
     nickname: "Kel x F4N'T",
     judul: "DYRROT",
-    deskripsi: "ga usah ribet mikirin strategi, tugas kalian cuma satu: clear minion dan liat cara gua nge-carry beban tim ini sampai mythic.",
+    deskripsi:
+      "ga usah ribet mikirin strategi, tugas kalian cuma satu: clear minion dan liat cara gua nge-carry beban tim ini sampai mythic.",
     gambar: "assets/galeri/hero-kel.webp",
     tanggal: "",
   },
@@ -529,7 +525,8 @@ window.GALERI_DATA = [
     hero: "LUOYI",
     nickname: "Romunn x F4N'T",
     judul: "LUOYI",
-    deskripsi: "Menjadi global 1 membutuhkan kerja keras dan bakat menggendong team sendiri",
+    deskripsi:
+      "Menjadi global 1 membutuhkan kerja keras dan bakat menggendong team sendiri",
     gambar: "assets/galeri/hero-romun.webp",
     tanggal: "",
   },
@@ -574,72 +571,74 @@ window.GALERI_DATA = [
     tanggal: "",
   },
 
-   {
-    "kategori": "GLOBAL #1",
-    "hero": "RAFAELA",
-    "nickname": "Dinii x F4N'T",
-    "judul": "Nama Hero",
-    "deskripsi": "Kemana pun aku pergi rasa sakit sirna",
-    "gambar": "assets/galeri/team-global-1-153-img-3748.png",
-    "tanggal": ""
+  {
+    kategori: "GLOBAL #1",
+    hero: "RAFAELA",
+    nickname: "Dinii x F4N'T",
+    judul: "Nama Hero",
+    deskripsi: "Kemana pun aku pergi rasa sakit sirna",
+    gambar: "assets/galeri/team-global-1-153-img-3748.png",
+    tanggal: "",
   },
   {
-    "kategori": "GLOBAL #1",
-    "hero": "AULUS",
-    "nickname": "Xauluss x F4N'T",
-    "judul": "AULUS",
-    "deskripsi": "kalo gk aulus jadi nyawit",
-    "gambar": "assets/galeri/team-global-1-154-whatsapp-image-2026-10-18-at-20-53-58.jpeg",
-    "tanggal": ""
+    kategori: "GLOBAL #1",
+    hero: "AULUS",
+    nickname: "Xauluss x F4N'T",
+    judul: "AULUS",
+    deskripsi: "kalo gk aulus jadi nyawit",
+    gambar:
+      "assets/galeri/team-global-1-154-whatsapp-image-2026-10-18-at-20-53-58.jpeg",
+    tanggal: "",
   },
   {
-    "kategori": "GLOBAL #1",
-    "hero": "BELERICK",
-    "nickname": "Sara x F4N'T",
-    "judul": "BELERICK",
-    "deskripsi": "Princess global belerick pertama di fant",
-    "gambar": "assets/galeri/WhatsApp Image 2026-10-19 at 15.18.49.jpeg",
-    "tanggal": ""
-  },
-
-  {
-    "kategori": "GLOBAL #1",
-    "hero": "VALENTINA",
-    "nickname": "Irli x F4N'T",
-    "judul": "VALENTINA",
-    "deskripsi": "Player hebat bukan yang memaksakan suatu gameplay ke dalam tim, tetapi yang mampu menyesuaikan gameplay demi kemenangan tim.",
-    "gambar": "assets/galeri/WhatsApp Image 2026-10-19 at 15.30.14.jpeg",
-    "tanggal": ""
+    kategori: "GLOBAL #1",
+    hero: "BELERICK",
+    nickname: "Sara x F4N'T",
+    judul: "BELERICK",
+    deskripsi: "Princess global belerick pertama di fant",
+    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.18.49.jpeg",
+    tanggal: "",
   },
 
   {
-    "kategori": "GLOBAL #1",
-    "hero": "SELENA",
-    "nickname": "Ryuzen Worst x F4N'T",
-    "judul": "SELENA",
-    "deskripsi": "Global Selena pertama di fant",
-    "gambar": "assets/galeri/WhatsApp Image 2026-10-19 at 15.33.10.jpeg",
-    "tanggal": ""
-  },
-  
-  {
-    "kategori": "GLOBAL #1",
-    "hero": "ARGUS",
-    "nickname": "Pran x F4N'T",
-    "judul": "ARGUS",
-    "deskripsi": "Dewa Argus",
-    "gambar": "assets/galeri/WhatsApp Image 2026-10-22 at 11.33.15.jpeg",
-    "tanggal": ""
+    kategori: "GLOBAL #1",
+    hero: "VALENTINA",
+    nickname: "Irli x F4N'T",
+    judul: "VALENTINA",
+    deskripsi:
+      "Player hebat bukan yang memaksakan suatu gameplay ke dalam tim, tetapi yang mampu menyesuaikan gameplay demi kemenangan tim.",
+    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.30.14.jpeg",
+    tanggal: "",
   },
 
   {
-    "kategori": "GLOBAL #1",
-    "hero": "EDITH",
-    "nickname": "Edith istriku x F4N'T",
-    "judul": "EDITH",
-    "deskripsi": "Edith is my bini gwegh",
-    "gambar": "assets/galeri/edith Image 2026-10-22 at 20.46.01.jpeg",
-    "tanggal": ""
+    kategori: "GLOBAL #1",
+    hero: "SELENA",
+    nickname: "Ryuzen Worst x F4N'T",
+    judul: "SELENA",
+    deskripsi: "Global Selena pertama di fant",
+    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.33.10.jpeg",
+    tanggal: "",
+  },
+
+  {
+    kategori: "GLOBAL #1",
+    hero: "ARGUS",
+    nickname: "Pran x F4N'T",
+    judul: "ARGUS",
+    deskripsi: "Dewa Argus",
+    gambar: "assets/galeri/WhatsApp Image 2026-10-22 at 11.33.15.jpeg",
+    tanggal: "",
+  },
+
+  {
+    kategori: "GLOBAL #1",
+    hero: "EDITH",
+    nickname: "Edith istriku x F4N'T",
+    judul: "EDITH",
+    deskripsi: "Edith is my bini gwegh",
+    gambar: "assets/galeri/edith Image 2026-10-22 at 20.46.01.jpeg",
+    tanggal: "",
   },
 
   {
@@ -709,1628 +708,1872 @@ window.GALERI_DATA = [
 
   // Konten tambahan dari team: nama diseragamkan menjadi Fantastic agar mudah diedit.
   {
-    "kategori": "Achievement Offline",
-    "judul": "Fantastic",
-    "deskripsi": "Dokumentasi kebersamaan dan perjalanan WE ARE FANTASTIC di kegiatan offline.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-offline-001-whatsapp-image-2026-10-18-at-17-21-29.jpeg",
-    "tipe": "gambar"
+    kategori: "Achievement Offline",
+    judul: "Fantastic",
+    deskripsi:
+      "Dokumentasi kebersamaan dan perjalanan WE ARE FANTASTIC di kegiatan offline.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-offline-001-whatsapp-image-2026-10-18-at-17-21-29.jpeg",
+    tipe: "gambar",
   },
   {
-    "kategori": "Achievement Offline",
-    "judul": "Fantastic",
-    "deskripsi": "Dokumentasi kebersamaan dan perjalanan WE ARE FANTASTIC di kegiatan offline.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-offline-002-whatsapp-image-2026-10-18-at-17-38-02.jpeg",
-    "tipe": "gambar"
+    kategori: "Achievement Offline",
+    judul: "Fantastic",
+    deskripsi:
+      "Dokumentasi kebersamaan dan perjalanan WE ARE FANTASTIC di kegiatan offline.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-offline-002-whatsapp-image-2026-10-18-at-17-38-02.jpeg",
+    tipe: "gambar",
   },
   {
-
     //---------------------------------------------------------------------------------------------------------
 
-    "kategori": "Achievement Online",
-    "judul": "FANT HORE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-005-0070c626-907b-48b6-99be-9fd06150c8bb.png",
-    "tipe": "gambar"
+    kategori: "Achievement Online",
+    judul: "FANT HORE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-005-0070c626-907b-48b6-99be-9fd06150c8bb.png",
+    tipe: "gambar",
   },
 
   {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-007-20260504-083552.jpg",
-    "tipe": "gambar"
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-007-20260504-083552.jpg",
+    tipe: "gambar",
   },
 
   {
-    "kategori": "Achievement Online",
-    "judul": "FANT HEAVENLY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-011-2026-02-13-17-11-34-img-7125.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-013-2nd.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT LUMINERTY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-014-358410a4-f57d-408f-a28d-e9bec4f7ff3f.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HIKARU",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-015-3a959a5e-b687-4eed-83fb-fff445fe688d.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOUR",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-016-3f3756b0-ee13-4c87-a990-02bfc63fa641.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NEWBIE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-017-416234e9-723b-45ec-86eb-2d854dbdfe40.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT SUNDA",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-018-51d73034-2b3a-4537-be88-3a66a484bea1.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOUR",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-019-6247157f-d47d-4249-bc0e-d61239865269.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOUR",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-021-7949f7f1-1277-4a9f-a4b2-e3949c5d9678.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT ATHERIA",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-022-826a76da-5d53-4cb2-94d6-e321b3e3b1d4.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NEWBIE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-023-87d0fb75-bdb8-4206-9a45-60d4f2acce1a.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NEWBIE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-024-8fb3672b-c1de-4739-a24a-1d9f9180c4a3.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT LUMINERTY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-025-97be80d3-f7c3-4adf-bdd0-ed4edd5fad9b.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HEAVENLY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-026-9d15bc3d-5317-4340-b0b6-5b492bb3a8e2.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NEWBIE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-027-b5a9b617-0c84-4185-a38b-9b6d9ad9ad67.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NEWBIE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-029-d76bdb2e-dc41-419a-9a26-abd7e05f39ec.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOUR",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-030-ddbe9263-1eb2-4006-9809-2d935ea72dd1.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT WOW MEAT V2",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-031-e-certificate-fantastic-wow-meat-v2-juara-3-s19-3.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NEWBIE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-032-e26335ee-8b9b-4a3a-94a0-9e199d8107b9.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HORE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-033-e9614e75-ed68-4105-b3b9-675ae012e659.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-035-fantastic-kami.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT WOW MEAT",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-036-image-3.webp",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANTASTIC",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-038-img-20260107-wa0514.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANTASTIC",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-039-img-20260114-wa0024.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANTASTIC",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-040-img-20260206-wa0002.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANTASTIC",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-041-img-20260223-wa0003.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANTASTIC",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-044-img-20260330-wa0028.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT ATHERIA",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-045-img-20260401-wa0038.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-046-img-20260403-wa03323.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT LADIES",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-047-img-20260404-wa0071.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-048-img-20260406-wa00492.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT WOW MEAT",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-049-img-20260406-wa0083.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANTASTIC",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-050-img-20260412-wa0278.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMOK",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-051-img-20260413-wa0029.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT ABBYS",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-052-img-20260416-wa0040.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT WOW MEAT",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-053-img-20260417-wa0018.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT WOW MEAT",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-054-img-20260421-wa0353.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-057-img-20260503-wa0033.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-058-img-20260506-wa0022.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-059-img-20260507-wa0263.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-060-img-20260508-wa0319.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT VALLSATORE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-062-img-20260512-wa0010.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-063-img-20260513-wa0079.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-064-img-20260514-wa0019.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-065-img-20260515-wa0041.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-066-img-20260515-wa0148.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21 B",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-067-img-20260517-wa0387.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 69",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-068-img-20260518-wa0078.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-069-img-20260520-wa0020.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT GLORY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-071-img-20260522-wa0042.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT ABSURD",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-072-img-20260525-wa0037.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT GV",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-073-img-20260525-wa0330.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT ABSURD",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-076-img-20260527-wa0007.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT ATHERIA",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-077-img-20260528-wa0025.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21 B",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-078-img-20260528-wa0461.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-079-img-20260528-wa0485.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21 B",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-081-img-20260607-wa0039.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-085-img-20260703-wa0072.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-086-img-20260709-wa00811.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-087-img-20260714-wa0004.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-088-img-20260717-wa0026.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-089-img-20260729-wa0004.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-090-img-20260729-wa0013.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-091-img-20260808-wa0058.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-092-img-20260809-wa0018.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT DIV28",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-093-img-20260904-wa0025.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT RTV",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-094-img-20260907-wa0433.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT DIV 28",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-095-img-20260908-wa0012.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT STAR",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-097-img-20260909-wa0008.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FANTEK",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-099-img-20260914-wa0003.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT RTV",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-100-img-20260916-wa0106.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-101-img-20260917-wa0390.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-102-img-20260917-wa0411.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT VISHASKY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-104-img-20260919-wa0016.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT CAVALRY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-105-img-20260922-wa0013.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NEWBIE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-109-img-20261016-wa0006.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-110-img1790610953912123244100000.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NETIX",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-111-img-0138.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT THEORY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-114-img-1779847590347.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT WOW MEAT",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-115-img-20260524-173216.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-116-img-20260809-175632.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT BAHAGIA",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-118-img-4526.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT NEWBIE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-119-img-4539.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-120-img-5317.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT 21",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-121-img-5379.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-124-picsart-26-05-06-08-10-19-297.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT ABSURD",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-125-quality-restoration-20260428233435354.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-127-save-20260706-111441.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT BOOTYCHEST",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-128-save-20260706-131616.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-130-screenshot-20260421-150823.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOMO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-131-screenshot-20260512-103113.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT VERIFIED",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-132-screenshot-20261018-003609-chrome1.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT KAMI",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-133-sertifikat-20260718-001142-0000.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HEAVENLY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-135-whatsapp-image-2026-03-13-at-06-57-30.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT GOLDEN LOTUS",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-136-whatsapp-image-2026-03-13-at-06-57-31.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HEAVENLY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-137-whatsapp-image-2026-03-13-at-06-57-31-1.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT GOLDEN LOTUS",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-138-whatsapp-image-2026-03-13-at-06-57-31-2.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HAVOC",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-141-whatsapp-image-2026-03-13-at-06-57-32-2.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HORE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-142-whatsapp-image-2026-03-13-at-06-57-33-1.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT GREENFLAG",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-146-whatsapp-image-2026-08-11-at-12-39-34.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOUR",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/fant four apre.png",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT FOUR",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/fant four baik 2026-10-24 at 12.17.36.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT GV",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/fant gv 2026-10-24 at 12.12.46.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HORE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/fant hore 2026-10-24 at 12.12.46.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT HORE",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/Fant hore 608.jpg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT MRO MALAY",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-148-whatsapp-image-2026-08-19-at-11-51-02.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Achievement Online",
-    "judul": "FANT MRO INDO",
-    "deskripsi": "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-achievement-online-149-whatsapp-image-2026-08-19-at-11-51-03.jpeg",
-    "tipe": "gambar"
-  },
-  {
-    "kategori": "Memory",
-    "judul": "FANT JABODETABEK",
-    "deskripsi": "Kenangan dan momen kebersamaan keluarga WE ARE FANTASTIC.",
-    "tanggal": "",
-    "gambar": "assets/galeri/team-memory-156-whatsapp-image-2026-10-18-at-17-00-01.jpeg",
-    "tipe": "gambar"
+    kategori: "Achievement Online",
+    judul: "FANT HEAVENLY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-011-2026-02-13-17-11-34-img-7125.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-013-2nd.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT LUMINERTY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-014-358410a4-f57d-408f-a28d-e9bec4f7ff3f.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HIKARU",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-015-3a959a5e-b687-4eed-83fb-fff445fe688d.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOUR",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-016-3f3756b0-ee13-4c87-a990-02bfc63fa641.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NEWBIE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-017-416234e9-723b-45ec-86eb-2d854dbdfe40.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT SUNDA",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-018-51d73034-2b3a-4537-be88-3a66a484bea1.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOUR",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-019-6247157f-d47d-4249-bc0e-d61239865269.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOUR",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-021-7949f7f1-1277-4a9f-a4b2-e3949c5d9678.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT ATHERIA",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-022-826a76da-5d53-4cb2-94d6-e321b3e3b1d4.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NEWBIE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-023-87d0fb75-bdb8-4206-9a45-60d4f2acce1a.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NEWBIE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-024-8fb3672b-c1de-4739-a24a-1d9f9180c4a3.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT LUMINERTY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-025-97be80d3-f7c3-4adf-bdd0-ed4edd5fad9b.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HEAVENLY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-026-9d15bc3d-5317-4340-b0b6-5b492bb3a8e2.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NEWBIE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-027-b5a9b617-0c84-4185-a38b-9b6d9ad9ad67.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NEWBIE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-029-d76bdb2e-dc41-419a-9a26-abd7e05f39ec.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOUR",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-030-ddbe9263-1eb2-4006-9809-2d935ea72dd1.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT WOW MEAT V2",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-031-e-certificate-fantastic-wow-meat-v2-juara-3-s19-3.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NEWBIE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-032-e26335ee-8b9b-4a3a-94a0-9e199d8107b9.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HORE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-033-e9614e75-ed68-4105-b3b9-675ae012e659.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-035-fantastic-kami.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT WOW MEAT",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-036-image-3.webp",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANTASTIC",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-038-img-20260107-wa0514.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANTASTIC",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-039-img-20260114-wa0024.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANTASTIC",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-040-img-20260206-wa0002.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANTASTIC",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-041-img-20260223-wa0003.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANTASTIC",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-044-img-20260330-wa0028.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT ATHERIA",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-045-img-20260401-wa0038.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-046-img-20260403-wa03323.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT LADIES",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-047-img-20260404-wa0071.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-048-img-20260406-wa00492.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT WOW MEAT",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-049-img-20260406-wa0083.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANTASTIC",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-050-img-20260412-wa0278.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMOK",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-051-img-20260413-wa0029.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT ABBYS",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-052-img-20260416-wa0040.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT WOW MEAT",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-053-img-20260417-wa0018.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT WOW MEAT",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-054-img-20260421-wa0353.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-057-img-20260503-wa0033.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-058-img-20260506-wa0022.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-059-img-20260507-wa0263.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-060-img-20260508-wa0319.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT VALLSATORE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-062-img-20260512-wa0010.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-063-img-20260513-wa0079.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-064-img-20260514-wa0019.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-065-img-20260515-wa0041.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-066-img-20260515-wa0148.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21 B",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-067-img-20260517-wa0387.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 69",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-068-img-20260518-wa0078.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-069-img-20260520-wa0020.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT GLORY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-071-img-20260522-wa0042.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT ABSURD",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-072-img-20260525-wa0037.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT GV",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-073-img-20260525-wa0330.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT ABSURD",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-076-img-20260527-wa0007.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT ATHERIA",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-077-img-20260528-wa0025.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21 B",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-078-img-20260528-wa0461.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-079-img-20260528-wa0485.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21 B",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-081-img-20260607-wa0039.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-085-img-20260703-wa0072.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-086-img-20260709-wa00811.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-087-img-20260714-wa0004.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-088-img-20260717-wa0026.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-089-img-20260729-wa0004.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-090-img-20260729-wa0013.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-091-img-20260808-wa0058.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-092-img-20260809-wa0018.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT DIV28",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-093-img-20260904-wa0025.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT RTV",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-094-img-20260907-wa0433.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT DIV 28",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-095-img-20260908-wa0012.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT STAR",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-097-img-20260909-wa0008.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FANTEK",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-099-img-20260914-wa0003.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT RTV",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-100-img-20260916-wa0106.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-101-img-20260917-wa0390.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-102-img-20260917-wa0411.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT VISHASKY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-104-img-20260919-wa0016.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT CAVALRY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-105-img-20260922-wa0013.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NEWBIE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-109-img-20261016-wa0006.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-110-img1790610953912123244100000.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NETIX",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-111-img-0138.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT THEORY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-114-img-1779847590347.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT WOW MEAT",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-115-img-20260524-173216.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-116-img-20260809-175632.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT BAHAGIA",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-118-img-4526.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT NEWBIE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-119-img-4539.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-120-img-5317.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT 21",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/team-achievement-online-121-img-5379.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-124-picsart-26-05-06-08-10-19-297.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT ABSURD",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-125-quality-restoration-20260428233435354.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-127-save-20260706-111441.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT BOOTYCHEST",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-128-save-20260706-131616.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-130-screenshot-20260421-150823.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOMO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-131-screenshot-20260512-103113.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT VERIFIED",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-132-screenshot-20261018-003609-chrome1.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT KAMI",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-133-sertifikat-20260718-001142-0000.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HEAVENLY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-135-whatsapp-image-2026-03-13-at-06-57-30.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT GOLDEN LOTUS",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-136-whatsapp-image-2026-03-13-at-06-57-31.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HEAVENLY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-137-whatsapp-image-2026-03-13-at-06-57-31-1.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT GOLDEN LOTUS",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-138-whatsapp-image-2026-03-13-at-06-57-31-2.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HAVOC",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-141-whatsapp-image-2026-03-13-at-06-57-32-2.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HORE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-142-whatsapp-image-2026-03-13-at-06-57-33-1.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT GREENFLAG",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-146-whatsapp-image-2026-08-11-at-12-39-34.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOUR",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/fant four apre.png",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT FOUR",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/fant four baik 2026-10-24 at 12.17.36.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT GV",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/fant gv 2026-10-24 at 12.12.46.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HORE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/fant hore 2026-10-24 at 12.12.46.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT HORE",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar: "assets/galeri/Fant hore 608.jpg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT MRO MALAY",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-148-whatsapp-image-2026-08-19-at-11-51-02.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Achievement Online",
+    judul: "FANT MRO INDO",
+    deskripsi:
+      "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-achievement-online-149-whatsapp-image-2026-08-19-at-11-51-03.jpeg",
+    tipe: "gambar",
+  },
+  {
+    kategori: "Memory",
+    judul: "FANT JABODETABEK",
+    deskripsi: "Kenangan dan momen kebersamaan keluarga WE ARE FANTASTIC.",
+    tanggal: "",
+    gambar:
+      "assets/galeri/team-memory-156-whatsapp-image-2026-10-18-at-17-00-01.jpeg",
+    tipe: "gambar",
   },
 
   // Kategori baru: pencapaian 1000 bintang. Ditambahkan tanpa mengubah data galeri sebelumnya.
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-001.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-001.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-002.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-002.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-003.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-003.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-004.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-004.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-005.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-005.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-006.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-006.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-007.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-007.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-008.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-008.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-009.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-009.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-010.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-010.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-011.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-011.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-012.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-012.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-013.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-013.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-014.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-014.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-015.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-015.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-017.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-017.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-018.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-018.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-019.png',
+    gambar: "assets/galeri/1000-stars/1000-star-019.png",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-020.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-020.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-021.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-021.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-022.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-022.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-023.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-023.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-024.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-024.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-025.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-025.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-026.png',
+    gambar: "assets/galeri/1000-stars/1000-star-026.png",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-027.png',
+    gambar: "assets/galeri/1000-stars/1000-star-027.png",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-028.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-028.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-029.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-029.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-030.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-030.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-031.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-031.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-032.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-032.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-034.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-034.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-035.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-035.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-036.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-036.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-037.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-037.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-038.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-038.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-039.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-039.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-040.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-040.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-041.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-041.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-042.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-042.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-043.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-043.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-044.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-044.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-045.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-045.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-046.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-046.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-047.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-047.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-048.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-048.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-049.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-049.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-050.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-050.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-051.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-051.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-052.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-052.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-053.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-053.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-054.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-054.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-055.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-055.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-056.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-056.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-057.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-057.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-058.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-058.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-059.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-059.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-060.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-060.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-062.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-062.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-063.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-063.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-064.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-064.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-065.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-065.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-066.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-066.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-067.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-067.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-068.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-068.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-069.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-069.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-070.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-070.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-071.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-071.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-072.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-072.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-073.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-073.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-074.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-074.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-075.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-075.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-076.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-076.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-077.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-077.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-078.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-078.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-079.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-079.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-080.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-080.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-081.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-081.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-082.png',
+    gambar: "assets/galeri/1000-stars/1000-star-082.png",
     tipe: "gambar",
   },
 
   // Foto tambahan 1000 ⭐ dari kiriman terbaru.
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-083.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-083.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-084.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-084.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-085.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-085.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-086.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-086.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-087.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-087.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-088.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-088.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-089.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-089.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-090.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-090.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-091.png',
+    gambar: "assets/galeri/1000-stars/1000-star-091.png",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-092.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-092.jpg",
     tipe: "gambar",
   },
   {
-    kategori: 'HALL OF FAME',
-    judul: 'CONGRATULATIONS, 1000 ⭐!',
-    deskripsi: 'Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.',
+    kategori: "HALL OF FAME",
+    judul: "CONGRATULATIONS, 1000 ⭐!",
+    deskripsi:
+      "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: 'assets/galeri/1000-stars/1000-star-093.jpg',
+    gambar: "assets/galeri/1000-stars/1000-star-093.jpg",
     tipe: "gambar",
   },
   {
@@ -2342,7 +2585,7 @@ window.GALERI_DATA = [
       exp: "Bert x F4N'T",
       mid: "Suzy x F4N'T",
       roam: "Lexavi x F4N'T",
-      gold: "Macaaawy x F4N'T"
+      gold: "Macaaawy x F4N'T",
     },
     tanggal: "",
     gambar: "assets/galeri/fantastic-compe-newbie-x-papah-jahat.jpg",
@@ -2357,10 +2600,11 @@ window.GALERI_DATA = [
       exp: "Zeyeaa x F4N'T",
       mid: "4rc3l1io x F4N'T",
       roam: "Pik:3 x F4N'T",
-      gold: "rykie x F4N'T"
+      gold: "rykie x F4N'T",
     },
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-offline-004-whatsapp-image-2026-10-18-at-21-19-15.jpeg",
+    gambar:
+      "assets/galeri/team-achievement-offline-004-whatsapp-image-2026-10-18-at-21-19-15.jpeg",
     tipe: "gambar",
   },
   {
@@ -2372,7 +2616,7 @@ window.GALERI_DATA = [
       exp: "•°RaRa x F4N'T",
       mid: "Pimelaa x F4N'T",
       roam: "Necуαα x F4N'T",
-      gold: "Achantha x F4N'T"
+      gold: "Achantha x F4N'T",
     },
     tanggal: "",
     gambar: "assets/galeri/Fantastic Fancancy Rev.png",
@@ -2387,7 +2631,7 @@ window.GALERI_DATA = [
       exp: "Kise x F4N'T",
       mid: "Ken x F4N'T",
       roam: "Antares x F4N'T",
-      gold: "Yamhz x F4N'T"
+      gold: "Yamhz x F4N'T",
     },
     tanggal: "",
     gambar: "assets/galeri/fant four Image 2026-10-23 at 12.48.26.jpeg",
@@ -2402,7 +2646,7 @@ window.GALERI_DATA = [
       exp: "Mellsie! x F4N'T",
       mid: "Aleysha x F4N'T",
       roam: "Reika x F4N'T",
-      gold: "Bila x F4N'T"
+      gold: "Bila x F4N'T",
     },
     tanggal: "",
     gambar: "assets/galeri/ath old Image 2026-10-25 at 15.00.19.jpeg",
@@ -2417,7 +2661,7 @@ window.GALERI_DATA = [
       exp: "Angel x F4N'T",
       mid: "Piakk x F4N'T",
       roam: "Fᥱii x F4N'T",
-      gold: "cinday x F4N'T"
+      gold: "cinday x F4N'T",
     },
     tanggal: "",
     gambar: "assets/galeri/ath Image 2026-10-25 at 15.00.44.jpeg",
@@ -2432,7 +2676,7 @@ window.GALERI_DATA = [
       exp: "ethanieL x F4N'T",
       mid: "YuJim x F4N'T",
       roam: "Lazua x F4N'T",
-      gold: "RyougiSzy 신비한 x F4N'T"
+      gold: "RyougiSzy 신비한 x F4N'T",
     },
     tanggal: "",
     gambar: "assets/galeri/smanell.jpg",

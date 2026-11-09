@@ -26,3 +26,6 @@ Thumbs.db
 
 # Supabase CLI local project metadata
 supabase/.temp/
+
+# Raw image sequence frames (optimized copies live in assets/sequence)
+image-sequence/

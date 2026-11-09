@@ -1,70 +1,263 @@
 <!doctype html>
 <html lang="id">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090909">
-  <title>Profil Akun — F4NTASTIC</title><link rel="icon" href="assets/logo-transparant.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/profile.css?v=20261101-profile3">
-</head>
-<body>
-  <main class="profile-page">
-    <div class="profile-atmosphere" aria-hidden="true"><span></span><i></i></div>
-    <section class="profile-shell">
-      <a class="profile-back" href="index.html">← KEMBALI KE WEBSITE</a>
-      <header class="profile-hero">
-        <div class="profile-avatar-wrap">
-          <div class="profile-avatar" id="avatar" aria-label="Foto profil">F</div>
-          <label class="avatar-edit" for="avatarFile" title="Ganti foto profil" aria-label="Ganti foto profil">✎</label>
-          <input id="avatarFile" type="file" accept="image/jpeg,image/png,image/webp" hidden>
-          <span class="avatar-online-dot" id="avatarStatusDot" aria-hidden="true"></span>
-        </div>
-        <div class="profile-hero-copy"><p class="profile-kicker">— F4NTASTIC ACCOUNT / PROFILE</p><h1 id="profileName">Profil Member</h1><p class="profile-handle" id="profileHandle">@member</p><div class="profile-role" id="profileRole">MEMBER F4NTASTIC</div></div>
-        <div class="profile-hero-status"><span class="profile-status-label">PRESENCE</span><strong id="presenceLabel">MEMERIKSA…</strong><small id="presenceLastSeen">Menyambungkan status…</small></div>
-      </header>
-
-      <section class="profile-commandbar">
-        <div><span class="profile-kicker">ACCOUNT COMMAND CENTER</span><p>Kelola identitas, presence, hero, dan showcase profil F4NTASTIC dari satu tempat.</p><small class="profile-cooldown" id="avatarCooldown">Memeriksa cooldown…</small></div>
-        <div class="commandbar-actions"><div class="presence-control"><label for="presenceMode">STATUS AKUN</label><select id="presenceMode"><option value="auto">AUTO / AKTIF SAAT MEMBUKA WEBSITE</option><option value="busy">SIBUK</option><option value="offline">OFFLINE</option></select></div><button class="profile-logout" id="logout" type="button">KELUAR DARI AKUN <span aria-hidden="true">↗</span></button></div>
-      </section>
-
-      <div class="profile-layout">
-        <section class="profile-panel">
-          <div class="panel-heading"><div><p class="profile-kicker">01 / MEMBER PROFILE</p><h2 id="viewTitle">PROFIL MEMBER.</h2><p class="panel-description" id="viewDesc">Ringkasan profil member F4NTASTIC.</p></div><div class="panel-actions"><button id="editProfile" class="profile-edit-btn" type="button">EDIT DATA <span aria-hidden="true">✎</span></button></div></div>
-
-          <div id="profileView">
-            <div class="view-grid">
-              <div class="view-item"><small>IN GAME NAME</small><strong id="vFullName">—</strong></div>
-              <div class="view-item"><small>EMAIL</small><strong id="vEmail">—</strong></div>
-              <div class="view-item"><small>NOMOR TELEPON</small><strong id="vPhone">—</strong></div>
-              <div class="view-item"><small>GENDER · TANGGAL LAHIR</small><strong id="vGenderBirth">—</strong></div>
-              <div class="view-item"><small>ML ID / SERVER</small><strong id="vMl">—</strong></div>
-              <div class="view-item"><small>HERO</small><strong id="vHero">—</strong></div>
-            </div>
-
-            <div class="profile-stats">
-              <div class="stat-tile"><small>MEMBER SEJAK</small><strong id="sSince">—</strong></div>
-              <div class="stat-tile"><small>ROLE</small><strong id="sRole">—</strong></div>
-            </div>
-
-            <div class="profile-gallery">
-              <div class="gallery-head"><span>SHOWCASE PROFIL</span><small>Maksimal 3 foto</small></div>
-              <div class="gallery-grid" id="galleryGrid"></div>
-            </div>
-          </div>
-
-          <form id="profileForm" class="profile-form" novalidate hidden>
-            <fieldset class="profile-group"><legend>Informasi Pribadi</legend><div class="profile-fields"><label for="fullName">IN GAME NAME *<input id="fullName" name="full_name" autocomplete="name" required maxlength="100" placeholder="In game name kamu"></label><label for="phone">NOMOR TELEPON *<input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="24" placeholder="08xxxxxxxxxx"></label></div><div class="profile-fields"><label for="gender">JENIS KELAMIN *<select id="gender" name="gender" required><option value="">Pilih jenis kelamin</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></label><label for="birthDate">TANGGAL LAHIR *<input id="birthDate" name="birth_date" type="date" required></label></div></fieldset>
-            <fieldset class="profile-group"><legend>Identitas Mobile Legends</legend><div class="profile-fields"><label for="mlId">ID MOBILE LEGENDS *<input id="mlId" name="ml_id" inputmode="numeric" required maxlength="30" placeholder="Contoh: 123456789"></label><label for="mlServer">SERVER ML *<input id="mlServer" name="ml_server" inputmode="numeric" required maxlength="12" placeholder="Contoh: 1234"></label></div><div class="profile-fields"><label for="mainHero">MAIN HERO<input id="mainHero" maxlength="60" placeholder="Contoh: Gusion"></label><label for="favHeroes">HERO FAVORIT<input id="favHeroes" maxlength="160" placeholder="Pisahkan dengan koma, contoh: Lancelot, Chou, Franco"></label></div><div class="profile-fields"><label for="gameRole">ROLE / POSISI<select id="gameRole"><option value="">Pilih role</option><option value="jungler">Jungler</option><option value="gold">Gold Lane</option><option value="exp">EXP Lane</option><option value="roam">Roamer</option><option value="mid">Mid Lane</option></select></label></div></fieldset>
-            <div class="form-actions"><button class="profile-save" id="saveProfile" type="submit">SIMPAN DATA DIRI <span aria-hidden="true">↗</span></button><button class="profile-cancel" id="cancelEdit" type="button">BATAL</button></div>
-          </form>
-          <p class="profile-status-message" id="profileStatus" role="status" aria-live="polite"></p>
-        </section>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#090909" />
+    <title>Profil Akun — F4NTASTIC</title>
+    <link rel="icon" href="assets/logo-transparant.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/profile.css?v=20261101-profile3" />
+  </head>
+  <body>
+    <main class="profile-page">
+      <div class="profile-atmosphere" aria-hidden="true">
+        <span></span><i></i>
       </div>
-      <footer class="profile-footer"><span>F4NTASTIC / MEMBER COMMAND</span><span>WE ARE F4NTASTIC, WE ARE FAMILY.</span></footer>
-    </section>
-  </main>
-  <input id="galleryFile" type="file" accept="image/jpeg,image/png,image/webp" hidden>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/profile.js?v=20261101-profile4"></script>
-<script src="js/i18n.js?v=20261103-i18n18"></script></body>
+      <section class="profile-shell">
+        <a class="profile-back" href="index.html">← KEMBALI KE WEBSITE</a>
+        <header class="profile-hero">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" id="avatar" aria-label="Foto profil">
+              F
+            </div>
+            <label
+              class="avatar-edit"
+              for="avatarFile"
+              title="Ganti foto profil"
+              aria-label="Ganti foto profil"
+              >✎</label
+            >
+            <input
+              id="avatarFile"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              hidden
+            />
+            <span
+              class="avatar-online-dot"
+              id="avatarStatusDot"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <div class="profile-hero-copy">
+            <p class="profile-kicker">— F4NTASTIC ACCOUNT / PROFILE</p>
+            <h1 id="profileName">Profil Member</h1>
+            <p class="profile-handle" id="profileHandle">@member</p>
+            <div class="profile-role" id="profileRole">MEMBER F4NTASTIC</div>
+          </div>
+          <div class="profile-hero-status">
+            <span class="profile-status-label">PRESENCE</span
+            ><strong id="presenceLabel">MEMERIKSA…</strong
+            ><small id="presenceLastSeen">Menyambungkan status…</small>
+          </div>
+        </header>
+
+        <section class="profile-commandbar">
+          <div>
+            <span class="profile-kicker">ACCOUNT COMMAND CENTER</span>
+            <p>
+              Kelola identitas, presence, hero, dan showcase profil F4NTASTIC
+              dari satu tempat.
+            </p>
+            <small class="profile-cooldown" id="avatarCooldown"
+              >Memeriksa cooldown…</small
+            >
+          </div>
+          <div class="commandbar-actions">
+            <div class="presence-control">
+              <label for="presenceMode">STATUS AKUN</label
+              ><select id="presenceMode">
+                <option value="auto">AUTO / AKTIF SAAT MEMBUKA WEBSITE</option>
+                <option value="busy">SIBUK</option>
+                <option value="offline">OFFLINE</option>
+              </select>
+            </div>
+            <button class="profile-logout" id="logout" type="button">
+              KELUAR DARI AKUN <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </section>
+
+        <div class="profile-layout">
+          <section class="profile-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="profile-kicker">01 / MEMBER PROFILE</p>
+                <h2 id="viewTitle">PROFIL MEMBER.</h2>
+                <p class="panel-description" id="viewDesc">
+                  Ringkasan profil member F4NTASTIC.
+                </p>
+              </div>
+              <div class="panel-actions">
+                <button id="editProfile" class="profile-edit-btn" type="button">
+                  EDIT DATA <span aria-hidden="true">✎</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="profileView">
+              <div class="view-grid">
+                <div class="view-item">
+                  <small>IN GAME NAME</small><strong id="vFullName">—</strong>
+                </div>
+                <div class="view-item">
+                  <small>EMAIL</small><strong id="vEmail">—</strong>
+                </div>
+                <div class="view-item">
+                  <small>NOMOR TELEPON</small><strong id="vPhone">—</strong>
+                </div>
+                <div class="view-item">
+                  <small>GENDER · TANGGAL LAHIR</small
+                  ><strong id="vGenderBirth">—</strong>
+                </div>
+                <div class="view-item">
+                  <small>ML ID / SERVER</small><strong id="vMl">—</strong>
+                </div>
+                <div class="view-item">
+                  <small>HERO</small><strong id="vHero">—</strong>
+                </div>
+              </div>
+
+              <div class="profile-stats">
+                <div class="stat-tile">
+                  <small>MEMBER SEJAK</small><strong id="sSince">—</strong>
+                </div>
+                <div class="stat-tile">
+                  <small>ROLE</small><strong id="sRole">—</strong>
+                </div>
+              </div>
+
+              <div class="profile-gallery">
+                <div class="gallery-head">
+                  <span>SHOWCASE PROFIL</span><small>Maksimal 3 foto</small>
+                </div>
+                <div class="gallery-grid" id="galleryGrid"></div>
+              </div>
+            </div>
+
+            <form id="profileForm" class="profile-form" novalidate hidden>
+              <fieldset class="profile-group">
+                <legend>Informasi Pribadi</legend>
+                <div class="profile-fields">
+                  <label for="fullName"
+                    >IN GAME NAME *<input
+                      id="fullName"
+                      name="full_name"
+                      autocomplete="name"
+                      required
+                      maxlength="100"
+                      placeholder="In game name kamu" /></label
+                  ><label for="phone"
+                    >NOMOR TELEPON *<input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      autocomplete="tel"
+                      inputmode="tel"
+                      required
+                      maxlength="24"
+                      placeholder="08xxxxxxxxxx"
+                  /></label>
+                </div>
+                <div class="profile-fields">
+                  <label for="gender"
+                    >JENIS KELAMIN *<select id="gender" name="gender" required>
+                      <option value="">Pilih jenis kelamin</option>
+                      <option value="Laki-laki">Laki-laki</option>
+                      <option value="Perempuan">Perempuan</option>
+                    </select></label
+                  ><label for="birthDate"
+                    >TANGGAL LAHIR *<input
+                      id="birthDate"
+                      name="birth_date"
+                      type="date"
+                      required
+                  /></label>
+                </div>
+              </fieldset>
+              <fieldset class="profile-group">
+                <legend>Identitas Mobile Legends</legend>
+                <div class="profile-fields">
+                  <label for="mlId"
+                    >ID MOBILE LEGENDS *<input
+                      id="mlId"
+                      name="ml_id"
+                      inputmode="numeric"
+                      required
+                      maxlength="30"
+                      placeholder="Contoh: 123456789" /></label
+                  ><label for="mlServer"
+                    >SERVER ML *<input
+                      id="mlServer"
+                      name="ml_server"
+                      inputmode="numeric"
+                      required
+                      maxlength="12"
+                      placeholder="Contoh: 1234"
+                  /></label>
+                </div>
+                <div class="profile-fields">
+                  <label for="mainHero"
+                    >MAIN HERO<input
+                      id="mainHero"
+                      maxlength="60"
+                      placeholder="Contoh: Gusion" /></label
+                  ><label for="favHeroes"
+                    >HERO FAVORIT<input
+                      id="favHeroes"
+                      maxlength="160"
+                      placeholder="Pisahkan dengan koma, contoh: Lancelot, Chou, Franco"
+                  /></label>
+                </div>
+                <div class="profile-fields">
+                  <label for="gameRole"
+                    >ROLE / POSISI<select id="gameRole">
+                      <option value="">Pilih role</option>
+                      <option value="jungler">Jungler</option>
+                      <option value="gold">Gold Lane</option>
+                      <option value="exp">EXP Lane</option>
+                      <option value="roam">Roamer</option>
+                      <option value="mid">Mid Lane</option>
+                    </select></label
+                  >
+                </div>
+              </fieldset>
+              <div class="form-actions">
+                <button class="profile-save" id="saveProfile" type="submit">
+                  SIMPAN DATA DIRI <span aria-hidden="true">↗</span></button
+                ><button class="profile-cancel" id="cancelEdit" type="button">
+                  BATAL
+                </button>
+              </div>
+            </form>
+            <p
+              class="profile-status-message"
+              id="profileStatus"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </section>
+        </div>
+        <footer class="profile-footer">
+          <span>F4NTASTIC / MEMBER COMMAND</span
+          ><span>WE ARE F4NTASTIC, WE ARE FAMILY.</span>
+        </footer>
+      </section>
+    </main>
+    <input
+      id="galleryFile"
+      type="file"
+      accept="image/jpeg,image/png,image/webp"
+      hidden
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/profile.js?v=20261101-profile4"></script>
+    <script src="js/i18n.js?v=20261103-i18n18"></script>
+  </body>
 </html>
