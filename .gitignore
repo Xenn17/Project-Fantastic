@@ -29,3 +29,4 @@ supabase/.temp/
 
 # Raw image sequence frames (optimized copies live in assets/sequence)
 image-sequence/
+image-sequence-intro/

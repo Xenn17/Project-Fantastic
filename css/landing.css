@@ -47,64 +47,25 @@
   opacity: calc(.35 + var(--finale) * .45);
 }
 
-/* Film card — portrait vlog footage presented as a floating 3D phone-story card. */
-.intro-film {
-  position: absolute; margin: 0; z-index: -1;
-  right: clamp(24px, 9vw, 170px); top: 50%;
-  height: min(76svh, 780px); aspect-ratio: 9 / 16;
-  border-radius: 26px; overflow: hidden;
-  background: #0b0b0b;
-  border: 1px solid transparent;
-  background-clip: padding-box;
-  box-shadow:
-    0 0 0 1px rgba(246, 221, 147, .35),
-    0 50px 120px -30px rgba(0, 0, 0, .95),
-    0 0 90px -20px rgba(217, 180, 91, .35);
-  transform:
-    translateY(-50%)
-    perspective(1500px)
-    rotateY(calc(-18deg + var(--p) * 30deg))
-    rotateX(calc(5deg - var(--p) * 6deg))
-    scale(calc(1 - var(--finale) * .3));
-  opacity: calc(1 - var(--finale) * .92);
-  will-change: transform, opacity;
+/* Stage — intro animation on pure black, composited with `screen` so only the light (wolf, flames, logo)
+   remains and glows over the grid floor and ambient colour. Layout is driven by js/fx/landing.js. */
+.intro-stage {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1;
+  mix-blend-mode: screen;
+  opacity: 0; transition: opacity 1.2s var(--ease-out-expo);
 }
-.intro-film canvas { display: block; width: 100%; height: 100%; }
-.intro-film::after {
-  /* glass reflection that slides as the card rotates */
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .13) 45%, transparent 55%);
-  transform: translateX(calc(-60% + var(--p) * 120%));
-}
-.intro-film-hud {
-  position: absolute; inset: 16px 16px auto; display: flex; justify-content: space-between; align-items: center;
-  font: 700 10px/1 var(--font-body); letter-spacing: .2em; color: rgba(255, 255, 255, .85);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, .8);
-}
-.hud-rec { display: inline-flex; align-items: center; gap: 7px; }
-.hud-rec i { width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; box-shadow: 0 0 10px #ff3b30; animation: rec-blink 1.2s steps(2) infinite; }
-@keyframes rec-blink { 50% { opacity: .2; } }
-.hud-frame::after { content: "FRAME " attr(data-frame); font-variant-numeric: tabular-nums; }
-.intro-film-corner { position: absolute; width: 22px; height: 22px; border: 0 solid var(--gold-bright); opacity: .85; }
-.intro-film-corner.c1 { left: 10px; bottom: 10px; border-left-width: 2px; border-bottom-width: 2px; }
-.intro-film-corner.c2 { right: 10px; bottom: 10px; border-right-width: 2px; border-bottom-width: 2px; }
-.intro-film-corner.c3, .intro-film-corner.c4 { display: none; }
+.intro.is-ready .intro-stage { opacity: 1; }
 
-/* Three.js emblem layer + CSS fallback emblem */
+/* Three.js particle layer (emblem hidden: the intro footage ends on the logo). #heroEmblem stays for script.js. */
 .intro-logo3d { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 1.4s var(--ease-out-expo); }
 .has-webgl .intro-logo3d { opacity: 1; }
 .intro-emblem-fallback { display: none !important; }
-.no-webgl .intro-emblem-fallback {
-  display: flex !important; position: absolute; z-index: 1; width: min(240px, 48vw);
-  left: 50%; top: 50%;
-  transform: translate(calc(-50% + (1 - var(--finale)) * 18vw), calc(-50% - 18vh + var(--finale) * 6vh)) scale(calc(.75 + var(--finale) * .5));
-}
 
 /* Legibility shade */
 .intro-shade {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(5, 5, 5, .9) 0%, rgba(5, 5, 5, .55) 38%, transparent 62%),
+    linear-gradient(90deg, rgba(5, 5, 5, .82) 0%, rgba(5, 5, 5, .4) 34%, transparent 55%),
     linear-gradient(0deg, #050505 0%, transparent 22%),
     linear-gradient(180deg, rgba(5, 5, 5, .55) 0%, transparent 18%);
 }
@@ -165,16 +126,11 @@
 /* ---------- Mobile intro: footage goes full-bleed (portrait fits naturally) ---------- */
 @media (max-width: 720px) {
   .intro { height: 360vh; }
-  .intro-ambient, .intro-grid { display: none; }
-  .intro-film {
-    inset: 0; right: 0; top: 0; height: 100%; width: 100%; aspect-ratio: auto; border-radius: 0; box-shadow: none;
-    transform: scale(calc(1.08 - var(--p) * .08)); opacity: calc(1 - var(--finale) * .75);
-  }
-  .intro-film::after, .intro-film-corner { display: none; }
-  .intro-film-hud { inset: 96px 18px auto; }
+  .intro-ambient { display: none; }
+  .intro-grid { height: 46%; opacity: .5; }
   .intro-shade {
     background:
-      linear-gradient(0deg, rgba(5, 5, 5, .96) 0%, rgba(5, 5, 5, .72) 38%, rgba(5, 5, 5, .15) 62%, rgba(5, 5, 5, .5) 100%);
+      linear-gradient(0deg, rgba(5, 5, 5, .94) 0%, rgba(5, 5, 5, .6) 40%, transparent 62%);
   }
   .intro-chapter { left: 20px; right: 20px; width: auto; top: auto; bottom: 92px; transform: translateY(calc((1 - var(--v)) * 40px * var(--dir))); }
   .intro-chapter h1 { font-size: clamp(64px, 19vw, 96px); }

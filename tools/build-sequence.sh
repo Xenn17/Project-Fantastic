@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
 # Convert raw PNG frames in image-sequence/ into lightweight WebP frames for the scroll-scrubbed hero.
-# Usage: tools/build-sequence.sh [src_dir] [step]
+# Usage: tools/build-sequence.sh [src_dir] [step] [desktop_height] [mobile_height]
+#   e.g. tools/build-sequence.sh image-sequence-intro 1 1280 900
 set -euo pipefail
 cd "$(dirname "$0")/.."
-SRC="${1:-image-sequence}"
-STEP="${2:-2}"
+SRC="${1:-image-sequence-intro}"
+STEP="${2:-1}"
+DH="${3:-1280}"
+MH="${4:-900}"
 OUT="assets/sequence"
 rm -rf "$OUT" && mkdir -p "$OUT/desktop" "$OUT/mobile"
 
-mapfile -t frames < <(ls "$SRC"/frame_*.png | sort)
+mapfile -t frames < <(find "$SRC" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \) | sort -V)
 n=0
 for ((i = 0; i < ${#frames[@]}; i += STEP)); do
   n=$((n + 1))
   name=$(printf "f_%03d.webp" "$n")
-  magick "${frames[$i]}" -resize x720 -quality 68 -define webp:method=6 "$OUT/desktop/$name" &
-  magick "${frames[$i]}" -resize x480 -quality 62 -define webp:method=6 "$OUT/mobile/$name" &
+  magick "${frames[$i]}" -resize "x$DH" -quality 72 -define webp:method=6 "$OUT/desktop/$name" &
+  magick "${frames[$i]}" -resize "x$MH" -quality 66 -define webp:method=6 "$OUT/mobile/$name" &
   (( n % 8 == 0 )) && wait
 done
 wait

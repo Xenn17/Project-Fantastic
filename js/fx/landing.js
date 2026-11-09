@@ -3,7 +3,7 @@
    NOTE: never write textContent per frame here — i18n.js re-translates the page on every childList mutation.
    Per-frame values go through CSS custom properties / data attributes only. */
 import Lenis from "lenis";
-import { createSequence } from "./sequence.js";
+import { createSequence } from "./sequence.js?v=20261109-intro2";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const intro = document.querySelector("#home.intro");
@@ -20,6 +20,9 @@ if (!reduced) {
   }).observe(body, { attributes: true, attributeFilter: ["class"] });
   window.F4Lenis = lenis;
 }
+
+// Last frame of the logo reveal in assets/sequence (the source animation fades to black afterwards).
+const HOLD_FRAME = 190;
 
 const smooth = (a, b, x) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
@@ -40,7 +43,7 @@ async function boot() {
   let lastP = 0;
   let introVisible = true;
 
-  const seqPromise = createSequence({ canvas: film, ambient });
+  const seqPromise = createSequence({ canvas: film, ambient, priority: [HOLD_FRAME] });
 
   // Three.js is optional: no WebGL / blocked CDN → CSS emblem fallback stays visible.
   let logo = null;
@@ -54,8 +57,8 @@ async function boot() {
     }
   })();
   if (webgl && logoCanvas) {
-    import("./logo3d.js")
-      .then(({ createLogo3D }) => createLogo3D({ canvas: logoCanvas }))
+    import("./logo3d.js?v=20261109-intro2")
+      .then(({ createLogo3D }) => createLogo3D({ canvas: logoCanvas, emblem: false }))
       .then((instance) => {
         if (!instance) throw new Error("webgl");
         logo = instance;
@@ -80,11 +83,19 @@ async function boot() {
     if (p === lastP) return;
     lastP = p;
 
-    // Footage plays across the first 88% of the pinned scroll; the rest is the logo finale.
-    const frame = seq ? seq.render(Math.min(1, p / 0.88)) : 0;
-    if (hud && seq) hud.dataset.frame = `${String(frame + 1).padStart(3, "0")} / ${seq.count}`;
-
+    // Intro animation plays across the first 86% of the pinned scroll and holds on the logo reveal
+    // (it fades to black after HOLD_FRAME, so we never scrub past it).
     const finale = smooth(0.6, 0.86, p);
+    if (seq) {
+      const hold = Math.min(1, HOLD_FRAME / (seq.count - 1));
+      const portrait = innerWidth / innerHeight < 0.9;
+      const layout = portrait
+        ? { x: 0.5, y: 0.34 + finale * 0.04, h: 1.02 }
+        : { x: 0.68 - finale * 0.18, y: 0.5 - finale * 0.1, h: 1.38 + finale * 0.22 };
+      const frame = seq.render(Math.min(1, p / 0.86) * hold, layout);
+      if (hud) hud.dataset.frame = `${String(frame + 1).padStart(3, "0")} / ${seq.count}`;
+    }
+
     intro.style.setProperty("--p", p.toFixed(4));
     intro.style.setProperty("--finale", finale.toFixed(4));
 

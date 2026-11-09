@@ -16,13 +16,13 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css?v=20261109-redesign" />
-    <link rel="stylesheet" href="css/tokens.css?v=20261109-redesign" />
-    <link rel="stylesheet" href="css/components.css?v=20261109-redesign" />
-    <link rel="stylesheet" href="css/landing.css?v=20261109-redesign" />
+    <link rel="stylesheet" href="css/style.css?v=20261109-intro2" />
+    <link rel="stylesheet" href="css/tokens.css?v=20261109-intro2" />
+    <link rel="stylesheet" href="css/components.css?v=20261109-intro2" />
+    <link rel="stylesheet" href="css/landing.css?v=20261109-intro2" />
     <link rel="preload" as="image" href="assets/sequence/desktop/f_001.webp" media="(min-width: 721px)" />
     <link rel="preload" as="image" href="assets/sequence/mobile/f_001.webp" media="(max-width: 720px)" />
-    <link rel="modulepreload" href="js/fx/landing.js?v=20261109-redesign" />
+    <link rel="modulepreload" href="js/fx/landing.js?v=20261109-intro2" />
     <script type="importmap">
       {
         "imports": {
@@ -33,9 +33,9 @@
       }
     </script>
     <script src="data.js?v=20261018-logo" defer></script>
-    <script src="js/script.js?v=20261109-redesign" defer></script>
-    <script src="js/fx/ui.js?v=20261109-redesign" defer></script>
-    <script type="module" src="js/fx/landing.js?v=20261109-redesign"></script>
+    <script src="js/script.js?v=20261109-intro2" defer></script>
+    <script src="js/fx/ui.js?v=20261109-intro2" defer></script>
+    <script type="module" src="js/fx/landing.js?v=20261109-intro2"></script>
   </head>
   <body class="is-landing">
     <div class="page-glow" aria-hidden="true"></div>
@@ -131,15 +131,7 @@
           <canvas class="intro-ambient" id="seqAmbient" aria-hidden="true"></canvas>
           <div class="intro-grid" aria-hidden="true"></div>
 
-          <figure class="intro-film" aria-hidden="true">
-            <canvas id="seqCanvas"></canvas>
-            <figcaption class="intro-film-hud">
-              <span class="hud-rec"><i></i> REC</span>
-              <span class="hud-frame" data-frame="001 / 143"></span>
-            </figcaption>
-            <span class="intro-film-corner c1"></span><span class="intro-film-corner c2"></span>
-            <span class="intro-film-corner c3"></span><span class="intro-film-corner c4"></span>
-          </figure>
+          <canvas class="intro-stage" id="seqCanvas" aria-hidden="true"></canvas>
 
           <canvas class="intro-logo3d" id="logo3d" aria-hidden="true"></canvas>
           <div class="hero-emblem intro-emblem-fallback" id="heroEmblem" aria-hidden="true">
@@ -826,6 +818,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/session-nav.js?v=20261102-recovery"></script>
-    <script src="js/i18n.js?v=20261109-redesign"></script>
+    <script src="js/i18n.js?v=20261109-intro2"></script>
   </body>
 </html>

@@ -10,7 +10,7 @@ const smooth = (a, b, x) => {
 };
 const mix = (a, b, t) => a + (b - a) * t;
 
-export async function createLogo3D({ canvas, texture = "assets/logo-emblem.webp" }) {
+export async function createLogo3D({ canvas, texture = "assets/logo-emblem.webp", emblem: showEmblem = true }) {
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
@@ -89,6 +89,7 @@ export async function createLogo3D({ canvas, texture = "assets/logo-emblem.webp"
 
   const rig = new THREE.Group();
   rig.add(halo, emblem);
+  rig.visible = showEmblem; // intro footage already ends on the logo → particles only
   scene.add(rig);
 
   /* ---------- Particle field ---------- */
