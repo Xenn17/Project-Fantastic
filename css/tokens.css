@@ -99,13 +99,13 @@ html::after {
 .fx-curtain { position: fixed; inset: 0; z-index: 10000; pointer-events: none; display: grid; place-items: center; visibility: hidden; }
 .fx-curtain::before, .fx-curtain i {
   content: ""; position: absolute; inset: 0; clip-path: inset(0 100% 0 0);
-  transition: clip-path .42s cubic-bezier(.76, 0, .24, 1);
+  transition: clip-path .32s cubic-bezier(.76, 0, .24, 1);
 }
 .fx-curtain::before { background: var(--grad-gold); }
-.fx-curtain i { background: #070707; transition-delay: .07s; }
+.fx-curtain i { background: #070707; transition-delay: .05s; }
 .fx-curtain-mark {
   position: relative; font: 900 clamp(46px, 7vw, 84px)/1 "Barlow Condensed", Impact, sans-serif; letter-spacing: -.02em; color: #f6f3ea;
-  opacity: 0; transform: translateY(14px) scale(.96); transition: opacity .3s .22s, transform .45s .22s cubic-bezier(.16, 1, .3, 1);
+  opacity: 0; transform: translateY(14px) scale(.96); transition: opacity .2s .14s, transform .35s .14s cubic-bezier(.16, 1, .3, 1);
 }
 .fx-curtain-mark span { color: inherit; }
 .fx-curtain.is-covering { visibility: visible; pointer-events: auto; }
@@ -125,5 +125,5 @@ html.f4-arriving::before {
   /* fail-safe: never stay covered if nav.js does not run */
   animation: f4-cover-out .75s cubic-bezier(.76, 0, .24, 1) 2.5s forwards;
 }
-html.f4-revealing::before { animation: f4-cover-out .75s cubic-bezier(.76, 0, .24, 1) forwards; }
+html.f4-revealing::before { animation: f4-cover-out .55s cubic-bezier(.65, 0, .35, 1) forwards; }
 @keyframes f4-cover-out { to { transform: translateX(calc(100% + 80px)); } }

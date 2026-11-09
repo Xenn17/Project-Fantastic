@@ -15,26 +15,9 @@
   curtain.setAttribute("aria-hidden", "true");
   curtain.innerHTML = '<i></i><b class="fx-curtain-mark">F<span>4</span>N\'T</b>';
   doc.body.append(curtain);
-  // Arrival: the inline <head> snippet already covered the page (html.f4-arriving) before first paint.
-  // Reveal once the page has loaded — capped so a slow image never holds the cover.
+  // Arrival (cover + reveal) is handled entirely by the inline <head> snippet so it never waits for
+  // render-blocking CDN scripts (supabase-js) that delay deferred scripts like this one.
   const root = doc.documentElement;
-  try { sessionStorage.removeItem("f4-curtain"); } catch {}
-  if (root.classList.contains("f4-arriving")) {
-    let revealed = false;
-    const reveal = () => {
-      if (revealed) return;
-      revealed = true;
-      requestAnimationFrame(() => {
-        root.classList.add("f4-revealing");
-        setTimeout(() => root.classList.remove("f4-arriving", "f4-revealing"), 800);
-      });
-    };
-    if (doc.readyState === "complete") reveal();
-    else {
-      addEventListener("load", reveal, { once: true });
-      setTimeout(reveal, 650);
-    }
-  }
   addEventListener("pageshow", (e) => {
     // Back/forward cache restores the page mid-transition → clear it.
     if (e.persisted) {
@@ -52,6 +35,24 @@
     // Same page (hash/anchor scroll) → let the page handle it.
     return url.pathname !== location.pathname;
   };
+  const prefetched = new Set();
+  const prefetch = (e) => {
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname === location.pathname || !/\.html?$|\/$/.test(url.pathname)) return;
+    const key = url.origin + url.pathname;
+    if (prefetched.has(key)) return;
+    prefetched.add(key);
+    const link = doc.createElement("link");
+    link.rel = "prefetch";
+    link.href = key;
+    doc.head.append(link);
+  };
+  doc.addEventListener("pointerover", prefetch, { passive: true });
+  doc.addEventListener("pointerdown", prefetch, { passive: true });
+  doc.addEventListener("focusin", prefetch);
+
   if (!reduced)
     doc.addEventListener("click", (e) => {
       const a = e.target.closest && e.target.closest("a[href]");
@@ -59,7 +60,7 @@
       e.preventDefault();
       try { sessionStorage.setItem("f4-curtain", "1"); } catch {}
       curtain.classList.add("is-covering");
-      setTimeout(() => (location.href = a.href), 420);
+      setTimeout(() => (location.href = a.href), 260);
     });
 
   /* ---------- Navbar ---------- */
