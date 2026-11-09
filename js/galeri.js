@@ -146,20 +146,53 @@
     });
   }
   window.F4GalleryRenderCategories = renderCategories;
+  /* All Moments: category filter chips + paged masonry (24 at a time instead of every item at once). */
+  const PAGE = 24;
+  let momentFilter = "";
+  let momentShown = PAGE;
+  function renderFilters() {
+    const bar = $("#momentFilters");
+    if (!bar) return;
+    const counts = new Map();
+    data.forEach((x) => counts.set(x.kategori, (counts.get(x.kategori) || 0) + 1));
+    const chips = [["", "Semua", data.length], ...categories.filter((c) => counts.get(c.name)).map((c) => [c.name, c.name, counts.get(c.name)])];
+    // categories that only exist in remote data
+    counts.forEach((n, k) => { if (k && !chips.some((c) => c[0] === k)) chips.push([k, k, n]); });
+    bar.replaceChildren(
+      ...chips.map(([value, label, n]) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "moment-chip" + (value === momentFilter ? " is-active" : "");
+        b.setAttribute("role", "tab");
+        b.setAttribute("aria-selected", String(value === momentFilter));
+        b.innerHTML = `<span></span><b></b>`;
+        b.querySelector("span").textContent = label;
+        b.querySelector("b").textContent = n;
+        b.addEventListener("click", () => {
+          momentFilter = value;
+          momentShown = PAGE;
+          renderFilters();
+          renderAll();
+        });
+        return b;
+      }),
+    );
+  }
   function renderAll() {
     const grid = $("#galleryGrid");
     grid.replaceChildren();
-    const shuffled = data.map((x, i) => ({ ...x, _index: i }));
-    shuffled.forEach((item, i) => {
+    const filtered = data.map((x, i) => ({ ...x, _index: i })).filter((x) => !momentFilter || x.kategori === momentFilter);
+    const visible = filtered.slice(0, momentShown);
+    visible.forEach((item, i) => {
       const card = document.createElement("article");
       card.className = "gallery-card all-moment-card";
-      card.style.setProperty("--i", Math.min(i, 6));
+      card.style.setProperty("--i", Math.min(i % PAGE, 6));
       const button = document.createElement("button");
       button.type = "button";
       button.className = "gallery-card-image";
       button.setAttribute("aria-label", `Buka detail ${title(item)}`);
       button.append(media(item));
-      button.addEventListener("click", () => openLB(shuffled, item._index));
+      button.addEventListener("click", () => openLB(filtered, i));
       if (window.F4GalleryDeveloper) {
         const edit = document.createElement("button");
         edit.type = "button";
@@ -175,14 +208,31 @@
       }
       const body = document.createElement("div");
       body.className = "gallery-card-body all-moment-title";
+      const cat = document.createElement("span");
+      cat.className = "all-moment-category";
+      cat.textContent = item.kategori || "";
       const h = document.createElement("h3");
       h.textContent = title(item);
-      body.append(h);
+      body.append(cat, h);
       card.append(button, body);
       grid.append(card);
     });
-    $("#galleryEmpty").hidden = shuffled.length > 0;
+    $("#galleryEmpty").hidden = filtered.length > 0;
+    const more = $("#galleryMore");
+    if (more) {
+      const left = filtered.length - visible.length;
+      more.hidden = left <= 0;
+      $("#galleryMoreCount").textContent = left > 0 ? `(${Math.min(left, PAGE)} dari ${left} lagi)` : "";
+      $("#galleryProgress").textContent = filtered.length ? `Menampilkan ${visible.length} dari ${filtered.length} momen` : "";
+    }
   }
+  $("#galleryMore")?.addEventListener("click", () => {
+    const before = momentShown;
+    momentShown += PAGE;
+    renderAll();
+    // keep keyboard focus near where the new items start
+    $("#galleryGrid").children[before]?.querySelector("button")?.focus({ preventScroll: true });
+  });
   function openLB(list, index) {
     lbList = list;
     lbIndex = index;
@@ -201,7 +251,7 @@
       title(x) +
       (x.kategori === "GLOBAL #1" && x.nickname ? ` — ${x.nickname}` : "");
     $("#lightboxDescription").textContent =
-      desc(x) || "Deskripsi momen ini akan ditambahkan oleh pengelola galeri.";
+      desc(x) || "";
     $("#lightboxDate").textContent = x.tanggal || "";
     $("#lightboxPosition").textContent =
       `${String(lbIndex + 1).padStart(2, "0")} / ${String(lbList.length).padStart(2, "0")}`;
@@ -246,6 +296,7 @@
   const y = $("#galleryYear");
   if (y) y.textContent = new Date().getFullYear();
   renderCategories();
+  renderFilters();
   renderAll();
   if (window.F4_GALLERY_SUPABASE_CONFIG && window.supabase) {
     const db = window.getF4GalleryClient();
@@ -299,6 +350,7 @@
             });
         });
         renderCategories();
+        renderFilters();
         renderAll();
       })
       .catch(() => {});

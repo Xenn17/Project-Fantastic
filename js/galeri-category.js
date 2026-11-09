@@ -86,12 +86,14 @@
         });
         body.append(wrap);
       } else {
-        const d = document.createElement("p");
-        d.className = "media-description";
-        d.textContent =
-          desc(x) ||
-          "Deskripsi belum diisi. Lu bisa menambahkannya di data/galeri.js.";
-        body.append(d);
+        // Empty descriptions stay hidden from visitors; only gallery developers see a hint.
+        const text = desc(x);
+        if (text || window.F4GalleryDeveloper) {
+          const d = document.createElement("p");
+          d.className = "media-description" + (text ? "" : " is-missing");
+          d.textContent = text || "Deskripsi belum diisi.";
+          body.append(d);
+        }
       }
       if (window.F4GalleryDeveloper) {
         const edit = document.createElement("button");
@@ -130,7 +132,7 @@
     $("#lightboxDescription").textContent =
       name === "FANTASTIC COMPE"
         ? `ROSTER\nJungler: ${x.roster?.jungler || "Belum diisi"}\nEXP Lane: ${x.roster?.exp || "Belum diisi"}\nMid Lane: ${x.roster?.mid || "Belum diisi"}\nRoamer: ${x.roster?.roam || "Belum diisi"}\nGold Lane: ${x.roster?.gold || "Belum diisi"}`
-        : desc(x) || "Deskripsi belum diisi.";
+        : desc(x);
     $("#lightboxDate").textContent = x.tanggal || "";
     $("#lightboxPosition").textContent =
       `${String(index + 1).padStart(2, "0")} / ${String(list.length).padStart(2, "0")}`;

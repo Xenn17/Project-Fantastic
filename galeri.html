@@ -22,10 +22,11 @@
     <link rel="stylesheet" href="css/galeri.css?v=20261101-grid" />
     <link rel="stylesheet" href="css/tokens.css?v=20261109-mobile" />
     <link rel="stylesheet" href="css/components.css?v=20261109-nav" />
+    <link rel="stylesheet" href="css/gallery-v2.css?v=20261109-g3" />
     <script src="js/gallery-supabase-config.js"></script>
     <script src="js/gallery-public-media.js"></script>
     <script src="data/galeri.js?v=20261021-hall-of-fame" defer></script>
-    <script src="js/galeri.js?v=20261021-hall-of-fame" defer></script>
+    <script src="js/galeri.js?v=20261109-g2" defer></script>
   </head>
   <body id="top" class="gallery-page">
     <div class="page-glow" aria-hidden="true"></div>
@@ -346,11 +347,18 @@
             </h2>
           </div>
           <p class="collection-caption">
-            Semua cerita, dalam satu bingkai. Tanpa filter, tanpa batas
-            kategori.
+            Semua cerita, dalam satu bingkai. Pilih kategori untuk menyaring
+            momen.
           </p>
         </div>
+        <div class="moment-filters" id="momentFilters" role="tablist" aria-label="Filter kategori"></div>
         <div class="gallery-grid" id="galleryGrid"></div>
+        <div class="moment-more">
+          <button type="button" class="moment-more-button" id="galleryMore" hidden>
+            MUAT LEBIH BANYAK <span id="galleryMoreCount"></span>
+          </button>
+          <p class="moment-progress" id="galleryProgress" aria-live="polite"></p>
+        </div>
         <p class="gallery-empty" id="galleryEmpty" hidden>
           Belum ada media di galeri.
         </p>

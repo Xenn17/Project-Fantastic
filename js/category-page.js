@@ -59,7 +59,7 @@
       p.label || p.category || wanted;
     document.querySelector("#lightboxTitle").textContent = p.title || "Album";
     document.querySelector("#lightboxDescription").textContent =
-      p.description || "Deskripsi belum diisi.";
+      p.description || "";
     document.querySelector("#lightboxDate").textContent = "";
     document.querySelector("#mediaLightbox").hidden = false;
     document.body.style.overflow = "hidden";
