@@ -1,8 +1,131 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090a0d"><title>Division Directory — F4NTASTIC</title><link rel="icon" href="assets/favicon.ico"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/divisions.css"></head>
-<body class="division-page"><header class="site-header"><a class="brand" href="index.html"><img src="assets/logo-transparant.png" alt="F4NTASTIC"></a><button class="menu-toggle" id="menuToggle" aria-label="Buka navigasi" aria-expanded="false"><span></span><span></span></button><nav class="main-nav" id="mainNav"><a href="index.html">Home</a><a href="index.html#about">Tentang</a><a href="galeri.html">Galeri</a><a href="sponsor.html">Promosi</a><a href="directory.html" class="active">Division Directory</a><a href="index.html#join-team">Join Team</a><a href="login.html" class="nav-login">Masuk</a></nav></header>
-<main><section class="division-hero"><p class="division-kicker">F4NTASTIC COMMUNITY</p><h1>F4NTASTIC DIVISION DIRECTORY</h1><p class="division-tagline">One Family, 41 Divisions, One F4NTASTIC.</p><p>Temukan 41 divisi resmi F4NTASTIC, kenali para Leader, lihat komposisi anggota, dan temukan divisi yang sedang membuka rekrutmen.</p><div class="division-hero-actions"><a href="#division-list" class="division-btn primary">JELAJAHI DIVISI</a><a href="#member-search" class="division-btn">CARI MEMBER</a></div><label class="division-search"><span>⌕</span><input id="heroSearch" type="search" placeholder="Cari nickname atau ID Mobile Legends..."></label></section>
-<section class="directory-summary"><div class="summary-heading"><div><p class="division-kicker">DIRECTORY OVERVIEW</p><h2>Ringkasan Divisi</h2></div><small id="lastUpdated">Memuat data...</small></div><div class="summary-grid" id="summaryGrid"></div><div class="spotlight-wrap"><div><p class="division-kicker">DIVISION SPOTLIGHT</p><h3>Kenali Divisi Pilihan</h3></div><div id="spotlight" class="spotlight-empty">Spotlight akan tersedia setelah ditentukan oleh Developer.</div></div><div class="activity-wrap"><h3>Aktivitas Terbaru</h3><div id="activityList" class="activity-empty">Belum ada aktivitas terbaru.</div></div></section>
-<section class="directory-toolbar" id="division-list"><div><p class="division-kicker">OFFICIAL DIRECTORY</p><h2>Semua Divisi</h2></div><div class="toolbar-controls"><select id="divisionFilter" aria-label="Filter divisi"><option value="ALL">ALL DIVISIONS</option><option value="RECRUITING">RECRUITING</option><option value="FULL">FULL</option><option value="CLOSED">CLOSED</option></select><select id="divisionSort" aria-label="Urutkan divisi"><option value="NUMBER">NUMBER</option><option value="MOST_MEMBERS">MOST MEMBERS</option><option value="LEAST_MEMBERS">LEAST MEMBERS</option><option value="MOST_SLOTS">MOST SLOTS REMAINING</option><option value="FEWEST_SLOTS">FEWEST SLOTS REMAINING</option><option value="RECRUITING_FIRST">RECRUITING FIRST</option></select><select id="quickDivision" aria-label="Pilih divisi"><option value="">PILIH DIVISI</option></select></div></section>
-<section class="member-search-wrap" id="member-search"><input id="memberSearch" type="search" placeholder="Cari nickname atau ID ML di seluruh divisi"><div id="memberResults" aria-live="polite"></div></section><section class="division-grid" id="divisionGrid" aria-live="polite"><div class="directory-loading">Memuat direktori divisi...</div></section></main><button id="backTop" class="back-top" aria-label="Kembali ke atas">↑</button><footer class="division-footer"><strong>WE ARE F4NTASTIC, WE ARE FAMILY.</strong><span>© <span id="yearNow"></span> F4NTASTIC</span></footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/gallery-supabase-config.js"></script><script src="js/session-nav.js"></script><script src="data/divisions.js"></script><script src="data/division-members.js"></script><script src="js/divisions.js"></script></body></html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#090a0d" />
+    <title>Division Directory — F4NTASTIC</title>
+    <link rel="icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/divisions.css" />
+    <link rel="stylesheet" href="css/tokens.css?v=20261109-redesign" />
+    <link rel="stylesheet" href="css/components.css?v=20261109-redesign" />
+  </head>
+  <body class="division-page">
+    <header class="site-header">
+      <a class="brand" href="index.html"
+        ><img src="assets/logo-transparant.png" alt="F4NTASTIC" /></a
+      ><button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Buka navigasi"
+        aria-expanded="false"
+      >
+        <span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a><a href="index.html#about">Tentang</a
+        ><a href="galeri.html">Galeri</a><a href="sponsor.html">Promosi</a
+        ><a href="directory.html" class="active">Division Directory</a
+        ><a href="index.html#join-team">Join Team</a
+        ><a href="login.html" class="nav-login">Masuk</a>
+      </nav>
+    </header>
+    <main>
+      <section class="division-hero">
+        <p class="division-kicker">F4NTASTIC COMMUNITY</p>
+        <h1>F4NTASTIC DIVISION DIRECTORY</h1>
+        <p class="division-tagline">One Family, 41 Divisions, One F4NTASTIC.</p>
+        <p>
+          Temukan 41 divisi resmi F4NTASTIC, kenali para Leader, lihat komposisi
+          anggota, dan temukan divisi yang sedang membuka rekrutmen.
+        </p>
+        <div class="division-hero-actions">
+          <a href="#division-list" class="division-btn primary"
+            >JELAJAHI DIVISI</a
+          ><a href="#member-search" class="division-btn">CARI MEMBER</a>
+        </div>
+        <label class="division-search"
+          ><span>⌕</span
+          ><input
+            id="heroSearch"
+            type="search"
+            placeholder="Cari nickname atau ID Mobile Legends..."
+        /></label>
+      </section>
+      <section class="directory-summary">
+        <div class="summary-heading">
+          <div>
+            <p class="division-kicker">DIRECTORY OVERVIEW</p>
+            <h2>Ringkasan Divisi</h2>
+          </div>
+          <small id="lastUpdated">Memuat data...</small>
+        </div>
+        <div class="summary-grid" id="summaryGrid"></div>
+        <div class="spotlight-wrap">
+          <div>
+            <p class="division-kicker">DIVISION SPOTLIGHT</p>
+            <h3>Kenali Divisi Pilihan</h3>
+          </div>
+          <div id="spotlight" class="spotlight-empty">
+            Spotlight akan tersedia setelah ditentukan oleh Developer.
+          </div>
+        </div>
+        <div class="activity-wrap">
+          <h3>Aktivitas Terbaru</h3>
+          <div id="activityList" class="activity-empty">
+            Belum ada aktivitas terbaru.
+          </div>
+        </div>
+      </section>
+      <section class="directory-toolbar" id="division-list">
+        <div>
+          <p class="division-kicker">OFFICIAL DIRECTORY</p>
+          <h2>Semua Divisi</h2>
+        </div>
+        <div class="toolbar-controls">
+          <select id="divisionFilter" aria-label="Filter divisi">
+            <option value="ALL">ALL DIVISIONS</option>
+            <option value="RECRUITING">RECRUITING</option>
+            <option value="FULL">FULL</option>
+            <option value="CLOSED">CLOSED</option></select
+          ><select id="divisionSort" aria-label="Urutkan divisi">
+            <option value="NUMBER">NUMBER</option>
+            <option value="MOST_MEMBERS">MOST MEMBERS</option>
+            <option value="LEAST_MEMBERS">LEAST MEMBERS</option>
+            <option value="MOST_SLOTS">MOST SLOTS REMAINING</option>
+            <option value="FEWEST_SLOTS">FEWEST SLOTS REMAINING</option>
+            <option value="RECRUITING_FIRST">RECRUITING FIRST</option></select
+          ><select id="quickDivision" aria-label="Pilih divisi">
+            <option value="">PILIH DIVISI</option>
+          </select>
+        </div>
+      </section>
+      <section class="member-search-wrap" id="member-search">
+        <input
+          id="memberSearch"
+          type="search"
+          placeholder="Cari nickname atau ID ML di seluruh divisi"
+        />
+        <div id="memberResults" aria-live="polite"></div>
+      </section>
+      <section class="division-grid" id="divisionGrid" aria-live="polite">
+        <div class="directory-loading">Memuat direktori divisi...</div>
+      </section>
+    </main>
+    <button id="backTop" class="back-top" aria-label="Kembali ke atas">
+      ↑
+    </button>
+    <footer class="division-footer">
+      <strong>WE ARE F4NTASTIC, WE ARE FAMILY.</strong
+      ><span>© <span id="yearNow"></span> F4NTASTIC</span>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/gallery-supabase-config.js"></script>
+    <script src="js/session-nav.js"></script>
+    <script src="data/divisions.js"></script>
+    <script src="data/division-members.js"></script>
+    <script src="js/divisions.js"></script>
+      <script src="js/fx/ui.js?v=20261109-redesign" defer></script>
+  </body>
+</html>

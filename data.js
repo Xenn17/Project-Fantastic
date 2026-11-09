@@ -105,58 +105,127 @@ window.F4NTASTIC_DATA = {
   // Teks akan tampil otomatis di bawah nama dan di atas tautan media sosial.
   admins: [
     {
-      name: "Gemah x F4N'T", role: "General Admin", section: "THE CREW", bio: "jadilah pria yg baik,lalu menghilang,nikmati kesendirian dengan ketenangan", // Tempel kata-kata personal admin di sini.
+      name: "Gemah x F4N'T",
+      role: "General Admin",
+      section: "THE CREW",
+      bio: "jadilah pria yg baik,lalu menghilang,nikmati kesendirian dengan ketenangan", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-1.webp",
       socials: [
-        { label: "Instagram", url: "https://www.instagram.com/akbargemah?srtk=c2s3cnlhenQ2bjU5" },
+        {
+          label: "Instagram",
+          url: "https://www.instagram.com/akbargemah?srtk=c2s3cnlhenQ2bjU5",
+        },
         { label: "TikTok", url: "https://www.tiktok.com/@gemzuzezo" },
-        { label: "Discord", url: "https://discord.com/users/1210504494215991358" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/1210504494215991358",
+        },
       ],
     },
     {
-      name: "ArNel x F4N'T", role: "Admin Ladies", section: "THE CREW", bio: "selesaikan apa yang sudah kamu mulai semangat terus kamu pasti bisa", // Tempel kata-kata personal admin di sini.
+      name: "ArNel x F4N'T",
+      role: "Admin Ladies",
+      section: "THE CREW",
+      bio: "selesaikan apa yang sudah kamu mulai semangat terus kamu pasti bisa", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-2.webp",
       socials: [
-        { label: "Instagram", url: "https://instagram.com/arnelita153?rpxt=MzhqeDMxZ3dhZmhw" },
-        { label: "TikTok", url: "https://www.tiktok.com/@arnelita154?_r=1&_t=ZS-9AWbkBkgiXf" },
-        { label: "Discord", url: "https://discord.com/users/1384739014866636913" },
+        {
+          label: "Instagram",
+          url: "https://instagram.com/arnelita153?rpxt=MzhqeDMxZ3dhZmhw",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@arnelita154?_r=1&_t=ZS-9AWbkBkgiXf",
+        },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/1384739014866636913",
+        },
       ],
     },
     {
-      name: "Cattyyz x F4N'T", role: "Admin Official", section: "THE CREW", bio: "We are family", // Tempel kata-kata personal admin di sini.
+      name: "Cattyyz x F4N'T",
+      role: "Admin Official",
+      section: "THE CREW",
+      bio: "We are family", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-3.webp",
       socials: [
-        { label: "TikTok", url: "https://www.tiktok.com/@cattyytzy?_r=1&_t=ZS-9AWUEeETkSS" },
-        { label: "Discord", url: "https://discord.com/users/1032448844279058482" },
-        { label: "Instragram", url: "https://instagram.com/plum_butterfly?mdxt=NXZqNGhzaHJnem1p"},
-        { label: "YouTube", url: "https://youtube.com/@cattyyzztzy?si=7HHcKCNXIoSMcb05"}
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@cattyytzy?_r=1&_t=ZS-9AWUEeETkSS",
+        },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/1032448844279058482",
+        },
+        {
+          label: "Instragram",
+          url: "https://instagram.com/plum_butterfly?mdxt=NXZqNGhzaHJnem1p",
+        },
+        {
+          label: "YouTube",
+          url: "https://youtube.com/@cattyyzztzy?si=7HHcKCNXIoSMcb05",
+        },
       ],
     },
     {
-      name: "Ame x F4N'T", role: "Admin Discord", section: "THE CREW", bio: "The Man, the Myth, the Legend.", // Tempel kata-kata personal admin di sini.
+      name: "Ame x F4N'T",
+      role: "Admin Discord",
+      section: "THE CREW",
+      bio: "The Man, the Myth, the Legend.", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-4.webp",
       socials: [
-        { label: "Instagram", url: "https://www.instagram.com/tashigi_lm?cplk=OTE4d2pncGYzY25w" },
-        { label: "TikTok", url: "https://www.tiktok.com/@tashigilm?_r=1&_t=ZS-9AWMd23jHpk" },
-        { label: "Discord", url: "https://www.discord.com/users/471118142291312653"}
+        {
+          label: "Instagram",
+          url: "https://www.instagram.com/tashigi_lm?cplk=OTE4d2pncGYzY25w",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@tashigilm?_r=1&_t=ZS-9AWMd23jHpk",
+        },
+        {
+          label: "Discord",
+          url: "https://www.discord.com/users/471118142291312653",
+        },
       ],
     },
     {
-      name: "ryderboy x F4N'T", role: "ADMIN COMPETITIVE / EXTERNAL", section: "THE CREW", bio: "Seorang admin kompe yang merangkap jadi chef cuisine", // Tempel kata-kata personal admin di sini.
+      name: "ryderboy x F4N'T",
+      role: "ADMIN COMPETITIVE / EXTERNAL",
+      section: "THE CREW",
+      bio: "Seorang admin kompe yang merangkap jadi chef cuisine", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-5.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/1493066935477469336" },
-        { label: "Instagram", url: "https://www.instagram.com/adityaryder?psln=cWsyZDEwZXE3Y3l3" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/1493066935477469336",
+        },
+        {
+          label: "Instagram",
+          url: "https://www.instagram.com/adityaryder?psln=cWsyZDEwZXE3Y3l3",
+        },
         { label: "TikTok", url: "https://www.tiktok.com/@sykes230197" },
       ],
     },
     {
-      name: "Dinii x F4N'T", role: "ADMIN LADIES", section: "THE CREW", bio: "fix what's wrong, and keep stepping",
+      name: "Dinii x F4N'T",
+      role: "ADMIN LADIES",
+      section: "THE CREW",
+      bio: "fix what's wrong, and keep stepping",
       photo: "assets/admin-6.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/1481915185974214766" },
-        { label: "Instagram", url: "https://instagram.com/dhini_marokochan?srtk=bjhnYzM1bmswNWFr" },
-        { label: "TikTok", url: "https://www.tiktok.com/@innidinni?_r=1&_t=ZS-9AWcWOcrDk5" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/1481915185974214766",
+        },
+        {
+          label: "Instagram",
+          url: "https://instagram.com/dhini_marokochan?srtk=bjhnYzM1bmswNWFr",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@innidinni?_r=1&_t=ZS-9AWcWOcrDk5",
+        },
       ],
     },
      {
@@ -170,83 +239,176 @@ window.F4NTASTIC_DATA = {
       ],
     },
     {
-      name: "Ersky x F4N'T", role: "ASSISTANT GENERAL", section: "SUPPORT CREW", bio: "tetaplah hidup walaupun tidak berguna", // Tempel kata-kata personal admin di sini.
+      name: "Ersky x F4N'T",
+      role: "ASSISTANT GENERAL",
+      section: "SUPPORT CREW",
+      bio: "tetaplah hidup walaupun tidak berguna", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-7.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/619214748306767877" },
-        { label: "TikTok", url: "https://www.tiktok.com/@erskytizi?_r=1&_t=ZS-9AXy1kOlvNs" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/619214748306767877",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@erskytizi?_r=1&_t=ZS-9AXy1kOlvNs",
+        },
       ],
     },
     {
-      name: "Jevv x F4N'T", role: "ASSISTANT OFFICIAL", section: "SUPPORT CREW", bio: "safe health", // Tempel kata-kata personal admin di sini.
+      name: "Jevv x F4N'T",
+      role: "ASSISTANT OFFICIAL",
+      section: "SUPPORT CREW",
+      bio: "safe health", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-8.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/1080931911557464064" },
-        { label: "TikTok", url: "https://www.tiktok.com/@jevmlbb_?_r=1&_t=ZS-9AY1Prsfkk1" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/1080931911557464064",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@jevmlbb_?_r=1&_t=ZS-9AY1Prsfkk1",
+        },
       ],
     },
     {
-      name: "Ethel x F4N'T", role: "GENERAL ADMIN", section: "THE CREW", bio: "_g usah chat all_", // Tempel kata-kata personal admin di sini.
+      name: "Ethel x F4N'T",
+      role: "GENERAL ADMIN",
+      section: "THE CREW",
+      bio: "_g usah chat all_", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-9.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/568719966845534208" },
-        { label: "TikTok", url: "https://www.tiktok.com/@is.ethel?_r=1&_t=ZS-9AY1V8i3kd3" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/568719966845534208",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@is.ethel?_r=1&_t=ZS-9AY1V8i3kd3",
+        },
       ],
     },
     {
-      name: "ONEZ x F4NT", role: "ASSISTANT OFFICIAL", section: "SUPPORT CREW", bio: "Saya tidak bisa hidup tanpa meta ciki", // Tempel kata-kata personal admin di sini.
+      name: "ONEZ x F4NT",
+      role: "ASSISTANT OFFICIAL",
+      section: "SUPPORT CREW",
+      bio: "Saya tidak bisa hidup tanpa meta ciki", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-10.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/1292797878535847956" },
-        { label: "Instagram", url: "https://instagram.com/boy2005001?cplk=MXd3b3NlbDVlMnZ6cQ%3D%3D&utm_source=qr" },
-        { label: "TikTok", url: "https://www.tiktok.com/@read_onez1?_r=1&_t=ZS-9AXonKJDfSK" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/1292797878535847956",
+        },
+        {
+          label: "Instagram",
+          url: "https://instagram.com/boy2005001?cplk=MXd3b3NlbDVlMnZ6cQ%3D%3D&utm_source=qr",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@read_onez1?_r=1&_t=ZS-9AXonKJDfSK",
+        },
       ],
     },
     {
-      name: "Vantao x F4N'T", role: "ASSISTANT WEB ARCHITECT", section: "SUPPORT CREW", bio: "Setidaknya kamu sudah mencobanya. Ya... walaupun kamu belum berhasil, kan?", // Tempel kata-kata personal admin di sini.
+      name: "Vantao x F4N'T",
+      role: "ASSISTANT WEB ARCHITECT",
+      section: "SUPPORT CREW",
+      bio: "Setidaknya kamu sudah mencobanya. Ya... walaupun kamu belum berhasil, kan?", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-11.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/672741982933745667" },
-        { label: "Instagram", url: "https://instagram.com/vanntaooo?xtok=YzA2eWcwZmV3b3hw" },
-        { label: "TikTok", url: "https://www.tiktok.com/@vannntaooo?_r=1&_t=ZS-9AXoN7fCncA" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/672741982933745667",
+        },
+        {
+          label: "Instagram",
+          url: "https://instagram.com/vanntaooo?xtok=YzA2eWcwZmV3b3hw",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@vannntaooo?_r=1&_t=ZS-9AXoN7fCncA",
+        },
       ],
     },
     {
-      name: "Claire x F4N'T", role: "ASSISTANT WEB ARCHITECT", section: "SUPPORT CREW", bio: "Di antara baris kode dan sunyi malam, aku membangun dunia yang bisa kusebut milikku.",
+      name: "Claire x F4N'T",
+      role: "ASSISTANT WEB ARCHITECT",
+      section: "SUPPORT CREW",
+      bio: "Di antara baris kode dan sunyi malam, aku membangun dunia yang bisa kusebut milikku.",
       photo: "assets/admin-13.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/925239140793086003" },
-        { label: "Instagram", url: "https://www.instagram.com/ajahclaire_?psln=azR0bjF2OG1kbmpp&utm_source=qrv" },
-        { label: "TikTok", url: "https://www.tiktok.com/@clairewithkupa?_r=1&_t=ZS-9AdSKse4daW" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/925239140793086003",
+        },
+        {
+          label: "Instagram",
+          url: "https://www.instagram.com/ajahclaire_?psln=azR0bjF2OG1kbmpp&utm_source=qrv",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@clairewithkupa?_r=1&_t=ZS-9AdSKse4daW",
+        },
       ],
     },
     {
-      name: "Arlecc x F4N'T", role: "F4NTASTIC WEB ARCHITECT", section: "SUPPORT CREW", bio: "Manusia tidak pernah saling memahami, kecuali mereka merasakan penderitaan yang sama", // Tempel kata-kata personal admin di sini.
+      name: "Arlecc x F4N'T",
+      role: "F4NTASTIC WEB ARCHITECT",
+      section: "SUPPORT CREW",
+      bio: "Manusia tidak pernah saling memahami, kecuali mereka merasakan penderitaan yang sama", // Tempel kata-kata personal admin di sini.
       photo: "assets/admin-12.webp",
       socials: [
-        { label: "Discord", url: "https://discord.com/users/1018337472041725985" },
-        { label: "Instagram", url: "https://instagram.com/arlecc.17?xtok=ZXNvc2x3aGU0MDJz" },
-        { label: "TikTok", url: "https://www.tiktok.com/@arlecc17?_r=1&_t=ZS-9AXoGGABqWf" },
+        {
+          label: "Discord",
+          url: "https://discord.com/users/1018337472041725985",
+        },
+        {
+          label: "Instagram",
+          url: "https://instagram.com/arlecc.17?xtok=ZXNvc2x3aGU0MDJz",
+        },
+        {
+          label: "TikTok",
+          url: "https://www.tiktok.com/@arlecc17?_r=1&_t=ZS-9AXoGGABqWf",
+        },
       ],
     },
   ],
 
   logoHistory: [
     {
-      name: "Logo lama", period: "S34–S36", photo: "assets/logo-old-source.webp",
-      description: "Pergantian logo F4NTASTIC merupakan langkah baru dalam perjalanan tim untuk membangun identitas yang lebih kuat, modern, dan profesional. Perubahan ini bukan sekadar pembaruan tampilan, melainkan simbol evolusi, semangat baru, serta komitmen untuk terus berkembang dan meraih prestasi yang lebih tinggi. Logo baru dengan perpaduan warna emas, perak, dan hitam mencerminkan karakter F4NTASTIC yang semakin tegas dan berkelas. Mahkota emas melambangkan ambisi menuju kejayaan, simbol serigala merepresentasikan keberanian dan kekompakan, sementara warna hitam menggambarkan ketangguhan serta mental yang kuat dalam menghadapi setiap tantangan. Meskipun identitas visual berubah, nilai utama F4NTASTIC akan tetap sama: loyalitas, solidaritas, kerja keras, dan persaudaraan. Logo baru menjadi representasi dari tekad untuk melangkah ke level berikutnya tanpa melupakan sejarah, perjuangan, dan orang-orang yang telah menjadi bagian dari keluarga F4NTASTIC. Logo boleh berganti, identitas boleh berevolusi, tetapi semangat dan persaudaraan tetap abadi."
+      name: "Logo lama",
+      period: "S34–S36",
+      photo: "assets/logo-old-source.webp",
+      description:
+        "Pergantian logo F4NTASTIC merupakan langkah baru dalam perjalanan tim untuk membangun identitas yang lebih kuat, modern, dan profesional. Perubahan ini bukan sekadar pembaruan tampilan, melainkan simbol evolusi, semangat baru, serta komitmen untuk terus berkembang dan meraih prestasi yang lebih tinggi. Logo baru dengan perpaduan warna emas, perak, dan hitam mencerminkan karakter F4NTASTIC yang semakin tegas dan berkelas. Mahkota emas melambangkan ambisi menuju kejayaan, simbol serigala merepresentasikan keberanian dan kekompakan, sementara warna hitam menggambarkan ketangguhan serta mental yang kuat dalam menghadapi setiap tantangan. Meskipun identitas visual berubah, nilai utama F4NTASTIC akan tetap sama: loyalitas, solidaritas, kerja keras, dan persaudaraan. Logo baru menjadi representasi dari tekad untuk melangkah ke level berikutnya tanpa melupakan sejarah, perjuangan, dan orang-orang yang telah menjadi bagian dari keluarga F4NTASTIC. Logo boleh berganti, identitas boleh berevolusi, tetapi semangat dan persaudaraan tetap abadi.",
     },
     {
-      name: "Logo sekarang", period: "S36 sampai sekarang", photo: "assets/logo-official.webp",
-      description: "Logo F4NTASTIC merupakan simbol identitas, kehormatan, dan semangat juang yang menyatukan setiap anggota dalam satu tujuan. Mahkota emas melambangkan cita-cita menuju kejayaan, serigala merepresentasikan keberanian dan kekompakan, sedangkan elemen perak menggambarkan keteguhan dan profesionalisme. Latar hitam menjadi simbol mental yang kuat dalam menghadapi berbagai tantangan. Melalui semboyan “I’ AM F4NTASTIC” dan “WE ARE FAMILY”, F4NTASTIC menegaskan bahwa setiap individu memiliki potensi untuk menjadi luar biasa, tetapi kekuatan sejati lahir ketika semua anggota bersatu. Kami tidak hanya berjuang untuk menang, tetapi juga membangun persaudaraan, menjaga loyalitas, dan menciptakan sejarah bersama. F4NTASTIC bukan sekadar tim. F4NTASTIC adalah keluarga, identitas, dan semangat untuk menjadi luar biasa. F4NTASTIC dibangun atas tiga prinsip utama: Strength — Kekuatan: memiliki mental yang tangguh dan tidak mudah menyerah. Excellence — Keunggulan: terus meningkatkan kemampuan untuk mencapai prestasi terbaik. Family — Persaudaraan: menjunjung solidaritas, kepercayaan, dan kebersamaan dalam setiap keadaan."
-    }
+      name: "Logo sekarang",
+      period: "S36 sampai sekarang",
+      photo: "assets/logo-official.webp",
+      description:
+        "Logo F4NTASTIC merupakan simbol identitas, kehormatan, dan semangat juang yang menyatukan setiap anggota dalam satu tujuan. Mahkota emas melambangkan cita-cita menuju kejayaan, serigala merepresentasikan keberanian dan kekompakan, sedangkan elemen perak menggambarkan keteguhan dan profesionalisme. Latar hitam menjadi simbol mental yang kuat dalam menghadapi berbagai tantangan. Melalui semboyan “I’ AM F4NTASTIC” dan “WE ARE FAMILY”, F4NTASTIC menegaskan bahwa setiap individu memiliki potensi untuk menjadi luar biasa, tetapi kekuatan sejati lahir ketika semua anggota bersatu. Kami tidak hanya berjuang untuk menang, tetapi juga membangun persaudaraan, menjaga loyalitas, dan menciptakan sejarah bersama. F4NTASTIC bukan sekadar tim. F4NTASTIC adalah keluarga, identitas, dan semangat untuk menjadi luar biasa. F4NTASTIC dibangun atas tiga prinsip utama: Strength — Kekuatan: memiliki mental yang tangguh dan tidak mudah menyerah. Excellence — Keunggulan: terus meningkatkan kemampuan untuk mencapai prestasi terbaik. Family — Persaudaraan: menjunjung solidaritas, kepercayaan, dan kebersamaan dalam setiap keadaan.",
+    },
   ],
 
   marquee: [
-    "🏆 F4NT ABSURD", "🏆 F4NT WOWMEAT", "🏆 F4NT NETIX", "🏆 F4NT 21",
-    "🏆 F4NT LEGION", "🏆 F4NT ATHERIA LADIES 🦋", "🏆 F4NT DIVINE", "🏆 F4NT FOUR",
-    "🏆 F4NT ICONWIC", "🏆 F4NT NEWBIE", "🏆 F4NT AURA", "🏆 F4NT STECY",
-    "🏆 F4NT SMANELL", "🏆 F4NT VISKHASKY", "🏆 F4NT DYNASTY","🏆 F4NT FANCANCY LADIES 🦋"
+    "🏆 F4NT ABSURD",
+    "🏆 F4NT WOWMEAT",
+    "🏆 F4NT NETIX",
+    "🏆 F4NT 21",
+    "🏆 F4NT LEGION",
+    "🏆 F4NT ATHERIA LADIES 🦋",
+    "🏆 F4NT DIVINE",
+    "🏆 F4NT FOUR",
+    "🏆 F4NT ICONWIC",
+    "🏆 F4NT NEWBIE",
+    "🏆 F4NT AURA",
+    "🏆 F4NT STECY",
+    "🏆 F4NT SMANELL",
+    "🏆 F4NT VISKHASKY",
+    "🏆 F4NT DYNASTY",
+    "🏆 F4NT FANCANCY LADIES 🦋",
   ],
 
   communityStats: { activeMembers: 1093, divisions: 46, achievements: 140 },

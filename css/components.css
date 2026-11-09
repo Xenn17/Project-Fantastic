@@ -1,0 +1,137 @@
+/* F4NTASTIC components — redesign 2026.
+   Shared enhancement layer for public pages. Loaded after style.css + page CSS + tokens.css.
+   Restyles visuals only; layout of existing components (esp. mobile nav) is left intact. */
+
+/* ---------- Atmosphere ---------- */
+body { background: var(--bg); }
+body::after {
+  opacity: .9;
+  background:
+    radial-gradient(ellipse 60% 45% at 10% 0%, rgba(217, 180, 91, .10), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 95% 30%, rgba(246, 221, 147, .06), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 110%, rgba(154, 116, 32, .10), transparent 70%);
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  background: linear-gradient(180deg, rgba(7, 7, 7, .86), rgba(7, 7, 7, .62));
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(217, 180, 91, .45) 30%, rgba(255, 255, 255, .12) 60%, transparent) 1;
+  transition: height .45s var(--ease-out-expo), background .45s, box-shadow .45s;
+}
+.site-header.is-scrolled {
+  background: rgba(7, 7, 7, .9);
+  box-shadow: 0 18px 50px -20px rgba(0, 0, 0, .9);
+}
+@media (min-width: 781px) {
+  .site-header.is-scrolled { height: 66px; }
+}
+.brand-mark span, .brand-mark { transition: color .3s; }
+.brand:hover .brand-mark { color: var(--gold-bright); }
+.main-nav a:not(.nav-cta):not(.nav-login) { position: relative; }
+@media (min-width: 781px) {
+  .main-nav a:not(.nav-cta):not(.nav-login):not(.is-account-link)::before {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px;
+    background: var(--grad-gold); transform: scaleX(0); transform-origin: right;
+    transition: transform .45s var(--ease-out-expo);
+  }
+  .main-nav a:not(.nav-cta):not(.nav-login):not(.is-account-link):hover::before { transform: scaleX(1); transform-origin: left; }
+}
+.main-nav .nav-cta {
+  background: padding-box linear-gradient(#0b0b0b, #0b0b0b), border-box var(--grad-border);
+  border: 1px solid transparent !important;
+  transition: box-shadow .3s, color .3s;
+}
+.main-nav .nav-cta:hover { box-shadow: var(--glow-gold); }
+
+/* ---------- Typography ---------- */
+.gold-text {
+  color: var(--gold);
+  background: var(--grad-gold);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  animation: fx-shimmer 7s var(--ease-in-out) infinite;
+}
+@keyframes fx-shimmer { 0%, 100% { background-position: 0% 0; } 50% { background-position: 100% 0; } }
+.eyebrow { letter-spacing: .32em; }
+.eyebrow-line { background: var(--grad-gold); width: 36px; }
+
+/* ---------- Buttons ---------- */
+.button {
+  position: relative; isolation: isolate; overflow: hidden;
+  border-radius: 0 !important;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  padding: 15px 22px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  transition: transform .5s var(--ease-out-expo), box-shadow .4s, color .3s, background-position .8s var(--ease-out-expo);
+}
+.button-primary {
+  color: #0d0b06;
+  background: var(--grad-gold);
+  background-size: 220% 100%;
+  background-position: 0% 0;
+}
+.button-primary:hover { background: var(--grad-gold); background-size: 220% 100%; background-position: 100% 0; }
+.button-primary::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+.button-primary:hover::after { transform: translateX(120%); transition: transform .9s var(--ease-out-expo); }
+.button-quiet {
+  color: var(--silver);
+  background: padding-box linear-gradient(rgba(10, 10, 10, .6), rgba(10, 10, 10, .6)), border-box var(--grad-border);
+  border: 1px solid transparent;
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.button-quiet:hover { color: var(--gold-bright); }
+.button:focus-visible { clip-path: none; }
+.button:disabled { filter: grayscale(.7) brightness(.7); cursor: not-allowed; }
+
+/* ---------- Reveal (upgraded: blur + rise + stagger) ----------
+   Uses individual `translate`/`scale` so `transform` stays free for tilt effects. */
+.reveal {
+  opacity: 0; transform: none; translate: 0 42px; scale: .985; filter: blur(8px);
+  transition: opacity 1s var(--ease-out-expo), translate 1.1s var(--ease-out-expo), scale 1.1s var(--ease-out-expo), filter 1s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 85ms);
+}
+.reveal.is-visible { opacity: 1; transform: none; translate: 0 0; scale: 1; filter: none; }
+
+/* ---------- Ticker ---------- */
+.ticker {
+  background: var(--grad-gold);
+  background-size: 200% 100%;
+  animation: fx-shimmer 9s linear infinite;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(217, 180, 91, .5), transparent) 1;
+  background: radial-gradient(ellipse 60% 120% at 50% 100%, rgba(217, 180, 91, .08), transparent 70%), #060606;
+}
+
+/* ---------- Social cards ---------- */
+.official-social-card {
+  background: padding-box var(--glass-bg), border-box var(--grad-border);
+  border: 1px solid transparent;
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+
+/* ---------- Language switcher (i18n.js) ---------- */
+.f4-language-switcher {
+  border-radius: 99px; border-color: rgba(217, 180, 91, .35) !important;
+  background: rgba(8, 8, 8, .78) !important; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.f4-language-option { border-radius: 99px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gold-text, .ticker { animation: none; }
+  .reveal { translate: none; scale: none; filter: none; opacity: 1; }
+}

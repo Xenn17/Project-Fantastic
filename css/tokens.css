@@ -1,0 +1,101 @@
+/* F4NTASTIC design tokens — redesign 2026.
+   Loaded AFTER each page's base stylesheet so the refined palette wins without rewriting old rules. */
+:root {
+  /* Brand palette: deep black, liquid gold, brushed silver. */
+  --bg: #070707;
+  --bg-soft: #0d0d0c;
+  --panel: rgba(20, 19, 16, .62);
+  --panel-solid: #12110e;
+  --panel-light: #1a1915;
+  --gold: #d9b45b;
+  --gold-bright: #f6dd93;
+  --gold-deep: #9a7420;
+  --silver: #d4d4d1;
+  --muted: #9a978f;
+  --text: #f6f3ea;
+  --line: rgba(217, 180, 91, .22);
+  --line-soft: rgba(255, 255, 255, .08);
+
+  /* Signature gradients. */
+  --grad-gold: linear-gradient(115deg, #a77d24 0%, #f6dd93 28%, #d9b45b 46%, #fff1c2 58%, #b88a2c 78%, #f0d07e 100%);
+  --grad-silver: linear-gradient(115deg, #8d8d8a 0%, #f2f2ef 35%, #b9b9b5 60%, #ffffff 75%, #9c9c98 100%);
+  --grad-border: linear-gradient(135deg, rgba(246, 221, 147, .65), rgba(217, 180, 91, .08) 35%, rgba(255, 255, 255, .04) 65%, rgba(217, 180, 91, .45));
+  --glow-gold: 0 0 0 1px rgba(217, 180, 91, .18), 0 18px 60px -18px rgba(217, 180, 91, .35);
+
+  /* Glass surfaces. */
+  --glass-bg: linear-gradient(145deg, rgba(28, 27, 23, .72), rgba(10, 10, 9, .58));
+  --glass-blur: blur(18px) saturate(140%);
+
+  /* Motion. */
+  --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+  --ease-out-quart: cubic-bezier(.25, 1, .5, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --dur-fast: .25s;
+  --dur: .6s;
+  --dur-slow: 1.1s;
+
+  /* Fluid type scale. */
+  --fs-hero: clamp(64px, 11vw, 168px);
+  --fs-h2: clamp(52px, 7.4vw, 104px);
+  --fs-h3: clamp(26px, 2.6vw, 38px);
+  --fs-body: clamp(13px, .95vw, 15px);
+
+  --radius: 18px;
+  --radius-sm: 10px;
+}
+
+::selection { background: var(--gold); color: #0b0b0b; }
+
+html { scrollbar-color: var(--gold-deep) #0b0b0b; scrollbar-width: thin; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--gold-deep), var(--gold)); border-radius: 99px; border: 2px solid #0a0a0a; }
+
+:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+
+/* Film grain overlay shared by every page — adds analog depth to flat black. */
+html::after {
+  content: "";
+  position: fixed; inset: -50%; z-index: 9990; pointer-events: none; opacity: .07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: fx-grain 1.2s steps(6) infinite;
+}
+@keyframes fx-grain {
+  0% { transform: translate(0, 0); } 20% { transform: translate(-4%, 3%); } 40% { transform: translate(3%, -5%); }
+  60% { transform: translate(-2%, 6%); } 80% { transform: translate(5%, 1%); } 100% { transform: translate(0, 0); }
+}
+@media (prefers-reduced-motion: reduce) { html::after { animation: none; } }
+
+/* ---------- Shared FX primitives (driven by js/fx/ui.js) ---------- */
+/* Cursor-follow light (desktop only, injected by js/fx/ui.js). */
+.fx-cursor {
+  position: fixed; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px;
+  border-radius: 50%; pointer-events: none; z-index: 1; mix-blend-mode: screen; opacity: 0;
+  background: radial-gradient(circle, rgba(246, 221, 147, .085), rgba(217, 180, 91, .03) 40%, transparent 70%);
+  transition: opacity .6s;
+  will-change: transform;
+}
+.fx-cursor.is-on { opacity: 1; }
+
+/* Scroll progress hairline. */
+.fx-progress {
+  position: fixed; inset: 0 0 auto; height: 2px; z-index: 2100; pointer-events: none;
+  background: var(--grad-gold); transform-origin: 0 50%; transform: scaleX(var(--p, 0));
+  box-shadow: 0 0 12px rgba(246, 221, 147, .6);
+}
+
+/* Ambient gold dust for sub pages (2D canvas, injected by js/fx/ui.js). */
+.fx-particles { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: .75; }
+
+/* ---------- Cards: tilt + cursor sheen ---------- */
+.fx-tilt { transform-style: preserve-3d; will-change: transform; }
+.fx-tilt.is-tilting { transition: transform .12s linear, box-shadow .4s, border-color .4s !important; box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .9), var(--glow-gold); border-color: rgba(217, 180, 91, .5) !important; }
+.fx-sheen {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit; opacity: 0;
+  background: radial-gradient(circle 260px at var(--mx, 50%) var(--my, 50%), rgba(246, 221, 147, .16), transparent 70%);
+  mix-blend-mode: screen; transition: opacity .4s;
+}
+.fx-tilt.is-tilting .fx-sheen { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) { .fx-cursor, .fx-particles { display: none; } }
+@media (hover: none), (pointer: coarse) { .fx-cursor { display: none; } }

@@ -1,26 +1,346 @@
-(()=>{'use strict';
-const seed=window.F4_DIVISION_SEED||[],$=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let memberSeed=window.F4_DIVISION_MEMBER_SEED||{};let rows=seed.map(x=>({...x,status:x.reported_members>=x.capacity?'FULL':'CLOSED',members:(memberSeed[String(x.number)]||[]).map((m,i)=>({id:'seed-'+x.number+'-'+i,nick:m.nickname,ml_id:m.ml_id||'BELUM DIISI',role:m.role||'BELUM DIKONFIRMASI'})),description:'Informasi divisi akan dilengkapi oleh Leader setelah data resmi dikonfirmasi.',announcement:'Informasi rekrutmen akan diumumkan melalui pengelola divisi.'}));
-let db=null,profile=null,authUser=null,leaderDivisions=[];
-function statusOf(d){if(!d.leader)return'LEADER NEEDED';if(Number(d.reported_members)>=Number(d.capacity))return'FULL';return d.status==='RECRUITING'?'RECRUITING':'CLOSED'}
-function statusClass(s){return s==='RECRUITING'?'status-recruiting':s==='FULL'?'status-full':s==='CLOSED'?'status-closed':'status-leader-needed'}
-function roleBadges(value){
- const raw=String(value??'BELUM DIKONFIRMASI').trim();
- if(!raw)return '<b class="role-badge role-unknown">BELUM DIKONFIRMASI</b>';
- return raw.split('/').map(part=>part.trim()).filter(Boolean).map(part=>{
-  const key=part.toUpperCase().replace(/\s+/g,' ').trim();
-  const known={'EXP':'role-exp','JUNG':'role-jung','GOLD':'role-gold','MID':'role-mid','ROAM':'role-roam','ROAM SUP':'role-roam-sup','ROAM SUPP':'role-roam-sup','ROAM SUPPORT':'role-roam-sup','MM':'role-mm','MAGE':'role-mage','FLEX':'role-flex','ALLROLE':'role-allrole','ALL ROLE FINAL':'role-allrole','ROSM':'role-unknown'};
-  const cls=known[key]||'role-unknown';
-  const label=['ROAM SUPPORT','ROAM SUPP'].includes(key)?'ROAM SUP':part;
-  return `<b class="role-badge ${cls}">${esc(label)}</b>`;
- }).join('');
-}
-function renderSummary(){let counts={total:rows.reduce((n,d)=>n+d.reported_members,0),recruiting:0,full:0,closed:0,noLeader:0};rows.forEach(d=>{let s=statusOf(d);if(s==='RECRUITING')counts.recruiting++;if(s==='FULL')counts.full++;if(s==='CLOSED')counts.closed++;if(s==='LEADER NEEDED')counts.noLeader++});$('summaryGrid').innerHTML=[['TOTAL MEMBER',counts.total],['RECRUITING',counts.recruiting],['FULL',counts.full],['CLOSED',counts.closed],['TANPA LEADER',counts.noLeader]].map(([l,v])=>`<div class="summary-item"><strong>${v}</strong><span>${l}</span></div>`).join('');$('lastUpdated').textContent='Snapshot roster awal · WIB';}
-function render(){let filter=$('divisionFilter').value,sort=$('divisionSort').value,list=rows.filter(d=>filter==='ALL'||statusOf(d)===filter);list.sort((a,b)=>{let delta=0;if(sort==='MOST_MEMBERS')delta=b.reported_members-a.reported_members;else if(sort==='LEAST_MEMBERS')delta=a.reported_members-b.reported_members;else if(sort==='MOST_SLOTS')delta=(b.capacity-b.reported_members)-(a.capacity-a.reported_members);else if(sort==='FEWEST_SLOTS')delta=(a.capacity-a.reported_members)-(b.capacity-b.reported_members);else if(sort==='RECRUITING_FIRST')delta=(statusOf(a)==='RECRUITING'?-1:0)-(statusOf(b)==='RECRUITING'?-1:0);return delta||a.number-b.number});$('divisionGrid').innerHTML=list.map(d=>{let s=statusOf(d),wa=d.whatsapp?`https://wa.me/${d.whatsapp.replace(/\D/g,'')}`:'';return `<article class="division-card" id="division-${d.number}" data-number="${d.number}"><div class="division-banner"></div><div class="division-card-head"><div class="division-logo"><img src="assets/logo-default.png" alt="F4NTASTIC"></div><div class="division-title"><h3>F4NTASTIC DIV. ${String(d.number).padStart(2,'0')}</h3><span class="division-status ${statusClass(s)}">${s}</span></div></div><button class="division-edit" data-edit="${d.number}" title="Edit divisi" aria-label="Edit divisi ${d.number}">✎</button><div class="division-meta"><div><small>LEADER</small><strong>${esc(d.leader)}</strong></div><div><small>SQUAD ID</small><strong>${esc(d.squad_id||'SQUAD ID BELUM DISET')}</strong></div><div><small>KAPASITAS</small><strong>${d.reported_members}/${d.capacity}</strong></div></div><p class="division-description">${esc(d.description)}</p><p class="division-announcement">${esc(d.announcement)}</p><div class="division-actions"><button data-members="${d.number}">LIHAT MEMBER</button><a class="wa" href="${wa||'#'}" ${wa?'target="_blank" rel="noopener"':'aria-disabled="true"'}>HUBUNGI LEADER</a><button data-share="${d.number}">SHARE DIVISION</button></div><div class="member-panel" id="members-${d.number}"><div class="member-inner"><h4>DAFTAR MEMBER</h4><div class="member-table" role="table" aria-label="Daftar member divisi ${d.number}"><div class="member-row member-header" role="row"><span role="columnheader">NICK</span><span role="columnheader">ID ML</span><span role="columnheader">ROLE</span></div><div class="member-row leader-member-row" role="row"><strong role="cell">${esc(d.leader||'LEADER NEEDED')}</strong><span role="cell">—</span><span class="member-role-list" role="cell"><b class="role-badge role-leader">LEADER</b></span></div>${d.members.length?d.members.slice().sort((a,b)=>a.nick.localeCompare(b.nick,'id')).map(m=>`<div class="member-row" role="row"><strong role="cell">${esc(m.nick)}</strong><span class="member-id" role="cell">${esc(m.ml_id)}</span><span class="member-role-list" role="cell">${roleBadges(m.role)}</span></div>`).join(''):`<p class="activity-empty">BELUM ADA MEMBER</p>`}</div></div></div></article>`}).join('');$('quickDivision').innerHTML='<option value="">PILIH DIVISI</option>'+rows.map(d=>`<option value="${d.number}">DIVISION ${String(d.number).padStart(2,'0')}</option>`).join('');applyEditPermissions();}
-function applyEditPermissions(){let roles=profile?.roles||[profile?.role||'tamu'];let canAll=roles.some(r=>['developer','owner'].includes(r));let canAdmin=roles.includes('admin');document.querySelectorAll('[data-edit]').forEach(b=>{let n=Number(b.dataset.edit),d=rows.find(x=>x.number===n);let own=leaderDivisions.includes(n);b.classList.toggle('visible',canAll||canAdmin||own);});}
-async function init(){try{if(window.getF4GalleryClient){db=window.getF4GalleryClient();let {data:{session}}=await db.auth.getSession();authUser=session?.user||null;if(authUser){let {data}=await db.from('profiles').select('role,roles').eq('id',authUser.id).maybeSingle();profile=data||null;let {data:ld}=await db.from('f4_division_leaders').select('division_id').eq('profile_id',authUser.id);leaderDivisions=(ld||[]).map(x=>Number(x.division_id));let {data:ds}=await db.from('f4_divisions').select('*').order('id');if(ds?.length){rows=ds.map(x=>({number:x.id,leader:x.leader_name,squad_id:x.squad_id,whatsapp:x.whatsapp||'',reported_members:x.member_count,capacity:x.capacity,status:x.recruitment_status,description:x.description||'',announcement:x.announcement||'',spotlight:x.spotlight,members:(memberSeed[String(x.id)]||[]).map((m,i)=>({id:'seed-'+x.id+'-'+i,nick:m.nickname,ml_id:m.ml_id||'BELUM DIISI',role:m.role||'BELUM DIKONFIRMASI'}))}));let {data:mem}=await db.from('f4_division_members').select('*').order('nickname');(mem||[]).forEach(m=>{let d=rows.find(x=>x.number===m.division_id);if(d){let exists=d.members.some(x=>x.nick===m.nickname&&String(x.ml_id)===String(m.ml_id));if(!exists)d.members.push({id:m.id,nick:m.nickname,ml_id:m.ml_id,role:(m.roles||[]).join('/')})}});}}}}catch(e){console.warn('Auth status unavailable',e)}let roles=profile?.roles||[profile?.role||'tamu'];let allowed=Boolean(authUser)&&roles.some(r=>['member','leader_squad','admin','developer','owner'].includes(r));if(!allowed){$('divisionGrid').innerHTML='<div class="directory-error"><h3>AKSES DIREKTORI DIBATASI</h3><p>Halaman ini hanya dapat diakses oleh Member F4NTASTIC atau role pengelola yang berwenang.</p><a href="login.html">MASUK KE AKUN</a></div>';document.querySelector('.directory-summary').hidden=true;document.querySelector('.directory-toolbar').hidden=true;document.querySelector('.member-search-wrap').hidden=true;return;}renderSummary();render();}
-$('divisionFilter').addEventListener('change',render);$('divisionSort').addEventListener('change',render);$('quickDivision').addEventListener('change',e=>{if(e.target.value){let el=$(`division-${e.target.value}`);el?.scrollIntoView({behavior:'smooth',block:'center'});el?.querySelector('[data-members]')?.click();}});
-$('divisionGrid').addEventListener('click',async e=>{let m=e.target.closest('[data-members]'),sh=e.target.closest('[data-share]'),ed=e.target.closest('[data-edit]');if(m){let panel=$(`members-${m.dataset.members}`);panel.classList.toggle('open');m.textContent=panel.classList.contains('open')?'TUTUP MEMBER':'LIHAT MEMBER';}if(sh){let url=`${location.origin}${location.pathname}?id=${String(sh.dataset.share).padStart(2,'0')}`;try{await navigator.clipboard.writeText(url);alert('LINK DIVISI BERHASIL DISALIN!')}catch{prompt('Salin link divisi ini:',url)}}if(ed){location.href=`division-editor.html?id=${String(ed.dataset.edit).padStart(2,'0')}`}});
-function search(q){q=q.trim().toLowerCase();if(!q){$('memberResults').innerHTML='';return}let matches=[];rows.forEach(d=>d.members.forEach(m=>{if(m.nick.toLowerCase().includes(q)||m.ml_id.includes(q))matches.push({...m,division:d.number})}));$('memberResults').innerHTML=matches.length?matches.map(m=>`<div class="member-result" data-go="${m.division}"><b>${esc(m.nick)}</b> · ${esc(m.ml_id)} <small>${esc(m.role)} · DIV ${m.division}</small></div>`).join(''):'<p class="activity-empty">MEMBER TIDAK DITEMUKAN · Periksa kembali nickname atau ID ML.</p>'}
-$('memberSearch').addEventListener('input',e=>search(e.target.value));$('heroSearch').addEventListener('input',e=>{$('memberSearch').value=e.target.value;search(e.target.value);$('member-search').scrollIntoView({behavior:'smooth',block:'center'})});$('memberResults').addEventListener('click',e=>{let x=e.target.closest('[data-go]');if(x){let card=$(`division-${x.dataset.go}`);card?.scrollIntoView({behavior:'smooth',block:'center'});card?.querySelector('[data-members]')?.click()}});$('yearNow').textContent=new Date().getFullYear();let top=$('backTop');window.addEventListener('scroll',()=>top.classList.toggle('show',scrollY>450));top.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});let id=Number(new URLSearchParams(location.search).get('id'));init().then(()=>{if(id>=1&&id<=41){let c=$(`division-${id}`);c?.scrollIntoView({behavior:'smooth'});c?.querySelector('[data-members]')?.click()}});
+(() => {
+  "use strict";
+  const seed = window.F4_DIVISION_SEED || [],
+    $ = (id) => document.getElementById(id),
+    esc = (s) =>
+      String(s ?? "").replace(
+        /[&<>"']/g,
+        (c) =>
+          ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          })[c],
+      );
+  let memberSeed = window.F4_DIVISION_MEMBER_SEED || {};
+  let rows = seed.map((x) => ({
+    ...x,
+    status: x.reported_members >= x.capacity ? "FULL" : "CLOSED",
+    members: (memberSeed[String(x.number)] || []).map((m, i) => ({
+      id: "seed-" + x.number + "-" + i,
+      nick: m.nickname,
+      ml_id: m.ml_id || "BELUM DIISI",
+      role: m.role || "BELUM DIKONFIRMASI",
+    })),
+    description:
+      "Informasi divisi akan dilengkapi oleh Leader setelah data resmi dikonfirmasi.",
+    announcement:
+      "Informasi rekrutmen akan diumumkan melalui pengelola divisi.",
+  }));
+  let db = null,
+    profile = null,
+    authUser = null,
+    leaderDivisions = [];
+  function statusOf(d) {
+    if (!d.leader) return "LEADER NEEDED";
+    if (Number(d.reported_members) >= Number(d.capacity)) return "FULL";
+    return d.status === "RECRUITING" ? "RECRUITING" : "CLOSED";
+  }
+  function statusClass(s) {
+    return s === "RECRUITING"
+      ? "status-recruiting"
+      : s === "FULL"
+        ? "status-full"
+        : s === "CLOSED"
+          ? "status-closed"
+          : "status-leader-needed";
+  }
+  function roleBadges(value) {
+    const raw = String(value ?? "BELUM DIKONFIRMASI").trim();
+    if (!raw)
+      return '<b class="role-badge role-unknown">BELUM DIKONFIRMASI</b>';
+    return raw
+      .split("/")
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((part) => {
+        const key = part.toUpperCase().replace(/\s+/g, " ").trim();
+        const known = {
+          EXP: "role-exp",
+          JUNG: "role-jung",
+          GOLD: "role-gold",
+          MID: "role-mid",
+          ROAM: "role-roam",
+          "ROAM SUP": "role-roam-sup",
+          "ROAM SUPP": "role-roam-sup",
+          "ROAM SUPPORT": "role-roam-sup",
+          MM: "role-mm",
+          MAGE: "role-mage",
+          FLEX: "role-flex",
+          ALLROLE: "role-allrole",
+          "ALL ROLE FINAL": "role-allrole",
+          ROSM: "role-unknown",
+        };
+        const cls = known[key] || "role-unknown";
+        const label = ["ROAM SUPPORT", "ROAM SUPP"].includes(key)
+          ? "ROAM SUP"
+          : part;
+        return `<b class="role-badge ${cls}">${esc(label)}</b>`;
+      })
+      .join("");
+  }
+  function renderSummary() {
+    let counts = {
+      total: rows.reduce((n, d) => n + d.reported_members, 0),
+      recruiting: 0,
+      full: 0,
+      closed: 0,
+      noLeader: 0,
+    };
+    rows.forEach((d) => {
+      let s = statusOf(d);
+      if (s === "RECRUITING") counts.recruiting++;
+      if (s === "FULL") counts.full++;
+      if (s === "CLOSED") counts.closed++;
+      if (s === "LEADER NEEDED") counts.noLeader++;
+    });
+    $("summaryGrid").innerHTML = [
+      ["TOTAL MEMBER", counts.total],
+      ["RECRUITING", counts.recruiting],
+      ["FULL", counts.full],
+      ["CLOSED", counts.closed],
+      ["TANPA LEADER", counts.noLeader],
+    ]
+      .map(
+        ([l, v]) =>
+          `<div class="summary-item"><strong>${v}</strong><span>${l}</span></div>`,
+      )
+      .join("");
+    $("lastUpdated").textContent = "Snapshot roster awal · WIB";
+  }
+  function render() {
+    let filter = $("divisionFilter").value,
+      sort = $("divisionSort").value,
+      list = rows.filter((d) => filter === "ALL" || statusOf(d) === filter);
+    list.sort((a, b) => {
+      let delta = 0;
+      if (sort === "MOST_MEMBERS")
+        delta = b.reported_members - a.reported_members;
+      else if (sort === "LEAST_MEMBERS")
+        delta = a.reported_members - b.reported_members;
+      else if (sort === "MOST_SLOTS")
+        delta =
+          b.capacity - b.reported_members - (a.capacity - a.reported_members);
+      else if (sort === "FEWEST_SLOTS")
+        delta =
+          a.capacity - a.reported_members - (b.capacity - b.reported_members);
+      else if (sort === "RECRUITING_FIRST")
+        delta =
+          (statusOf(a) === "RECRUITING" ? -1 : 0) -
+          (statusOf(b) === "RECRUITING" ? -1 : 0);
+      return delta || a.number - b.number;
+    });
+    $("divisionGrid").innerHTML = list
+      .map((d) => {
+        let s = statusOf(d),
+          wa = d.whatsapp
+            ? `https://wa.me/${d.whatsapp.replace(/\D/g, "")}`
+            : "";
+        return `<article class="division-card" id="division-${d.number}" data-number="${d.number}"><div class="division-banner"></div><div class="division-card-head"><div class="division-logo"><img src="assets/logo-default.png" alt="F4NTASTIC"></div><div class="division-title"><h3>F4NTASTIC DIV. ${String(d.number).padStart(2, "0")}</h3><span class="division-status ${statusClass(s)}">${s}</span></div></div><button class="division-edit" data-edit="${d.number}" title="Edit divisi" aria-label="Edit divisi ${d.number}">✎</button><div class="division-meta"><div><small>LEADER</small><strong>${esc(d.leader)}</strong></div><div><small>SQUAD ID</small><strong>${esc(d.squad_id || "SQUAD ID BELUM DISET")}</strong></div><div><small>KAPASITAS</small><strong>${d.reported_members}/${d.capacity}</strong></div></div><p class="division-description">${esc(d.description)}</p><p class="division-announcement">${esc(d.announcement)}</p><div class="division-actions"><button data-members="${d.number}">LIHAT MEMBER</button><a class="wa" href="${wa || "#"}" ${wa ? 'target="_blank" rel="noopener"' : 'aria-disabled="true"'}>HUBUNGI LEADER</a><button data-share="${d.number}">SHARE DIVISION</button></div><div class="member-panel" id="members-${d.number}"><div class="member-inner"><h4>DAFTAR MEMBER</h4><div class="member-table" role="table" aria-label="Daftar member divisi ${d.number}"><div class="member-row member-header" role="row"><span role="columnheader">NICK</span><span role="columnheader">ID ML</span><span role="columnheader">ROLE</span></div><div class="member-row leader-member-row" role="row"><strong role="cell">${esc(d.leader || "LEADER NEEDED")}</strong><span role="cell">—</span><span class="member-role-list" role="cell"><b class="role-badge role-leader">LEADER</b></span></div>${
+          d.members.length
+            ? d.members
+                .slice()
+                .sort((a, b) => a.nick.localeCompare(b.nick, "id"))
+                .map(
+                  (m) =>
+                    `<div class="member-row" role="row"><strong role="cell">${esc(m.nick)}</strong><span class="member-id" role="cell">${esc(m.ml_id)}</span><span class="member-role-list" role="cell">${roleBadges(m.role)}</span></div>`,
+                )
+                .join("")
+            : `<p class="activity-empty">BELUM ADA MEMBER</p>`
+        }</div></div></div></article>`;
+      })
+      .join("");
+    $("quickDivision").innerHTML =
+      '<option value="">PILIH DIVISI</option>' +
+      rows
+        .map(
+          (d) =>
+            `<option value="${d.number}">DIVISION ${String(d.number).padStart(2, "0")}</option>`,
+        )
+        .join("");
+    applyEditPermissions();
+  }
+  function applyEditPermissions() {
+    let roles = profile?.roles || [profile?.role || "tamu"];
+    let canAll = roles.some((r) => ["developer", "owner"].includes(r));
+    let canAdmin = roles.includes("admin");
+    document.querySelectorAll("[data-edit]").forEach((b) => {
+      let n = Number(b.dataset.edit),
+        d = rows.find((x) => x.number === n);
+      let own = leaderDivisions.includes(n);
+      b.classList.toggle("visible", canAll || canAdmin || own);
+    });
+  }
+  async function init() {
+    try {
+      if (window.getF4GalleryClient) {
+        db = window.getF4GalleryClient();
+        let {
+          data: { session },
+        } = await db.auth.getSession();
+        authUser = session?.user || null;
+        if (authUser) {
+          let { data } = await db
+            .from("profiles")
+            .select("role,roles")
+            .eq("id", authUser.id)
+            .maybeSingle();
+          profile = data || null;
+          let { data: ld } = await db
+            .from("f4_division_leaders")
+            .select("division_id")
+            .eq("profile_id", authUser.id);
+          leaderDivisions = (ld || []).map((x) => Number(x.division_id));
+          let { data: ds } = await db
+            .from("f4_divisions")
+            .select("*")
+            .order("id");
+          if (ds?.length) {
+            rows = ds.map((x) => ({
+              number: x.id,
+              leader: x.leader_name,
+              squad_id: x.squad_id,
+              whatsapp: x.whatsapp || "",
+              reported_members: x.member_count,
+              capacity: x.capacity,
+              status: x.recruitment_status,
+              description: x.description || "",
+              announcement: x.announcement || "",
+              spotlight: x.spotlight,
+              members: (memberSeed[String(x.id)] || []).map((m, i) => ({
+                id: "seed-" + x.id + "-" + i,
+                nick: m.nickname,
+                ml_id: m.ml_id || "BELUM DIISI",
+                role: m.role || "BELUM DIKONFIRMASI",
+              })),
+            }));
+            let { data: mem } = await db
+              .from("f4_division_members")
+              .select("*")
+              .order("nickname");
+            (mem || []).forEach((m) => {
+              let d = rows.find((x) => x.number === m.division_id);
+              if (d) {
+                let exists = d.members.some(
+                  (x) =>
+                    x.nick === m.nickname &&
+                    String(x.ml_id) === String(m.ml_id),
+                );
+                if (!exists)
+                  d.members.push({
+                    id: m.id,
+                    nick: m.nickname,
+                    ml_id: m.ml_id,
+                    role: (m.roles || []).join("/"),
+                  });
+              }
+            });
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Auth status unavailable", e);
+    }
+    let roles = profile?.roles || [profile?.role || "tamu"];
+    let allowed =
+      Boolean(authUser) &&
+      roles.some((r) =>
+        ["member", "leader_squad", "admin", "developer", "owner"].includes(r),
+      );
+    if (!allowed) {
+      $("divisionGrid").innerHTML =
+        '<div class="directory-error"><h3>AKSES DIREKTORI DIBATASI</h3><p>Halaman ini hanya dapat diakses oleh Member F4NTASTIC atau role pengelola yang berwenang.</p><a href="login.html">MASUK KE AKUN</a></div>';
+      document.querySelector(".directory-summary").hidden = true;
+      document.querySelector(".directory-toolbar").hidden = true;
+      document.querySelector(".member-search-wrap").hidden = true;
+      return;
+    }
+    renderSummary();
+    render();
+  }
+  $("divisionFilter").addEventListener("change", render);
+  $("divisionSort").addEventListener("change", render);
+  $("quickDivision").addEventListener("change", (e) => {
+    if (e.target.value) {
+      let el = $(`division-${e.target.value}`);
+      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      el?.querySelector("[data-members]")?.click();
+    }
+  });
+  $("divisionGrid").addEventListener("click", async (e) => {
+    let m = e.target.closest("[data-members]"),
+      sh = e.target.closest("[data-share]"),
+      ed = e.target.closest("[data-edit]");
+    if (m) {
+      let panel = $(`members-${m.dataset.members}`);
+      panel.classList.toggle("open");
+      m.textContent = panel.classList.contains("open")
+        ? "TUTUP MEMBER"
+        : "LIHAT MEMBER";
+    }
+    if (sh) {
+      let url = `${location.origin}${location.pathname}?id=${String(sh.dataset.share).padStart(2, "0")}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        alert("LINK DIVISI BERHASIL DISALIN!");
+      } catch {
+        prompt("Salin link divisi ini:", url);
+      }
+    }
+    if (ed) {
+      location.href = `division-editor.html?id=${String(ed.dataset.edit).padStart(2, "0")}`;
+    }
+  });
+  function search(q) {
+    q = q.trim().toLowerCase();
+    if (!q) {
+      $("memberResults").innerHTML = "";
+      return;
+    }
+    let matches = [];
+    rows.forEach((d) =>
+      d.members.forEach((m) => {
+        if (m.nick.toLowerCase().includes(q) || m.ml_id.includes(q))
+          matches.push({ ...m, division: d.number });
+      }),
+    );
+    $("memberResults").innerHTML = matches.length
+      ? matches
+          .map(
+            (m) =>
+              `<div class="member-result" data-go="${m.division}"><b>${esc(m.nick)}</b> · ${esc(m.ml_id)} <small>${esc(m.role)} · DIV ${m.division}</small></div>`,
+          )
+          .join("")
+      : '<p class="activity-empty">MEMBER TIDAK DITEMUKAN · Periksa kembali nickname atau ID ML.</p>';
+  }
+  $("memberSearch").addEventListener("input", (e) => search(e.target.value));
+  $("heroSearch").addEventListener("input", (e) => {
+    $("memberSearch").value = e.target.value;
+    search(e.target.value);
+    $("member-search").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+  $("memberResults").addEventListener("click", (e) => {
+    let x = e.target.closest("[data-go]");
+    if (x) {
+      let card = $(`division-${x.dataset.go}`);
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+      card?.querySelector("[data-members]")?.click();
+    }
+  });
+  $("yearNow").textContent = new Date().getFullYear();
+  let top = $("backTop");
+  window.addEventListener("scroll", () =>
+    top.classList.toggle("show", scrollY > 450),
+  );
+  top.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  let id = Number(new URLSearchParams(location.search).get("id"));
+  init().then(() => {
+    if (id >= 1 && id <= 41) {
+      let c = $(`division-${id}`);
+      c?.scrollIntoView({ behavior: "smooth" });
+      c?.querySelector("[data-members]")?.click();
+    }
+  });
 })();
