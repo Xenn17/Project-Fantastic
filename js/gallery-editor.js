@@ -248,7 +248,7 @@
     const name = $("galleryCategoryEditName").value;
     if (
       !confirm(
-        `Hapus kategori “${name}”? Kategori yang masih memiliki foto tidak dapat dihapus.`,
+        `Hapus kategori “${name}”?\n\nSEMUA foto/video album di dalam kategori ini juga akan DIHAPUS PERMANEN dan tidak bisa dikembalikan.`,
       )
     )
       return;

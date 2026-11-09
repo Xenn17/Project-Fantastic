@@ -62,8 +62,12 @@
       modal.id = "albumEditModal";
       modal.className = "gallery-category-modal";
       modal.hidden = false;
-      modal.innerHTML = `<div class="gallery-category-modal-backdrop"></div><section class="gallery-category-modal-card"><button type="button" class="gallery-category-modal-close">×</button><p class="eyebrow">DEVELOPER TOOLS</p><h2>EDIT ALBUM</h2><form class="gallery-editor-card" id="albumEditForm"><label>Label album<input id="editAlbumLabel" maxlength="80" value="${first.label}"></label><label>Nama album<input id="editAlbumName" required maxlength="140" value="${first.title}"></label><label>Deskripsi<textarea id="editAlbumDescription" maxlength="1200" rows="3">${first.description || ""}</textarea></label><div class="album-existing-photos" id="albumExistingPhotos"></div><label class="album-upload-label">Tambah foto<input id="editAlbumFiles" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/ogg" multiple><span class="album-upload-box"><b>PILIH FOTO</b><small>Biarkan kosong jika tidak menambah foto</small></span></label><button type="submit">SIMPAN PERUBAHAN ↗</button><button type="button" class="gallery-category-delete" id="deleteAlbumButton">HAPUS ALBUM</button><p class="gallery-editor-message" id="editAlbumMessage"></p></form></section>`;
+      modal.innerHTML = `<div class="gallery-category-modal-backdrop"></div><section class="gallery-category-modal-card"><button type="button" class="gallery-category-modal-close">×</button><p class="eyebrow">DEVELOPER TOOLS</p><h2>EDIT ALBUM</h2><form class="gallery-editor-card" id="albumEditForm"><label>Label album<input id="editAlbumLabel" maxlength="80"></label><label>Nama album<input id="editAlbumName" required maxlength="140"></label><label>Deskripsi<textarea id="editAlbumDescription" maxlength="1200" rows="3"></textarea></label><div class="album-existing-photos" id="albumExistingPhotos"></div><label class="album-upload-label">Tambah foto<input id="editAlbumFiles" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/ogg" multiple><span class="album-upload-box"><b>PILIH FOTO</b><small>Biarkan kosong jika tidak menambah foto</small></span></label><button type="submit">SIMPAN PERUBAHAN ↗</button><button type="button" class="gallery-category-delete" id="deleteAlbumButton">HAPUS ALBUM</button><p class="gallery-editor-message" id="editAlbumMessage"></p></form></section>`;
       if (!modal.parentNode) document.body.append(modal);
+      // values set as properties (not interpolated into HTML) so quotes / < in titles can't break the form
+      modal.querySelector("#editAlbumLabel").value = first.label || "";
+      modal.querySelector("#editAlbumName").value = first.title || "";
+      modal.querySelector("#editAlbumDescription").value = first.description || "";
       const previews = modal.querySelector("#albumExistingPhotos");
       items.forEach((item, i) => {
         const row = document.createElement("div");
@@ -141,15 +145,20 @@
           const {
             data: { user },
           } = await db.auth.getUser();
+          const failed = [];
           for (const [i, file] of files.entries()) {
             const msg = document.querySelector("#editAlbumMessage");
+            msg.className = "gallery-editor-message";
             msg.textContent = `Mengunggah ${i + 1} dari ${files.length}: ${file.name}`;
             const path = `${user.id}/${Date.now()}-${i}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "-")}`;
             const up = await db.storage
               .from("gallery-photos")
               .upload(path, file, { contentType: file.type });
-            if (up.error) continue;
-            await db
+            if (up.error) {
+              failed.push(file.name);
+              continue;
+            }
+            const ins = await db
               .from("gallery_photos")
               .insert({
                 category_id: cat.id,
@@ -162,6 +171,16 @@
                 is_published: true,
                 created_by: user.id,
               });
+            if (ins.error) {
+              failed.push(file.name);
+              await db.storage.from("gallery-photos").remove([path]);
+            }
+          }
+          if (failed.length) {
+            const msg = document.querySelector("#editAlbumMessage");
+            msg.className = "gallery-editor-message is-error";
+            msg.textContent = `${files.length - failed.length} dari ${files.length} file tersimpan. Gagal: ${failed.join(", ")}`;
+            return;
           }
         }
         modal.hidden = true;
@@ -211,6 +230,8 @@
       const uploaded = [];
       try {
         for (const [i, file] of files.entries()) {
+          msg.className = "gallery-editor-message";
+          msg.textContent = `Mengunggah ${i + 1} dari ${files.length}: ${file.name}`;
           const path = `${user.id}/${Date.now()}-${i}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "-")}`;
           const up = await db.storage
             .from("gallery-photos")
