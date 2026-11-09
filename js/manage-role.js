@@ -497,7 +497,7 @@
   function closeAccountDetail() {
     $("accountOverlay").hidden = true;
   }
-  $("logout").onclick = async () => {
+  if ($("logout")) $("logout").onclick = async () => {
     await db.auth.signOut();
     redirectToLogin();
   };

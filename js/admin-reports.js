@@ -106,7 +106,7 @@ async function enter() {
   dashboard.hidden = false;
   await reportInit();
 }
-$("#logout").onclick = async () => {
+if ($("#logout")) $("#logout").onclick = async () => {
   await db.auth.signOut();
   redirectToLogin();
 };

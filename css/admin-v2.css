@@ -66,11 +66,12 @@ body:before {
   margin-top: auto; display: grid; gap: 10px; padding: 14px; border-radius: 14px; border: 1px solid var(--hair); background: rgba(255, 255, 255, .02);
   color: var(--ok); font-size: 11px; font-weight: 800; letter-spacing: .08em;
 }
-#dashboard > header .online button {
-  margin: 0; padding: 10px; border-radius: 10px; border: 1px solid rgba(239, 138, 124, .35); background: rgba(239, 138, 124, .06);
-  color: var(--bad); font-size: 11px; font-weight: 800; letter-spacing: .12em;
+#dashboard > header .home-link {
+  display: block; padding: 11px 10px; border-radius: 10px; text-align: center; text-decoration: none;
+  border: 1px solid rgba(217, 180, 91, .45); background: rgba(217, 180, 91, .08);
+  color: var(--gold-bright, var(--bright)); font-size: 11px; font-weight: 800; letter-spacing: .1em; transition: background .2s, color .2s;
 }
-#dashboard > header .online button:hover { background: var(--bad); color: #160806; }
+#dashboard > header .home-link:hover { background: var(--gold); color: #111; }
 
 /* ---------- Page ---------- */
 .shell { width: min(1240px, calc(100% - 64px)); }
@@ -225,8 +226,9 @@ td button:disabled { opacity: .55; cursor: wait; }
   .admin-nav::before { display: none; }
   .admin-nav a { flex: none; padding: 9px 12px; font-size: 12px !important; }
   .admin-nav a.is-active::after { display: none; }
-  #dashboard > header .online { margin: 0 0 0 auto; display: flex; align-items: center; padding: 0; border: 0; background: none; font-size: 0; }
-  #dashboard > header .online button { padding: 8px 12px; font-size: 11px; }
+  #dashboard > header .online { margin: 0 0 0 auto; display: flex; align-items: center; padding: 0; border: 0; background: none; }
+  #dashboard > header .online-status { display: none; }
+  #dashboard > header .home-link { padding: 8px 12px; font-size: 10px; }
   .shell { width: calc(100% - 32px); }
 }
 @media (max-width: 640px) {

@@ -107,7 +107,7 @@ async function requireDeveloper() {
     return false;
   }
 }
-$("#logout").onclick = async () => {
+if ($("#logout")) $("#logout").onclick = async () => {
   await db.auth.signOut();
   redirectToLogin();
 };
