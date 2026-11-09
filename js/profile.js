@@ -287,30 +287,204 @@
     };
     set("cardName", name);
     set("cardRank", ranks[profile.role] || "TAMU");
-    set("cardMl", profile.ml_id || "—");
-    set("cardServer", profile.ml_server || "—");
     set("cardHero", profile.main_hero || "—");
     set("cardGameRole", gameRoles[profile.game_role] || "—");
     set("sHero", profile.main_hero || "—");
-    set("sServer", profile.ml_server || "—");
+    const since = profile.created_at
+      ? new Date(profile.created_at).toLocaleDateString("id-ID", { month: "short", year: "numeric" })
+      : "—";
+    set("cardSince", since);
+    const showcaseCount = (Array.isArray(profile.profile_gallery) ? profile.profile_gallery.filter(Boolean) : []).length;
+    set("cardShowcase", `${showcaseCount} / 3`);
+    set("sShowcase", `${showcaseCount} / 3`);
     // Stable short card number derived from the user id.
     const id = String(profile.id || user?.id || "");
     let h = 0;
     for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 10000;
     set("cardNo", "#" + String(h).padStart(4, "0"));
     set("cardInitial", name.charAt(0).toUpperCase());
-    const photo = $("cardPhoto");
-    if (photo) {
-      const url = profile.avatar_url ? `url("${String(profile.avatar_url).replace(/["\\]/g, "")}")` : "";
-      photo.style.backgroundImage = url;
-      photo.classList.toggle("has-photo", Boolean(url));
-    }
+    renderAlbum();
     const gallery = Array.isArray(profile.profile_gallery) ? profile.profile_gallery.filter(Boolean) : [];
     const coverSrc = gallery[0] || profile.avatar_url || "";
     const cover = $("coverImage");
     if (cover) cover.style.backgroundImage = coverSrc ? `url("${String(coverSrc).replace(/["\\]/g, "")}")` : "";
     document.body.classList.toggle("is-developer-profile", ["developer", "owner"].includes(profile.role));
   }
+
+
+  /* ML ID / server: private by default, revealed with the eye button */
+  let mlRevealed = false;
+  const maskId = (v) => {
+    const t = String(v || "");
+    return t.length <= 3 ? "•".repeat(t.length) : "•".repeat(Math.max(4, t.length - 3)) + t.slice(-3);
+  };
+  function renderMl() {
+    const el = $("vMl");
+    if (!el) return;
+    if (!profile?.ml_id) {
+      el.textContent = "—";
+      return;
+    }
+    el.textContent = mlRevealed
+      ? `${profile.ml_id} (${profile.ml_server || "—"})`
+      : `${maskId(profile.ml_id)} (${"•".repeat(Math.max(3, String(profile.ml_server || "").length))})`;
+    el.classList.toggle("is-masked", !mlRevealed);
+  }
+  $("toggleMl")?.addEventListener("click", () => {
+    mlRevealed = !mlRevealed;
+    const b = $("toggleMl");
+    b.setAttribute("aria-pressed", String(mlRevealed));
+    b.setAttribute("aria-label", mlRevealed ? "Sembunyikan ML ID dan server" : "Tampilkan ML ID dan server");
+    renderMl();
+  });
+
+  /* presence popup (✎ on the presence chip) — drives the hidden #presenceMode select */
+  const presenceMenu = $("presenceMenu");
+  const presenceEdit = $("presenceEdit");
+  const syncPresenceMenu = () =>
+    presenceMenu?.querySelectorAll("[data-mode]").forEach((b) =>
+      b.setAttribute("aria-checked", String(b.dataset.mode === $("presenceMode").value)),
+    );
+  const closePresence = (focusButton = false) => {
+    if (!presenceMenu || presenceMenu.hidden) return;
+    presenceMenu.hidden = true;
+    presenceEdit.setAttribute("aria-expanded", "false");
+    if (focusButton) presenceEdit.focus();
+  };
+  presenceEdit?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = presenceMenu.hidden;
+    if (!open) return closePresence();
+    syncPresenceMenu();
+    presenceMenu.hidden = false;
+    presenceEdit.setAttribute("aria-expanded", "true");
+    (presenceMenu.querySelector('[aria-checked="true"]') || presenceMenu.querySelector("[data-mode]")).focus();
+  });
+  presenceMenu?.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-mode]");
+    if (!b) return;
+    const select = $("presenceMode");
+    if (select.value !== b.dataset.mode) {
+      select.value = b.dataset.mode;
+      select.dispatchEvent(new Event("change"));
+    }
+    syncPresenceMenu();
+    closePresence(true);
+  });
+  presenceMenu?.addEventListener("keydown", (e) => {
+    const items = [...presenceMenu.querySelectorAll("[data-mode]")];
+    const i = items.indexOf(document.activeElement);
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      items[(i + (e.key === "ArrowDown" ? 1 : items.length - 1)) % items.length].focus();
+    }
+  });
+  document.addEventListener("click", (e) => {
+    if (presenceMenu && !presenceMenu.hidden && !e.target.closest("#presenceChip")) closePresence();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closePresence(true);
+  });
+
+  /* player card album: avatar + showcase photos, carousel on the card + full-size lightbox */
+  let album = [];
+  let albumKey = "";
+  let albumIndex = 0;
+  let albumTimer = null;
+  const albumReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function renderAlbum() {
+    const gallery = Array.isArray(profile?.profile_gallery) ? profile.profile_gallery.filter(Boolean) : [];
+    const list = [profile?.avatar_url, ...gallery].filter(Boolean);
+    const key = list.join("|");
+    if (key === albumKey) return;
+    albumKey = key;
+    album = list;
+    albumIndex = Math.min(albumIndex, Math.max(0, list.length - 1));
+    const track = $("cardAlbum");
+    const dots = $("cardDots");
+    const photo = $("cardPhoto");
+    if (!track || !dots || !photo) return;
+    track.replaceChildren(
+      ...list.map((src, i) => {
+        const slide = document.createElement("button");
+        slide.type = "button";
+        slide.className = "card-slide";
+        slide.style.backgroundImage = `url("${String(src).replace(/["\\]/g, "")}")`;
+        slide.setAttribute("aria-label", `Buka foto album ${i + 1} dari ${list.length}`);
+        slide.addEventListener("click", () => openAlbum(i));
+        return slide;
+      }),
+    );
+    dots.replaceChildren(...list.map(() => document.createElement("i")));
+    photo.classList.toggle("has-photo", list.length > 0);
+    photo.classList.toggle("has-album", list.length > 1);
+    showSlide(albumIndex);
+    restartAlbumTimer();
+  }
+  function showSlide(i) {
+    if (!album.length) return;
+    albumIndex = (i + album.length) % album.length;
+    $("cardAlbum").querySelectorAll(".card-slide").forEach((s, n) => {
+      s.classList.toggle("is-current", n === albumIndex);
+      s.tabIndex = n === albumIndex ? 0 : -1;
+    });
+    $("cardDots").querySelectorAll("i").forEach((d, n) => d.classList.toggle("is-current", n === albumIndex));
+    $("cardCount").dataset.count = album.length > 1 ? `${albumIndex + 1}/${album.length}` : "";
+  }
+  function restartAlbumTimer() {
+    clearInterval(albumTimer);
+    if (albumReduced || album.length < 2) return;
+    albumTimer = setInterval(() => {
+      if (!$("cardPhoto").matches(":hover") && $("albumLightbox").hidden) showSlide(albumIndex + 1);
+    }, 4500);
+  }
+  $("cardPrev")?.addEventListener("click", () => { showSlide(albumIndex - 1); restartAlbumTimer(); });
+  $("cardNext")?.addEventListener("click", () => { showSlide(albumIndex + 1); restartAlbumTimer(); });
+  // swipe on touch screens
+  let swipeX = null;
+  $("cardPhoto")?.addEventListener("pointerdown", (e) => { swipeX = e.clientX; }, { passive: true });
+  $("cardPhoto")?.addEventListener("pointerup", (e) => {
+    if (swipeX === null) return;
+    const dx = e.clientX - swipeX;
+    swipeX = null;
+    if (Math.abs(dx) > 40) { showSlide(albumIndex + (dx < 0 ? 1 : -1)); restartAlbumTimer(); }
+  });
+
+  const lightbox = $("albumLightbox");
+  let lastFocus = null;
+  function paintLightbox() {
+    const img = $("albumImage");
+    img.src = album[albumIndex];
+    img.alt = `Foto album ${albumIndex + 1} dari ${album.length}`;
+    $("albumCounter").dataset.count = `${albumIndex + 1} / ${album.length}`;
+    lightbox.classList.toggle("is-single", album.length < 2);
+  }
+  function openAlbum(i) {
+    if (!album.length) return;
+    lastFocus = document.activeElement;
+    showSlide(i);
+    paintLightbox();
+    lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+    $("albumClose").focus();
+  }
+  function closeAlbum() {
+    if (lightbox.hidden) return;
+    lightbox.hidden = true;
+    document.body.style.overflow = "";
+    lastFocus?.focus();
+  }
+  const stepAlbum = (d) => { showSlide(albumIndex + d); paintLightbox(); };
+  $("albumClose")?.addEventListener("click", closeAlbum);
+  $("albumPrev")?.addEventListener("click", () => stepAlbum(-1));
+  $("albumNext")?.addEventListener("click", () => stepAlbum(1));
+  lightbox?.addEventListener("click", (e) => { if (e.target === lightbox) closeAlbum(); });
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.hidden) return;
+    if (e.key === "Escape") closeAlbum();
+    else if (e.key === "ArrowLeft") stepAlbum(-1);
+    else if (e.key === "ArrowRight") stepAlbum(1);
+  });
 
   /* view / edit switching */
   function fillForm() {
@@ -335,9 +509,7 @@
     $("vPhone").textContent = profile?.phone || "—";
     $("vGenderBirth").textContent =
       [profile?.gender, profile?.birth_date].filter(Boolean).join(" · ") || "—";
-    $("vMl").textContent = profile?.ml_id
-      ? `${profile.ml_id} (${profile.ml_server || "—"})`
-      : "—";
+    renderMl();
     const heroes = [profile?.main_hero]
       .filter(Boolean)
       .concat(
