@@ -2,13 +2,15 @@
 <html lang="id">
   <head>
     <meta charset="utf-8" />
+    <!-- page-transition cover: must run before first paint (see css/tokens.css) -->
+    <script>try{if(sessionStorage.getItem("f4-curtain")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("f4-arriving")}catch(e){}</script>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#090a0d" />
     <title>Division Directory — F4NTASTIC</title>
     <link rel="icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/divisions.css" />
-    <link rel="stylesheet" href="css/tokens.css?v=20261109-nav" />
+    <link rel="stylesheet" href="css/tokens.css?v=20261109-trans" />
     <link rel="stylesheet" href="css/components.css?v=20261109-nav" />
   </head>
   <body class="division-page">
@@ -127,6 +129,6 @@
     <script src="data/division-members.js"></script>
     <script src="js/divisions.js"></script>
       <script src="js/fx/ui.js?v=20261109-nav" defer></script>
-      <script src="js/fx/nav.js?v=20261109-nav" defer></script>
+      <script src="js/fx/nav.js?v=20261109-trans" defer></script>
   </body>
 </html>

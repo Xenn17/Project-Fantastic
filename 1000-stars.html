@@ -2,6 +2,8 @@
 <html lang="id">
   <head>
     <meta charset="utf-8" />
+    <!-- page-transition cover: must run before first paint (see css/tokens.css) -->
+    <script>try{if(sessionStorage.getItem("f4-curtain")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("f4-arriving")}catch(e){}</script>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#090909" />
     <meta
@@ -18,7 +20,7 @@
     />
     <link rel="stylesheet" href="css/style.css?v=20261101-nav4" />
     <link rel="stylesheet" href="css/galeri.css?v=20261101-grid" />
-    <link rel="stylesheet" href="css/tokens.css?v=20261109-nav" />
+    <link rel="stylesheet" href="css/tokens.css?v=20261109-trans" />
     <link rel="stylesheet" href="css/components.css?v=20261109-nav" />
     <script src="js/gallery-supabase-config.js"></script>
     <script src="js/gallery-public-media.js"></script>
@@ -231,6 +233,6 @@
     <script src="js/session-nav.js?v=20261102-recovery"></script>
     <script src="js/i18n.js?v=20261103-i18n18"></script>
       <script src="js/fx/ui.js?v=20261109-nav" defer></script>
-      <script src="js/fx/nav.js?v=20261109-nav" defer></script>
+      <script src="js/fx/nav.js?v=20261109-trans" defer></script>
   </body>
 </html>

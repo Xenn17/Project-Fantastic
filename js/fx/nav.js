@@ -15,21 +15,32 @@
   curtain.setAttribute("aria-hidden", "true");
   curtain.innerHTML = '<i></i><b class="fx-curtain-mark">F<span>4</span>N\'T</b>';
   doc.body.append(curtain);
-  // Arrival is handled by the cross-document View Transition in tokens.css (no flash of uncovered content).
-  // The browser may skip a cross-document view transition (hidden tab, timing, unsupported state) and
-  // reject its promises — that's expected, so swallow the rejection instead of logging an error.
-  const quietTransition = (e) => {
-    const vt = e.viewTransition;
-    if (!vt) return;
-    vt.ready?.catch(() => {});
-    vt.finished?.catch(() => {});
-    vt.updateCallbackDone?.catch(() => {});
-  };
-  addEventListener("pageswap", quietTransition);
-  addEventListener("pagereveal", quietTransition);
+  // Arrival: the inline <head> snippet already covered the page (html.f4-arriving) before first paint.
+  // Reveal once the page has loaded — capped so a slow image never holds the cover.
+  const root = doc.documentElement;
+  try { sessionStorage.removeItem("f4-curtain"); } catch {}
+  if (root.classList.contains("f4-arriving")) {
+    let revealed = false;
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      requestAnimationFrame(() => {
+        root.classList.add("f4-revealing");
+        setTimeout(() => root.classList.remove("f4-arriving", "f4-revealing"), 800);
+      });
+    };
+    if (doc.readyState === "complete") reveal();
+    else {
+      addEventListener("load", reveal, { once: true });
+      setTimeout(reveal, 650);
+    }
+  }
   addEventListener("pageshow", (e) => {
     // Back/forward cache restores the page mid-transition → clear it.
-    if (e.persisted) curtain.classList.remove("is-covering");
+    if (e.persisted) {
+      curtain.classList.remove("is-covering");
+      root.classList.remove("f4-arriving", "f4-revealing");
+    }
   });
 
   const isInternalPage = (a, e) => {
@@ -46,6 +57,7 @@
       const a = e.target.closest && e.target.closest("a[href]");
       if (!isInternalPage(a, e)) return;
       e.preventDefault();
+      try { sessionStorage.setItem("f4-curtain", "1"); } catch {}
       curtain.classList.add("is-covering");
       setTimeout(() => (location.href = a.href), 420);
     });
