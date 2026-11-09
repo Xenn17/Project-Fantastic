@@ -497,12 +497,16 @@ function detail(a) {
       ? `<figure><a href="${esc(url)}" target="_blank" rel="noopener" title="Buka ukuran penuh"><img src="${esc(url)}" alt="${esc(label)}" loading="lazy" /></a><figcaption>${esc(label)} ↗</figcaption></figure>`
       : `<figure><span class="no-proof">Tidak ada bukti</span><figcaption>${esc(label)}</figcaption></figure>`;
   const followHtml = `<div class="follow-verify ${a.follow_verified ? "is-verified" : ""}"><small>VERIFIKASI FOLLOW — CEK SCREENSHOT</small>
-        <div class="follow-verify-handles">
+        ${
+          igHandle || ttHandle
+            ? `<div class="follow-verify-handles">
           <span>IG ${handle("https://www.instagram.com/", igHandle)}</span>
           <span>TikTok ${handle("https://www.tiktok.com/@", ttHandle)}</span>
-        </div>
+        </div>`
+            : ""
+        }
         <div class="follow-proofs">${proof(igProof, "Bukti follow Instagram")}${proof(ttProof, "Bukti follow TikTok")}</div>
-        <p>Cek: username di bagian atas screenshot sama dengan username di atas, dan akun F4NTASTIC ada di daftar <b>Following</b>-nya. Ragu? Buka link profilnya.</p>
+        <p>Cek: screenshot menampilkan daftar <b>Following</b> milik pendaftar (username mereka terlihat di atas) dan akun F4NTASTIC ada di daftar itu. Ragu? Cari username dari screenshot di IG/TikTok.</p>
         ${
           socialsReady
             ? `<button type="button" class="verify-follow" data-id="${esc(a.id)}">${a.follow_verified ? "✓ FOLLOW TERVERIFIKASI — BATALKAN" : "TANDAI FOLLOW TERVERIFIKASI"}</button>

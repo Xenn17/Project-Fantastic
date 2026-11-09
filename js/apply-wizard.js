@@ -53,27 +53,18 @@
     if (holder && fieldOk(e.target)) holder.classList.remove("is-invalid");
   });
 
-  /* ---------- social handles: accept "@name", profile URLs, spaces → plain username ---------- */
-  const cleanHandle = (raw) => {
-    let v = String(raw || "").trim();
-    const m = v.match(/(?:instagram\.com|tiktok\.com)\/@?([A-Za-z0-9._]+)/i);
-    if (m) v = m[1];
-    return v.replace(/^@+/, "").replace(/\s+/g, "").replace(/[/?#].*$/, "");
-  };
-  ["instagram", "tiktok"].forEach((name) => {
-    const el = form.elements[name];
-    el?.addEventListener("change", () => {
-      const cleaned = cleanHandle(el.value);
-      if (cleaned !== el.value) {
-        el.value = cleaned;
-        el.dispatchEvent(new Event("input", { bubbles: true }));
-      }
-    });
-  });
-
   /* ---------- navigation ---------- */
   function show(n, { focus = true } = {}) {
-    current = Math.max(1, Math.min(steps.length, n));
+    n = Math.max(1, Math.min(steps.length, n));
+    if (n === steps.length) {
+      // e.g. files lost after a reload: send the user to the first incomplete step instead of a dead submit
+      const bad = steps.slice(0, -1).findIndex((_, i) => !stepOk(i + 1));
+      if (bad >= 0) {
+        n = bad + 1;
+        setTimeout(() => markInvalid(n), 60);
+      }
+    }
+    current = n;
     furthest = Math.max(furthest, current);
     steps.forEach((s, i) => {
       const on = i + 1 === current;
@@ -172,13 +163,12 @@
 
   /* ---------- review ---------- */
   const REVIEW = [
-    ["Instagram", "instagram"], ["TikTok", "tiktok"],
     ["Nama lengkap", "name"], ["Nama in-game", "ign"], ["Usia", "age"], ["Jenis kelamin", "gender"],
     ["Role utama", "role"], ["Role cadangan", "secondaryRole"], ["Rank tertinggi", "highestRank"],
     ["Rank season sekarang", "currentRank"], ["Hero andalan", "mainHero"], ["WR hero season sekarang", "heroWinRate"],
     ["Hero lain", "otherHeroes"], ["ID ML", "mlId"], ["WhatsApp", "whatsapp"], ["Discord", "discord"],
   ];
-  const STEP_OF = { instagram: 1, tiktok: 1, name: 2, ign: 2, age: 2, gender: 2, role: 3, secondaryRole: 3, highestRank: 3, currentRank: 3, mainHero: 4, heroWinRate: 4, otherHeroes: 4, mlId: 4, whatsapp: 5, discord: 5 };
+  const STEP_OF = { name: 2, ign: 2, age: 2, gender: 2, role: 3, secondaryRole: 3, highestRank: 3, currentRank: 3, mainHero: 4, heroWinRate: 4, otherHeroes: 4, mlId: 4, whatsapp: 5, discord: 5 };
   function renderReview() {
     const dl = $("applyReview");
     const rows = REVIEW.map(([label, name]) => {
@@ -186,7 +176,7 @@
       const dt = document.createElement("dt");
       dt.textContent = label;
       const dd = document.createElement("dd");
-      dd.textContent = val(name) ? (name === "instagram" || name === "tiktok" ? "@" : "") + val(name) : "—";
+      dd.textContent = val(name) || "—";
       const edit = document.createElement("button");
       edit.type = "button";
       edit.className = "review-edit";
@@ -210,7 +200,7 @@
       edit.type = "button";
       edit.className = "review-edit";
       edit.textContent = "Ubah";
-      edit.addEventListener("click", () => show(5));
+      edit.addEventListener("click", () => show(name === "screenshots" ? 5 : 1));
       wrap.append(dt, dd, edit);
       return wrap;
     };
@@ -223,7 +213,7 @@
   }
 
   /* ---------- draft autosave (text + choices; files cannot be stored) ---------- */
-  const DRAFT_FIELDS = ["name", "ign", "age", "gender", "role", "secondaryRole", "highestRank", "currentRank", "mainHero", "heroWinRate", "otherHeroes", "mlId", "whatsapp", "discord", "followInstagram", "followTiktok", "instagram", "tiktok"];
+  const DRAFT_FIELDS = ["name", "ign", "age", "gender", "role", "secondaryRole", "highestRank", "currentRank", "mainHero", "heroWinRate", "otherHeroes", "mlId", "whatsapp", "discord", "followInstagram", "followTiktok"];
   let draftTimer = null;
   let draftPaused = false; // after a successful submit: no draft until the user types again
   function saveDraft() {
@@ -257,8 +247,9 @@
       if (el.type === "checkbox") el.checked = Boolean(data[n]);
       else el.value = data[n];
     });
-    furthest = Math.min(Number(data.furthest) || 1, steps.length - 1); // screenshots must be re-picked
-    return Number(data.step) || 1;
+    furthest = Math.min(Number(data.furthest) || 1, steps.length - 1);
+    // Files (follow proofs in step 1, ML screenshot in step 5) can't be stored in a draft → re-pick them.
+    return 1;
   }
   document.addEventListener("f4:apply-submitted", () => {
     draftPaused = true;
@@ -309,7 +300,8 @@
     fill("role", { jungler: "JUNG", gold: "MM", exp: "XP", roam: "ROAM", mid: "MID" }[p.game_role], "role");
     if (!filled.length) return;
     const note = $("applyPrefill");
-    note.textContent = `✦ Diisi otomatis dari profilmu: ${filled.join(", ")}. Cek lagi sebelum kirim ya.`;
+    const msg = `✦ Diisi otomatis dari profilmu: ${filled.join(", ")}. Cek lagi sebelum kirim ya.`;
+    note.textContent = note.hidden ? msg : `${note.textContent} ${msg}`;
     note.hidden = false;
     renderPreview();
     refreshSubmit();
@@ -350,7 +342,10 @@
   renderPreview();
   refreshSubmit();
   if (startStep) {
-    set("applyDraft", "Draft sebelumnya dipulihkan");
-    show(Math.min(startStep, furthest), { focus: false });
+    set("applyDraft", "Draft dipulihkan — upload ulang bukti follow");
+    const note = $("applyPrefill");
+    note.textContent = "✦ Data kamu sebelumnya sudah dipulihkan. File tidak bisa disimpan otomatis, jadi upload ulang screenshot bukti follow (dan screenshot profil ML di langkah 05).";
+    note.hidden = false;
+    show(1, { focus: false });
   } else show(1, { focus: false });
 })();
