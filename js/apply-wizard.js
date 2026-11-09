@@ -199,15 +199,27 @@
       wrap.append(dt, dd, edit);
       return wrap;
     });
-    const files = form.elements.screenshots?.files || [];
-    const shots = document.createElement("div");
-    shots.className = "span-2";
-    const dt = document.createElement("dt");
-    dt.textContent = "Screenshot";
-    const dd = document.createElement("dd");
-    dd.textContent = files.length ? `${files.length} file dipilih` : "—";
-    shots.append(dt, dd);
-    dl.replaceChildren(...rows, shots);
+    const fileRow = (label, name) => {
+      const files = form.elements[name]?.files || [];
+      const wrap = document.createElement("div");
+      const dt = document.createElement("dt");
+      dt.textContent = label;
+      const dd = document.createElement("dd");
+      dd.textContent = files.length ? `${files.length} file dipilih` : "— (belum diupload)";
+      const edit = document.createElement("button");
+      edit.type = "button";
+      edit.className = "review-edit";
+      edit.textContent = "Ubah";
+      edit.addEventListener("click", () => show(5));
+      wrap.append(dt, dd, edit);
+      return wrap;
+    };
+    dl.replaceChildren(
+      ...rows,
+      fileRow("Screenshot profil ML", "screenshots"),
+      fileRow("Bukti follow Instagram", "instagramProof"),
+      fileRow("Bukti follow TikTok", "tiktokProof"),
+    );
   }
 
   /* ---------- draft autosave (text + choices; files cannot be stored) ---------- */
@@ -254,6 +266,8 @@
     try { localStorage.removeItem(DRAFT_KEY); } catch {}
     furthest = 1;
     $("uploadPreview").replaceChildren();
+    form.querySelectorAll("[data-preview-for]").forEach((p) => p.replaceChildren());
+    form.querySelectorAll(".upload-field.has-file").forEach((f) => f.classList.remove("has-file"));
     renderPreview();
     show(1, { focus: false });
     set("applyDraft", "");
@@ -304,12 +318,32 @@
   document.addEventListener("f4:apply-user", (e) => prefill(e.detail));
   if (window.f4ntApplicationUser) prefill(window.f4ntApplicationUser);
 
+  /* ---------- follow-proof previews ---------- */
+  form.querySelectorAll("[data-preview-for]").forEach((preview) => {
+    const input = form.elements[preview.dataset.previewFor];
+    input?.addEventListener("change", () => {
+      preview.replaceChildren(
+        ...[...input.files].map((file) => {
+          const item = document.createElement("span");
+          item.className = "upload-preview-item";
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(file);
+          img.alt = file.name;
+          const name = document.createElement("small");
+          name.textContent = file.name;
+          item.append(img, name);
+          return item;
+        }),
+      );
+      input.closest(".upload-field")?.classList.toggle("has-file", input.files.length > 0);
+    });
+  });
+
   /* ---------- upload box: drag & drop highlight ---------- */
-  const uploadField = form.querySelector(".upload-field");
-  if (uploadField) {
+  form.querySelectorAll(".upload-field").forEach((uploadField) => {
     ["dragenter", "dragover"].forEach((t) => uploadField.addEventListener(t, () => uploadField.classList.add("is-dragging")));
     ["dragleave", "drop"].forEach((t) => uploadField.addEventListener(t, () => uploadField.classList.remove("is-dragging")));
-  }
+  });
 
   /* ---------- init ---------- */
   const startStep = restoreDraft();

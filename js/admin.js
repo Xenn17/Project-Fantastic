@@ -477,27 +477,45 @@ function detail(a) {
     ["DISCORD", a.discord],
     ["SCREENSHOT", a.screenshots],
   ];
+  // Applications sent before supabase-application-socials.sql was applied keep the handles / proof links as
+  // labelled lines inside `screenshots` ("INSTAGRAM: @x", "BUKTI FOLLOW IG: https://…").
+  const shotLines = String(a.screenshots || "").split("\n").map((l) => l.trim()).filter(Boolean);
+  const labelled = (label) => {
+    const line = shotLines.find((l) => l.toUpperCase().startsWith(label + ":"));
+    return line ? line.slice(label.length + 1).trim() : "";
+  };
+  const plainShots = shotLines.filter((l) => /^https?:\/\//i.test(l));
   const socialsReady = "instagram" in a; // false until supabase-application-socials.sql is applied
+  const igHandle = a.instagram || labelled("INSTAGRAM").replace(/^@/, "");
+  const ttHandle = a.tiktok || labelled("TIKTOK").replace(/^@/, "");
+  const igProof = a.instagram_proof || labelled("BUKTI FOLLOW IG");
+  const ttProof = a.tiktok_proof || labelled("BUKTI FOLLOW TIKTOK");
   const handle = (base, h) =>
     h ? `<a href="${esc(base + encodeURIComponent(h))}" target="_blank" rel="noopener">@${esc(h)} ↗</a>` : "— (tidak diisi)";
-  const followHtml = socialsReady
-    ? `<div class="follow-verify ${a.follow_verified ? "is-verified" : ""}"><small>VERIFIKASI FOLLOW</small>
+  const proof = (url, label) =>
+    /^https?:\/\//i.test(url || "")
+      ? `<figure><a href="${esc(url)}" target="_blank" rel="noopener" title="Buka ukuran penuh"><img src="${esc(url)}" alt="${esc(label)}" loading="lazy" /></a><figcaption>${esc(label)} ↗</figcaption></figure>`
+      : `<figure><span class="no-proof">Tidak ada bukti</span><figcaption>${esc(label)}</figcaption></figure>`;
+  const followHtml = `<div class="follow-verify ${a.follow_verified ? "is-verified" : ""}"><small>VERIFIKASI FOLLOW — CEK SCREENSHOT</small>
         <div class="follow-verify-handles">
-          <span>IG ${handle("https://www.instagram.com/", a.instagram)} ${a.instagram_verified ? '<b class="fv-ok">✓ follower</b>' : '<b class="fv-no">belum tercek</b>'}</span>
-          <span>TikTok ${handle("https://www.tiktok.com/@", a.tiktok)} ${a.tiktok_verified ? '<b class="fv-ok">✓ follower</b>' : '<b class="fv-no">belum tercek</b>'}</span>
+          <span>IG ${handle("https://www.instagram.com/", igHandle)}</span>
+          <span>TikTok ${handle("https://www.tiktok.com/@", ttHandle)}</span>
         </div>
-        <p>Cari username di sini: <a href="https://www.instagram.com/f4nt.official/followers/" target="_blank" rel="noopener">Followers IG F4NT ↗</a> · <a href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener">TikTok F4NT ↗</a></p>
-        <button type="button" class="verify-follow" data-id="${esc(a.id)}">${a.follow_verified ? "✓ FOLLOW TERVERIFIKASI — BATALKAN" : "TANDAI FOLLOW TERVERIFIKASI"}</button>
-        ${a.follow_verified && a.follow_verified_at ? `<small class="follow-verify-at">Diverifikasi ${esc(new Date(a.follow_verified_at).toLocaleString("id-ID"))}</small>` : ""}
-      </div>`
-    : `<div class="follow-verify"><small>VERIFIKASI FOLLOW</small><p>Jalankan <b>supabase-application-socials.sql</b> di Supabase untuk menyimpan username IG/TikTok pendaftar.</p></div>`;
+        <div class="follow-proofs">${proof(igProof, "Bukti follow Instagram")}${proof(ttProof, "Bukti follow TikTok")}</div>
+        <p>Cek: username di bagian atas screenshot sama dengan username di atas, dan akun F4NTASTIC ada di daftar <b>Following</b>-nya. Ragu? Buka link profilnya.</p>
+        ${
+          socialsReady
+            ? `<button type="button" class="verify-follow" data-id="${esc(a.id)}">${a.follow_verified ? "✓ FOLLOW TERVERIFIKASI — BATALKAN" : "TANDAI FOLLOW TERVERIFIKASI"}</button>
+        ${a.follow_verified && a.follow_verified_at ? `<small class="follow-verify-at">Diverifikasi ${esc(new Date(a.follow_verified_at).toLocaleString("id-ID"))}</small>` : ""}`
+            : `<p>Jalankan <b>supabase-application-socials.sql</b> di Supabase untuk mengaktifkan tombol verifikasi.</p>`
+        }
+      </div>`;
   $("#details").innerHTML = followHtml + f
     .map(
       (x) =>
         `<div><small>${x[0]}</small><strong>${
-          x[0] === "SCREENSHOT" && String(x[1] || "").startsWith("http")
-            ? String(x[1])
-                .split("\n")
+          x[0] === "SCREENSHOT" && plainShots.length
+            ? plainShots
                 .map(
                   (u, i) =>
                     `<a href="${esc(u)}" target="_blank" rel="noopener">Buka foto ${i + 1}</a>`,

@@ -117,7 +117,7 @@
 .apply-main label.required-field:not(.agreement-check):not(.upload-field) { position: relative; }
 .apply-main label.required-field:not(.agreement-check)::after, .apply-main .field-label::after { content: " *"; color: #e8766a; }
 .apply-main label.required-field:not(.agreement-check):not(.upload-field)::after { position: absolute; top: 0; right: 2px; }
-.apply-main .upload-field.required-field::after { content: none; }
+.apply-main label.upload-field.required-field:not(.agreement-check)::after { content: none; }
 .apply-main .is-invalid input:not([type="checkbox"]):not([type="radio"]) { border-color: #e8766a !important; box-shadow: 0 0 0 4px rgba(232, 118, 106, .14) !important; }
 .apply-main .is-invalid .choice-card span, .apply-main .agreement-check.is-invalid { border-color: rgba(232, 118, 106, .7) !important; }
 .apply-main .is-invalid { animation: shake .4s; }
@@ -245,3 +245,13 @@
 .handle-input { position: relative; display: block; }
 .handle-input i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-style: normal; font-weight: 800; color: var(--gold); pointer-events: none; }
 .apply-main .application-card .handle-input input { padding-left: 32px !important; }
+
+/* Follow proof (step 05) */
+.proof-guide { margin-top: 26px; padding: 16px 18px; border-radius: 14px; background: rgba(217, 180, 91, .06); border: 1px solid rgba(246, 221, 147, .22); }
+.proof-guide strong { color: var(--gold-bright); font-size: 13px; }
+.proof-guide ol { margin: 10px 0 0; padding-left: 20px; color: #c4bfb4; font-size: 13px; line-height: 1.8; }
+.proof-guide b { color: var(--text); }
+.apply-main .proof-uploads { margin-top: 12px; }
+.apply-main .proof-field { margin-top: 0; }
+.apply-main .proof-field .upload-box { min-height: 120px; }
+.apply-main .upload-field.has-file .upload-box { border-style: solid; border-color: rgba(127, 220, 149, .6); background: rgba(127, 220, 149, .05); }
