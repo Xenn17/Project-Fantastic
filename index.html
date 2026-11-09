@@ -16,11 +16,28 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css?v=20261101-nav6" />
+    <link rel="stylesheet" href="css/style.css?v=20261109-redesign" />
+    <link rel="stylesheet" href="css/tokens.css?v=20261109-redesign" />
+    <link rel="stylesheet" href="css/components.css?v=20261109-redesign" />
+    <link rel="stylesheet" href="css/landing.css?v=20261109-redesign" />
+    <link rel="preload" as="image" href="assets/sequence/desktop/f_001.webp" media="(min-width: 721px)" />
+    <link rel="preload" as="image" href="assets/sequence/mobile/f_001.webp" media="(max-width: 720px)" />
+    <link rel="modulepreload" href="js/fx/landing.js?v=20261109-redesign" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+          "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.mjs"
+        }
+      }
+    </script>
     <script src="data.js?v=20261018-logo" defer></script>
-    <script src="js/script.js?v=20261101-scrollspy" defer></script>
+    <script src="js/script.js?v=20261109-redesign" defer></script>
+    <script src="js/fx/ui.js?v=20261109-redesign" defer></script>
+    <script type="module" src="js/fx/landing.js?v=20261109-redesign"></script>
   </head>
-  <body>
+  <body class="is-landing">
     <div class="page-glow" aria-hidden="true"></div>
     <header class="site-header">
       <a
@@ -70,7 +87,7 @@
       >
         <span></span><span></span>
       </button>
-      <nav class="main-nav" id="mainNav" aria-label="Navigasi utama">
+      <nav class="main-nav" id="mainNav" aria-label="Navigasi utama" data-lenis-prevent>
         <a href="#home">Home</a>
         <a href="#about">Tentang</a>
         <a href="#gallery-feature" data-gallery-nav>Galeri</a>
@@ -109,56 +126,83 @@
     </header>
 
     <main>
-      <section class="hero section-shell" id="home">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">
-            <span class="eyebrow-line"></span> MOBILE LEGENDS COMMUNITY
-          </p>
-          <h1>
-            WE ARE<br /><span class="gold-text">F4NTASTIC</span
-            ><span class="title-period">.</span>
-          </h1>
-          <p class="hero-slogan" id="heroSlogan">
-            WE ARE F4NTASTIC, WE ARE FAMILY.
-          </p>
-          <p class="hero-intro">
-            Lebih dari sekadar permainan. Ini tentang tujuan, perjuangan, dan
-            keluarga yang tumbuh bersama.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#about"
-              >Jelajahi F4NTASTIC
-              <span class="icon-arrow icon-arrow-down" aria-hidden="true"></span
-            ></a>
-            <a class="button button-quiet" href="#connect"
-              >Temukan kami
-              <span class="icon-arrow icon-arrow-up" aria-hidden="true"></span
-            ></a>
-          </div>
-          <div class="hero-footnote">
-            <span class="status-dot"></span> BUILT BY PASSION. UNITED AS FAMILY.
-          </div>
-        </div>
-        <div class="hero-art reveal" aria-label="Area logo F4NTASTIC">
-          <div class="art-grid"></div>
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <div class="hero-emblem" id="heroEmblem">
+      <section class="intro" id="home" aria-label="WE ARE F4NTASTIC — intro">
+        <div class="intro-sticky">
+          <canvas class="intro-ambient" id="seqAmbient" aria-hidden="true"></canvas>
+          <div class="intro-grid" aria-hidden="true"></div>
+
+          <figure class="intro-film" aria-hidden="true">
+            <canvas id="seqCanvas"></canvas>
+            <figcaption class="intro-film-hud">
+              <span class="hud-rec"><i></i> REC</span>
+              <span class="hud-frame" data-frame="001 / 143"></span>
+            </figcaption>
+            <span class="intro-film-corner c1"></span><span class="intro-film-corner c2"></span>
+            <span class="intro-film-corner c3"></span><span class="intro-film-corner c4"></span>
+          </figure>
+
+          <canvas class="intro-logo3d" id="logo3d" aria-hidden="true"></canvas>
+          <div class="hero-emblem intro-emblem-fallback" id="heroEmblem" aria-hidden="true">
             <span class="emblem-top">WE ARE</span>
             <strong>F4N<span>'</span>T</strong>
             <span class="emblem-bottom">FANTASTIC FAMILY</span>
           </div>
-          <div class="floating-label label-top">
-            <span>EST.</span><strong id="heroYear">2024</strong>
+          <div class="intro-shade" aria-hidden="true"></div>
+
+          <div class="intro-chapter chapter-one" data-chapter="0,0.3">
+            <p class="eyebrow">
+              <span class="eyebrow-line"></span> MOBILE LEGENDS COMMUNITY
+            </p>
+            <h1>
+              WE ARE<br /><span class="gold-text">F4NTASTIC</span
+              ><span class="title-period">.</span>
+            </h1>
+            <p class="hero-slogan" id="heroSlogan">
+              WE ARE F4NTASTIC, WE ARE FAMILY.
+            </p>
+            <p class="hero-intro">
+              Lebih dari sekadar permainan. Ini tentang tujuan, perjuangan, dan
+              keluarga yang tumbuh bersama.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#about"
+                >Jelajahi F4NTASTIC
+                <span class="icon-arrow icon-arrow-down" aria-hidden="true"></span
+              ></a>
+              <a class="button button-quiet" href="#connect"
+                >Temukan kami
+                <span class="icon-arrow icon-arrow-up" aria-hidden="true"></span
+              ></a>
+            </div>
           </div>
-          <div class="floating-label label-bottom">
-            <span>ONE TEAM</span><strong>ONE FAMILY</strong>
+
+          <div class="intro-chapter chapter-two" data-chapter="0.3,0.62">
+            <p class="eyebrow"><span class="eyebrow-line"></span> 01 / THE BEGINNING</p>
+            <h2>LEBIH DARI<br /><span class="gold-text">SEKADAR GAME.</span></h2>
+            <p class="intro-note">
+              Dari lima orang, lahir sebuah perjalanan besar. Dari sebuah
+              tujuan, tumbuh sebuah keluarga.
+            </p>
           </div>
-          <div class="art-corner corner-a"></div>
-          <div class="art-corner corner-b"></div>
-        </div>
-        <div class="hero-index">
-          <span>01</span><i></i><span>THE BEGINNING</span>
+
+          <div class="intro-chapter chapter-three" data-chapter="0.66,1">
+            <h2>WE ARE<br /><span class="gold-text">FAMILY.</span></h2>
+            <div class="intro-meta">
+              <span>EST. <strong id="heroYear">2024</strong></span>
+              <i></i>
+              <span>ONE TEAM</span>
+              <i></i>
+              <span>ONE FAMILY</span>
+            </div>
+          </div>
+
+          <div class="intro-rail" aria-hidden="true"><i></i></div>
+          <div class="intro-scroll-hint" aria-hidden="true">
+            <span>SCROLL</span><i></i>
+          </div>
+          <div class="hero-footnote intro-footnote">
+            <span class="status-dot"></span> BUILT BY PASSION. UNITED AS FAMILY.
+          </div>
         </div>
       </section>
 
@@ -584,7 +628,7 @@
             ×
           </button>
         </header>
-        <div class="join-modal-scroll" id="joinRequirements" tabindex="0">
+        <div class="join-modal-scroll" id="joinRequirements" tabindex="0" data-lenis-prevent>
           <p class="join-modal-intro">
             Baca seluruh peraturan berikut sebelum mendaftar. Dengan menekan
             Setuju, kamu menyatakan siap menaati peraturan F4NTASTIC.
@@ -782,6 +826,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/session-nav.js?v=20261102-recovery"></script>
-    <script src="js/i18n.js?v=20261103-i18n18"></script>
+    <script src="js/i18n.js?v=20261109-redesign"></script>
   </body>
 </html>

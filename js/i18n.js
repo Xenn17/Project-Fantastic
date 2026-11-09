@@ -206,6 +206,8 @@
       th: "สิ่งที่เรายึดมั่น / 02",
     },
     "LEBIH DARI": { en: "MORE THAN", th: "มากกว่า" },
+    "SEKADAR GAME.": { en: "JUST A GAME.", th: "แค่เกม" },
+    "01 / THE BEGINNING": { en: "01 / THE BEGINNING", th: "01 / จุดเริ่มต้น" },
     "SEBUAH TIM.": { en: "A TEAM.", th: "ทีมหนึ่งทีม" },
     "Fondasi yang menjaga F4NTASTIC tetap tumbuh tanpa melupakan alasan kami memulai.":
       {
