@@ -88,7 +88,6 @@ body::after {
   color: var(--silver);
   background: padding-box linear-gradient(rgba(10, 10, 10, .6), rgba(10, 10, 10, .6)), border-box var(--grad-border);
   border: 1px solid transparent;
-  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
 }
 .button-quiet:hover { color: var(--gold-bright); }
 .button:focus-visible { clip-path: none; }
@@ -121,13 +120,12 @@ body::after {
 .official-social-card {
   background: padding-box var(--glass-bg), border-box var(--grad-border);
   border: 1px solid transparent;
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 
 /* ---------- Language switcher (i18n.js) ---------- */
 .f4-language-switcher {
   border-radius: 99px; border-color: rgba(217, 180, 91, .35) !important;
-  background: rgba(8, 8, 8, .78) !important; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  background: rgba(8, 8, 8, .92) !important;
 }
 .f4-language-option { border-radius: 99px; }
 

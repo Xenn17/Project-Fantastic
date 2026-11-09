@@ -10,8 +10,9 @@
   border-image: none; border-bottom-color: transparent;
 }
 .is-landing .site-header.is-scrolled {
-  background: rgba(7, 7, 7, .78);
-  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  /* solid tint instead of backdrop-filter: blurring a canvas that changes every frame is very expensive */
+  background: rgba(7, 7, 7, .9);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
   border-image: linear-gradient(90deg, transparent, rgba(217, 180, 91, .45) 30%, rgba(255, 255, 255, .12) 60%, transparent) 1;
 }
 .is-landing main { padding-top: 0 !important; }
@@ -24,27 +25,32 @@
 }
 .intro { --p: 0; --finale: 0; }
 
-/* Ambient: the current frame, tiny + blurred, fills the screen with the footage's own light. */
-.intro-ambient {
-  position: absolute; inset: -12%; width: 124%; height: 124%; z-index: -3;
-  filter: blur(46px) saturate(1.35) brightness(.42);
-  opacity: 0; transition: opacity 1.2s var(--ease-out-expo);
+/* Static glow behind the stage (replaces a per-frame blurred copy of the footage — too costly while scrubbing). */
+.intro-sticky::before {
+  content: ""; position: absolute; inset: 0; z-index: -3; pointer-events: none;
+  background:
+    radial-gradient(ellipse 38% 48% at 66% 50%, rgba(217, 180, 91, .13), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(154, 116, 32, .12), transparent 70%);
 }
-.intro.is-ready .intro-ambient { opacity: calc(1 - var(--finale) * .55); }
 
-/* 3D perspective floor — gold grid sliding towards the viewer. */
+/* 3D perspective floor — gold grid sliding towards the viewer. The tile layer moves with translate3d
+   (JS sets --gy, the scroll offset modulo one tile), so scrolling never repaints the grid. */
 .intro-grid {
-  position: absolute; left: -50%; right: -50%; bottom: -8%; height: 62%; z-index: -2;
-  background-image:
-    linear-gradient(rgba(217, 180, 91, .28) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(217, 180, 91, .22) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: 0 calc(var(--p) * 1400px);
+  position: absolute; left: -50%; right: -50%; bottom: -8%; height: 62%; z-index: -2; overflow: hidden;
   transform: perspective(520px) rotateX(68deg);
   transform-origin: 50% 100%;
   -webkit-mask-image: linear-gradient(0deg, #000 10%, transparent 85%);
   mask-image: linear-gradient(0deg, #000 10%, transparent 85%);
   opacity: calc(.35 + var(--finale) * .45);
+}
+.intro-grid::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -64px; bottom: 0;
+  background-image:
+    linear-gradient(rgba(217, 180, 91, .28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(217, 180, 91, .22) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: translate3d(0, var(--gy, 0px), 0);
+  will-change: transform;
 }
 
 /* Stage — intro animation on pure black, composited with `screen` so only the light (wolf, flames, logo)
@@ -52,6 +58,8 @@
 .intro-stage {
   position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1;
   mix-blend-mode: screen;
+  transform-origin: 50% 50%;
+  will-change: transform;
   opacity: 0; transition: opacity 1.2s var(--ease-out-expo);
 }
 .intro.is-ready .intro-stage { opacity: 1; }
@@ -78,9 +86,8 @@
   top: 50%; width: min(640px, 52vw);
   opacity: var(--v);
   transform: translateY(calc(-50% + (1 - var(--v)) * 46px * var(--dir)));
-  filter: blur(calc((1 - var(--v)) * 12px));
   pointer-events: none;
-  will-change: opacity, transform, filter;
+  will-change: opacity, transform;
 }
 .intro-chapter.is-current { pointer-events: auto; }
 .chapter-one { --v: 1; }
@@ -89,7 +96,6 @@
   text-shadow: 0 10px 40px rgba(0, 0, 0, .5);
 }
 .intro-chapter h2 { font-size: clamp(56px, 8.6vw, 140px); }
-.intro-chapter .gold-text { filter: drop-shadow(0 6px 30px rgba(217, 180, 91, .25)); }
 .intro-chapter .hero-slogan { margin: 26px 0 10px; color: var(--gold-bright); font-size: 12px; font-weight: 800; letter-spacing: .26em; }
 .intro-chapter .hero-intro, .intro-note { max-width: 440px; color: #c9c5bb; font-size: var(--fs-body); line-height: 1.85; }
 .intro-note { margin-top: 26px; font-size: clamp(15px, 1.3vw, 20px); font-family: var(--font-display); font-weight: 600; letter-spacing: .02em; color: #e3dfd4; }
@@ -126,7 +132,6 @@
 /* ---------- Mobile intro: footage goes full-bleed (portrait fits naturally) ---------- */
 @media (max-width: 720px) {
   .intro { height: 360vh; }
-  .intro-ambient { display: none; }
   .intro-grid { height: 46%; opacity: .5; }
   .intro-shade {
     background:
@@ -165,7 +170,6 @@
 .is-landing :is(.goal-card, .admin-card, .founder-card, .logo-history-card, .vision-feature, .promotion-panel, .join-panel, .report-strip-panel, .about-aside) {
   background: padding-box var(--glass-bg), border-box var(--grad-border);
   border: 1px solid transparent;
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
 }
 
 /* 3D flip-in reveals for grids */
@@ -228,7 +232,4 @@
   .is-landing .about-aside { min-height: 260px; }
   .is-landing .gallery-album { transform: none; }
   .is-landing .ticker { margin-top: -18px; }
-}
-@media (max-width: 720px) {
-  .is-landing :is(.goal-card, .admin-card, .founder-card, .logo-history-card, .vision-feature, .promotion-panel, .join-panel, .report-strip-panel, .about-aside) { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }

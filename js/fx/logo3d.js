@@ -13,13 +13,15 @@ const mix = (a, b, t) => a + (b - a) * t;
 export async function createLogo3D({ canvas, texture = "assets/logo-emblem.webp", emblem: showEmblem = true }) {
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: showEmblem, alpha: true, powerPreference: "high-performance" });
   } catch {
     return null;
   }
   const mobile = matchMedia("(max-width: 720px)").matches;
   const lowEnd = mobile || (navigator.hardwareConcurrency || 8) <= 4;
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, lowEnd ? 1.5 : 1.75));
+  // Soft glowing points + an alpha-tested badge don't need retina resolution; full-screen transparent WebGL
+  // at 2x DPR is one of the biggest per-frame GPU costs on laptops.
+  renderer.setPixelRatio(showEmblem ? Math.min(devicePixelRatio || 1, 1.5) : 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
@@ -93,7 +95,7 @@ export async function createLogo3D({ canvas, texture = "assets/logo-emblem.webp"
   scene.add(rig);
 
   /* ---------- Particle field ---------- */
-  const count = lowEnd ? 650 : 1500;
+  const count = lowEnd ? 500 : 900;
   const positions = new Float32Array(count * 3);
   const seeds = new Float32Array(count);
   for (let i = 0; i < count; i++) {

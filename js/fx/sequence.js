@@ -1,17 +1,28 @@
 /* Scroll-scrubbed image sequence.
-   Draws pre-rendered WebP frames (assets/sequence/{desktop|mobile}) onto a canvas based on a 0..1 progress
-   value supplied by the caller. A tiny second canvas renders the same frame as a blurred ambient backdrop. */
+   Draws pre-rendered WebP frames (assets/sequence/{desktop|mobile}) onto a full-screen canvas for a 0..1
+   progress value supplied by the caller.
 
-const loadImage = (src) =>
-  new Promise((resolve) => {
-    const img = new Image();
-    img.decoding = "async";
-    img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
-    img.src = src;
-  });
+   Performance rules (scroll-scrubbing is unforgiving):
+   - the canvas is only redrawn when the frame index changes; any movement/scaling of the stage is done by the
+     caller with a CSS transform (GPU-composited, no repaint)
+   - frames are decoded off the main thread (img.decode) before they can be drawn, so a draw never blocks on a
+     synchronous decode
+   - desktop renders at 1x device pixels: the source frames are 720px wide, rendering more pixels than that only
+     costs fill-rate without adding detail */
 
-export async function createSequence({ canvas, ambient, root = "assets/sequence", priority = [] }) {
+const loadFrame = async (src) => {
+  const img = new Image();
+  img.decoding = "async";
+  img.src = src;
+  try {
+    await img.decode();
+    return img;
+  } catch {
+    return null;
+  }
+};
+
+export async function createSequence({ canvas, root = "assets/sequence", priority = [], frameHeight = 1 }) {
   const mobile = matchMedia("(max-width: 720px)").matches;
   const variant = mobile ? "mobile" : "desktop";
   let manifest;
@@ -25,22 +36,15 @@ export async function createSequence({ canvas, ambient, root = "assets/sequence"
   const frames = new Array(count).fill(null);
 
   const ctx = canvas.getContext("2d", { alpha: false });
-  const actx = ambient ? ambient.getContext("2d", { alpha: false }) : null;
   let current = -1;
   let wanted = 0;
-  // Stage layout: frame centre (x, y as 0..1 of the canvas) and frame height as a multiple of canvas height.
-  let layout = { x: 0.5, y: 0.5, h: 1 };
-  let layoutKey = "";
 
   const resize = () => {
-    const dpr = Math.min(devicePixelRatio || 1, mobile ? 2 : 1.5);
+    const dpr = mobile ? Math.min(devicePixelRatio || 1, 1.5) : 1;
     const rect = canvas.getBoundingClientRect();
     canvas.width = Math.max(1, Math.round(rect.width * dpr));
     canvas.height = Math.max(1, Math.round(rect.height * dpr));
-    if (ambient) {
-      ambient.width = 48;
-      ambient.height = 48;
-    }
+    ctx.imageSmoothingQuality = "high";
     current = -1;
     draw(wanted);
   };
@@ -54,34 +58,23 @@ export async function createSequence({ canvas, ambient, root = "assets/sequence"
     return -1;
   };
 
-  const cover = (context, img, w, h) => {
-    const s = Math.max(w / img.width, h / img.height);
-    const dw = img.width * s;
-    const dh = img.height * s;
-    context.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
-  };
-
-  // Footage sits on pure black, so the stage is cleared to black and composited with `screen` in CSS.
-  const stage = (context, img, w, h) => {
-    const dh = h * layout.h;
-    const dw = (img.width / img.height) * dh;
-    context.fillStyle = "#000";
-    context.fillRect(0, 0, w, h);
-    context.drawImage(img, w * layout.x - dw / 2, h * layout.y - dh / 2, dw, dh);
-  };
-
   function draw(index) {
     wanted = index;
     const i = nearest(index);
     if (i < 0 || i === current) return;
     current = i;
     const img = frames[i];
-    stage(ctx, img, canvas.width, canvas.height);
-    if (actx) cover(actx, img, ambient.width, ambient.height);
+    const w = canvas.width;
+    const h = canvas.height;
+    const dh = h * frameHeight;
+    const dw = (img.naturalWidth / img.naturalHeight) * dh;
+    // Footage sits on pure black → clear to black; CSS composites the canvas with `screen`.
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, w, h);
+    ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
   }
 
-  // Priority: first frame, then a coarse pass (every 8th) so scrubbing works early, then fill the gaps.
-  frames[0] = await loadImage(src(0));
+  frames[0] = await loadFrame(src(0));
   resize();
   addEventListener("resize", resize);
 
@@ -101,8 +94,9 @@ export async function createSequence({ canvas, ambient, root = "assets/sequence"
   const worker = async () => {
     while (cursor < order.length) {
       const i = order[cursor++];
-      frames[i] = await loadImage(src(i));
-      if (Math.abs(i - wanted) < 8) {
+      frames[i] = await loadFrame(src(i));
+      // A closer frame for the current position just arrived → refresh.
+      if (frames[i] && Math.abs(i - wanted) < Math.abs(current - wanted)) {
         current = -1;
         draw(wanted);
       }
@@ -112,16 +106,8 @@ export async function createSequence({ canvas, ambient, root = "assets/sequence"
 
   return {
     count,
-    /** Render the frame for a progress value in [0, 1], optionally with a new stage layout. */
-    render(progress, nextLayout) {
-      if (nextLayout) {
-        const key = `${nextLayout.x.toFixed(4)}|${nextLayout.y.toFixed(4)}|${nextLayout.h.toFixed(4)}`;
-        if (key !== layoutKey) {
-          layoutKey = key;
-          layout = nextLayout;
-          current = -1;
-        }
-      }
+    /** Render the frame for a progress value in [0, 1]; returns the frame index actually drawn. */
+    render(progress) {
       draw(Math.min(count - 1, Math.max(0, Math.round(progress * (count - 1)))));
       return current;
     },
