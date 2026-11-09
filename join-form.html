@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/style.css?v=20261101-nav4" />
     <link rel="stylesheet" href="css/tokens.css?v=20261109-mobile" />
     <link rel="stylesheet" href="css/components.css?v=20261109-nav" />
+    <link rel="stylesheet" href="css/join-form.css?v=20261109-apply" />
     <title>Join Team F4NT — Pendaftaran</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
@@ -40,30 +41,57 @@
       >
     </header>
 
-    <main class="join-form-main">
-      <section class="join-form-hero section-shell">
-        <div class="form-hero-copy">
-          <p class="eyebrow">
-            <span class="eyebrow-line"></span> F4NT / APPLICATION 01
-          </p>
-          <h1>TAKE YOUR<br /><span class="gold-text">PLACE.</span></h1>
-          <p>
-            Isi data dengan jujur dan lengkap. Setiap informasi membantu kami
-            memahami role, pengalaman, dan potensi kamu di dalam tim.
-          </p>
-          <div
-            class="form-hero-mark home-emblem"
-            aria-label="WE ARE F4NTASTIC, FANTASTIC FAMILY"
-          >
-            <span class="emblem-top">WE ARE</span
-            ><strong>F4N<span>'</span>T</strong
-            ><span class="emblem-bottom">FANTASTIC FAMILY</span>
-          </div>
-        </div>
-        <div class="application-card">
-          <div class="application-heading">
-            <span>JOIN TEAM F4NT</span><strong>2026 / OPEN</strong>
-          </div>
+    <main class="apply-main">
+      <section class="apply-hero section-shell">
+        <p class="eyebrow"><span class="eyebrow-line"></span> F4NT / APPLICATION 2026</p>
+        <h1>TAKE YOUR<br /><span class="gold-text">PLACE.</span></h1>
+        <p class="apply-lead">
+          Isi data dengan jujur dan lengkap. Setiap informasi membantu kami
+          memahami role, pengalaman, dan potensi kamu di dalam tim.
+        </p>
+      </section>
+
+      <section class="apply-layout section-shell">
+        <!-- Live application card (desktop): fills in while the form is being completed -->
+        <aside class="apply-preview" aria-label="Pratinjau kartu pendaftaran">
+          <article class="apply-card" id="applyCard">
+            <div class="apply-card-holo" aria-hidden="true"></div>
+            <header class="apply-card-top">
+              <img src="assets/logo-transparant.png" alt="" />
+              <span>APPLICATION CARD</span>
+              <b id="pvStatus">DRAFT</b>
+            </header>
+            <div class="apply-card-id">
+              <span class="apply-card-initial" id="pvInitial">?</span>
+              <div>
+                <strong id="pvIgn">IGN KAMU</strong>
+                <small id="pvName">Nama lengkap</small>
+              </div>
+            </div>
+            <div class="apply-card-roles">
+              <span class="role-pill is-main" id="pvRole">ROLE</span>
+              <span class="role-pill" id="pvRole2">CADANGAN</span>
+            </div>
+            <dl class="apply-card-stats">
+              <div><dt>RANK TERTINGGI</dt><dd id="pvHigh">—</dd></div>
+              <div><dt>SEASON INI</dt><dd id="pvCurrent">—</dd></div>
+              <div class="span-2"><dt>HERO ANDALAN</dt><dd id="pvHero">—</dd></div>
+            </dl>
+            <div class="apply-card-wr">
+              <div class="wr-head"><span>WR HERO</span><b id="pvWr">—</b></div>
+              <div class="wr-bar"><i id="pvWrBar"></i></div>
+            </div>
+            <ol class="apply-card-checklist" id="pvChecklist" aria-label="Kelengkapan">
+              <li data-check="1">Follow medsos</li>
+              <li data-check="2">Data diri</li>
+              <li data-check="3">Role &amp; rank</li>
+              <li data-check="4">Hero performance</li>
+              <li data-check="5">Kontak &amp; bukti</li>
+            </ol>
+          </article>
+        </aside>
+
+        <div class="apply-panel application-card">
           <div class="login-wall" id="loginWall" hidden>
             <span class="login-wall-mark" aria-hidden="true">🔒</span>
             <h2>LOGIN DULU<br /><span class="gold-text">YUK.</span></h2>
@@ -73,226 +101,132 @@
               untuk lanjut mendaftar.
             </p>
             <div class="login-wall-actions">
-              <a
-                class="button button-primary"
-                href="login.html?redirect=join-form.html"
-                >MASUK</a
-              >
-              <a
-                class="button button-quiet"
-                href="register.html?redirect=join-form.html"
-                >DAFTAR AKUN</a
-              >
+              <a class="button button-primary" href="login.html?redirect=join-form.html">MASUK</a>
+              <a class="button button-quiet" href="register.html?redirect=join-form.html">DAFTAR AKUN</a>
             </div>
           </div>
+
           <form id="joinForm" novalidate>
-            <div class="form-section-label">00 / FOLLOW MEDSOS DULU</div>
-            <div class="follow-grid">
-              <a
-                class="follow-card"
-                href="https://www.instagram.com/f4nt.official"
-                target="_blank"
-                rel="noopener noreferrer"
-                ><span class="follow-icon">IG</span>
-                <div>
-                  <strong>Instagram F4NTASTIC</strong
-                  ><small>@f4nt.official</small>
+            <!-- Stepper -->
+            <div class="apply-progress" aria-hidden="true"><i id="applyProgressBar"></i></div>
+            <ol class="apply-steps" id="applySteps" aria-label="Langkah pendaftaran">
+              <li><button type="button" data-goto="1"><span>01</span><em>Follow</em></button></li>
+              <li><button type="button" data-goto="2"><span>02</span><em>Data Diri</em></button></li>
+              <li><button type="button" data-goto="3"><span>03</span><em>Role</em></button></li>
+              <li><button type="button" data-goto="4"><span>04</span><em>Hero</em></button></li>
+              <li><button type="button" data-goto="5"><span>05</span><em>Kontak</em></button></li>
+              <li><button type="button" data-goto="6"><span>06</span><em>Kirim</em></button></li>
+            </ol>
+            <p class="apply-prefill" id="applyPrefill" hidden></p>
+
+            <!-- 01 follow -->
+            <fieldset class="apply-step" data-step="1">
+              <legend><span>01 / FOLLOW MEDSOS DULU</span>Ikuti kanal resmi F4NTASTIC.</legend>
+              <div class="follow-grid">
+                <a class="follow-card" href="https://www.instagram.com/f4nt.official" target="_blank" rel="noopener noreferrer">
+                  <span class="follow-icon">IG</span>
+                  <div><strong>Instagram F4NTASTIC</strong><small>@f4nt.official</small></div>
+                  <span class="follow-open">BUKA ↗</span>
+                </a>
+                <a class="follow-card" href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener noreferrer">
+                  <span class="follow-icon follow-icon-tiktok">TT</span>
+                  <div><strong>TikTok F4NTASTIC</strong><small>@official.f4ntastic</small></div>
+                  <span class="follow-open">BUKA ↗</span>
+                </a>
+              </div>
+              <label class="agreement-check required-field"><input type="checkbox" name="followInstagram" required /><span>Sudah follow <strong>Instagram</strong> F4NTASTIC (<a href="https://www.instagram.com/f4nt.official" target="_blank" rel="noopener noreferrer">@f4nt.official</a>)</span></label>
+              <label class="agreement-check required-field"><input type="checkbox" name="followTiktok" required /><span>Sudah follow <strong>TikTok</strong> F4NTASTIC (<a href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener noreferrer">@official.f4ntastic</a>)</span></label>
+            </fieldset>
+
+            <!-- 02 personal -->
+            <fieldset class="apply-step" data-step="2" hidden>
+              <legend><span>02 / DATA DIRI</span>Kenalan dulu.</legend>
+              <div class="form-grid two-columns">
+                <label class="required-field">Nama lengkap<input name="name" type="text" placeholder="Nama kamu" autocomplete="name" required /></label>
+                <label class="required-field">Nama in-game<input name="ign" type="text" placeholder="IGN / nickname" required /></label>
+                <label class="required-field">Usia<input name="age" type="number" min="13" max="99" inputmode="numeric" placeholder="Contoh: 19" required /></label>
+                <div class="field-group required-field" role="radiogroup" aria-label="Jenis kelamin">
+                  <span class="field-label">Jenis kelamin</span>
+                  <div class="choice-row">
+                    <label class="choice-card"><input type="radio" name="gender" value="Cowok" required /><span><b>Cowok</b><small>HR min. 400+</small></span></label>
+                    <label class="choice-card"><input type="radio" name="gender" value="Cewek" required /><span><b>Cewek</b><small>HR min. 350+</small></span></label>
+                  </div>
                 </div>
-                <span class="follow-open">BUKA ↗</span></a
-              >
-              <a
-                class="follow-card"
-                href="https://www.tiktok.com/@official.f4ntastic"
-                target="_blank"
-                rel="noopener noreferrer"
-                ><span class="follow-icon follow-icon-tiktok">TT</span>
-                <div>
-                  <strong>TikTok F4NTASTIC</strong
-                  ><small>@official.f4ntastic</small>
+              </div>
+            </fieldset>
+
+            <!-- 03 role & rank -->
+            <fieldset class="apply-step" data-step="3" hidden>
+              <legend><span>03 / ROLE &amp; EXPERIENCE</span>Di mana kamu paling kuat?</legend>
+              <div class="field-group required-field" role="radiogroup" aria-label="Role utama">
+                <span class="field-label">Role utama</span>
+                <div class="choice-grid">
+                    <label class="choice-card"><input type="radio" name="role" value="XP" required /><span><b>XP</b><small>EXP Lane</small></span></label>
+                    <label class="choice-card"><input type="radio" name="role" value="MID" required /><span><b>MID</b><small>Mid Lane</small></span></label>
+                    <label class="choice-card"><input type="radio" name="role" value="MM" required /><span><b>MM</b><small>Gold / Marksman</small></span></label>
+                    <label class="choice-card"><input type="radio" name="role" value="JUNG" required /><span><b>JUNG</b><small>Jungler</small></span></label>
+                    <label class="choice-card"><input type="radio" name="role" value="ROAM" required /><span><b>ROAM</b><small>Roamer</small></span></label>
                 </div>
-                <span class="follow-open">BUKA ↗</span></a
-              >
-            </div>
-            <label class="agreement-check required-field"
-              ><input type="checkbox" name="followInstagram" required /><span
-                >Sudah follow <strong>Instagram</strong> F4NTASTIC (<a
-                  href="https://www.instagram.com/f4nt.official"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >@f4nt.official</a
-                >)</span
-              ></label
-            >
-            <label class="agreement-check required-field"
-              ><input type="checkbox" name="followTiktok" required /><span
-                >Sudah follow <strong>TikTok</strong> F4NTASTIC (<a
-                  href="https://www.tiktok.com/@official.f4ntastic"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >@official.f4ntastic</a
-                >)</span
-              ></label
-            >
-            <div class="form-section-label">01 / DATA DIRI</div>
-            <div class="form-grid two-columns">
-              <label class="required-field"
-                >Nama lengkap<input
-                  name="name"
-                  type="text"
-                  placeholder="Nama kamu"
-                  required
-              /></label>
-              <label class="required-field"
-                >Nama in-game<input
-                  name="ign"
-                  type="text"
-                  placeholder="IGN / nickname"
-                  required
-              /></label>
-              <label class="required-field"
-                >Usia<input
-                  name="age"
-                  type="number"
-                  min="13"
-                  max="99"
-                  placeholder="Contoh: 19"
-                  required
-              /></label>
-              <label class="required-field"
-                >Jenis kelamin<select name="gender" required>
-                  <option value="">Pilih</option>
-                  <option>Cowok</option>
-                  <option>Cewek</option>
-                </select></label
-              >
-            </div>
+              </div>
+              <div class="field-group required-field" role="radiogroup" aria-label="Role cadangan">
+                <span class="field-label">Role cadangan</span>
+                <div class="choice-grid is-compact">
+                    <label class="choice-card"><input type="radio" name="secondaryRole" value="XP" required /><span><b>XP</b><small>EXP Lane</small></span></label>
+                    <label class="choice-card"><input type="radio" name="secondaryRole" value="MID" required /><span><b>MID</b><small>Mid Lane</small></span></label>
+                    <label class="choice-card"><input type="radio" name="secondaryRole" value="MM" required /><span><b>MM</b><small>Gold / Marksman</small></span></label>
+                    <label class="choice-card"><input type="radio" name="secondaryRole" value="JUNG" required /><span><b>JUNG</b><small>Jungler</small></span></label>
+                    <label class="choice-card"><input type="radio" name="secondaryRole" value="ROAM" required /><span><b>ROAM</b><small>Roamer</small></span></label>
+                </div>
+              </div>
+              <div class="form-grid two-columns">
+                <label class="required-field">Rank tertinggi<input name="highestRank" type="text" placeholder="Contoh: 400 bintang" required /></label>
+                <label class="required-field">Rank season sekarang<input name="currentRank" type="text" placeholder="Contoh: 250 bintang" required /></label>
+              </div>
+            </fieldset>
 
-            <div class="form-section-label">02 / ROLE &amp; EXPERIENCE</div>
-            <div class="form-grid two-columns">
-              <label class="required-field"
-                >Role utama<select name="role" required>
-                  <option value="">Pilih role</option>
-                  <option>XP</option>
-                  <option>MID</option>
-                  <option>MM</option>
-                  <option>JUNG</option>
-                  <option>ROAM</option>
-                </select></label
-              >
-              <label class="required-field"
-                >Role cadangan<select name="secondaryRole" required>
-                  <option value="">Pilih role</option>
-                  <option>XP</option>
-                  <option>MID</option>
-                  <option>MM</option>
-                  <option>JUNG</option>
-                  <option>ROAM</option>
-                </select></label
-              >
-              <label class="required-field"
-                >Rank tertinggi<input
-                  name="highestRank"
-                  type="text"
-                  placeholder="Contoh: 400 bintang"
-                  required
-              /></label>
-              <label class="required-field"
-                >Rank season sekarang<input
-                  name="currentRank"
-                  type="text"
-                  placeholder="Contoh: 250 bintang"
-                  required
-              /></label>
-            </div>
+            <!-- 04 hero -->
+            <fieldset class="apply-step" data-step="4" hidden>
+              <legend><span>04 / HERO PERFORMANCE</span>Tunjukkan hero andalanmu.</legend>
+              <div class="form-grid two-columns">
+                <label class="required-field">Hero andalan<input name="mainHero" type="text" placeholder="Contoh: Joy / Moskov" required /></label>
+                <label class="required-field">WR hero season sekarang<input name="heroWinRate" type="text" inputmode="decimal" placeholder="Contoh: 70%" required /></label>
+                <label class="required-field">Hero lain yang bisa<input name="otherHeroes" type="text" placeholder="Hero lain yang kamu kuasai" required /></label>
+                <label class="required-field">ID ML<input name="mlId" type="text" inputmode="numeric" placeholder="Masukkan ID Mobile Legends" required /></label>
+              </div>
+              <p class="apply-hint">WR season sekarang minimal <b>65–75%</b> (dinilai berdasarkan grade hero).</p>
+            </fieldset>
 
-            <div class="form-section-label">03 / HERO PERFORMANCE</div>
-            <div class="form-grid two-columns">
-              <label class="required-field"
-                >Hero andalan<input
-                  name="mainHero"
-                  type="text"
-                  placeholder="Contoh: Joy / Moskov"
-                  required
-              /></label>
-              <label class="required-field"
-                >WR hero season sekarang<input
-                  name="heroWinRate"
-                  type="text"
-                  placeholder="Contoh: 70%"
-                  required
-              /></label>
-              <label class="required-field"
-                >Hero lain yang bisa<input
-                  name="otherHeroes"
-                  type="text"
-                  placeholder="Hero lain yang kamu kuasai"
-                  required
-              /></label>
-              <label class="required-field"
-                >ID ML<input
-                  name="mlId"
-                  type="text"
-                  placeholder="Masukkan ID Mobile Legends"
-                  required
-              /></label>
-            </div>
+            <!-- 05 contact & proof -->
+            <fieldset class="apply-step" data-step="5" hidden>
+              <legend><span>05 / KONTAK &amp; BUKTI</span>Cara kami menghubungi kamu.</legend>
+              <div class="form-grid two-columns">
+                <label class="required-field">Nomor WhatsApp<input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" required /></label>
+                <label class="required-field">Username Discord<input name="discord" type="text" placeholder="username#0000 atau username" required /></label>
+              </div>
+              <label class="upload-field required-field">Screenshot profil ML lengkap
+                <input name="screenshots" type="file" accept="image/*" multiple required />
+                <span class="upload-box"><strong>＋</strong><span>Pilih / tarik screenshot ke sini</span><small>WR all season, WR rank, WR hero, grade hero, profil ML</small></span>
+                <span class="upload-preview" id="uploadPreview" aria-live="polite"></span>
+              </label>
+            </fieldset>
 
-            <div class="form-section-label">04 / KONTAK</div>
-            <div class="form-grid two-columns">
-              <label class="required-field"
-                >Nomor WhatsApp<input
-                  name="whatsapp"
-                  type="tel"
-                  placeholder="08xxxxxxxxxx"
-                  required
-              /></label>
-              <label class="required-field"
-                >Username Discord<input
-                  name="discord"
-                  type="text"
-                  placeholder="username#0000 atau username"
-                  required
-              /></label>
-            </div>
+            <!-- 06 review & submit -->
+            <fieldset class="apply-step" data-step="6" hidden>
+              <legend><span>06 / CEK &amp; KIRIM</span>Pastikan semuanya sudah benar.</legend>
+              <dl class="apply-review" id="applyReview"></dl>
+              <label class="agreement-check required-field"><input type="checkbox" name="agreement" required /><span>Saya mengisi data dengan jujur dan siap mengikuti proses seleksi F4NTASTIC.</span></label>
+              <label class="agreement-check rules-agreement required-field"><input type="checkbox" name="rulesAgreement" required /><span>Saya setuju dan akan menaati peraturan F4NTASTIC.</span></label>
+              <button class="button button-primary submit-application" type="submit" disabled>
+                Kirim Pendaftaran
+                <span class="icon-arrow icon-arrow-up" aria-hidden="true"></span>
+              </button>
+            </fieldset>
 
-            <label class="upload-field required-field"
-              >Screenshot profil ML lengkap
-              <input
-                name="screenshots"
-                type="file"
-                accept="image/*"
-                multiple
-                required
-              />
-              <span class="upload-box"
-                ><strong>＋</strong><span>Pilih screenshot profil</span
-                ><small>Rank, WR hero, dan profil ML</small></span
-              >
-              <span
-                class="upload-preview"
-                id="uploadPreview"
-                aria-live="polite"
-              ></span>
-            </label>
-            <label class="agreement-check required-field"
-              ><input type="checkbox" name="agreement" required /><span
-                >Saya mengisi data dengan jujur dan siap mengikuti proses
-                seleksi F4NTASTIC.</span
-              ></label
-            >
-            <label class="agreement-check rules-agreement required-field"
-              ><input type="checkbox" name="rulesAgreement" required /><span
-                >Saya setuju dan akan menaati peraturan F4NTASTIC.</span
-              ></label
-            >
-            <button
-              class="button button-primary submit-application"
-              type="submit"
-              disabled
-            >
-              Kirim Pendaftaran
-              <span class="icon-arrow icon-arrow-up" aria-hidden="true"></span>
-            </button>
+            <div class="apply-nav">
+              <button class="apply-prev" type="button" id="applyPrev">← Sebelumnya</button>
+              <span class="apply-draft" id="applyDraft" aria-live="polite"></span>
+              <button class="apply-next" type="button" id="applyNext">Lanjut →</button>
+            </div>
             <p class="form-status" id="formStatus" role="status"></p>
           </form>
         </div>
@@ -676,7 +610,11 @@
           return;
         }
         window.f4ntApplicationUser = session.user;
+        document.dispatchEvent(new CustomEvent("f4:apply-user", { detail: session.user }));
       })();
+      // Shared with js/apply-wizard.js (profile prefill) — avoids a second auth client.
+      window.f4ntSupabase = supabaseClient;
+      window.f4ntUpdateSubmitState = () => updateSubmitState();
       const showResult = (ok, message) => {
         resultTitle.textContent = ok
           ? "Pendaftaran berhasil"
@@ -699,9 +637,11 @@
         ].every((field) =>
           field.type === "checkbox"
             ? field.checked
-            : field.type === "file"
-              ? field.files.length > 0
-              : field.value.trim() !== "",
+            : field.type === "radio"
+              ? Boolean(form.querySelector(`input[name="${field.name}"]:checked`))
+              : field.type === "file"
+                ? field.files.length > 0
+                : field.value.trim() !== "",
         );
         submitButton.disabled = !(
           requiredFieldsFilled &&
@@ -976,8 +916,10 @@
         form.reset();
         rulesAccepted = false;
         updateSubmitState();
+        document.dispatchEvent(new CustomEvent("f4:apply-submitted"));
       });
     </script>
+    <script src="js/apply-wizard.js?v=20261109-apply"></script>
     <script src="js/i18n.js?v=20261103-i18n18"></script>
       <script src="js/fx/ui.js?v=20261109-mobile2" defer></script>
       <script src="js/fx/nav.js?v=20261109-arrive2" defer></script>
