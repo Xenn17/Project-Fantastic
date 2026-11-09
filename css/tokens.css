@@ -65,3 +65,37 @@ html::after {
   60% { transform: translate(-2%, 6%); } 80% { transform: translate(5%, 1%); } 100% { transform: translate(0, 0); }
 }
 @media (prefers-reduced-motion: reduce) { html::after { animation: none; } }
+
+/* ---------- Shared FX primitives (driven by js/fx/ui.js) ---------- */
+/* Cursor-follow light (desktop only, injected by js/fx/ui.js). */
+.fx-cursor {
+  position: fixed; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px;
+  border-radius: 50%; pointer-events: none; z-index: 1; mix-blend-mode: screen; opacity: 0;
+  background: radial-gradient(circle, rgba(246, 221, 147, .085), rgba(217, 180, 91, .03) 40%, transparent 70%);
+  transition: opacity .6s;
+  will-change: transform;
+}
+.fx-cursor.is-on { opacity: 1; }
+
+/* Scroll progress hairline. */
+.fx-progress {
+  position: fixed; inset: 0 0 auto; height: 2px; z-index: 2100; pointer-events: none;
+  background: var(--grad-gold); transform-origin: 0 50%; transform: scaleX(var(--p, 0));
+  box-shadow: 0 0 12px rgba(246, 221, 147, .6);
+}
+
+/* Ambient gold dust for sub pages (2D canvas, injected by js/fx/ui.js). */
+.fx-particles { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: .75; }
+
+/* ---------- Cards: tilt + cursor sheen ---------- */
+.fx-tilt { transform-style: preserve-3d; will-change: transform; }
+.fx-tilt.is-tilting { transition: transform .12s linear, box-shadow .4s, border-color .4s !important; box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .9), var(--glow-gold); border-color: rgba(217, 180, 91, .5) !important; }
+.fx-sheen {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit; opacity: 0;
+  background: radial-gradient(circle 260px at var(--mx, 50%) var(--my, 50%), rgba(246, 221, 147, .16), transparent 70%);
+  mix-blend-mode: screen; transition: opacity .4s;
+}
+.fx-tilt.is-tilting .fx-sheen { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) { .fx-cursor, .fx-particles { display: none; } }
+@media (hover: none), (pointer: coarse) { .fx-cursor { display: none; } }
