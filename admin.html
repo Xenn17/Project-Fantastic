@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Manrope:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/admin.css?v=20261109-follow" />
+    <link rel="stylesheet" href="css/admin.css?v=20261109-follow3" />
     <link rel="stylesheet" href="css/tokens.css?v=20261109-mobile" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
@@ -79,7 +79,10 @@
               <p class="kicker">— CANDIDATE LOG</p>
               <h2>ALL ENTRIES</h2>
             </div>
-            <button class="refresh" id="refresh">↻ REFRESH</button>
+            <div class="panel-actions">
+              <button class="fc-btn follow-check-open" id="followCheckOpen" title="Cocokkan username pendaftar dengan file export followers IG/TikTok">✓ CEK FOLLOW OTOMATIS</button>
+              <button class="refresh" id="refresh">↻ REFRESH</button>
+            </div>
           </div>
           <div class="toolbar">
             <input id="search" placeholder="Cari nama, IGN, role..." /><select
@@ -127,6 +130,34 @@
         <div class="detail-grid" id="details"></div>
       </section>
     </div>
-    <script src="js/admin.js?v=20261109-follow"></script>
+    <div class="overlay" id="followCheck" hidden>
+      <section class="modal fc-modal" role="dialog" aria-modal="true" aria-labelledby="followCheckTitle">
+        <button id="followCheckClose" aria-label="Tutup">×</button>
+        <p class="kicker">— VERIFIKASI FOLLOW</p>
+        <h2 id="followCheckTitle">CEK FOLLOW OTOMATIS</h2>
+        <p class="fc-intro">Upload file export followers resmi dari akun F4NTASTIC. File diproses <b>di browser ini saja</b> (tidak dikirim ke server); yang disimpan hanya status cocok/tidak tiap pendaftar.</p>
+        <details class="fc-howto">
+          <summary>Cara download file followers</summary>
+          <ol>
+            <li><b>Instagram</b> (login @f4nt.official): Settings → Accounts Center → Your information and permissions → <i>Download your information</i> → Some of your information → centang <i>Followers and following</i> → format <b>JSON</b> → Create files. Upload ZIP yang dikirim Instagram.</li>
+            <li><b>TikTok</b> (login @official.f4ntastic): Settings and privacy → Account → <i>Download your data</i> → pilih <i>Profile and activity</i>, format <b>JSON</b> → Request data. Upload ZIP-nya setelah siap.</li>
+            <li>Biasanya siap dalam beberapa menit–jam. Upload ulang kapan saja untuk data terbaru.</li>
+          </ol>
+        </details>
+        <div class="fc-drops">
+          <label class="fc-drop"><span class="fc-net">INSTAGRAM</span><span class="fc-file">Pilih / tarik ZIP atau followers_1.json</span><input type="file" data-follow-file="instagram" accept=".zip,.json,.html,application/zip,application/json,text/html" /></label>
+          <label class="fc-drop"><span class="fc-net">TIKTOK</span><span class="fc-file">Pilih / tarik ZIP atau user_data_tiktok.json</span><input type="file" data-follow-file="tiktok" accept=".zip,.json,.txt,application/zip,application/json,text/plain" /></label>
+        </div>
+        <div class="fc-actions">
+          <button class="verify-follow" id="followCheckRun" disabled>COCOKKAN &amp; SIMPAN</button>
+          <button class="fc-btn" id="followCheckRerun" disabled title="Pakai data followers terakhir yang tersimpan di browser ini">↻ COCOKKAN ULANG DATA TERAKHIR</button>
+        </div>
+        <p class="fc-cache" id="followCheckCache"></p>
+        <p class="fc-status" id="followCheckStatus" role="status"></p>
+        <div class="fc-result" id="followCheckResult"></div>
+      </section>
+    </div>
+    <script src="js/admin.js?v=20261109-follow2"></script>
+    <script src="js/follow-check.js?v=20261109-follow2"></script>
   </body>
 </html>

@@ -483,8 +483,8 @@ function detail(a) {
   const followHtml = socialsReady
     ? `<div class="follow-verify ${a.follow_verified ? "is-verified" : ""}"><small>VERIFIKASI FOLLOW</small>
         <div class="follow-verify-handles">
-          <span>IG ${handle("https://www.instagram.com/", a.instagram)}</span>
-          <span>TikTok ${handle("https://www.tiktok.com/@", a.tiktok)}</span>
+          <span>IG ${handle("https://www.instagram.com/", a.instagram)} ${a.instagram_verified ? '<b class="fv-ok">✓ follower</b>' : '<b class="fv-no">belum tercek</b>'}</span>
+          <span>TikTok ${handle("https://www.tiktok.com/@", a.tiktok)} ${a.tiktok_verified ? '<b class="fv-ok">✓ follower</b>' : '<b class="fv-no">belum tercek</b>'}</span>
         </div>
         <p>Cari username di sini: <a href="https://www.instagram.com/f4nt.official/followers/" target="_blank" rel="noopener">Followers IG F4NT ↗</a> · <a href="https://www.tiktok.com/@official.f4ntastic" target="_blank" rel="noopener">TikTok F4NT ↗</a></p>
         <button type="button" class="verify-follow" data-id="${esc(a.id)}">${a.follow_verified ? "✓ FOLLOW TERVERIFIKASI — BATALKAN" : "TANDAI FOLLOW TERVERIFIKASI"}</button>
