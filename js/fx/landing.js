@@ -2,7 +2,7 @@
    Pinned intro: scroll progress drives the image sequence, stage transform, text chapters and 3D particles.
    NOTE: never write textContent per frame here — i18n.js re-translates the page on every childList mutation.
    Per-frame values go through CSS custom properties / data attributes only. */
-import { createSequence } from "./sequence.js?v=20261109-perf";
+import { createSequence } from "./sequence.js?v=20261109-arrive";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const intro = document.querySelector("#home.intro");
@@ -31,8 +31,26 @@ const smooth = (a, b, x) => {
   return t * t * (3 - 2 * t);
 };
 
+// When we arrive through the page-transition curtain (html.f4-arriving, see the inline <head> snippet),
+// hold the heavy work — 200+ frame decodes and the WebGL init — until the curtain has fully opened, so the
+// reveal animation gets the whole main thread / GPU. Then start when the browser is idle.
+const afterArrival = () =>
+  new Promise((resolve) => {
+    const root = document.documentElement;
+    const idle = () => (window.requestIdleCallback ? requestIdleCallback(() => resolve(), { timeout: 300 }) : setTimeout(resolve, 60));
+    if (!root.classList.contains("f4-arriving")) return resolve();
+    const mo = new MutationObserver(() => {
+      if (root.classList.contains("f4-arriving")) return;
+      mo.disconnect();
+      idle();
+    });
+    mo.observe(root, { attributes: true, attributeFilter: ["class"] });
+    setTimeout(() => { mo.disconnect(); resolve(); }, 2000);
+  });
+
 async function boot() {
   if (!intro) return;
+  await afterArrival();
   if (reduced) intro.classList.add("is-static");
 
   const film = intro.querySelector("#seqCanvas");
@@ -53,16 +71,11 @@ async function boot() {
   // Three.js is optional: no WebGL / blocked CDN → CSS emblem fallback stays visible.
   let logo = null;
   const logoCanvas = intro.querySelector("#logo3d");
-  const webgl = (() => {
-    try {
-      const c = document.createElement("canvas");
-      return !!(c.getContext("webgl2") || c.getContext("webgl"));
-    } catch {
-      return false;
-    }
-  })();
+  // Cheap capability check — creating a throwaway WebGL context just to probe costs ~15ms; createLogo3D
+  // already falls back cleanly (returns null) if the real context cannot be created.
+  const webgl = "WebGLRenderingContext" in window;
   if (webgl && logoCanvas) {
-    import("./logo3d.js?v=20261109-perf")
+    import("./logo3d.js?v=20261109-arrive")
       .then(({ createLogo3D }) => createLogo3D({ canvas: logoCanvas, emblem: false }))
       .then((instance) => {
         if (!instance) throw new Error("webgl");

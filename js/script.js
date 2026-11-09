@@ -496,10 +496,10 @@
       return { link, section, id: target.slice(1) };
     })
     .filter((item) => item.section)
-    .sort(
-      (a, b) =>
-        a.section.getBoundingClientRect().top -
-        b.section.getBoundingClientRect().top,
+    // Sections are stacked vertically in document order, so sort by DOM position — measuring each one
+    // with getBoundingClientRect here forced a full-page layout while the page was still loading.
+    .sort((a, b) =>
+      a.section.compareDocumentPosition(b.section) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
     );
   const setActiveNav = (id) =>
     navLinks.forEach((link) => {
@@ -541,7 +541,9 @@
   };
   window.addEventListener("scroll", updateActiveNav, { passive: true });
   window.addEventListener("resize", updateActiveNav);
-  updateActiveNav();
+  // First scroll-spy pass measures every section (forces a full layout) — run it once the browser is idle
+  // so it never lands in the middle of the page-arrival animation.
+  (window.requestIdleCallback || ((f) => setTimeout(f, 200)))(updateActiveNav, { timeout: 700 });
 
   const albumImages = [...document.querySelectorAll(".gallery-album-image")];
   const albumDots = document.querySelector("#galleryAlbumDots");

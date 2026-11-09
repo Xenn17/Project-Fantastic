@@ -81,7 +81,7 @@
   nav.prepend(indicator);
 
   let shown = false;
-  const moveTo = (el, instant = false) => {
+  const place = (el, instant) => {
     if (!el || !desktop.matches) {
       indicator.classList.remove("is-on");
       shown = false;
@@ -99,6 +99,25 @@
       indicator.classList.remove("is-instant");
     }
     shown = true;
+  };
+  // Batched: many triggers (account chip render, i18n, scroll-spy) collapse into one measurement per frame,
+  // and nothing is measured while the arrival curtain still covers the page (no forced layouts during load).
+  let pending = null;
+  let pendingInstant = false;
+  const moveTo = (el, instant = false) => {
+    const first = pending === null;
+    pending = el || false;
+    pendingInstant = pendingInstant || instant;
+    if (!first) return;
+    const flush = () => {
+      if (doc.documentElement.classList.contains("f4-arriving")) return setTimeout(flush, 120);
+      const target = pending;
+      const inst = pendingInstant;
+      pending = null;
+      pendingInstant = false;
+      place(target || null, inst);
+    };
+    requestAnimationFrame(flush);
   };
   const home = () => moveTo(activeLink());
 
@@ -154,6 +173,8 @@
 
   addEventListener("resize", () => moveTo(activeLink(), true));
   desktop.addEventListener?.("change", () => moveTo(activeLink(), true));
-  doc.fonts?.ready.then(() => moveTo(activeLink(), true));
+  // Re-measure once web fonts settle. Touching document.fonts.ready forces a synchronous full-page style
+  // recalc in Chromium, so only do it after load instead of during parsing.
+  addEventListener("load", () => doc.fonts?.ready.then(() => moveTo(activeLink(), true)), { once: true });
   moveTo(activeLink(), true);
 })();
