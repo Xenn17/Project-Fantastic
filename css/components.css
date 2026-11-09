@@ -21,6 +21,11 @@ body::after {
   border-image: linear-gradient(90deg, transparent, rgba(217, 180, 91, .45) 30%, rgba(255, 255, 255, .12) 60%, transparent) 1;
   transition: height .45s var(--ease-out-expo), background .45s, box-shadow .45s;
 }
+/* Mobile: no backdrop-filter on the header — it would become the containing block of the position:fixed
+   menu panel (#mainNav) and collapse it to the header's height. Use a solid tint instead. */
+@media (max-width: 780px) {
+  .site-header, .site-header.is-scrolled { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(7, 7, 7, .95); }
+}
 .site-header.is-scrolled {
   background: rgba(7, 7, 7, .9);
   box-shadow: 0 18px 50px -20px rgba(0, 0, 0, .9);
@@ -30,15 +35,6 @@ body::after {
 }
 .brand-mark span, .brand-mark { transition: color .3s; }
 .brand:hover .brand-mark { color: var(--gold-bright); }
-.main-nav a:not(.nav-cta):not(.nav-login) { position: relative; }
-@media (min-width: 781px) {
-  .main-nav a:not(.nav-cta):not(.nav-login):not(.is-account-link)::before {
-    content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px;
-    background: var(--grad-gold); transform: scaleX(0); transform-origin: right;
-    transition: transform .45s var(--ease-out-expo);
-  }
-  .main-nav a:not(.nav-cta):not(.nav-login):not(.is-account-link):hover::before { transform: scaleX(1); transform-origin: left; }
-}
 .main-nav .nav-cta {
   background: padding-box linear-gradient(#0b0b0b, #0b0b0b), border-box var(--grad-border);
   border: 1px solid transparent !important;
@@ -132,4 +128,86 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .gold-text, .ticker { animation: none; }
   .reveal { translate: none; scale: none; filter: none; opacity: 1; }
+}
+
+/* ---------- Navbar FX (js/fx/nav.js) ---------- */
+/* Desktop: a springy gold pill follows the active / hovered link. */
+@media (min-width: 781px) {
+  .main-nav { position: relative; isolation: isolate; }
+  .main-nav > a:not(.nav-cta):not(.nav-login) { position: relative; padding: 9px 2px; transition: color .3s; }
+  .main-nav a:not(.nav-cta).is-active::after,
+  .main-nav a:not(.nav-cta).active::after { display: none; }
+  .main-nav > a.is-active, .main-nav > a.active, .main-nav > a[aria-current="page"] { color: var(--gold-bright); }
+  .nav-indicator {
+    position: absolute; left: 0; top: 50%; z-index: -1; height: 36px; width: var(--w, 0px);
+    transform: translate3d(var(--x, 0px), -50%, 0);
+    border-radius: 99px; border: 1px solid transparent; opacity: 0; pointer-events: none;
+    background:
+      padding-box linear-gradient(180deg, rgba(246, 221, 147, .15), rgba(217, 180, 91, .04)),
+      border-box linear-gradient(135deg, rgba(246, 221, 147, .75), rgba(217, 180, 91, .1) 45%, rgba(246, 221, 147, .5));
+    box-shadow: 0 0 24px -6px rgba(217, 180, 91, .55), inset 0 1px 0 rgba(255, 255, 255, .1);
+    transition: transform .6s cubic-bezier(.34, 1.45, .5, 1), width .6s cubic-bezier(.34, 1.45, .5, 1), opacity .35s;
+  }
+  .nav-indicator::after {
+    content: ""; position: absolute; left: 32%; right: 32%; bottom: -2px; height: 2px; border-radius: 2px;
+    background: var(--gold-bright); box-shadow: 0 0 10px 2px rgba(246, 221, 147, .65);
+  }
+  .nav-indicator.is-on { opacity: 1; }
+  .nav-indicator.is-instant { transition: none; }
+}
+.nav-ripple {
+  position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; pointer-events: none; z-index: -1;
+  background: radial-gradient(circle, rgba(246, 221, 147, .7), rgba(217, 180, 91, 0) 70%);
+  animation: nav-ripple .7s var(--ease-out-expo) forwards;
+}
+@keyframes nav-ripple { to { transform: scale(10); opacity: 0; } }
+.main-nav a.is-pressed { animation: nav-press .45s var(--ease-out-expo); }
+@keyframes nav-press { 30% { transform: scale(.9); } 100% { transform: none; } }
+
+/* Account chip: avatar wrapped in a slowly turning gold ring. */
+.nav-avatar { position: relative; isolation: isolate; }
+.nav-avatar::before {
+  content: ""; position: absolute; inset: -3px; z-index: -1; border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--gold-bright), transparent 30%, var(--gold) 55%, transparent 80%, var(--gold-bright));
+  animation: nav-ring 4s linear infinite;
+}
+@keyframes nav-ring { to { transform: rotate(360deg); } }
+
+/* Mobile: full-screen menu that bursts open from the hamburger, big numbered links staggering in. */
+.menu-toggle span { transition: transform .45s var(--ease-out-expo), opacity .3s; transform-origin: center; }
+.menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+@media (max-width: 780px) {
+  .nav-indicator { display: none; }
+  .site-header .main-nav.is-open {
+    counter-reset: navi;
+    background:
+      radial-gradient(ellipse 80% 45% at 100% 0%, rgba(217, 180, 91, .16), transparent 70%),
+      radial-gradient(ellipse 70% 40% at 0% 100%, rgba(154, 116, 32, .14), transparent 70%),
+      rgba(6, 6, 6, .985) !important;
+    animation: nav-open .7s var(--ease-out-expo) both;
+  }
+  .site-header .main-nav.is-open > * { animation: nav-item .7s var(--ease-out-expo) both; animation-delay: calc(var(--i, 0) * 45ms + 140ms); }
+  .site-header .main-nav.is-open > a:not(.nav-cta):not(.nav-login) {
+    display: flex; align-items: baseline; gap: 14px;
+    font: 800 clamp(28px, 8.5vw, 38px)/1.05 var(--font-display) !important; letter-spacing: .01em; text-transform: uppercase;
+    color: #ece8de; padding: 14px 0 !important;
+  }
+  .site-header .main-nav.is-open > a:not(.nav-cta):not(.nav-login)::before {
+    counter-increment: navi; content: counter(navi, decimal-leading-zero);
+    font: 800 11px/1 var(--font-body); letter-spacing: .2em; color: var(--gold); transform: translateY(-4px);
+  }
+  .site-header .main-nav.is-open > a:not(.nav-cta):not(.nav-login):is(.is-active, .active) { color: var(--gold-bright); }
+  .site-header .main-nav.is-open > a:not(.nav-cta).is-active::after,
+  .site-header .main-nav.is-open > a:not(.nav-cta).active::after {
+    content: ""; display: block; width: 8px; height: 8px; margin: 0 0 0 auto; align-self: center; border-radius: 50%;
+    background: var(--gold-bright); box-shadow: 0 0 12px var(--gold-bright); animation: none;
+  }
+}
+@keyframes nav-open { from { clip-path: circle(0 at calc(100% - 36px) 0); } to { clip-path: circle(150% at calc(100% - 36px) 0); } }
+@keyframes nav-item { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-indicator, .menu-toggle span { transition: none; }
+  .nav-avatar::before, .site-header .main-nav.is-open, .site-header .main-nav.is-open > * { animation: none; }
 }

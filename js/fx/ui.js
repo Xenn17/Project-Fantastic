@@ -82,7 +82,7 @@
   const TILT = [
     ".goal-card", ".admin-card", ".founder-card", ".logo-history-card", ".official-social-card",
     ".vision-feature", ".promotion-panel", ".join-panel", ".report-strip-panel", ".stat-item",
-    ".why-card", ".package-card", ".category-card", ".gallery-card", ".division-card", ".faq-item",
+    ".why-card", ".package-card", ".category-card", ".gallery-card", ".division-card", ".faq-item", ".player-card",
   ].join(",");
   if (finePointer) {
     let active = null;

@@ -93,3 +93,31 @@ html::after {
 
 @media (prefers-reduced-motion: reduce) { .fx-cursor, .fx-particles { display: none; } }
 @media (hover: none), (pointer: coarse) { .fx-cursor { display: none; } }
+
+/* ---------- Page transitions (js/fx/nav.js + cross-document View Transitions) ---------- */
+/* Leaving: a gold edge then a black curtain sweep left → right, brand mark fades in. */
+.fx-curtain { position: fixed; inset: 0; z-index: 10000; pointer-events: none; display: grid; place-items: center; visibility: hidden; }
+.fx-curtain::before, .fx-curtain i {
+  content: ""; position: absolute; inset: 0; clip-path: inset(0 100% 0 0);
+  transition: clip-path .42s cubic-bezier(.76, 0, .24, 1);
+}
+.fx-curtain::before { background: var(--grad-gold); }
+.fx-curtain i { background: #070707; transition-delay: .07s; }
+.fx-curtain-mark {
+  position: relative; font: 900 clamp(46px, 7vw, 84px)/1 "Barlow Condensed", Impact, sans-serif; letter-spacing: -.02em; color: #f6f3ea;
+  opacity: 0; transform: translateY(14px) scale(.96); transition: opacity .3s .22s, transform .45s .22s cubic-bezier(.16, 1, .3, 1);
+}
+.fx-curtain-mark span { color: var(--gold); }
+.fx-curtain.is-covering { visibility: visible; pointer-events: auto; }
+.fx-curtain.is-covering::before, .fx-curtain.is-covering i { clip-path: inset(0 0 0 0); }
+.fx-curtain.is-covering .fx-curtain-mark { opacity: 1; transform: none; }
+
+/* Arriving: the new page wipes in over the old (curtain-covered) snapshot. Browsers without
+   cross-document view transitions simply show the new page. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: none; }
+::view-transition-new(root) { animation: f4-page-in .6s cubic-bezier(.76, 0, .24, 1) both; }
+@keyframes f4-page-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}

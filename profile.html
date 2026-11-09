@@ -12,88 +12,110 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Manrope:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/profile.css?v=20261101-profile3" />
-    <link rel="stylesheet" href="css/tokens.css?v=20261109-perf" />
+    <link rel="stylesheet" href="css/profile.css?v=20261109-player" />
+    <link rel="stylesheet" href="css/tokens.css?v=20261109-nav" />
   </head>
   <body>
     <main class="profile-page">
-      <div class="profile-atmosphere" aria-hidden="true">
-        <span></span><i></i>
-      </div>
-      <section class="profile-shell">
+      <div class="profile-atmosphere" aria-hidden="true"><span></span><i></i></div>
+
+      <nav class="profile-topbar" aria-label="Navigasi profil">
+        <a class="profile-brand" href="index.html" aria-label="F4NTASTIC beranda">
+          <img src="assets/logo-transparant.png" alt="" /><span>F<b>4</b>N'T</span>
+        </a>
         <a class="profile-back" href="index.html">← KEMBALI KE WEBSITE</a>
+      </nav>
+
+      <!-- Cover: blurred showcase photo (set by profile.js) + gold grid + outline watermark -->
+      <section class="profile-cover" aria-hidden="true">
+        <div class="cover-image" id="coverImage"></div>
+        <div class="cover-grid"></div>
+        <div class="cover-word">F4N'T</div>
+      </section>
+
+      <section class="profile-shell">
         <header class="profile-hero">
           <div class="profile-avatar-wrap">
-            <div class="profile-avatar" id="avatar" aria-label="Foto profil">
-              F
-            </div>
-            <label
-              class="avatar-edit"
-              for="avatarFile"
-              title="Ganti foto profil"
-              aria-label="Ganti foto profil"
-              >✎</label
-            >
-            <input
-              id="avatarFile"
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              hidden
-            />
-            <span
-              class="avatar-online-dot"
-              id="avatarStatusDot"
-              aria-hidden="true"
-            ></span>
+            <div class="avatar-ring" aria-hidden="true"></div>
+            <div class="profile-avatar" id="avatar" aria-label="Foto profil">F</div>
+            <label class="avatar-edit" for="avatarFile" title="Ganti foto profil" aria-label="Ganti foto profil">✎</label>
+            <input id="avatarFile" type="file" accept="image/jpeg,image/png,image/webp" hidden />
+            <span class="avatar-online-dot" id="avatarStatusDot" aria-hidden="true"></span>
           </div>
           <div class="profile-hero-copy">
-            <p class="profile-kicker">— F4NTASTIC ACCOUNT / PROFILE</p>
+            <p class="profile-kicker">F4NTASTIC ACCOUNT / PLAYER PROFILE</p>
             <h1 id="profileName">Profil Member</h1>
-            <p class="profile-handle" id="profileHandle">@member</p>
-            <div class="profile-role" id="profileRole">MEMBER F4NTASTIC</div>
+            <div class="profile-hero-meta">
+              <span class="profile-handle" id="profileHandle">@member</span>
+              <span class="profile-role" id="profileRole">MEMBER F4NTASTIC</span>
+            </div>
           </div>
           <div class="profile-hero-status">
-            <span class="profile-status-label">PRESENCE</span
-            ><strong id="presenceLabel">MEMERIKSA…</strong
-            ><small id="presenceLastSeen">Menyambungkan status…</small>
+            <span class="presence-pulse" aria-hidden="true"></span>
+            <div>
+              <span class="profile-status-label">PRESENCE</span>
+              <strong id="presenceLabel">MEMERIKSA…</strong>
+              <small id="presenceLastSeen">Menyambungkan status…</small>
+            </div>
           </div>
         </header>
 
-        <section class="profile-commandbar">
-          <div>
-            <span class="profile-kicker">ACCOUNT COMMAND CENTER</span>
-            <p>
-              Kelola identitas, presence, hero, dan showcase profil F4NTASTIC
-              dari satu tempat.
-            </p>
-            <small class="profile-cooldown" id="avatarCooldown"
-              >Memeriksa cooldown…</small
-            >
-          </div>
-          <div class="commandbar-actions">
-            <div class="presence-control">
-              <label for="presenceMode">STATUS AKUN</label
-              ><select id="presenceMode">
-                <option value="auto">AUTO / AKTIF SAAT MEMBUKA WEBSITE</option>
-                <option value="busy">SIBUK</option>
-                <option value="offline">OFFLINE</option>
-              </select>
-            </div>
-            <button class="profile-logout" id="logout" type="button">
-              KELUAR DARI AKUN <span aria-hidden="true">↗</span>
-            </button>
-          </div>
+        <section class="profile-statbar" aria-label="Ringkasan member">
+          <div class="stat-tile"><i aria-hidden="true">◆</i><small>MEMBER SEJAK</small><strong id="sSince">—</strong></div>
+          <div class="stat-tile"><i aria-hidden="true">⚔</i><small>ROLE</small><strong id="sRole">—</strong></div>
+          <div class="stat-tile"><i aria-hidden="true">★</i><small>MAIN HERO</small><strong id="sHero">—</strong></div>
+          <div class="stat-tile"><i aria-hidden="true">⌖</i><small>SERVER ML</small><strong id="sServer">—</strong></div>
         </section>
 
         <div class="profile-layout">
+          <aside class="profile-aside">
+            <!-- Holographic player card: tilts with the pointer (js/fx/ui.js sets --mx/--my) -->
+            <article class="player-card" aria-label="Kartu player F4NTASTIC">
+              <div class="player-card-holo" aria-hidden="true"></div>
+              <header class="player-card-top">
+                <img src="assets/logo-transparant.png" alt="" />
+                <span>PLAYER CARD</span>
+                <b id="cardNo">#0000</b>
+              </header>
+              <div class="player-card-photo" id="cardPhoto"><span id="cardInitial">F</span></div>
+              <div class="player-card-body">
+                <span class="player-card-rank" id="cardRank">MEMBER</span>
+                <h2 id="cardName">Member</h2>
+                <dl class="player-card-stats">
+                  <div><dt>ML ID</dt><dd id="cardMl">—</dd></div>
+                  <div><dt>SERVER</dt><dd id="cardServer">—</dd></div>
+                  <div><dt>MAIN</dt><dd id="cardHero">—</dd></div>
+                  <div><dt>ROLE</dt><dd id="cardGameRole">—</dd></div>
+                </dl>
+              </div>
+              <footer class="player-card-foot">
+                <span>WE ARE F4NTASTIC</span><span>WE ARE FAMILY</span>
+              </footer>
+            </article>
+
+            <section class="profile-commandbar">
+              <span class="profile-kicker">ACCOUNT COMMAND CENTER</span>
+              <div class="presence-control">
+                <label for="presenceMode">STATUS AKUN</label>
+                <select id="presenceMode">
+                  <option value="auto">AUTO / AKTIF SAAT MEMBUKA WEBSITE</option>
+                  <option value="busy">SIBUK</option>
+                  <option value="offline">OFFLINE</option>
+                </select>
+              </div>
+              <small class="profile-cooldown" id="avatarCooldown">Memeriksa cooldown…</small>
+              <button class="profile-logout" id="logout" type="button">
+                KELUAR DARI AKUN <span aria-hidden="true">↗</span>
+              </button>
+            </section>
+          </aside>
+
           <section class="profile-panel">
             <div class="panel-heading">
               <div>
                 <p class="profile-kicker">01 / MEMBER PROFILE</p>
                 <h2 id="viewTitle">PROFIL MEMBER.</h2>
-                <p class="panel-description" id="viewDesc">
-                  Ringkasan profil member F4NTASTIC.
-                </p>
+                <p class="panel-description" id="viewDesc">Ringkasan profil member F4NTASTIC.</p>
               </div>
               <div class="panel-actions">
                 <button id="editProfile" class="profile-edit-btn" type="button">
@@ -104,39 +126,17 @@
 
             <div id="profileView">
               <div class="view-grid">
-                <div class="view-item">
-                  <small>IN GAME NAME</small><strong id="vFullName">—</strong>
-                </div>
-                <div class="view-item">
-                  <small>EMAIL</small><strong id="vEmail">—</strong>
-                </div>
-                <div class="view-item">
-                  <small>NOMOR TELEPON</small><strong id="vPhone">—</strong>
-                </div>
-                <div class="view-item">
-                  <small>GENDER · TANGGAL LAHIR</small
-                  ><strong id="vGenderBirth">—</strong>
-                </div>
-                <div class="view-item">
-                  <small>ML ID / SERVER</small><strong id="vMl">—</strong>
-                </div>
-                <div class="view-item">
-                  <small>HERO</small><strong id="vHero">—</strong>
-                </div>
-              </div>
-
-              <div class="profile-stats">
-                <div class="stat-tile">
-                  <small>MEMBER SEJAK</small><strong id="sSince">—</strong>
-                </div>
-                <div class="stat-tile">
-                  <small>ROLE</small><strong id="sRole">—</strong>
-                </div>
+                <div class="view-item"><small>IN GAME NAME</small><strong id="vFullName">—</strong></div>
+                <div class="view-item"><small>EMAIL</small><strong id="vEmail">—</strong></div>
+                <div class="view-item"><small>NOMOR TELEPON</small><strong id="vPhone">—</strong></div>
+                <div class="view-item"><small>GENDER · TANGGAL LAHIR</small><strong id="vGenderBirth">—</strong></div>
+                <div class="view-item"><small>ML ID / SERVER</small><strong id="vMl">—</strong></div>
+                <div class="view-item"><small>HERO</small><strong id="vHero">—</strong></div>
               </div>
 
               <div class="profile-gallery">
                 <div class="gallery-head">
-                  <span>SHOWCASE PROFIL</span><small>Maksimal 3 foto</small>
+                  <span>02 / SHOWCASE PROFIL</span><small>Maksimal 3 foto</small>
                 </div>
                 <div class="gallery-grid" id="galleryGrid"></div>
               </div>
@@ -237,17 +237,12 @@
                 </button>
               </div>
             </form>
-            <p
-              class="profile-status-message"
-              id="profileStatus"
-              role="status"
-              aria-live="polite"
-            ></p>
+            <p class="profile-status-message" id="profileStatus" role="status" aria-live="polite"></p>
           </section>
         </div>
+
         <footer class="profile-footer">
-          <span>F4NTASTIC / MEMBER COMMAND</span
-          ><span>WE ARE F4NTASTIC, WE ARE FAMILY.</span>
+          <span>F4NTASTIC / MEMBER COMMAND</span><span>WE ARE F4NTASTIC, WE ARE FAMILY.</span>
         </footer>
       </section>
     </main>
@@ -258,8 +253,9 @@
       hidden
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/profile.js?v=20261101-profile4"></script>
+    <script src="js/profile.js?v=20261109-player"></script>
     <script src="js/i18n.js?v=20261103-i18n18"></script>
-      <script src="js/fx/ui.js?v=20261109-perf" defer></script>
+      <script src="js/fx/ui.js?v=20261109-nav" defer></script>
+      <script src="js/fx/nav.js?v=20261109-nav" defer></script>
   </body>
 </html>

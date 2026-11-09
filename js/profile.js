@@ -71,6 +71,7 @@
       };
       avatar.appendChild(image);
     } else avatar.textContent = (name || "F").charAt(0).toUpperCase();
+    syncCard();
   }
   function updateCompletion(data) {
     return keys.every((key) => String(data?.[key] ?? "").trim());
@@ -209,6 +210,7 @@
       }
       grid.append(slot);
     }
+    syncCard();
   }
   async function persistGallery() {
     if (!user || !profile) return;
@@ -269,6 +271,47 @@
     say("Foto showcase diperbarui.", true);
   }
 
+  /* player card + cover + extra stat tiles (redesign) */
+  function syncCard() {
+    if (!profile) return;
+    const set = (id, value) => {
+      const el = $(id);
+      if (el && el.textContent !== value) el.textContent = value;
+    };
+    const label = profile.username || user?.email?.split("@")[0] || "member";
+    const name = profile.full_name || label;
+    const gameRoles = { jungler: "JUNGLER", gold: "GOLD", exp: "EXP", roam: "ROAM", mid: "MID" };
+    const ranks = {
+      tamu: "TAMU", calon_member: "CALON MEMBER", member: "MEMBER", leader_squad: "LEADER SQUAD",
+      admin: "ADMIN", developer: "DEVELOPER", owner: "OWNER",
+    };
+    set("cardName", name);
+    set("cardRank", ranks[profile.role] || "TAMU");
+    set("cardMl", profile.ml_id || "—");
+    set("cardServer", profile.ml_server || "—");
+    set("cardHero", profile.main_hero || "—");
+    set("cardGameRole", gameRoles[profile.game_role] || "—");
+    set("sHero", profile.main_hero || "—");
+    set("sServer", profile.ml_server || "—");
+    // Stable short card number derived from the user id.
+    const id = String(profile.id || user?.id || "");
+    let h = 0;
+    for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 10000;
+    set("cardNo", "#" + String(h).padStart(4, "0"));
+    set("cardInitial", name.charAt(0).toUpperCase());
+    const photo = $("cardPhoto");
+    if (photo) {
+      const url = profile.avatar_url ? `url("${String(profile.avatar_url).replace(/["\\]/g, "")}")` : "";
+      photo.style.backgroundImage = url;
+      photo.classList.toggle("has-photo", Boolean(url));
+    }
+    const gallery = Array.isArray(profile.profile_gallery) ? profile.profile_gallery.filter(Boolean) : [];
+    const coverSrc = gallery[0] || profile.avatar_url || "";
+    const cover = $("coverImage");
+    if (cover) cover.style.backgroundImage = coverSrc ? `url("${String(coverSrc).replace(/["\\]/g, "")}")` : "";
+    document.body.classList.toggle("is-developer-profile", ["developer", "owner"].includes(profile.role));
+  }
+
   /* view / edit switching */
   function fillForm() {
     const map = {
@@ -313,6 +356,7 @@
     $("sRole").textContent = roleLabels[profile?.game_role] || "BELUM DIATUR";
     updateCompletion(profile);
     galleryRender();
+    syncCard();
   }
   function loadStats() {
     $("sSince").textContent = profile?.created_at
