@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <!-- page-transition cover: must run before first paint (see css/tokens.css) -->
+    <script>try{if(sessionStorage.getItem("f4-curtain")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement,d=0;r.classList.add("f4-arriving");sessionStorage.removeItem("f4-curtain");var done=function(){r.classList.remove("f4-arriving","f4-revealing")};var go=function(){if(d)return;d=1;requestAnimationFrame(function(){try{r.animate({transform:["translateX(0)","translateX(calc(100% + 80px))"]},{duration:550,easing:"cubic-bezier(.65,0,.35,1)",fill:"forwards",pseudoElement:"::before"}).finished.then(done,done)}catch(e){r.classList.add("f4-revealing");setTimeout(done,600)}})};document.addEventListener("DOMContentLoaded",function(){var ric=window.requestIdleCallback||function(f){return setTimeout(f,50)};ric(function(){requestAnimationFrame(go)},{timeout:200})});setTimeout(go,matchMedia("(pointer: coarse)").matches?900:450)}}catch(e){}</script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#090a0d" />
+    <title>Devisi — F4NTASTIC</title>
+    <link rel="icon" href="../assets/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/divisions.css" />
+    <link rel="stylesheet" href="../css/tokens.css?v=20261109-mobile" />
+    <link rel="stylesheet" href="../css/components.css?v=20261109-nav" />
+    <link rel="stylesheet" href="../css/divisions-v2.css?v=20261109-dv2" />
+  </head>
+  <body class="division-page">
+    <header class="site-header">
+      <a class="brand" href="../index.html"
+        ><img src="../assets/logo-transparant.png" alt="F4NTASTIC" /></a
+      ><button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Buka navigasi"
+        aria-expanded="false"
+      >
+        <span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        <a href="../index.html">Home</a><a href="../index.html#about">Tentang</a
+        ><a href="../galeri.html">Galeri</a><a href="../sponsor.html">Promosi</a
+        ><a href="../devisi/" class="active">Devisi</a
+        ><a href="../index.html#join-team">Join Team</a
+        ><a href="../login.html" class="nav-login">Masuk</a>
+      </nav>
+    </header>
+    <main class="dv-main">
+      <section class="division-hero">
+        <p class="division-kicker"><span></span> F4NTASTIC COMMUNITY / DEVISI</p>
+        <h1>SEMUA<br /><span class="gold-text">DEVISI.</span></h1>
+        <p class="division-tagline">One Family, 41 Divisions, One F4NTASTIC.</p>
+        <p class="division-lead">
+          Temukan 41 divisi resmi F4NTASTIC, kenali para Leader, lihat komposisi
+          anggota, dan temukan divisi yang sedang membuka rekrutmen.
+        </p>
+        <label class="division-search"
+          ><span aria-hidden="true">⌕</span
+          ><input id="heroSearch" type="search" placeholder="Cari nickname atau ID Mobile Legends di semua divisi…"
+        /></label>
+      </section>
+
+      <section class="directory-summary">
+        <div class="summary-heading">
+          <div>
+            <p class="division-kicker"><span></span> DIRECTORY OVERVIEW</p>
+            <h2>Ringkasan Divisi</h2>
+          </div>
+          <small id="lastUpdated">Memuat data...</small>
+        </div>
+        <div class="summary-grid" id="summaryGrid"></div>
+        <div class="summary-extras">
+          <div class="spotlight-wrap">
+            <p class="division-kicker"><span></span> DIVISION SPOTLIGHT</p>
+            <div id="spotlight" class="spotlight-empty">Spotlight akan tersedia setelah ditentukan oleh Developer.</div>
+          </div>
+          <div class="activity-wrap">
+            <p class="division-kicker"><span></span> AKTIVITAS TERBARU</p>
+            <div id="activityList" class="activity-empty">Belum ada aktivitas terbaru.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="member-search-wrap" id="member-search">
+        <p class="division-kicker"><span></span> CARI MEMBER</p>
+        <input id="memberSearch" type="search" placeholder="Cari nickname atau ID ML di seluruh divisi" />
+        <div id="memberResults" aria-live="polite"></div>
+      </section>
+
+      <section class="directory-toolbar" id="division-list">
+        <div>
+          <p class="division-kicker"><span></span> OFFICIAL DIRECTORY</p>
+          <h2>Semua Devisi</h2>
+        </div>
+        <div class="toolbar-controls">
+          <select id="divisionFilter" aria-label="Filter divisi">
+            <option value="ALL">SEMUA STATUS</option>
+            <option value="RECRUITING">RECRUITING</option>
+            <option value="FULL">FULL</option>
+            <option value="CLOSED">CLOSED</option></select
+          ><select id="divisionSort" aria-label="Urutkan divisi">
+            <option value="NUMBER">URUT NOMOR</option>
+            <option value="MOST_MEMBERS">MEMBER TERBANYAK</option>
+            <option value="LEAST_MEMBERS">MEMBER TERSEDIKIT</option>
+            <option value="MOST_SLOTS">SLOT TERBANYAK</option>
+            <option value="FEWEST_SLOTS">SLOT TERSEDIKIT</option>
+            <option value="RECRUITING_FIRST">RECRUITING DULU</option></select
+          ><select id="quickDivision" aria-label="Buka divisi">
+            <option value="">BUKA DIVISI…</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="division-grid" id="divisionGrid" aria-live="polite">
+        <div class="directory-loading">Memuat direktori divisi...</div>
+      </section>
+    </main>
+
+    <!-- Member popup (js/divisions.js) — replaces the old in-card dropdown -->
+    <div class="dv-modal" id="divisionModal" hidden>
+      <div class="dv-modal-backdrop" data-dv-close></div>
+      <section class="dv-modal-card" role="dialog" aria-modal="true" aria-labelledby="dvModalTitle">
+        <button type="button" class="dv-modal-close" data-dv-close aria-label="Tutup">×</button>
+        <header class="dv-modal-head">
+          <p class="division-kicker" id="dvModalKicker"><span></span> DIVISI</p>
+          <h2 id="dvModalTitle">F4NTASTIC DIV.</h2>
+          <div class="dv-modal-meta" id="dvModalMeta"></div>
+        </header>
+        <div class="dv-modal-tools">
+          <input id="dvMemberFilter" type="search" placeholder="Cari member di divisi ini…" />
+          <div class="dv-role-chips" id="dvRoleChips" role="tablist" aria-label="Filter role"></div>
+        </div>
+        <p class="dv-manage-note" id="dvManageNote" hidden></p>
+        <div class="dv-member-list" id="dvMemberList"></div>
+        <p class="dv-modal-status" id="dvModalStatus" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+    <button id="backTop" class="back-top" aria-label="Kembali ke atas">
+      ↑
+    </button>
+    <footer class="division-footer">
+      <strong>WE ARE F4NTASTIC, WE ARE FAMILY.</strong
+      ><span>© <span id="yearNow"></span> F4NTASTIC</span>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/gallery-supabase-config.js"></script>
+    <script src="../js/session-nav.js?v=20261109-root"></script>
+    <script src="../data/divisions.js"></script>
+    <script src="../data/division-members.js"></script>
+    <script src="../js/divisions.js?v=20261109-dv2"></script>
+      <script src="../js/fx/ui.js?v=20261109-mobile2" defer></script>
+      <script src="../js/fx/nav.js?v=20261109-arrive2" defer></script>
+  </body>
+</html>

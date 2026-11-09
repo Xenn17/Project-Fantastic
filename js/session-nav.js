@@ -1,4 +1,9 @@
 (() => {
+  // Site root resolved from this script's own URL (/js/session-nav.js → /), so links also work on
+  // pages that live in a sub folder such as /devisi/.
+  const ROOT = (() => {
+    try { return new URL("../", document.currentScript.src).href; } catch { return ""; }
+  })();
   const SUPABASE_URL = "https://uxkieyunztzhiwrocnei.supabase.co";
   const SUPABASE_ANON_KEY =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4a2lleXVuenR6aGl3cm9jbmVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzMDQwODIsImV4cCI6MjEwNzg4MDA4Mn0.nlWhlGbagxwZ2-XeHEa195n5sQmRtXn3xutTISDXR70";
@@ -14,7 +19,7 @@
     recoveryQuery.get("type") === "recovery";
   if (isRecoveryLink && !location.pathname.endsWith("/reset-password.html")) {
     window.location.replace(
-      `reset-password.html${location.search}${location.hash}`,
+      `${ROOT}reset-password.html${location.search}${location.hash}`,
     );
     return;
   }
@@ -61,7 +66,7 @@
     return data;
   };
   function renderLoggedOut(link) {
-    link.href = "login.html";
+    link.href = ROOT + "login.html";
     link.classList.remove("is-account-link");
     link.innerHTML =
       '<span class="nav-login-icon" aria-hidden="true">↗</span><span>Masuk</span>';
@@ -128,7 +133,7 @@
       link.parentNode.insertBefore(wrap, link);
       wrap.appendChild(link);
     }
-    link.href = "profile.html";
+    link.href = ROOT + "profile.html";
     link.classList.add("is-account-link");
     link.innerHTML = `<span class="nav-avatar">${avatar ? `<img src="${avatar.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}" alt="" loading="lazy">` : `<span>${name.charAt(0).toUpperCase()}</span>`}</span><span class="nav-account-copy"><strong>${escapeHTML(label)}</strong><small>${role}</small></span>`;
     link.setAttribute("aria-label", `Buka profil ${name}`);
@@ -170,7 +175,7 @@
     // Tautan reset password yang mendarat di halaman mana pun (mis. karena
     // Site URL) otomatis dipindahkan ke halaman pembuat password baru.
     if (event === "PASSWORD_RECOVERY") {
-      window.location.replace("reset-password.html");
+      window.location.replace(ROOT + "reset-password.html");
       return;
     }
     if (session?.user) setTimeout(sync, 0);
