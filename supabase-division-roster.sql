@@ -51,12 +51,22 @@ on conflict (profile_id) do nothing;
 -- (leader boleh memimpin lebih dari satu divisi — lihat supabase-division-multi-leader.sql)
 
 -- ---------- 3. sinkron angka member_count + leader_name dari roster ----------
+create or replace function public.f4_division_headcount(p_division smallint)
+returns int language sql stable security definer set search_path = public, pg_temp as $$
+  select count(*)::int from (
+    select r.profile_id from public.f4_division_roster r where r.division_id = p_division
+    union
+    select l.profile_id from public.f4_division_leaders l where l.division_id = p_division
+  ) x;
+$$;
+revoke all on function public.f4_division_headcount(smallint) from public;
+
 create or replace function public.f4_division_sync(p_division smallint)
 returns void language plpgsql security definer set search_path = public, pg_temp as $$
 begin
   if p_division is null then return; end if;
   update public.f4_divisions d set
-    member_count = least(25, (select count(*) from public.f4_division_roster r where r.division_id = p_division)),
+    member_count = least(25, public.f4_division_headcount(p_division)),
     leader_name = (select coalesce(nullif(p.username, ''), p.full_name)
                    from public.f4_division_leaders l join public.profiles p on p.id = l.profile_id
                    where l.division_id = p_division),
@@ -87,33 +97,28 @@ begin
   if not exists (select 1 from public.profiles where id = p_target_id) then
     raise exception 'Akun tidak ditemukan.';
   end if;
-
   select r.division_id into v_old from public.f4_division_roster r where r.profile_id = p_target_id;
 
   if p_division_id is null then
-    delete from public.f4_division_leaders l where l.profile_id = p_target_id;
     delete from public.f4_division_roster r where r.profile_id = p_target_id;
   else
     select d.capacity into v_cap from public.f4_divisions d where d.id = p_division_id;
     if v_cap is null then raise exception 'Divisi % tidak ada.', p_division_id; end if;
-    select count(*) into v_count from public.f4_division_roster r
-      where r.division_id = p_division_id and r.profile_id <> p_target_id;
+    select count(*) into v_count from (
+      select r.profile_id from public.f4_division_roster r where r.division_id = p_division_id
+      union
+      select l.profile_id from public.f4_division_leaders l where l.division_id = p_division_id
+    ) x where x.profile_id <> p_target_id;
     if v_count >= v_cap then
       raise exception 'Divisi % sudah penuh (%/%).', p_division_id, v_count, v_cap;
     end if;
-
     insert into public.f4_division_roster as r (profile_id, division_id, assigned_by)
     values (p_target_id, p_division_id, auth.uid())
     on conflict (profile_id) do update
       set division_id = excluded.division_id,
           assigned_by = excluded.assigned_by,
           assigned_at = case when r.division_id = excluded.division_id then r.assigned_at else now() end;
-
-    -- leader hanya untuk divisinya sendiri
-    delete from public.f4_division_leaders l
-      where l.profile_id = p_target_id and (not coalesce(p_is_leader, false) or l.division_id <> p_division_id);
     if coalesce(p_is_leader, false) then
-      -- leader lama divisi ini tetap jadi member biasa
       insert into public.f4_division_leaders (division_id, profile_id, assigned_by)
       values (p_division_id, p_target_id, auth.uid())
       on conflict (division_id) do update set profile_id = excluded.profile_id, assigned_by = excluded.assigned_by, assigned_at = now();
@@ -126,7 +131,7 @@ begin
   insert into public.f4_division_audit (division_id, actor_id, action, before_data, after_data)
   select x, auth.uid(), 'ROSTER_ASSIGN',
          jsonb_build_object('profile_id', p_target_id, 'division_id', v_old),
-         jsonb_build_object('profile_id', p_target_id, 'division_id', p_division_id, 'is_leader', coalesce(p_is_leader, false))
+         jsonb_build_object('profile_id', p_target_id, 'division_id', p_division_id)
   from unnest(array_remove(array[v_old, p_division_id], null)) as x
   group by x;
 
@@ -139,23 +144,29 @@ revoke all on function public.f4_set_profile_division(uuid, smallint, boolean) f
 grant execute on function public.f4_set_profile_division(uuid, smallint, boolean) to authenticated;
 
 -- ---------- 5. RPC publik (untuk member yang login): roster + info akun publik ----------
-create or replace function public.f4_division_roster()
+drop function if exists public.f4_division_roster();
+create function public.f4_division_roster()
 returns table (
-  division_id smallint, profile_id uuid, is_leader boolean, assigned_at timestamptz,
+  division_id smallint, profile_id uuid, is_leader boolean, in_roster boolean, assigned_at timestamptz,
   username text, full_name text, avatar_url text, roles text[], main_hero text, game_role text,
   profile_gallery text[], member_since timestamptz
 )
 language sql stable security definer set search_path = public, pg_temp as $$
-  select r.division_id, p.id,
-         exists (select 1 from public.f4_division_leaders l where l.division_id = r.division_id and l.profile_id = p.id),
-         r.assigned_at,
+  with m as (
+    select r.division_id, r.profile_id, true as in_roster, r.assigned_at from public.f4_division_roster r
+    union all
+    select l.division_id, l.profile_id, false, l.assigned_at from public.f4_division_leaders l
+    where not exists (select 1 from public.f4_division_roster r where r.profile_id = l.profile_id and r.division_id = l.division_id)
+  )
+  select m.division_id, p.id,
+         exists (select 1 from public.f4_division_leaders l where l.division_id = m.division_id and l.profile_id = p.id),
+         m.in_roster, m.assigned_at,
          p.username, p.full_name, p.avatar_url,
          coalesce(nullif(p.roles, '{}'), array[coalesce(p.role, 'member')]),
          p.main_hero, p.game_role, coalesce(p.profile_gallery, '{}'), p.created_at
-  from public.f4_division_roster r
-  join public.profiles p on p.id = r.profile_id
+  from m join public.profiles p on p.id = m.profile_id
   where public.f4_directory_has_access()
-  order by r.division_id, lower(coalesce(p.username, p.full_name, ''));
+  order by m.division_id, lower(coalesce(p.username, p.full_name, ''));
 $$;
 revoke all on function public.f4_division_roster() from public;
 grant execute on function public.f4_division_roster() to authenticated;

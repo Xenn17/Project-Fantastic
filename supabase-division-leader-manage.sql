@@ -76,13 +76,11 @@ begin
   end if;
   select d.capacity into v_cap from public.f4_divisions d where d.id = p_division;
   if v_cap is null then raise exception 'Divisi % tidak ada.', p_division; end if;
-  select count(*) into v_count from public.f4_division_roster r where r.division_id = p_division;
-  if v_count >= v_cap then
+  v_count := public.f4_division_headcount(p_division);
+  if v_count >= v_cap and not exists (select 1 from public.f4_division_leaders l where l.division_id = p_division and l.profile_id = p_target_id) then
     raise exception 'Divisi % sudah penuh (%/%).', p_division, v_count, v_cap;
   end if;
-
-  insert into public.f4_division_roster (profile_id, division_id, assigned_by)
-  values (p_target_id, p_division, auth.uid());
+  insert into public.f4_division_roster (profile_id, division_id, assigned_by) values (p_target_id, p_division, auth.uid());
   perform public.f4_division_sync(p_division);
   insert into public.f4_division_audit (division_id, actor_id, action, before_data, after_data)
   values (p_division, auth.uid(), 'ROSTER_ADD', null, jsonb_build_object('profile_id', p_target_id));
@@ -99,7 +97,8 @@ begin
   if not public.f4_can_manage_roster(p_division) then
     raise exception 'Kamu tidak punya izin mengelola divisi ini.' using errcode = '42501';
   end if;
-  if not exists (select 1 from public.f4_division_roster r where r.profile_id = p_target_id and r.division_id = p_division) then
+  if not exists (select 1 from public.f4_division_roster r where r.profile_id = p_target_id and r.division_id = p_division)
+     and not exists (select 1 from public.f4_division_leaders l where l.profile_id = p_target_id and l.division_id = p_division) then
     raise exception 'Akun ini tidak ada di divisi %.', p_division;
   end if;
   if not public.f4_is_staff() then
@@ -110,9 +109,8 @@ begin
       raise exception 'Leader divisi hanya bisa dikeluarkan oleh admin.';
     end if;
   end if;
-
-  delete from public.f4_division_leaders l where l.profile_id = p_target_id;
-  delete from public.f4_division_roster r where r.profile_id = p_target_id;
+  delete from public.f4_division_leaders l where l.profile_id = p_target_id and l.division_id = p_division;
+  delete from public.f4_division_roster r where r.profile_id = p_target_id and r.division_id = p_division;
   perform public.f4_division_sync(p_division);
   insert into public.f4_division_audit (division_id, actor_id, action, before_data, after_data)
   values (p_division, auth.uid(), 'ROSTER_REMOVE', jsonb_build_object('profile_id', p_target_id), null);
