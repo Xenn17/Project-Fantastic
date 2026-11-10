@@ -67,6 +67,16 @@
     button.disabled = state;
     button.innerHTML = state ? "MEMPROSES..." : `${label} <span>↗</span>`;
   };
+  // Member and above land on the member dashboard after login; Tamu / Calon Member stay on the home page.
+  const homeFor = async (user) => {
+    try {
+      const { data } = await db.from("profiles").select("role,roles").eq("id", user.id).maybeSingle();
+      const roles = [...(Array.isArray(data?.roles) ? data.roles : []), data?.role].map((r) => String(r || "").toLowerCase());
+      return roles.some((r) => ["member", "leader_squad", "admin", "developer", "owner"].includes(r)) ? "dashboard.html" : "index.html";
+    } catch {
+      return "index.html";
+    }
+  };
   const saveDisplayUser = async (authUser) => {
     const { data: profile } = await db
       .from("profiles")
@@ -224,13 +234,8 @@
         if (error) return msg(out, readable(error));
         await saveDisplayUser(data.user);
         msg(out, "Login berhasil. Mengarahkan...", true);
-        setTimeout(
-          () =>
-            (location.href =
-              new URLSearchParams(location.search).get("redirect") ||
-              "index.html"),
-          500,
-        );
+        const next = new URLSearchParams(location.search).get("redirect") || (await homeFor(data.user));
+        setTimeout(() => (location.href = next), 500);
       } catch (error) {
         msg(out, readable(error));
       } finally {
@@ -267,7 +272,8 @@
       try {
         const { error } = await db.auth.signInWithOAuth({
           provider: "google",
-          options: { redirectTo: `${location.origin}/index.html` },
+          // dashboard.html sends Tamu / Calon Member back to index.html
+          options: { redirectTo: `${location.origin}/dashboard.html` },
         });
         if (error) throw error;
       } catch (error) {

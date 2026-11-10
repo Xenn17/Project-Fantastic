@@ -58,7 +58,7 @@
     const { data, error } = await db
       .from("profiles")
       .select(
-        "username,full_name,role,avatar_url,phone,ml_id,ml_server,gender,birth_date,presence_mode,last_seen",
+        "username,full_name,role,roles,avatar_url,phone,ml_id,ml_server,gender,birth_date,presence_mode,last_seen",
       )
       .eq("id", user.id)
       .maybeSingle();
@@ -133,10 +133,13 @@
       link.parentNode.insertBefore(wrap, link);
       wrap.appendChild(link);
     }
-    link.href = ROOT + "profile.html";
+    // Member and above → member dashboard; Tamu / Calon Member → their profile
+    const allRoles = [...(Array.isArray(profile?.roles) ? profile.roles : []), profile?.role].map((r) => String(r || "").toLowerCase());
+    const isMember = allRoles.some((r) => ["member", "leader_squad", "admin", "developer", "owner"].includes(r));
+    link.href = ROOT + (isMember ? "dashboard.html" : "profile.html");
     link.classList.add("is-account-link");
     link.innerHTML = `<span class="nav-avatar">${avatar ? `<img src="${avatar.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}" alt="" loading="lazy">` : `<span>${name.charAt(0).toUpperCase()}</span>`}</span><span class="nav-account-copy"><strong>${escapeHTML(label)}</strong><small>${role}</small></span>`;
-    link.setAttribute("aria-label", `Buka profil ${name}`);
+    link.setAttribute("aria-label", isMember ? `Buka dashboard ${name}` : `Buka profil ${name}`);
     // Akun membuka profil langsung; jangan sisipkan tombol chevron/dropdown.
     const oldToggle = wrap.querySelector(".nav-account-toggle");
     if (oldToggle) oldToggle.remove();
