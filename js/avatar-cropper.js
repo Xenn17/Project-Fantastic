@@ -1,5 +1,5 @@
 /* Avatar crop & edit popup (profile.html).
-   window.F4AvatarCropper.open(file) → Promise<Blob | null>  (null = cancelled)
+   window.F4AvatarCropper.open(file) → Promise<Blob | null>  (null = cancelled; rejects if the image can't be read)
    Drag / pinch / wheel to position, zoom slider, rotate 90°, mirror, brightness / contrast / saturation.
    Output: 512×512 JPEG. No external libraries. */
 (() => {
@@ -59,7 +59,7 @@
 
   function open(file) {
     if (!ui) ui = build();
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const url = URL.createObjectURL(file);
       const img = new Image();
       const st = { z: 1, x: 0, y: 0, rot: 0, flip: false, b: 100, c: 100, s: 100 };
@@ -155,9 +155,15 @@
         if (e.target.closest("#cropSave")) {
           ui.save.disabled = true;
           ui.save.textContent = "MEMPROSES…";
-          const blob = await exportBlob();
+          let blob = null;
+          try { blob = await exportBlob(); } catch {}
           ui.save.disabled = false;
           ui.save.textContent = "PAKAI FOTO INI";
+          if (!blob) {
+            // canvas export failed (rare: memory / tainted canvas) → fall back to the original file
+            blob = /^image\/(jpeg|png|webp)$/.test(file.type) ? file : null;
+            if (!blob) { done = true; ui.wrap.hidden = true; document.documentElement.classList.remove("crop-open"); URL.revokeObjectURL(url); cleanup(); return reject(new Error("F4_IMAGE_EXPORT")); }
+          }
           finish(blob);
         }
       };
@@ -239,7 +245,7 @@
       };
       img.onerror = () => {
         URL.revokeObjectURL(url);
-        resolve(null);
+        reject(new Error("F4_IMAGE_DECODE"));
       };
       img.src = url;
     });

@@ -38,7 +38,15 @@
   const prettyError = (error) => {
     const message = String(error?.message || error || "");
     if (/Avatar can only be changed once every 24 hours/i.test(message))
-      return "Foto profil hanya bisa diganti setiap 24 jam. Foto lama tetap digunakan.";
+      return "Server masih memakai aturan lama (ganti foto 1x / 24 jam). Admin perlu menjalankan supabase-avatar-no-cooldown.sql di Supabase.";
+    if (/F4_IMAGE_DECODE/.test(message))
+      return "Foto tidak bisa dibaca browser ini (mis. format HEIC). Pilih foto JPG / PNG / WebP, atau screenshot fotonya lalu upload.";
+    if (/F4_IMAGE_EXPORT/.test(message))
+      return "Foto gagal diproses. Coba foto lain atau ukuran yang lebih kecil.";
+    if (/payload too large|exceeded the maximum|entity too large|413/i.test(message))
+      return "Ukuran foto terlalu besar untuk server. Coba foto lain.";
+    if (/mime type|not supported/i.test(message))
+      return "Format foto ditolak server. Pakai JPG / PNG / WebP.";
     if (/row-level security|permission denied|not allowed/i.test(message))
       return "Akses database ditolak. Pastikan migrasi SQL sudah diterapkan.";
     if (/network|fetch/i.test(message))
@@ -749,8 +757,9 @@
   $("avatarFile").addEventListener("change", async () => {
     const file = $("avatarFile").files?.[0];
     if (!file) return;
-    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) {
-      say("Format foto harus JPG, PNG, atau WebP.");
+    // some Android pickers send an empty / odd MIME type — accept any image and let the cropper decode it
+    if (file.type ? !/^image\//.test(file.type) : !/\.(jpe?g|png|webp|heic|heif|gif|bmp|avif)$/i.test(file.name || "")) {
+      say("File harus berupa foto (JPG, PNG, atau WebP).");
       $("avatarFile").value = "";
       return;
     }
@@ -766,7 +775,13 @@
       );
     // crop & edit first (js/avatar-cropper.js) → 512×512 JPEG
     const fileInput = $("avatarFile");
-    const edited = window.F4AvatarCropper ? await window.F4AvatarCropper.open(file) : file;
+    let edited = null;
+    try {
+      edited = window.F4AvatarCropper ? await window.F4AvatarCropper.open(file) : file;
+    } catch (error) {
+      fileInput.value = "";
+      return say(`Foto belum tersimpan: ${prettyError(error)}`);
+    }
     if (!edited) {
       fileInput.value = "";
       return;
