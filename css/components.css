@@ -211,3 +211,56 @@ body::after {
   .nav-indicator, .menu-toggle span { transition: none; }
   .nav-avatar::before, .site-header .main-nav.is-open, .site-header .main-nav.is-open > * { animation: none; }
 }
+
+/* ---------- Desktop hamburger (index.html: <header class="site-header nav-burger">) ----------
+   The landing nav has too many items for one row: on desktop only the CTA + account stay in the bar,
+   everything else lives in the same full-screen menu the phones use. */
+@media (min-width: 781px) {
+  .site-header.nav-burger > .menu-toggle {
+    display: block; order: 5; position: relative; z-index: 3; margin-left: 14px; padding: 10px 6px;
+    background: none; border: 0; cursor: pointer;
+  }
+  .site-header.nav-burger > .menu-toggle span { display: block; width: 26px; height: 2px; margin: 5px 0; border-radius: 2px; background: var(--gold-bright); }
+  .site-header.nav-burger > .brand, .site-header.nav-burger > .nav-services-header { position: relative; z-index: 3; }
+  .site-header.nav-burger .nav-indicator { display: none !important; }
+  /* closed: only "Hubungi Kami" + login / account in the bar */
+  .site-header.nav-burger .main-nav:not(.is-open) > a:not(.nav-cta):not(.nav-login),
+  .site-header.nav-burger .main-nav:not(.is-open) > details { display: none !important; }
+  .site-header.nav-burger .main-nav:not(.is-open) { gap: 10px; }
+  /* open: full-screen panel with big numbered links in two columns */
+  .site-header.nav-burger:has(.main-nav.is-open) { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(7, 7, 7, .96); }
+  /* the nav leaves the flex row while open: keep "Layanan" next to the logo and ☰ on the right */
+  .site-header.nav-burger:has(.main-nav.is-open) > .menu-toggle { margin-left: auto; }
+  html:has(.nav-burger .main-nav.is-open) { overflow: hidden; }
+  .site-header.nav-burger .main-nav.is-open {
+    position: fixed; inset: 0; z-index: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center;
+    column-gap: 56px; row-gap: 0; margin: 0; padding: 120px max(56px, calc((100vw - 1100px) / 2)) 56px; overflow-y: auto;
+    counter-reset: navi;
+    background:
+      radial-gradient(ellipse 60% 45% at 100% 0%, rgba(217, 180, 91, .16), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 0% 100%, rgba(154, 116, 32, .14), transparent 70%),
+      rgba(6, 6, 6, .985);
+    animation: nav-open .7s var(--ease-out-expo) both;
+  }
+  .site-header.nav-burger .main-nav.is-open > a:not(.nav-cta):not(.nav-login) {
+    display: flex; align-items: baseline; gap: 16px; padding: 16px 0 !important;
+    font: 800 clamp(34px, 4.4vw, 60px)/1.02 var(--font-display) !important; letter-spacing: .01em; text-transform: uppercase;
+    color: #ece8de; border-bottom: 1px solid rgba(255, 255, 255, .07);
+    animation: nav-item .7s var(--ease-out-expo) both; animation-delay: calc(var(--i, 0) * 45ms + 140ms);
+    transition: color .25s, padding-left .35s var(--ease-out-expo);
+  }
+  .site-header.nav-burger .main-nav.is-open > a:not(.nav-cta):not(.nav-login)::before {
+    counter-increment: navi; content: counter(navi, decimal-leading-zero);
+    font: 800 12px/1 var(--font-body); letter-spacing: .2em; color: var(--gold); transform: translateY(-6px);
+  }
+  .site-header.nav-burger .main-nav.is-open > a:not(.nav-cta):not(.nav-login):hover { color: var(--gold-bright); padding-left: 10px !important; }
+  .site-header.nav-burger .main-nav.is-open > a:not(.nav-cta):not(.nav-login)::after { display: none !important; }
+  .site-header.nav-burger .main-nav.is-open > .nav-cta,
+  .site-header.nav-burger .main-nav.is-open > .nav-login,
+  .site-header.nav-burger .main-nav.is-open > .nav-account { grid-column: 1 / -1; justify-self: start; margin-top: 28px; }
+  .site-header.nav-burger .main-nav.is-open > .nav-cta { margin-top: 36px; }
+  .site-header.nav-burger .main-nav.is-open > details { display: none; }
+}
+@media (min-width: 781px) and (prefers-reduced-motion: reduce) {
+  .site-header.nav-burger .main-nav.is-open, .site-header.nav-burger .main-nav.is-open > a { animation: none !important; }
+}

@@ -71,7 +71,6 @@
     link.innerHTML =
       '<span class="nav-login-icon" aria-hidden="true">↗</span><span>Masuk</span>';
     link.setAttribute("aria-label", "Masuk ke akun F4NTASTIC");
-    document.querySelectorAll(".nav-dashboard").forEach((a) => a.remove());
     const wrap = link.closest(".nav-account");
     if (wrap && wrap.parentNode) {
       wrap.parentNode.insertBefore(link, wrap);
@@ -135,19 +134,7 @@
       link.parentNode.insertBefore(wrap, link);
       wrap.appendChild(link);
     }
-    // account chip always opens the profile; Member and above also get a "Dashboard" link in the nav
-    const allRoles = [...(Array.isArray(profile?.roles) ? profile.roles : []), profile?.role].map((r) => String(r || "").toLowerCase());
-    const isMember = allRoles.some((r) => ["member", "leader_squad", "admin", "developer", "owner"].includes(r));
     link.href = ROOT + "profile.html";
-    const nav = wrap.parentNode;
-    const hasDash = nav && [...nav.querySelectorAll("a")].some((a) => /dashboard\.html$/.test(a.getAttribute("href") || ""));
-    if (isMember && nav && !hasDash) {
-      const dash = document.createElement("a");
-      dash.href = ROOT + "dashboard.html";
-      dash.className = "nav-dashboard";
-      dash.textContent = "Dashboard";
-      nav.insertBefore(dash, accountPlaceholder || wrap);
-    } else if (!isMember) nav?.querySelectorAll(".nav-dashboard").forEach((a) => a.remove());
     link.classList.add("is-account-link");
     link.innerHTML = `<span class="nav-avatar">${avatar ? `<img src="${avatar.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}" alt="" loading="lazy">` : `<span>${name.charAt(0).toUpperCase()}</span>`}</span><span class="nav-account-copy"><strong>${escapeHTML(label)}</strong><small>${role}</small></span>`;
     link.setAttribute("aria-label", `Buka profil ${name}`);

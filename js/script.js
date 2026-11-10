@@ -393,6 +393,15 @@
     }),
   );
 
+  // Esc menutup menu (penting untuk menu layar penuh di desktop).
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || !mainNav.classList.contains("is-open")) return;
+    menuToggle.setAttribute("aria-expanded", "false");
+    mainNav.classList.remove("is-open");
+    document.body.classList.remove("menu-open");
+    menuToggle.focus();
+  });
+
   // Modal persyaratan join team.
   const joinModal = $("#joinModal");
   const joinOpenButton = $("#joinOpenButton");

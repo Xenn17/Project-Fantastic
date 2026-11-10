@@ -2,9 +2,6 @@
 <html lang="id">
   <head>
     <meta charset="utf-8" />
-    <!-- Member+ opening the site fresh (typed URL / external link) goes straight to the member dashboard.
-         Internal navigation (Home, #about, Join Team…), ?site=1 and the "Website" link from the dashboard stay here. -->
-    <script>try{(function(){var q=location.search,ss=sessionStorage;if(/[?&]site=1(&|$)/.test(q))ss.setItem("f4-site","1");if(location.hash||ss.getItem("f4-site"))return;var ref=document.referrer;if(ref){try{if(new URL(ref).origin===location.origin)return}catch(e){}}var tok=false;for(var i=0;i<localStorage.length;i++){if(/^sb-.+-auth-token$/.test(localStorage.key(i))){tok=true;break}}if(!tok)return;var u=JSON.parse(localStorage.getItem("f4ntastic-user")||"null");if(!u)return;var rs=[].concat(u.roles||[],u.role||[]),ok=["member","leader_squad","admin","developer","owner"];for(var j=0;j<rs.length;j++){if(ok.indexOf(String(rs[j]).toLowerCase())>-1){location.replace("dashboard.html");return}}})()}catch(e){}</script>
     <script>if(location.hash)document.documentElement.classList.add("cv-ready")</script>
     <!-- page-transition cover: must run before first paint (see css/tokens.css) -->
     <script>try{if(sessionStorage.getItem("f4-curtain")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement,d=0;r.classList.add("f4-arriving");sessionStorage.removeItem("f4-curtain");var done=function(){r.classList.remove("f4-arriving","f4-revealing")};var go=function(){if(d)return;d=1;requestAnimationFrame(function(){try{r.animate({transform:["translateX(0)","translateX(calc(100% + 80px))"]},{duration:550,easing:"cubic-bezier(.65,0,.35,1)",fill:"forwards",pseudoElement:"::before"}).finished.then(done,done)}catch(e){r.classList.add("f4-revealing");setTimeout(done,600)}})};document.addEventListener("DOMContentLoaded",function(){var ric=window.requestIdleCallback||function(f){return setTimeout(f,50)};ric(function(){requestAnimationFrame(go)},{timeout:200})});setTimeout(go,matchMedia("(pointer: coarse)").matches?900:450)}}catch(e){}</script>
@@ -24,7 +21,7 @@
     />
     <link rel="stylesheet" href="css/style.css?v=20261109-perf" />
     <link rel="stylesheet" href="css/tokens.css?v=20261109-mobile" />
-    <link rel="stylesheet" href="css/components.css?v=20261109-nav" />
+    <link rel="stylesheet" href="css/components.css?v=20261110-burger" />
     <link rel="stylesheet" href="css/landing.css?v=20261109-mobile3" />
     <!-- Import map must precede every module load (incl. modulepreload) — Firefox ignores late maps. -->
     <script type="importmap">
@@ -38,14 +35,14 @@
     </script>
     <link rel="modulepreload" href="js/fx/landing.js?v=20261109-mobile3" />
     <script src="data.js?v=20261018-logo" defer></script>
-    <script src="js/script.js?v=20261109-arrive2" defer></script>
+    <script src="js/script.js?v=20261110-burger" defer></script>
     <script src="js/fx/ui.js?v=20261109-mobile2" defer></script>
     <script src="js/fx/nav.js?v=20261109-arrive2" defer></script>
     <script type="module" src="js/fx/landing.js?v=20261109-mobile3"></script>
   </head>
   <body class="is-landing">
     <div class="page-glow" aria-hidden="true"></div>
-    <header class="site-header">
+    <header class="site-header nav-burger">
       <a
         class="brand"
         href="#home"
