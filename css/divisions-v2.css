@@ -374,7 +374,7 @@ html.dv-modal-open { overflow: hidden; }
 
 /* ---------- join requests ---------- */
 .dv-requested { padding: 4px 9px; border-radius: 99px; font-size: 9px; font-weight: 800; letter-spacing: .16em; color: var(--gold-bright); border: 1px dashed rgba(246, 221, 147, .6); }
-.division-card .division-edit { position: relative !important; }
+.division-card .division-edit { position: relative !important; top: auto !important; right: auto !important; } /* old divisions.css sets top/right for an absolute pencil */
 .dv-req-badge {
   position: absolute; top: -6px; right: -6px; min-width: 18px; height: 18px; padding: 0 5px; display: grid; place-items: center;
   border-radius: 99px; font: 800 10px/1 var(--font-body, sans-serif); font-style: normal; color: #fff; background: #d0533f; box-shadow: 0 0 0 2px #111;
