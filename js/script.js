@@ -379,6 +379,7 @@
   // Navigasi seluler.
   const menuToggle = $("#menuToggle");
   const mainNav = $("#mainNav");
+  menuToggle.dataset.navBound = "1"; // js/site-nav.js only decorates the menu here
   menuToggle.addEventListener("click", () => {
     const open = menuToggle.getAttribute("aria-expanded") === "true";
     menuToggle.setAttribute("aria-expanded", String(!open));
