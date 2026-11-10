@@ -21,7 +21,7 @@
     "birth_date",
   ];
   const PROFILE_COLS =
-    "id,email,username,full_name,phone,ml_id,ml_server,gender,birth_date,role,avatar_url,avatar_updated_at,presence_mode,last_seen,created_at,main_hero,favorite_heroes,profile_gallery,game_role";
+    "id,email,username,full_name,phone,ml_id,ml_server,gender,birth_date,role,roles,avatar_url,avatar_updated_at,presence_mode,last_seen,created_at,main_hero,favorite_heroes,profile_gallery,game_role";
   let user = null,
     profile = null,
     profilePersisted = false,
@@ -309,6 +309,14 @@
     const cover = $("coverImage");
     if (cover) cover.style.backgroundImage = coverSrc ? `url("${String(coverSrc).replace(/["\\]/g, "")}")` : "";
     document.body.classList.toggle("is-developer-profile", ["developer", "owner"].includes(profile.role));
+    // Panel shortcuts: Leader Panel for Leader Squad and above, Admin Panel for Admin and above.
+    // (Only a shortcut — each panel checks access again on its own and server-side.)
+    const myRoles = [...(Array.isArray(profile.roles) ? profile.roles : []), profile.role].map((r) => String(r || "").toLowerCase());
+    const isAdmin = myRoles.some((r) => ["admin", "developer", "owner"].includes(r));
+    const isLeader = isAdmin || myRoles.includes("leader_squad");
+    if ($("adminPanelLink")) $("adminPanelLink").hidden = !isAdmin;
+    if ($("leaderPanelLink")) $("leaderPanelLink").hidden = !isLeader;
+    if ($("profilePanels")) $("profilePanels").hidden = !isLeader;
   }
 
 

@@ -451,3 +451,23 @@ button, input, select { font: inherit; }
   .album-arrow { top: auto; bottom: 14px; margin: 0; }
   .presence-menu { right: 50%; transform-origin: 50% 0; translate: 50% 0; width: min(290px, calc(100vw - 40px)); }
 }
+
+/* ---------- Admin / Leader panel shortcuts ---------- */
+.profile-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; width: min(100%, 760px); margin: 34px auto 0; }
+.profile-panels[hidden], .profile-panel-link[hidden] { display: none; }
+.profile-panel-link {
+  display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 18px; text-decoration: none; color: var(--text);
+  background: padding-box linear-gradient(#0d0c0a, #0d0c0a), border-box var(--grad-border); border: 1px solid transparent;
+  transition: transform .45s var(--ease-out-expo), box-shadow .3s;
+}
+.profile-panel-link:hover, .profile-panel-link:focus-visible { transform: translateY(-3px); box-shadow: var(--glow-gold); outline: none; }
+.profile-panel-link i {
+  flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; font-style: normal; font-size: 20px;
+  color: #120f08; background: var(--grad-gold);
+}
+.profile-panel-link.is-leader i { color: var(--gold-bright); background: rgba(217, 180, 91, .1); border: 1px solid rgba(246, 221, 147, .35); }
+.profile-panel-link span { display: grid; gap: 3px; min-width: 0; flex: 1; }
+.profile-panel-link b { font-size: 13px; font-weight: 800; letter-spacing: .16em; color: var(--gold-bright); }
+.profile-panel-link small { color: var(--muted); font-size: 12px; }
+.profile-panel-link em { font-style: normal; color: var(--gold-bright); opacity: .7; }
+.profile-panels + .profile-signout { margin-top: 18px; }
