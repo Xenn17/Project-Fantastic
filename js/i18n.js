@@ -19,6 +19,7 @@
     Promosi: { en: "Promotion", th: "โปรโมชัน" },
     "Join Team": { en: "Join Team", th: "เข้าร่วมทีม" },
     Posko: { en: "Support", th: "ศูนย์ช่วยเหลือ" },
+    Devisi: { en: "Divisions", th: "ดิวิชัน" },
     "Hubungi Kami": { en: "Contact Us", th: "ติดต่อเรา" },
     Masuk: { en: "Log in", th: "เข้าสู่ระบบ" },
     Daftar: { en: "Register", th: "สมัครสมาชิก" },
