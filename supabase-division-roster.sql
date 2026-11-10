@@ -48,8 +48,7 @@ select distinct on (l.profile_id) l.profile_id, l.division_id, l.assigned_by
 from public.f4_division_leaders l
 order by l.profile_id, l.assigned_at desc
 on conflict (profile_id) do nothing;
-delete from public.f4_division_leaders l
-where not exists (select 1 from public.f4_division_roster r where r.profile_id = l.profile_id and r.division_id = l.division_id);
+-- (leader boleh memimpin lebih dari satu divisi — lihat supabase-division-multi-leader.sql)
 
 -- ---------- 3. sinkron angka member_count + leader_name dari roster ----------
 create or replace function public.f4_division_sync(p_division smallint)
