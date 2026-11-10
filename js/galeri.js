@@ -278,21 +278,7 @@
       if (e.key === "ArrowRight") moveLB(1);
     }
   });
-  const toggle = $("#menuToggle"),
-    nav = $("#mainNav");
-  if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      const o = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!o));
-      nav.classList.toggle("is-open", !o);
-    });
-    nav.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => {
-        nav.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-      }),
-    );
-  }
+  // ☰ menu is handled by js/site-nav.js (shared navbar)
   const y = $("#galleryYear");
   if (y) y.textContent = new Date().getFullYear();
   renderCategories();

@@ -216,11 +216,7 @@ body::after {
    The landing nav has too many items for one row: on desktop only the CTA + account stay in the bar,
    everything else lives in the same full-screen menu the phones use. */
 @media (min-width: 781px) {
-  .site-header.nav-burger > .menu-toggle {
-    display: block; order: 5; position: relative; z-index: 3; margin-left: 14px; padding: 10px 6px;
-    background: none; border: 0; cursor: pointer;
-  }
-  .site-header.nav-burger > .menu-toggle span { display: block; width: 26px; height: 2px; margin: 5px 0; border-radius: 2px; background: var(--gold-bright); }
+  .site-header.nav-burger > .menu-toggle { order: 5; position: relative; z-index: 3; }
   .site-header.nav-burger > .brand, .site-header.nav-burger > .nav-services-header { position: relative; z-index: 3; }
   .site-header.nav-burger .nav-indicator { display: none !important; }
   /* closed: only "Hubungi Kami" + login / account in the bar */
@@ -264,3 +260,50 @@ body::after {
 @media (min-width: 781px) and (prefers-reduced-motion: reduce) {
   .site-header.nav-burger .main-nav.is-open, .site-header.nav-burger .main-nav.is-open > a { animation: none !important; }
 }
+
+/* ---------- Navbar buttons, refreshed (all pages, laptop + phone) ---------- */
+/* ☰ : round gold-rimmed pill, two bars that morph into ✕; "MENU" / "TUTUP" label on laptop */
+.site-header .menu-toggle {
+  position: relative; width: 46px; height: 46px; padding: 0 !important; margin: 0; flex: none; cursor: pointer;
+  border-radius: 99px; border: 1px solid transparent; color: var(--gold-bright);
+  background: padding-box linear-gradient(#0e0d0b, #0e0d0b), border-box var(--grad-border);
+  box-shadow: 0 8px 24px -14px rgba(0, 0, 0, .9);
+  transition: background .3s, color .3s, box-shadow .3s, transform .45s var(--ease-out-expo);
+}
+.site-header .menu-toggle span {
+  position: absolute; right: 13px; height: 2px !important; margin: 0 !important; border-radius: 2px; background: currentColor !important;
+  transition: transform .45s var(--ease-out-expo), width .35s var(--ease-out-expo), top .35s var(--ease-out-expo);
+}
+.site-header .menu-toggle span:first-child { top: 18px; width: 20px !important; }
+.site-header .menu-toggle span:last-child { top: 26px; width: 13px !important; }
+.site-header .menu-toggle:hover span:last-child { width: 20px !important; }
+.site-header .menu-toggle[aria-expanded="true"] span:first-child { top: 22px; width: 20px !important; transform: rotate(45deg); }
+.site-header .menu-toggle[aria-expanded="true"] span:last-child { top: 22px; width: 20px !important; transform: rotate(-45deg); }
+.site-header .menu-toggle:hover, .site-header .menu-toggle:focus-visible {
+  color: #120f08; background: padding-box var(--grad-gold), border-box var(--grad-gold); box-shadow: var(--glow-gold); outline: none;
+}
+.site-header .menu-toggle:active { transform: scale(.94); }
+@media (max-width: 780px) {
+  .site-header .menu-toggle { display: block; width: 44px; height: 44px; margin-left: auto; }
+  .site-header .menu-toggle span { right: 12px; }
+  .site-header .menu-toggle span:first-child { top: 17px; }
+  .site-header .menu-toggle span:last-child { top: 25px; }
+  .site-header .menu-toggle[aria-expanded="true"] span { top: 21px !important; }
+}
+@media (min-width: 781px) {
+  .site-header.nav-burger > .menu-toggle { display: block; width: auto; min-width: 112px; padding: 0 46px 0 20px !important; margin-left: 12px; }
+  .site-header.nav-burger > .menu-toggle::before {
+    content: "MENU"; display: block; font: 800 11px/44px var(--font-body); letter-spacing: .24em; color: currentColor; text-align: left;
+  }
+  .site-header.nav-burger > .menu-toggle[aria-expanded="true"]::before { content: "TUTUP"; }
+  .site-header.nav-burger > .menu-toggle span { right: 18px; }
+  /* bar buttons: same height + pill shape so they line up */
+  .site-header .main-nav > .nav-cta,
+  .site-header .main-nav > .nav-login:not(.is-account-link) {
+    min-height: 46px; padding: 0 20px !important; border-radius: 99px !important; display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px !important; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .site-header .main-nav > .nav-login:not(.is-account-link) { border-color: transparent; background: var(--grad-gold); color: #120f08; }
+  .site-header .main-nav .nav-account .nav-login.is-account-link { min-height: 46px; border-radius: 99px !important; padding: 5px 16px 5px 6px !important; }
+}
+@media (prefers-reduced-motion: reduce) { .site-header .menu-toggle, .site-header .menu-toggle span { transition: none; } }

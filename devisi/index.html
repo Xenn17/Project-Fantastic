@@ -14,27 +14,45 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/divisions.css" />
     <link rel="stylesheet" href="../css/tokens.css?v=20261109-mobile" />
-    <link rel="stylesheet" href="../css/components.css?v=20261109-nav" />
+    <link rel="stylesheet" href="../css/components.css?v=20261110-gnav2" />
     <link rel="stylesheet" href="../css/divisions-v2.css?v=20261110-edit" />
   </head>
   <body class="division-page">
-    <header class="site-header">
-      <a class="brand" href="../index.html"
-        ><img src="../assets/logo-transparant.png" alt="F4NTASTIC" /></a
-      ><button
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Buka navigasi"
-        aria-expanded="false"
+    <header class="site-header nav-burger">
+      <a class="brand" href="../index.html#home" aria-label="WE ARE FANTASTIC, kembali ke beranda"
+        ><span class="brand-lockup"
+          ><img class="brand-logo" src="../assets/logo-transparant.png" alt="" aria-hidden="true" /><span class="brand-mark">F<span>4</span>N'T</span></span
+        ><span class="brand-caption">WE ARE FANTASTIC</span></a
       >
+      <details class="nav-services nav-services-header" aria-label="Layanan F4NTASTIC">
+        <summary>Layanan <span aria-hidden="true">⌄</span></summary>
+        <div class="nav-services-menu">
+            <a href="https://wa.me/6287844013152" target="_blank" rel="noopener noreferrer">Info JOKI</a
+            ><a href="https://whatsapp.com/channel/0029VbDTIENCsU9K0rX7Jx3I" target="_blank" rel="noopener noreferrer">Jual Beli Akun ML</a
+            ><a href="https://whatsapp.com/channel/0029VbCmz0j2kNFy8yoCH01n" target="_blank" rel="noopener noreferrer">Paid Edit Konten Video</a>
+          </div>
+      </details>
+      <button class="menu-toggle" id="menuToggle" aria-label="Buka navigasi" aria-expanded="false" aria-controls="mainNav">
         <span></span><span></span>
       </button>
-      <nav class="main-nav" id="mainNav">
-        <a href="../index.html">Home</a><a href="../index.html#about">Tentang</a
-        ><a href="../galeri.html">Galeri</a><a href="../sponsor.html">Promosi</a
-        ><a href="../devisi/" class="active">Devisi</a
-        ><a href="../index.html#join-team">Join Team</a
-        ><a href="../login.html" class="nav-login">Masuk</a>
+      <nav class="main-nav" id="mainNav" aria-label="Navigasi utama">
+        <a href="../index.html#home">Home</a>
+        <a href="../index.html#about">Tentang</a>
+        <a href="../galeri.html">Galeri</a>
+        <a href="../sponsor.html">Promosi</a>
+        <a href="../index.html#join-team">Join Team</a>
+        <a href="../pengaduan.html" title="Posko Pengaduan Member">Posko</a>
+        <a href="../devisi/" class="active" aria-current="page">Devisi</a>
+        <a href="../index.html#connect" class="nav-cta">Hubungi Kami <span class="icon-arrow icon-arrow-up" aria-hidden="true"></span></a>
+        <a href="../login.html" class="nav-login"><span class="nav-login-dot"></span> Masuk</a>
+        <details class="nav-services nav-services-mobile">
+          <summary>Layanan <span aria-hidden="true">⌄</span></summary>
+          <div class="nav-services-menu">
+            <a href="https://wa.me/6287844013152" target="_blank" rel="noopener noreferrer">Info JOKI</a
+            ><a href="https://whatsapp.com/channel/0029VbDTIENCsU9K0rX7Jx3I" target="_blank" rel="noopener noreferrer">Jual Beli Akun ML</a
+            ><a href="https://whatsapp.com/channel/0029VbCmz0j2kNFy8yoCH01n" target="_blank" rel="noopener noreferrer">Paid Edit Konten Video</a>
+          </div>
+        </details>
       </nav>
     </header>
     <main class="dv-main">
@@ -211,7 +229,8 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/gallery-supabase-config.js"></script>
-    <script src="../js/session-nav.js?v=20261110-dash2"></script>
+    <script src="../js/session-nav.js?v=20261110-gnav"></script>
+    <script src="../js/site-nav.js?v=20261110-gnav"></script>
     <script src="../data/divisions.js?v=20261110-cap25"></script>
     <script src="../js/divisions.js?v=20261110-edit"></script>
       <script src="../js/fx/ui.js?v=20261109-mobile2" defer></script>
