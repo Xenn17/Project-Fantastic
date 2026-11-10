@@ -38,9 +38,9 @@
             >Kapasitas Maksimum<input
               id="capacity"
               type="number"
-              min="1"
-              max="25"
-              required /></label
+              value="25"
+              readonly
+              title="Setiap divisi maksimal 25 orang" /></label
           ><label
             >Status Rekrutmen<select id="recruitment">
               <option value="RECRUITING">RECRUITING</option>
@@ -97,6 +97,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/gallery-supabase-config.js"></script>
     <script src="js/session-nav.js?v=20261109-root"></script>
-    <script src="js/division-editor.js?v=20261110-roster"></script>
+    <script src="js/division-editor.js?v=20261110-cap25"></script>
   </body>
 </html>

@@ -119,7 +119,7 @@
         : "AKSES ADMIN · SESUAI IZIN";
     $("squadId").value = d.squad_id || "";
     $("whatsapp").value = d.whatsapp || "";
-    $("capacity").value = d.capacity;
+    $("capacity").value = 25;
     $("recruitment").value = d.recruitment_status;
     $("spotlight").value = String(!!d.spotlight);
     $("description").value = d.description || "";
@@ -136,13 +136,8 @@
   $("divisionForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!canEdit) return;
-    let cap = Number($("capacity").value),
-      count = members.length;
-    if (cap < 1 || cap > 25 || count > cap)
-      return say(
-        "Kapasitas tidak valid atau lebih kecil dari jumlah anggota.",
-        true,
-      );
+    // every division has a fixed 25 slots (set in supabase-division-capacity.sql)
+    let cap = 25;
     let payload = {
       squad_id: $("squadId").value.trim() || null,
       whatsapp: $("whatsapp").value.replace(/[^0-9+]/g, ""),
