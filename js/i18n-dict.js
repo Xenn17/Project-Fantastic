@@ -1,6 +1,9 @@
 /* F4NTASTIC i18n — extra dictionary (Indonesian → en / th) for every page. Loaded before js/i18n.js. */
 (() => {
   const D = {
+    "+ AJUKAN MASUK DIVISI": ["+ REQUEST TO JOIN", "+ ขอเข้าร่วมดิวิชัน"],
+    "⏳ MENUNGGU PERSETUJUAN · BATALKAN": ["⏳ AWAITING APPROVAL · CANCEL", "⏳ รอการอนุมัติ · ยกเลิก"],
+    "Klik untuk membatalkan": ["Click to cancel", "คลิกเพื่อยกเลิก"],
     "Fitur permintaan masuk belum aktif": ["Join requests aren't active yet", "ฟีเจอร์คำขอเข้าร่วมยังไม่เปิดใช้"],
     "Admin perlu menjalankan supabase-division-requests.sql di Supabase SQL Editor.": ["An admin needs to run supabase-division-requests.sql in the Supabase SQL Editor.", "แอดมินต้องรัน supabase-division-requests.sql ใน Supabase SQL Editor"],
     "DIAJUKAN": ["REQUESTED", "ส่งคำขอแล้ว"],

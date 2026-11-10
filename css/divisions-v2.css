@@ -421,3 +421,12 @@ html.dv-modal-open { overflow: hidden; }
   .ed-request { grid-template-columns: 1fr; }
   .ed-request-msg { grid-row: auto; }
 }
+.dv-join-card {
+  width: 100%; margin-top: 10px; padding: 11px 14px; border-radius: 99px; cursor: pointer;
+  font: 800 11px/1 var(--font-body, sans-serif); letter-spacing: .12em;
+  color: var(--gold-bright); background: rgba(217, 180, 91, .06); border: 1px dashed rgba(246, 221, 147, .55);
+  transition: background .2s, color .2s;
+}
+.dv-join-card:hover { color: #120f08; background: var(--grad-gold); border-style: solid; }
+.dv-join-card.is-pending { color: #9fe0b6; background: rgba(80, 160, 120, .08); border: 1px solid rgba(120, 200, 150, .4); }
+.dv-join-card.is-pending:hover { color: #fff; background: #c0503f; border-color: transparent; }

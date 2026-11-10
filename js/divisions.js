@@ -227,6 +227,7 @@
             <a class="wa" href="${wa || "#"}" ${wa ? 'target="_blank" rel="noopener"' : 'aria-disabled="true"'} title="Hubungi divisi via WhatsApp">WA</a>
             <button data-share="${d.number}" title="Salin link divisi" aria-label="Salin link divisi ${d.number}">⧉</button>
           </div>
+          ${joinCardHtml(d)}
         </article>`;
           })
           .join("")
@@ -308,6 +309,15 @@
     history.replaceState(null, "", location.pathname);
     lastFocus?.focus?.();
   }
+  // "request to join" button on the card itself (accounts without a division)
+  function joinCardHtml(d) {
+    if (!canRequest() || !requestsReady) return "";
+    if (myRequest && Number(myRequest.division_id) === d.number)
+      return `<button type="button" class="dv-join-card is-pending" data-join-cancel title="Klik untuk membatalkan">⏳ MENUNGGU PERSETUJUAN · BATALKAN</button>`;
+    if (myRequest) return "";
+    if (countOf(d) >= d.capacity) return "";
+    return `<button type="button" class="dv-join-card" data-join="${d.number}">+ AJUKAN MASUK DIVISI</button>`;
+  }
   // "request to join" box inside the view popup (only for accounts without a division)
   function renderJoinBox(d) {
     const box = $("dvJoin");
@@ -336,7 +346,6 @@
     } else {
       box.className = "dv-join";
       box.innerHTML = `<div><b>Belum punya divisi?</b><small>Ajukan masuk ke DIV ${pad(d.number)}. Leader divisi akan meninjau permintaanmu.</small></div>
-        <textarea id="dvJoinMsg" maxlength="300" rows="2" placeholder="Pesan untuk leader (opsional): role, jam main, dll."></textarea>
         <button type="button" class="dv-primary" data-join="${d.number}">AJUKAN MASUK DIVISI</button>`;
     }
   }
@@ -345,7 +354,7 @@
     if (!d) return;
     if (!confirm(`Ajukan masuk ke DIV ${pad(n)}?`)) return;
     btn.disabled = true;
-    const { error } = await db.rpc("f4_division_request_join", { p_division: n, p_message: $("dvJoinMsg")?.value || "" });
+    const { error } = await db.rpc("f4_division_request_join", { p_division: n, p_message: null });
     btn.disabled = false;
     if (error) return alert(friendly(error));
     await refreshAll();
@@ -895,7 +904,10 @@
     const p = e.target.closest("[data-profile]"),
       m = e.target.closest("[data-members]"),
       sh = e.target.closest("[data-share]"),
-      ed = e.target.closest("[data-edit]");
+      ed = e.target.closest("[data-edit]"),
+      jn = e.target.closest("[data-join]");
+    if (jn) return requestJoin(Number(jn.dataset.join), jn);
+    if (e.target.closest("[data-join-cancel]")) return cancelJoin();
     if (p) return openProfile(p.dataset.profile);
     if (m) openModal(Number(m.dataset.members));
     if (sh) {
