@@ -1026,6 +1026,8 @@
 
 /* patterns: [RegExp, { en, th }] — $1… = captured text, itself translated when known */
 window.F4_I18N_PATTERNS = [
+  [/^Fitur ini belum aktif — admin perlu menjalankan (\S+\.sql) di Supabase SQL Editor(?: \(belum ada: (\S+)\))?\.$/, { en: "This feature isn't active yet — an admin needs to run $1 in the Supabase SQL Editor (missing: $2).", th: "ฟีเจอร์นี้ยังไม่เปิดใช้ — แอดมินต้องรัน $1 ใน Supabase SQL Editor (ยังไม่มี: $2)" }],
+  [/^Database belum lengkap — jalankan file SQL divisi terbaru di Supabase SQL Editor\. \((.+)\)$/, { en: "The database is incomplete — run the latest division SQL files in the Supabase SQL Editor. ($1)", th: "ฐานข้อมูลยังไม่ครบ — รันไฟล์ SQL ดิวิชันล่าสุดใน Supabase SQL Editor ($1)" }],
   [/^Leader DIV (\d+) akan menerima atau menolak permintaanmu\.$/, { en: "The DIV $1 leader will accept or decline your request.", th: "หัวหน้า DIV $1 จะรับหรือปฏิเสธคำขอของคุณ" }],
   [/^Kamu sudah mengajukan ke DIV (\d+)$/, { en: "You've already requested DIV $1", th: "คุณส่งคำขอไป DIV $1 แล้ว" }],
   [/^Ajukan masuk ke DIV (\d+)\. Leader divisi akan meninjau permintaanmu\.$/, { en: "Request to join DIV $1. The division leader will review it.", th: "ขอเข้าร่วม DIV $1 หัวหน้าดิวิชันจะพิจารณาคำขอ" }],

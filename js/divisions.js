@@ -416,8 +416,25 @@
   };
   const friendly = (err) => {
     const msg = String(err?.message || err || "");
-    if (/f4_division_request|f4_division_requests/i.test(msg) && /Could not find|does not exist|schema cache/i.test(msg)) return "Fitur permintaan divisi belum aktif — admin perlu menjalankan supabase-division-requests.sql di Supabase.";
-    if (/Could not find the function|does not exist|schema cache/i.test(msg)) return "Fitur ini belum aktif — admin perlu menjalankan supabase-division-edit.sql di Supabase.";
+    if (/Could not find|does not exist|schema cache/i.test(msg)) {
+      // name the SQL file that defines the missing function / table
+      const FILES = [
+        [/f4_division_request|f4_promote_to_member/, "supabase-division-requests.sql"],
+        [/f4_remove_division_leader|f4_leaders_max_two/, "supabase-division-two-leaders.sql"],
+        [/f4_profile_is_complete|f4_require_complete_profile/, "supabase-profile-complete.sql"],
+        [/f4_division_find_by_ml|f4_division_add_member_by_ml/, "supabase-division-add-by-ml.sql"],
+        [/f4_update_division|f4_can_manage_division_folder/, "supabase-division-edit.sql"],
+        [/f4_division_headcount|f4_set_division_leader/, "supabase-division-multi-leader.sql"],
+        [/f4_can_manage_roster|f4_profile_is_member|f4_division_candidates|f4_division_add_member|f4_division_remove_member/, "supabase-division-leader-manage.sql"],
+        [/f4_division_roster|f4_division_sync|f4_set_profile_division/, "supabase-division-roster.sql"],
+        [/f4_division_audit|f4_divisions|f4_division_leaders|f4_directory_/, "supabase-divisions.sql"],
+      ];
+      const hit = FILES.find(([re]) => re.test(msg));
+      const missing = (msg.match(/f4_[a-z_]+/i) || [""])[0];
+      return hit
+        ? `Fitur ini belum aktif — admin perlu menjalankan ${hit[1]} di Supabase SQL Editor${missing ? ` (belum ada: ${missing})` : ""}.`
+        : `Database belum lengkap — jalankan file SQL divisi terbaru di Supabase SQL Editor. (${msg.slice(0, 140)})`;
+    }
     if (/Bucket not found/i.test(msg)) return "Penyimpanan foto belum aktif — admin perlu menjalankan supabase-division-edit.sql.";
     if (/42501|permission|row-level|izin|Unauthorized/i.test(msg) && !/sudah|hanya|Kapasitas/i.test(msg)) return "Kamu tidak punya izin mengedit divisi ini.";
     return msg || "Terjadi kesalahan. Coba lagi.";
