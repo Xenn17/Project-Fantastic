@@ -143,7 +143,7 @@
     (counts.data || []).forEach((r) => reqCounts.set(Number(r.division_id), Number(r.pending) || 0));
   }
   // can I ask to join a division? (logged in, no membership division yet)
-  const canRequest = () => Boolean(authUser) && requestsReady && !isStaff() && myDivision() == null;
+  const canRequest = () => Boolean(authUser) && myDivision() == null;
 
   /* ================= page ================= */
   function renderSummary() {
@@ -318,6 +318,11 @@
       return;
     }
     box.hidden = false;
+    if (!requestsReady) {
+      box.className = "dv-join is-full";
+      box.innerHTML = `<div><b>Fitur permintaan masuk belum aktif</b><small>Admin perlu menjalankan supabase-division-requests.sql di Supabase SQL Editor.</small></div>`;
+      return;
+    }
     const mineHere = myRequest && Number(myRequest.division_id) === d.number;
     if (mineHere) {
       box.className = "dv-join is-pending";
