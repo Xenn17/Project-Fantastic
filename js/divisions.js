@@ -44,7 +44,8 @@
   const nameOf = (m) => m.username || m.full_name || "Tanpa nama";
   const myDivision = () => {
     if (!authUser) return null;
-    for (const d of rows) if (d.members.some((m) => String(m.id) === String(authUser.id))) return d.number;
+    // membership division only (in_roster); leaderships elsewhere are handled by d.leader
+    for (const d of rows) if (d.members.some((m) => String(m.id) === String(authUser.id) && m.in_roster !== false)) return d.number;
     return null;
   };
   // Mirrors f4_can_manage_roster(): staff, the division's official leader, or a Leader Squad on its roster.
@@ -309,7 +310,7 @@
                   ${avatarHtml(m)}
                   <span class="dv-member-copy"><strong>${esc(nameOf(m))}</strong><small>${m.full_name && m.username ? esc(m.full_name) + " · " : ""}${m.is_leader ? "Leader divisi" : m.main_hero ? "Main " + esc(m.main_hero) : "Lihat akun"}</small></span>
                 </button>
-                <div class="member-role-list">${m.is_leader ? '<b class="role-badge role-leader">LEADER</b>' : ""}${gameBadge(m)}${manage ? `<button type="button" class="dv-move-toggle" data-toggle-move aria-expanded="false">⇄ PINDAH</button>` : ""}${lead && !m.is_leader && String(m.id) !== String(authUser.id) ? `<button type="button" class="dv-remove" data-remove="${esc(m.id)}">KELUARKAN</button>` : ""}</div>
+                <div class="member-role-list">${m.is_leader ? '<b class="role-badge role-leader">LEADER</b>' : ""}${gameBadge(m)}${manage && m.in_roster !== false ? `<button type="button" class="dv-move-toggle" data-toggle-move aria-expanded="false">⇄ PINDAH</button>` : ""}${lead && !m.is_leader && String(m.id) !== String(authUser.id) ? `<button type="button" class="dv-remove" data-remove="${esc(m.id)}">KELUARKAN</button>` : ""}</div>
                 ${manage ? `<div class="dv-move"><select data-move-target aria-label="Pindahkan ${esc(nameOf(m))} ke divisi"><option value="">Pindah ke divisi…</option><option value="0">— Keluarkan dari divisi</option>${options}</select><button type="button" data-move="${esc(m.id)}">SIMPAN</button></div>` : ""}
               </article>`;
           })
@@ -333,7 +334,7 @@
     };
     if (to && countOf(to) >= to.capacity) return say(`DIV ${pad(to.number)} sudah penuh (${countOf(to)}/${to.capacity}).`, "is-error");
     const what = to ? `ke DIV ${pad(to.number)}` : "keluar dari divisi";
-    if (!confirm(`Pindahkan ${nameOf(m)} dari DIV ${pad(from.number)} ${what}?${m.is_leader ? "\n\nDia adalah LEADER divisi ini — status leadernya akan dilepas." : ""}`)) return;
+    if (!confirm(`Pindahkan ${nameOf(m)} dari DIV ${pad(from.number)} ${what}?${m.is_leader ? "\n\nStatus LEADER-nya tidak berubah (atur leader lewat Manage Role)." : ""}`)) return;
     say("Menyimpan…");
     try {
       const { error } = await db.rpc("f4_set_profile_division", { p_target_id: m.id, p_division_id: to ? to.number : null, p_is_leader: false });
@@ -437,21 +438,26 @@
     return null;
   };
   function openProfile(pid) {
-    const m = findMember(pid);
+    // one account can lead several divisions: collect every entry, the "home" one is the membership row
+    const all = rows.flatMap((d) => d.members.filter((x) => String(x.id) === String(pid)));
+    const m = all.find((x) => x.in_roster !== false) || all[0];
     if (!m || !pf) return;
+    const led = all.filter((x) => x.is_leader).map((x) => x.division).sort((a, b) => a - b);
+    const home = m.in_roster !== false ? m.division : null;
     pfMember = m;
     if (pf.hidden) pfLastFocus = document.activeElement;
     $("pfAvatar").outerHTML = avatarHtml(m, "pf-avatar").replace('class="pf-avatar"', 'class="pf-avatar" id="pfAvatar"');
-    $("pfKicker").innerHTML = `<span></span> DIV. ${pad(m.division)} · ${m.is_leader ? "LEADER" : "MEMBER"}`;
+    $("pfKicker").innerHTML = `<span></span> ${home ? `DIV. ${pad(home)} · ` : ""}${led.length ? `LEADER ${led.length > 1 ? `${led.length} DIVISI` : ""}`.trim() : "MEMBER"}`;
     $("pfName").textContent = m.full_name || m.username || "Tanpa nama";
     $("pfHandle").textContent = m.username ? "@" + m.username : "";
     const siteRoles = SITE_RANK.filter((r) => (m.roles || []).map((x) => String(x).toLowerCase()).includes(r));
     $("pfRoles").innerHTML =
-      (m.is_leader ? `<b class="role-badge role-leader">LEADER DIV. ${pad(m.division)}</b>` : "") +
+      led.map((n) => `<b class="role-badge role-leader">LEADER DIV. ${pad(n)}</b>`).join("") +
       siteRoles.map((r) => `<b class="pf-site-role pf-role-${r}">${SITE_ROLES[r]}</b>`).join("") +
       (gameRole(m) ? gameBadge(m) : "");
     const facts = [
-      ["DIVISI", `F4NTASTIC DIV. ${pad(m.division)}`],
+      ...(led.length ? [["LEADER DI", led.map((n) => `DIV. ${pad(n)}`).join(", ")]] : []),
+      ["DIVISI (ANGGOTA)", home ? `F4NTASTIC DIV. ${pad(home)}` : led.length ? "Hanya sebagai leader" : "—"],
       ["ROLE IN-GAME", gameRole(m) || "Belum diisi"],
       ["MAIN HERO", m.main_hero || "Belum diisi"],
       ["MASUK DIVISI", fmtDate(m.assigned_at)],
@@ -463,8 +469,10 @@
       ? shots.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="Buka showcase ${i + 1}"><img src="${esc(u)}" alt="Showcase ${i + 1}" loading="lazy"></a>`).join("")
       : '<p class="pf-empty">Belum ada foto showcase.</p>';
     $("pfShowcase").querySelectorAll("img").forEach((img) => img.addEventListener("error", () => img.parentElement.remove()));
-    $("pfBack").hidden = !modal.hidden && modalNumber === m.division;
-    $("pfBack").textContent = `LIHAT DIV. ${pad(m.division)} →`;
+    // when several divisions are linked, "back" goes to the one currently open (if any)
+    if (!modal.hidden && all.some((x) => x.division === modalNumber)) pfMember = all.find((x) => x.division === modalNumber);
+    $("pfBack").hidden = !modal.hidden && all.some((x) => x.division === modalNumber);
+    $("pfBack").textContent = `LIHAT DIV. ${pad(pfMember.division)} →`;
     pf.hidden = false;
     document.documentElement.classList.add("dv-modal-open");
     setTimeout(() => pf.querySelector(".dv-modal-close")?.focus({ preventScroll: true }), 40);

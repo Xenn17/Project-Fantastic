@@ -12,7 +12,7 @@
     />
     <link rel="stylesheet" href="css/admin.css?v=20261109-follow" />
     <link rel="stylesheet" href="css/tokens.css?v=20261109-mobile" />
-    <link rel="stylesheet" href="css/admin-v2.css?v=20261110-mdiv" />
+    <link rel="stylesheet" href="css/admin-v2.css?v=20261110-multilead" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
   <body>
@@ -151,14 +151,14 @@
             DIVISI<small>tampil di halaman /devisi</small>
           </p>
           <div class="role-division-row">
-            <select id="roleDivision" aria-label="Divisi akun ini">
+            <select id="roleDivision" aria-label="Divisi (anggota) akun ini">
               <option value="">— Tidak di divisi mana pun</option>
             </select>
-            <label class="role-extra-card role-division-leader">
-              <input type="checkbox" id="roleDivisionLeader" />
-              <span><strong>Leader divisi ini</strong><small>Leader lama divisi tersebut tetap jadi member.</small></span>
-            </label>
           </div>
+          <p class="role-editor-label">
+            LEADER DI DIVISI<small>boleh lebih dari satu · klik nomor untuk pilih / batal</small>
+          </p>
+          <div class="role-leader-grid" id="roleLeaderOf" role="group" aria-label="Divisi yang dipimpin"></div>
           <p class="role-editor-hint" id="roleDivisionHint"></p>
         </div>
         <p class="role-editor-status" id="roleEditorStatus"></p>
@@ -198,6 +198,6 @@
         </div>
       </section>
     </div>
-    <script src="js/manage-role.js?v=20261110-mdiv"></script>
+    <script src="js/manage-role.js?v=20261110-multilead"></script>
   </body>
 </html>

@@ -17,7 +17,8 @@
     staff = false,
     divisions = [],
     roster = [],
-    current = null; // division number being managed
+    current = null, // division number being managed
+    allowed = []; // divisions this account may manage (all for staff)
 
   const gate = (title, copy) => {
     $("gateTitle").innerHTML = title;
@@ -77,20 +78,25 @@
       console.warn(e);
       return gate("ROSTER<br /><b>BELUM AKTIF.</b>", "Admin perlu menjalankan supabase-division-roster.sql di Supabase terlebih dahulu.");
     }
-    const mine = roster.find((r) => String(r.profile_id) === String(me.id));
-    if (!staff) {
-      const isLeader = roles.includes("leader_squad") || Boolean(mine?.is_leader);
-      if (!isLeader) return gate("AKSES<br /><b>DITOLAK.</b>", "Halaman ini hanya untuk Leader Squad dan admin.");
-      if (!mine) return gate("BELUM ADA<br /><b>DIVISI.</b>", "Akun kamu belum dimasukkan ke divisi mana pun. Minta admin memasukkan kamu ke divisimu lewat Manage Role.");
-      current = mine.division_id;
-    } else {
-      current = Number(new URLSearchParams(location.search).get("id")) || mine?.division_id || 1;
+    // Mirrors f4_can_manage_roster(): every division I lead + (as Leader Squad) the division I'm a member of
+    const mineAll = roster.filter((r) => String(r.profile_id) === String(me.id));
+    const home = mineAll.find((r) => r.in_roster !== false);
+    const wanted = Number(new URLSearchParams(location.search).get("id"));
+    if (staff) allowed = divisions.map((d) => d.id);
+    else {
+      allowed = [...new Set([
+        ...mineAll.filter((r) => r.is_leader).map((r) => r.division_id),
+        ...(roles.includes("leader_squad") && home ? [home.division_id] : []),
+      ])].sort((a, b) => a - b);
+      if (!roles.includes("leader_squad") && !allowed.length) return gate("AKSES<br /><b>DITOLAK.</b>", "Halaman ini hanya untuk Leader Squad dan admin.");
+      if (!allowed.length) return gate("BELUM ADA<br /><b>DIVISI.</b>", "Akun kamu belum dimasukkan ke divisi mana pun. Minta admin memasukkan kamu ke divisimu lewat Manage Role.");
     }
+    current = allowed.includes(wanted) ? wanted : home && allowed.includes(home.division_id) ? home.division_id : allowed[0] || 1;
     document.querySelectorAll("[data-staff-only]").forEach((a) => (a.hidden = !staff));
-    $("divisionPickerWrap").hidden = !staff;
+    $("divisionPickerWrap").hidden = allowed.length < 2;
     $("accessCopy").textContent = staff
       ? "Akses admin: kelola anggota semua divisi. Untuk memindah member antar divisi atau memilih leader, pakai Manage Role."
-      : `Akses Leader Squad: kamu hanya bisa mengelola anggota DIV ${pad(current)}. Tambah akun Member yang belum punya divisi, atau keluarkan anggota.`;
+      : `Akses Leader: kamu hanya bisa mengelola ${allowed.map((n) => `DIV ${pad(n)}`).join(", ")}. Tambah akun Member yang belum punya divisi, atau keluarkan anggota.`;
     $("loginScreen").hidden = true;
     $("dashboard").hidden = false;
     render();
@@ -105,8 +111,9 @@
     const d = divisions.find((x) => x.id === current) || { id: current, squad_id: "", capacity: 25 };
     const list = membersOf(current),
       leader = list.find((m) => m.is_leader);
-    if (staff) {
+    if (allowed.length > 1) {
       $("divisionPicker").innerHTML = divisions
+        .filter((x) => allowed.includes(x.id))
         .map((x) => `<option value="${x.id}"${x.id === current ? " selected" : ""}>DIV ${pad(x.id)} · ${membersOf(x.id).length}/${x.capacity}</option>`)
         .join("");
     }
@@ -200,8 +207,9 @@
     if (b) removeMember(b.dataset.remove, b.dataset.name);
   });
   $("divisionPicker").addEventListener("change", (e) => {
-    if (!staff) return;
-    current = Number(e.target.value);
+    const n = Number(e.target.value);
+    if (!allowed.includes(n)) return;
+    current = n;
     history.replaceState(null, "", `?id=${pad(current)}`);
     $("candidateSearch").value = "";
     $("candidateResults").innerHTML = "";
