@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/divisions.css" />
     <link rel="stylesheet" href="../css/tokens.css?v=20261109-mobile" />
     <link rel="stylesheet" href="../css/components.css?v=20261109-nav" />
-    <link rel="stylesheet" href="../css/divisions-v2.css?v=20261110-recruit" />
+    <link rel="stylesheet" href="../css/divisions-v2.css?v=20261110-edit" />
   </head>
   <body class="division-page">
     <header class="site-header">
@@ -114,21 +114,69 @@
       <section class="dv-modal-card" role="dialog" aria-modal="true" aria-labelledby="dvModalTitle">
         <button type="button" class="dv-modal-close" data-dv-close aria-label="Tutup">×</button>
         <header class="dv-modal-head">
-          <p class="division-kicker" id="dvModalKicker"><span></span> DIVISI</p>
-          <h2 id="dvModalTitle">F4NTASTIC DIV.</h2>
+          <div class="dv-modal-title-row">
+            <span id="dvModalLogo"></span>
+            <div>
+              <p class="division-kicker" id="dvModalKicker"><span></span> DIVISI</p>
+              <h2 id="dvModalTitle">F4NTASTIC DIV.</h2>
+            </div>
+          </div>
+          <p class="dv-modal-desc" id="dvModalDesc" hidden></p>
           <div class="dv-modal-meta" id="dvModalMeta"></div>
         </header>
         <div class="dv-modal-tools">
           <input id="dvMemberFilter" type="search" placeholder="Cari member di divisi ini…" />
           <div class="dv-role-chips" id="dvRoleChips" role="tablist" aria-label="Filter role"></div>
         </div>
-        <p class="dv-manage-note" id="dvManageNote" hidden></p>
-        <div class="dv-add" id="dvAdd" hidden>
-          <input id="dvAddSearch" type="search" autocomplete="off" placeholder="+ Tambah member: cari username / nama akun…" />
-          <div id="dvAddResults" class="dv-add-results" aria-live="polite"></div>
-        </div>
         <div class="dv-member-list" id="dvMemberList"></div>
-        <p class="dv-modal-status" id="dvModalStatus" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+    <!-- Edit Divisi (Leader Squad on own division, admin+ on all) -->
+    <div class="dv-modal dv-editor" id="dvEditor" hidden>
+      <div class="dv-modal-backdrop" data-ed-close></div>
+      <section class="dv-modal-card dv-editor-card" role="dialog" aria-modal="true" aria-labelledby="edTitle">
+        <button type="button" class="dv-modal-close" data-ed-close aria-label="Tutup">×</button>
+        <header class="dv-modal-head">
+          <p class="division-kicker"><span></span> EDIT DIVISI</p>
+          <h2 id="edTitle">DIV.</h2>
+        </header>
+        <div class="ed-body">
+          <form id="edForm" class="ed-form" novalidate>
+            <div class="ed-logo-row">
+              <span class="ed-logo" id="edLogo"></span>
+              <div class="ed-logo-actions">
+                <p class="ed-label">FOTO PROFIL DIVISI</p>
+                <label class="ed-upload">GANTI FOTO<input type="file" id="edLogoFile" accept="image/jpeg,image/png,image/webp" hidden /></label>
+                <button type="button" class="ed-ghost" id="edLogoRemove">HAPUS FOTO</button>
+                <small>JPG / PNG / WEBP · maks 3 MB</small>
+              </div>
+            </div>
+            <div class="ed-grid">
+              <label>SQUAD ID<input id="edSquad" maxlength="30" autocomplete="off" /></label>
+              <label>WHATSAPP<input id="edWa" maxlength="20" inputmode="tel" placeholder="08xxxxxxxxxx" /></label>
+              <label>KAPASITAS · MAKS 25<input id="edCap" type="number" min="1" max="25" step="1" /></label>
+            </div>
+            <label class="ed-wide">DESKRIPSI<textarea id="edDesc" maxlength="700" rows="3" placeholder="Ceritakan divisi ini: jadwal main, gaya main, aturan…"></textarea></label>
+            <p class="ed-label">STATUS REKRUTMEN</p>
+            <div class="ed-switch" id="edStatus" role="radiogroup" aria-label="Status rekrutmen">
+              <button type="button" role="radio" data-status="RECRUITING"><b>OPEN RECRUITMENT</b><small>Divisi menerima member baru</small></button>
+              <button type="button" role="radio" data-status="CLOSED"><b>CLOSED</b><small>Tidak menerima member baru</small></button>
+            </div>
+            <div class="ed-needs" id="edNeedsWrap" hidden>
+              <p class="ed-label">KURANG ROLE APA? <small>boleh pilih lebih dari satu</small></p>
+              <div class="ed-roles" id="edRoles"></div>
+              <small class="ed-hint" id="edNeedsHint"></small>
+            </div>
+            <div class="ed-actions"><button type="submit" class="dv-primary" id="edSave">SIMPAN DATA DIVISI</button></div>
+          </form>
+          <section class="ed-members">
+            <p class="ed-label">ANGGOTA <b id="edCount"></b></p>
+            <input id="edAddSearch" class="ed-add" type="search" autocomplete="off" placeholder="+ Tambah member: cari username / nama akun…" />
+            <div id="edAddResults" class="dv-add-results" aria-live="polite"></div>
+            <div id="edMemberList" class="ed-member-list"></div>
+          </section>
+        </div>
+        <p class="dv-modal-status" id="edStatusMsg" role="status" aria-live="polite"></p>
       </section>
     </div>
     <!-- Account preview (public info only — no email / phone / birth date / ML ID) -->
@@ -165,7 +213,7 @@
     <script src="../js/gallery-supabase-config.js"></script>
     <script src="../js/session-nav.js?v=20261109-root"></script>
     <script src="../data/divisions.js?v=20261110-cap25"></script>
-    <script src="../js/divisions.js?v=20261110-recruit"></script>
+    <script src="../js/divisions.js?v=20261110-edit"></script>
       <script src="../js/fx/ui.js?v=20261109-mobile2" defer></script>
       <script src="../js/fx/nav.js?v=20261109-arrive2" defer></script>
   </body>

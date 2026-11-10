@@ -190,9 +190,9 @@
         ) &&
         !["admin", "developer", "owner"].includes(managerRole)
       ) {
-        // Leader Squad only has access to Manage Devisi
+        // Leader Squad manages their division on /devisi
         if (profileRoles.includes("leader_squad")) {
-          window.location.replace("manage-division.html");
+          window.location.replace("devisi/");
           return false;
         }
         redirectToLogin();

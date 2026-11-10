@@ -80,6 +80,13 @@
     },
     true,
   );
+  // division photo (logo_url) or the division number as fallback
+  const logoHtml = (d, cls = "dv-logo") => {
+    const url = safeUrl(d.logo_url);
+    return `<span class="${cls}${url ? " has-img" : ""}">${url ? `<img src="${esc(url)}" alt="" loading="lazy" data-fallback="${pad(d.number)}">` : `<b>${pad(d.number)}</b>`}</span>`;
+  };
+  // divisions I belong to (member or leader) are listed first
+  const isMine = (d) => Boolean(authUser) && d.members.some((m) => String(m.id) === String(authUser.id));
   const gameBadge = (m) => {
     const g = gameRole(m);
     return g ? `<b class="role-badge ${GAME_CLASS[g]}">${g}</b>` : '<b class="role-badge role-unknown">ROLE ?</b>';
@@ -93,6 +100,7 @@
         ...blankDivision({ number: x.id, squad_id: x.squad_id, whatsapp: x.whatsapp, capacity: x.capacity }),
         status: x.recruitment_status,
         needs: Array.isArray(x.role_needs) ? x.role_needs.map(String) : [],
+        logo_url: x.logo_url || "",
         description: x.description || "",
         announcement: x.announcement || "",
         spotlight: x.spotlight,
@@ -159,7 +167,7 @@
       else if (sort === "MOST_SLOTS") delta = slots(b) - slots(a);
       else if (sort === "FEWEST_SLOTS") delta = slots(a) - slots(b);
       else if (sort === "RECRUITING_FIRST") delta = (statusOf(a) === "RECRUITING" ? -1 : 0) - (statusOf(b) === "RECRUITING" ? -1 : 0);
-      return delta || a.number - b.number;
+      return (isMine(b) - isMine(a)) || delta || a.number - b.number;
     });
     $("divisionGrid").innerHTML = list.length
       ? list
@@ -173,10 +181,11 @@
             const leader = L
               ? `<button type="button" class="dv-leader dv-leader-link" data-profile="${esc(L.id)}" aria-label="Lihat akun leader ${esc(nameOf(L))}">${avatarHtml(L)}<div><small>LEADER</small><strong>${esc(nameOf(L))}</strong></div><em aria-hidden="true">↗</em></button>`
               : `<div class="dv-leader is-empty">${avatarHtml(null)}<div><small>LEADER</small><strong>LEADER NEEDED</strong></div></div>`;
-            return `<article class="division-card ${statusClass(s)}" id="division-${d.number}" data-number="${d.number}">
+            return `<article class="division-card ${statusClass(s)}${isMine(d) ? " is-mine" : ""}" id="division-${d.number}" data-number="${d.number}">
           <div class="dv-card-top">
-            <span class="dv-number">${pad(d.number)}</span>
+            ${safeUrl(d.logo_url) ? logoHtml(d, "dv-card-logo") : `<span class="dv-number">${pad(d.number)}</span>`}
             <span class="division-status ${statusClass(s)}">${s}</span>
+            ${isMine(d) ? '<span class="dv-mine">DIVISIMU</span>' : ""}
             <button class="division-edit" data-edit="${d.number}" title="Edit divisi" aria-label="Edit divisi ${d.number}">✎</button>
           </div>
           <h3>F4NTASTIC DIV. ${pad(d.number)}</h3>
@@ -201,13 +210,9 @@
       rows.map((d) => `<option value="${d.number}">DIV ${pad(d.number)}${d.leader ? ` — ${esc(nameOf(d.leader))}` : ""}</option>`).join("");
     applyEditPermissions();
   }
+  // pencil: admin+ on every division, Leader Squad / official leader only on the divisions they manage
   function applyEditPermissions() {
-    const roles = rolesList();
-    const canAll = roles.some((r) => ["developer", "owner", "admin"].includes(r));
-    document.querySelectorAll("[data-edit]").forEach((b) => {
-      const d = rows.find((x) => x.number === Number(b.dataset.edit));
-      b.classList.toggle("visible", canAll || (authUser && d?.leader?.id === authUser.id));
-    });
+    document.querySelectorAll("[data-edit]").forEach((b) => b.classList.toggle("visible", canManageDiv(Number(b.dataset.edit))));
   }
   async function init() {
     try {
@@ -237,7 +242,7 @@
     return true;
   }
 
-  /* ================= division popup ================= */
+  /* ================= division popup (view only) ================= */
   const modal = $("divisionModal");
   let modalNumber = null,
     modalRole = "ALL",
@@ -250,9 +255,6 @@
     modalRole = "ALL";
     modalHighlight = opts.highlight || null;
     $("dvMemberFilter").value = "";
-    $("dvModalStatus").textContent = "";
-    $("dvAddSearch").value = "";
-    $("dvAddResults").innerHTML = "";
     if (modal.hidden) lastFocus = document.activeElement;
     renderModal();
     modal.hidden = false;
@@ -264,10 +266,11 @@
       else $("dvMemberFilter").focus({ preventScroll: true });
     }, 60);
   }
+  const anyPopupOpen = () => [modal, pf, editor].some((m) => m && !m.hidden);
   function closeModal() {
     if (!modal || modal.hidden) return;
     modal.hidden = true;
-    if (pf.hidden) document.documentElement.classList.remove("dv-modal-open");
+    if (!anyPopupOpen()) document.documentElement.classList.remove("dv-modal-open");
     history.replaceState(null, "", location.pathname);
     lastFocus?.focus?.();
   }
@@ -276,37 +279,24 @@
     if (!d) return;
     const s = statusOf(d),
       n = countOf(d),
-      manage = isStaff(),
-      lead = !manage && canManageDiv(d.number),
       wa = d.whatsapp ? `https://wa.me/${d.whatsapp.replace(/\D/g, "")}` : "";
     $("dvModalKicker").innerHTML = `<span></span> DIVISI ${pad(d.number)} · <b class="division-status ${statusClass(s)}">${s}</b>`;
     $("dvModalTitle").textContent = `F4NTASTIC DIV. ${pad(d.number)}`;
+    $("dvModalLogo").innerHTML = logoHtml(d);
     $("dvModalMeta").innerHTML = `
       <div><small>LEADER</small><strong>${esc(d.leader ? nameOf(d.leader) : "LEADER NEEDED")}</strong></div>
       <div><small>KAPASITAS</small><strong>${n}/${d.capacity}</strong></div>
       <div><small>SQUAD ID</small><strong>${esc(d.squad_id || "—")}</strong></div>
       ${s === "RECRUITING" ? `<div class="dv-meta-needs"><small>MENCARI ROLE</small><strong>${(d.needs || []).length ? d.needs.map((r) => `<b class="role-badge ${GAME_CLASS[r] || "role-unknown"}">${esc(r)}</b>`).join("") : "SEMUA ROLE"}</strong></div>` : ""}
+      ${canManageDiv(d.number) ? `<button type="button" class="dv-edit-open" data-edit-open="${d.number}">✎ EDIT DIVISI</button>` : ""}
       ${wa ? `<a class="dv-wa" href="${wa}" target="_blank" rel="noopener">HUBUNGI VIA WA ↗</a>` : ""}`;
+    $("dvModalDesc").textContent = d.description || "";
+    $("dvModalDesc").hidden = !d.description;
     const roles = [...new Set(d.members.map((m) => gameRole(m) || "ROLE ?"))].sort();
     $("dvRoleChips").innerHTML = ["ALL", ...roles]
       .map((r) => `<button type="button" class="dv-chip${r === modalRole ? " is-active" : ""}" data-role="${esc(r)}">${r === "ALL" ? `SEMUA <b>${n}</b>` : esc(r)}</button>`)
       .join("");
-    const note = $("dvManageNote");
-    note.hidden = !manage && !lead;
-    note.innerHTML = manage
-      ? `Tambah member di kolom bawah atau lewat <a href="${ROOT}manage-role.html">Manage Role → Divisi</a> (untuk pilih leader). Pindahkan member lewat tombol ⇄ PINDAH.`
-      : lead
-        ? `Kamu pengelola DIV ${pad(d.number)}: bisa menambah member (akun Member yang belum punya divisi) dan mengeluarkan member — di sini atau di <a href="${ROOT}manage-division.html">Manage Devisi</a>.`
-        : "";
-    $("dvAdd").hidden = !manage && !lead;
     const q = $("dvMemberFilter").value.trim().toLowerCase();
-    const options = rows
-      .filter((x) => x.number !== d.number)
-      .map((x) => {
-        const full = countOf(x) >= x.capacity;
-        return `<option value="${x.number}"${full ? " disabled" : ""}>DIV ${pad(x.number)} · ${countOf(x)}/${x.capacity}${full ? " (PENUH)" : ""}</option>`;
-      })
-      .join("");
     const list = d.members.filter(
       (m) =>
         (modalRole === "ALL" || (gameRole(m) || "ROLE ?") === modalRole) &&
@@ -321,75 +311,171 @@
                   ${avatarHtml(m)}
                   <span class="dv-member-copy"><strong>${esc(nameOf(m))}</strong><small>${m.full_name && m.username ? esc(m.full_name) + " · " : ""}${m.is_leader ? "Leader divisi" : m.main_hero ? "Main " + esc(m.main_hero) : "Lihat akun"}</small></span>
                 </button>
-                <div class="member-role-list">${m.is_leader ? '<b class="role-badge role-leader">LEADER</b>' : ""}${gameBadge(m)}${manage && m.in_roster !== false ? `<button type="button" class="dv-move-toggle" data-toggle-move aria-expanded="false">⇄ PINDAH</button>` : ""}${lead && !m.is_leader && String(m.id) !== String(authUser.id) ? `<button type="button" class="dv-remove" data-remove="${esc(m.id)}">KELUARKAN</button>` : ""}</div>
-                ${manage ? `<div class="dv-move"><select data-move-target aria-label="Pindahkan ${esc(nameOf(m))} ke divisi"><option value="">Pindah ke divisi…</option><option value="0">— Keluarkan dari divisi</option>${options}</select><button type="button" data-move="${esc(m.id)}">SIMPAN</button></div>` : ""}
+                <div class="member-role-list">${m.is_leader ? '<b class="role-badge role-leader">LEADER</b>' : ""}${gameBadge(m)}</div>
               </article>`;
           })
           .join("")
-      : `<p class="dv-empty">${
-          d.members.length
-            ? "Tidak ada member yang cocok."
-            : rosterReady
-              ? "Belum ada member di divisi ini. Admin bisa menambahkan lewat Manage Role."
-              : "Roster divisi belum aktif."
-        }</p>`;
-  }
-  async function moveMember(fromNumber, pid, toNumber) {
-    const from = rows.find((x) => x.number === fromNumber);
-    const to = toNumber ? rows.find((x) => x.number === toNumber) : null;
-    const m = from?.members.find((x) => String(x.id) === String(pid));
-    if (!from || !m || (toNumber && !to)) return;
-    const say = (text, kind = "") => {
-      $("dvModalStatus").textContent = text;
-      $("dvModalStatus").className = `dv-modal-status ${kind}`;
-    };
-    if (to && countOf(to) >= to.capacity) return say(`DIV ${pad(to.number)} sudah penuh (${countOf(to)}/${to.capacity}).`, "is-error");
-    const what = to ? `ke DIV ${pad(to.number)}` : "keluar dari divisi";
-    if (!confirm(`Pindahkan ${nameOf(m)} dari DIV ${pad(from.number)} ${what}?${m.is_leader ? "\n\nStatus LEADER-nya tidak berubah (atur leader lewat Manage Role)." : ""}`)) return;
-    say("Menyimpan…");
-    try {
-      const { error } = await db.rpc("f4_set_profile_division", { p_target_id: m.id, p_division_id: to ? to.number : null, p_is_leader: false });
-      if (error) throw error;
-      await loadData();
-      renderSummary();
-      render();
-      renderModal();
-      say(`✓ ${nameOf(m)} ${to ? `dipindah ke DIV ${pad(to.number)}` : "dikeluarkan dari divisi"}.`, "is-success");
-    } catch (err) {
-      const msg = String(err?.message || err);
-      say(/permission|row-level|Hanya admin/i.test(msg) ? "Hanya admin, developer, atau owner yang bisa memindahkan member." : `Gagal: ${msg}`, "is-error");
-    }
+      : `<p class="dv-empty">${d.members.length ? "Tidak ada member yang cocok." : rosterReady ? "Belum ada member di divisi ini." : "Roster divisi belum aktif."}</p>`;
   }
 
-  /* ================= add / remove (staff + leaders of this division) ================= */
-  const modalSay = (text, kind = "") => {
-    $("dvModalStatus").textContent = text;
-    $("dvModalStatus").className = `dv-modal-status ${kind}`;
+  /* ================= edit popup (leader of this division / admin+) ================= */
+  const editor = $("dvEditor");
+  const NEED_ROLES = [["EXP", "EXP Lane"], ["JUNG", "Jungler"], ["GOLD", "Gold Lane"], ["MID", "Mid Lane"], ["ROAM", "Roamer"]];
+  const LOGO_BUCKET = "f4ntastic-division-logos";
+  let edNumber = null,
+    edDraft = null,
+    edLastFocus = null;
+  const edSay = (text, kind = "") => {
+    $("edStatusMsg").textContent = text;
+    $("edStatusMsg").className = `dv-modal-status ${kind}`;
   };
   const friendly = (err) => {
     const msg = String(err?.message || err || "");
-    if (/42501|permission|row-level|izin/i.test(msg) && !/sudah|hanya/i.test(msg)) return "Kamu tidak punya izin mengelola divisi ini.";
-    if (/function .* does not exist|Could not find the function/i.test(msg)) return "Fitur ini belum aktif — admin perlu menjalankan supabase-division-leader-manage.sql.";
+    if (/Could not find the function|does not exist|schema cache/i.test(msg)) return "Fitur ini belum aktif — admin perlu menjalankan supabase-division-edit.sql di Supabase.";
+    if (/Bucket not found/i.test(msg)) return "Penyimpanan foto belum aktif — admin perlu menjalankan supabase-division-edit.sql.";
+    if (/42501|permission|row-level|izin|Unauthorized/i.test(msg) && !/sudah|hanya|Kapasitas/i.test(msg)) return "Kamu tidak punya izin mengedit divisi ini.";
     return msg || "Terjadi kesalahan. Coba lagi.";
   };
+  function openEditor(n) {
+    const d = rows.find((x) => x.number === n);
+    if (!d || !editor || !canManageDiv(n)) return;
+    edNumber = n;
+    edDraft = { status: d.status === "RECRUITING" ? "RECRUITING" : "CLOSED", needs: new Set(d.needs || []), logoFile: null, logoUrl: d.logo_url || "" };
+    $("edTitle").textContent = `DIV. ${pad(n)}`;
+    $("edSquad").value = d.squad_id || "";
+    $("edWa").value = d.whatsapp || "";
+    $("edCap").value = d.capacity;
+    $("edCap").min = Math.max(1, countOf(d));
+    $("edDesc").value = d.description || "";
+    $("edLogoFile").value = "";
+    $("edAddSearch").value = "";
+    $("edAddResults").innerHTML = "";
+    edSay("");
+    renderEditor();
+    if (editor.hidden) edLastFocus = document.activeElement;
+    editor.hidden = false;
+    document.documentElement.classList.add("dv-modal-open");
+    setTimeout(() => $("edSquad").focus({ preventScroll: true }), 60);
+  }
+  function closeEditor() {
+    if (!editor || editor.hidden) return;
+    editor.hidden = true;
+    if (edDraft?.logoFile && $("edLogo").querySelector("img")) URL.revokeObjectURL($("edLogo").querySelector("img").src);
+    if (!anyPopupOpen()) document.documentElement.classList.remove("dv-modal-open");
+    edLastFocus?.focus?.({ preventScroll: true });
+  }
+  function renderEditor() {
+    const d = rows.find((x) => x.number === edNumber);
+    if (!d || !edDraft) return;
+    const open = edDraft.status === "RECRUITING";
+    // logo preview: new file (object URL) > current URL > number
+    const src = edDraft.logoFile ? URL.createObjectURL(edDraft.logoFile) : safeUrl(edDraft.logoUrl);
+    $("edLogo").innerHTML = src ? `<img src="${esc(src)}" alt="Foto DIV ${pad(d.number)}">` : `<b>${pad(d.number)}</b>`;
+    $("edLogoRemove").hidden = !src;
+    $("edStatus").querySelectorAll("[data-status]").forEach((b) => {
+      const on = b.dataset.status === edDraft.status;
+      b.classList.toggle("is-on", on);
+      b.setAttribute("aria-checked", String(on));
+    });
+    $("edNeedsWrap").hidden = !open;
+    $("edRoles").innerHTML = NEED_ROLES.map(
+      ([k, label]) => `<button type="button" class="ed-role${edDraft.needs.has(k) ? " is-on" : ""}" data-need="${k}" aria-pressed="${edDraft.needs.has(k)}"><b>${k}</b><small>${label}</small></button>`,
+    ).join("");
+    $("edNeedsHint").textContent = edDraft.needs.size ? `Kartu divisi akan tampil: MENCARI ${[...edDraft.needs].join(" · ")}` : "Belum dipilih → tampil sebagai \"SEMUA ROLE\".";
+    renderEditorMembers();
+  }
+  function renderEditorMembers() {
+    const d = rows.find((x) => x.number === edNumber);
+    if (!d) return;
+    const staff = isStaff();
+    $("edCount").textContent = `${countOf(d)}/${d.capacity}`;
+    const canRemove = (m) => staff || (!m.is_leader && String(m.id) !== String(authUser.id));
+    const options = rows
+      .filter((x) => x.number !== d.number)
+      .map((x) => {
+        const full = countOf(x) >= x.capacity;
+        return `<option value="${x.number}"${full ? " disabled" : ""}>DIV ${pad(x.number)} · ${countOf(x)}/${x.capacity}${full ? " (PENUH)" : ""}</option>`;
+      })
+      .join("");
+    $("edMemberList").innerHTML = d.members.length
+      ? d.members
+          .map(
+            (m) => `<div class="ed-member${m.is_leader ? " is-leader" : ""}" data-pid="${esc(m.id)}">
+              ${avatarHtml(m)}
+              <span class="ed-member-copy"><b>${esc(nameOf(m))}</b><small>${m.is_leader ? "LEADER" : gameRole(m) || "MEMBER"}${String(m.id) === String(authUser.id) ? " · KAMU" : ""}</small></span>
+              <span class="ed-member-actions">
+                ${staff && m.in_roster !== false ? `<select data-move-target aria-label="Pindahkan ${esc(nameOf(m))}"><option value="">⇄ Pindah…</option>${options}</select>` : ""}
+                ${canRemove(m) ? `<button type="button" class="dv-remove" data-remove="${esc(m.id)}">KELUARKAN</button>` : ""}
+              </span>
+            </div>`,
+          )
+          .join("")
+      : '<p class="dv-empty">Belum ada anggota. Tambahkan lewat kolom di atas.</p>';
+  }
   async function refreshAll() {
     await loadData();
     renderSummary();
     render();
-    renderModal();
+    if (modal && !modal.hidden) renderModal();
+    if (editor && !editor.hidden) renderEditorMembers();
   }
+  async function saveEditor(e) {
+    e.preventDefault();
+    const d = rows.find((x) => x.number === edNumber);
+    if (!d || !edDraft) return;
+    const cap = Number($("edCap").value);
+    if (!Number.isInteger(cap) || cap < 1 || cap > 25) return edSay("Kapasitas harus 1 sampai 25.", "is-error");
+    if (cap < countOf(d)) return edSay(`Kapasitas tidak boleh lebih kecil dari jumlah anggota sekarang (${countOf(d)}).`, "is-error");
+    const btn = $("edSave");
+    btn.disabled = true;
+    try {
+      let logo = edDraft.logoUrl || "";
+      if (edDraft.logoFile) {
+        edSay("Mengunggah foto divisi…");
+        const f = edDraft.logoFile;
+        const ext = ({ "image/png": "png", "image/webp": "webp" })[f.type] || "jpg";
+        const path = `${d.number}/logo-${Date.now()}.${ext}`;
+        const up = await db.storage.from(LOGO_BUCKET).upload(path, f, { contentType: f.type, upsert: false });
+        if (up.error) throw up.error;
+        logo = db.storage.from(LOGO_BUCKET).getPublicUrl(path).data.publicUrl;
+      }
+      edSay("Menyimpan data divisi…");
+      const roles = edDraft.status === "RECRUITING" ? NEED_ROLES.map(([k]) => k).filter((k) => edDraft.needs.has(k)) : [];
+      const { error } = await db.rpc("f4_update_division", {
+        p_division: d.number,
+        p_squad_id: $("edSquad").value.trim(),
+        p_whatsapp: $("edWa").value.trim(),
+        p_capacity: cap,
+        p_status: edDraft.status,
+        p_roles: roles,
+        p_description: $("edDesc").value.trim(),
+        p_logo_url: logo,
+      });
+      if (error) throw error;
+      edDraft.logoFile = null;
+      edDraft.logoUrl = logo;
+      await refreshAll();
+      renderEditor();
+      edSay(`✓ Data DIV ${pad(d.number)} tersimpan.`, "is-success");
+    } catch (err) {
+      edSay(friendly(err), "is-error");
+    } finally {
+      btn.disabled = false;
+    }
+  }
+  /* members (inside the edit popup) */
   let addTimer = 0,
     addSeq = 0;
   async function searchCandidates() {
-    const q = $("dvAddSearch").value.trim().replace(/^@/, ""),
-      box = $("dvAddResults"),
+    const q = $("edAddSearch").value.trim().replace(/^@/, ""),
+      box = $("edAddResults"),
       seq = ++addSeq;
     if (q.length < 2) {
       box.innerHTML = q ? '<p class="dv-add-empty">Ketik minimal 2 huruf.</p>' : "";
       return;
     }
     box.innerHTML = '<p class="dv-add-empty">Mencari akun…</p>';
-    const { data, error } = await db.rpc("f4_division_candidates", { p_division: modalNumber, p_query: q });
+    const { data, error } = await db.rpc("f4_division_candidates", { p_division: edNumber, p_query: q });
     if (seq !== addSeq) return;
     if (error) {
       box.innerHTML = `<p class="dv-add-empty is-error">${esc(friendly(error))}</p>`;
@@ -405,37 +491,86 @@
       : '<p class="dv-add-empty">Tidak ada akun Member tanpa divisi yang cocok. Akun yang sudah di divisi lain hanya bisa dipindah admin.</p>';
   }
   async function addMember(pid, name) {
-    const d = rows.find((x) => x.number === modalNumber);
+    const d = rows.find((x) => x.number === edNumber);
     if (!d) return;
-    if (countOf(d) >= d.capacity) return modalSay(`DIV ${pad(d.number)} sudah penuh (${countOf(d)}/${d.capacity}).`, "is-error");
+    if (countOf(d) >= d.capacity) return edSay(`DIV ${pad(d.number)} sudah penuh (${countOf(d)}/${d.capacity}).`, "is-error");
     if (!confirm(`Tambahkan ${name} ke DIV ${pad(d.number)}?`)) return;
-    modalSay("Menambahkan…");
+    edSay("Menambahkan…");
     const { error } = await db.rpc("f4_division_add_member", { p_division: d.number, p_target_id: pid });
-    if (error) return modalSay(friendly(error), "is-error");
-    $("dvAddSearch").value = "";
-    $("dvAddResults").innerHTML = "";
+    if (error) return edSay(friendly(error), "is-error");
+    $("edAddSearch").value = "";
+    $("edAddResults").innerHTML = "";
     await refreshAll();
-    modalSay(`✓ ${name} masuk ke DIV ${pad(d.number)}.`, "is-success");
+    edSay(`✓ ${name} masuk ke DIV ${pad(d.number)}.`, "is-success");
   }
   async function removeMember(pid) {
-    const d = rows.find((x) => x.number === modalNumber);
+    const d = rows.find((x) => x.number === edNumber);
     const m = d?.members.find((x) => String(x.id) === String(pid));
     if (!m) return;
     if (!confirm(`Keluarkan ${nameOf(m)} dari DIV ${pad(d.number)}?`)) return;
-    modalSay("Menyimpan…");
+    edSay("Menyimpan…");
     const { error } = await db.rpc("f4_division_remove_member", { p_division: d.number, p_target_id: m.id });
-    if (error) return modalSay(friendly(error), "is-error");
+    if (error) return edSay(friendly(error), "is-error");
     await refreshAll();
-    modalSay(`✓ ${nameOf(m)} dikeluarkan dari DIV ${pad(d.number)}.`, "is-success");
+    edSay(`✓ ${nameOf(m)} dikeluarkan dari DIV ${pad(d.number)}.`, "is-success");
   }
-  $("dvAddSearch")?.addEventListener("input", () => {
-    clearTimeout(addTimer);
-    addTimer = setTimeout(searchCandidates, 250);
-  });
-  $("dvAddResults")?.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-add]");
-    if (b) addMember(b.dataset.add, b.dataset.name);
-  });
+  async function moveMember(pid, toNumber) {
+    const from = rows.find((x) => x.number === edNumber);
+    const to = rows.find((x) => x.number === toNumber);
+    const m = from?.members.find((x) => String(x.id) === String(pid));
+    if (!from || !to || !m) return;
+    if (countOf(to) >= to.capacity) return edSay(`DIV ${pad(to.number)} sudah penuh (${countOf(to)}/${to.capacity}).`, "is-error");
+    if (!confirm(`Pindahkan ${nameOf(m)} dari DIV ${pad(from.number)} ke DIV ${pad(to.number)}?${m.is_leader ? "\n\nStatus LEADER-nya tidak berubah (atur leader lewat Manage Role)." : ""}`)) return renderEditorMembers();
+    edSay("Memindahkan…");
+    const { error } = await db.rpc("f4_set_profile_division", { p_target_id: m.id, p_division_id: to.number, p_is_leader: false });
+    if (error) return edSay(friendly(error), "is-error");
+    await refreshAll();
+    edSay(`✓ ${nameOf(m)} dipindah ke DIV ${pad(to.number)}.`, "is-success");
+  }
+  if (editor) {
+    $("edForm").addEventListener("submit", saveEditor);
+    editor.addEventListener("click", (e) => {
+      if (e.target.closest("[data-ed-close]")) return closeEditor();
+      const st = e.target.closest("#edStatus [data-status]");
+      if (st) {
+        edDraft.status = st.dataset.status;
+        return renderEditor();
+      }
+      const nd = e.target.closest("[data-need]");
+      if (nd) {
+        if (edDraft.needs.has(nd.dataset.need)) edDraft.needs.delete(nd.dataset.need);
+        else edDraft.needs.add(nd.dataset.need);
+        return renderEditor();
+      }
+      if (e.target.closest("#edLogoRemove")) {
+        edDraft.logoFile = null;
+        edDraft.logoUrl = "";
+        $("edLogoFile").value = "";
+        return renderEditor();
+      }
+      const add = e.target.closest("[data-add]");
+      if (add) return addMember(add.dataset.add, add.dataset.name);
+      const rm = e.target.closest("[data-remove]");
+      if (rm) return removeMember(rm.dataset.remove);
+    });
+    editor.addEventListener("change", (e) => {
+      const mv = e.target.closest("[data-move-target]");
+      if (mv && mv.value) return moveMember(mv.closest("[data-pid]").dataset.pid, Number(mv.value));
+      if (e.target.id === "edLogoFile") {
+        const f = e.target.files?.[0];
+        if (!f) return;
+        if (!["image/jpeg", "image/png", "image/webp"].includes(f.type)) return edSay("Foto harus JPG, PNG, atau WEBP.", "is-error");
+        if (f.size > 3 * 1048576) return edSay("Foto maksimal 3 MB.", "is-error");
+        edDraft.logoFile = f;
+        edSay("Foto baru belum tersimpan — klik SIMPAN DATA DIVISI.");
+        renderEditor();
+      }
+    });
+    $("edAddSearch").addEventListener("input", () => {
+      clearTimeout(addTimer);
+      addTimer = setTimeout(searchCandidates, 250);
+    });
+  }
 
   /* ================= account preview popup ================= */
   const pf = $("dvProfile");
@@ -491,7 +626,7 @@
   function closeProfile() {
     if (!pf || pf.hidden) return;
     pf.hidden = true;
-    if (modal.hidden) document.documentElement.classList.remove("dv-modal-open");
+    if (!anyPopupOpen()) document.documentElement.classList.remove("dv-modal-open");
     pfLastFocus?.focus?.({ preventScroll: true });
   }
 
@@ -509,42 +644,19 @@
     if (e.target.closest("[data-dv-close]")) return closeModal();
     const open = e.target.closest("[data-profile]");
     if (open) return openProfile(open.dataset.profile);
-    const rm = e.target.closest("[data-remove]");
-    if (rm) return removeMember(rm.dataset.remove);
+    const eo = e.target.closest("[data-edit-open]");
+    if (eo) return openEditor(Number(eo.dataset.editOpen));
     const chip = e.target.closest("[data-role]");
     if (chip) {
       modalRole = chip.dataset.role;
       return renderModal();
-    }
-    const tg = e.target.closest("[data-toggle-move]");
-    if (tg) {
-      const row = tg.closest(".dv-member");
-      const willOpen = !row.classList.contains("is-moving");
-      $("dvMemberList").querySelectorAll(".dv-member.is-moving").forEach((r) => {
-        r.classList.remove("is-moving");
-        r.querySelector("[data-toggle-move]")?.setAttribute("aria-expanded", "false");
-      });
-      row.classList.toggle("is-moving", willOpen);
-      tg.setAttribute("aria-expanded", String(willOpen));
-      if (willOpen) row.querySelector("[data-move-target]")?.focus();
-      return;
-    }
-    const mv = e.target.closest("[data-move]");
-    if (mv) {
-      const sel = mv.parentElement.querySelector("[data-move-target]");
-      if (sel.value === "") {
-        sel.focus();
-        $("dvModalStatus").textContent = "Pilih divisi tujuan dulu.";
-        $("dvModalStatus").className = "dv-modal-status is-error";
-        return;
-      }
-      moveMember(modalNumber, mv.dataset.move, Number(sel.value));
     }
   });
   $("dvMemberFilter")?.addEventListener("input", renderModal);
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     if (pf && !pf.hidden) closeProfile();
+    else if (editor && !editor.hidden) closeEditor();
     else if (modal && !modal.hidden) closeModal();
   });
 
@@ -572,7 +684,7 @@
         prompt("Salin link divisi ini:", url);
       }
     }
-    if (ed) location.href = `${ROOT}division-editor.html?id=${pad(ed.dataset.edit)}`;
+    if (ed) openEditor(Number(ed.dataset.edit));
   });
   function search(q) {
     q = q.trim().toLowerCase().replace(/^@/, "");

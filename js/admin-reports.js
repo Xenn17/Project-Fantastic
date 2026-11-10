@@ -88,8 +88,8 @@ async function requireDeveloper() {
       ),
     );
     if (!isManager) {
-      // Leader Squad only has access to Manage Devisi
-      if (/leader_squad/.test(JSON.stringify(profile || {}))) window.location.replace("manage-division.html");
+      // Leader Squad manages their division on /devisi
+      if (/leader_squad/.test(JSON.stringify(profile || {}))) window.location.replace("devisi/");
       else redirectToLogin();
       return false;
     }

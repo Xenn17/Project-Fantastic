@@ -272,3 +272,89 @@ html.dv-modal-open { overflow: hidden; }
 .dv-needs small { margin-right: 4px; color: #7fdc95; font-size: 9px; font-weight: 800; letter-spacing: .2em; }
 .dv-needs .role-badge, .dv-meta-needs .role-badge { border-radius: 99px !important; padding: 3px 9px !important; font-size: 10px !important; }
 .dv-modal-meta .dv-meta-needs strong { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+
+/* ---------- division photo + "DIVISIMU" ---------- */
+.dv-card-logo, .dv-logo {
+  flex: none; display: grid; place-items: center; overflow: hidden; border-radius: 16px;
+  background: var(--grad-gold); color: #120f08; font: 900 22px/1 var(--font-display);
+}
+.dv-card-logo { width: 52px; height: 52px; border: 1px solid rgba(246, 221, 147, .4); }
+.dv-card-logo img, .dv-logo img, .ed-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dv-mine { padding: 4px 9px; border-radius: 99px; font-size: 9px; font-weight: 800; letter-spacing: .16em; color: #120f08; background: var(--grad-gold); }
+.division-card.is-mine { border-color: rgba(246, 221, 147, .55) !important; box-shadow: 0 0 0 1px rgba(246, 221, 147, .25), 0 30px 60px -40px rgba(217, 180, 91, .6); }
+
+/* view popup header: photo + title, description */
+.dv-modal-title-row { display: flex; align-items: center; gap: 16px; padding-right: 50px; }
+.dv-modal-title-row .dv-logo { width: 72px; height: 72px; border-radius: 20px; font-size: 28px; border: 1px solid rgba(246, 221, 147, .4); }
+.dv-modal-title-row h2 { margin-bottom: 0 !important; }
+.dv-modal-desc { margin: 14px 0 0; max-width: 62ch; color: #c4bfb4; font-size: 14px; line-height: 1.6; white-space: pre-line; }
+.dv-modal-head .dv-modal-meta { margin-top: 14px; }
+.dv-edit-open { padding: 10px 14px; border-radius: 99px; cursor: pointer; font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--gold-bright); background: none; border: 1px solid rgba(246, 221, 147, .45); }
+.dv-edit-open:hover { color: #120f08; background: var(--gold); }
+
+/* ---------- edit popup ---------- */
+.dv-editor { z-index: 1250; }
+.dv-editor-card { width: min(980px, 100%); }
+.ed-body { flex: 1; overflow: auto; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.ed-form { display: grid; align-content: start; gap: 14px; padding: 20px 26px 24px; border-right: 1px solid rgba(255, 255, 255, .07); }
+.ed-label { margin: 4px 0 0; font-size: 10px; font-weight: 800; letter-spacing: .2em; color: #e9cf8f; }
+.ed-label small { margin-left: 6px; font-weight: 600; letter-spacing: 0; color: #77736b; }
+.ed-logo-row { display: flex; align-items: center; gap: 18px; }
+.ed-logo { flex: none; width: 96px; height: 96px; display: grid; place-items: center; overflow: hidden; border-radius: 24px; background: var(--grad-gold); color: #120f08; font: 900 34px/1 var(--font-display); border: 1px solid rgba(246, 221, 147, .45); }
+.ed-logo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ed-logo-actions .ed-label { flex-basis: 100%; }
+.ed-logo-actions small { flex-basis: 100%; color: #77736b; font-size: 11px; }
+.ed-upload, .ed-ghost { padding: 9px 14px; border-radius: 99px; cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+.ed-upload { color: #120f08; background: var(--grad-gold); }
+.ed-ghost { color: #ef8a7c; background: none; border: 1px solid rgba(239, 138, 124, .45); }
+.ed-ghost[hidden] { display: none; }
+.ed-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.ed-form label:not(.ed-upload) { display: grid; gap: 6px; font-size: 10px; font-weight: 800; letter-spacing: .18em; color: #8c887f; }
+.ed-form label small { font-weight: 600; letter-spacing: 0; color: #77736b; }
+.ed-form input:not([type="file"]), .ed-form textarea, .ed-add {
+  width: 100%; padding: 11px 14px; border-radius: 12px; color: var(--text); font: 600 14px/1.4 var(--font-body, inherit); letter-spacing: 0;
+  background: #0a0a09; border: 1px solid rgba(255, 255, 255, .12); outline: none;
+}
+.ed-form textarea { resize: vertical; min-height: 84px; }
+.ed-form input:focus, .ed-form textarea:focus, .ed-add:focus { border-color: rgba(246, 221, 147, .6); box-shadow: 0 0 0 4px rgba(217, 180, 91, .12); }
+.ed-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ed-switch button { display: grid; gap: 3px; padding: 12px 14px; text-align: left; border-radius: 14px; cursor: pointer; color: #c4bfb4; background: #0a0a09; border: 1px solid rgba(255, 255, 255, .12); }
+.ed-switch b { font-size: 12px; letter-spacing: .12em; }
+.ed-switch small { color: #8c887f; font-size: 11px; }
+.ed-switch [data-status="RECRUITING"].is-on { color: #7fdc95; background: rgba(127, 220, 149, .07); border-color: rgba(127, 220, 149, .55); }
+.ed-switch [data-status="CLOSED"].is-on { color: #ef8a7c; background: rgba(239, 138, 124, .06); border-color: rgba(239, 138, 124, .5); }
+.ed-needs { display: grid; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(127, 220, 149, .04); border: 1px dashed rgba(127, 220, 149, .35); animation: dv-pop .3s cubic-bezier(.16, 1, .3, 1); }
+.ed-needs[hidden] { display: none; }
+.ed-roles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.ed-role { display: grid; gap: 2px; padding: 10px 4px; border-radius: 12px; cursor: pointer; text-align: center; color: #c4bfb4; background: #0a0a09; border: 1px solid rgba(255, 255, 255, .12); }
+.ed-role b { font-size: 14px; letter-spacing: .06em; }
+.ed-role small { color: #77736b; font-size: 9px; }
+.ed-role.is-on { color: #120f08; background: var(--grad-gold); border-color: transparent; }
+.ed-role.is-on small { color: #3b2f12; }
+.ed-hint { color: #8c887f; font-size: 12px; }
+.ed-actions { display: flex; justify-content: flex-end; }
+.ed-actions .dv-primary { padding: 13px 22px; border-radius: 99px; cursor: pointer; font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #120f08; background: var(--grad-gold); border: 0; }
+.ed-actions .dv-primary:disabled { opacity: .5; cursor: wait; }
+.ed-members { display: grid; align-content: start; gap: 10px; padding: 20px 22px 24px; }
+.ed-members .ed-label b { margin-left: 6px; color: var(--text); letter-spacing: .06em; }
+.ed-member-list { display: grid; gap: 6px; }
+.ed-member { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: rgba(255, 255, 255, .025); border: 1px solid rgba(255, 255, 255, .07); }
+.ed-member.is-leader { background: rgba(217, 180, 91, .07); border-color: rgba(246, 221, 147, .3); }
+.ed-member .dv-avatar { width: 32px; height: 32px; font-size: 14px; }
+.ed-member-copy { display: grid; flex: 1; min-width: 0; }
+.ed-member-copy b { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ed-member-copy small { color: #8c887f; font-size: 10px; letter-spacing: .08em; }
+.ed-member-actions { display: flex; align-items: center; gap: 6px; flex: none; }
+.ed-member-actions select { max-width: 120px; height: 30px; padding: 0 8px; border-radius: 99px; font-size: 10px; font-weight: 800; color: var(--gold-bright); background: #0a0a09; border: 1px solid rgba(246, 221, 147, .4); }
+@media (max-width: 860px) {
+  .ed-body { grid-template-columns: 1fr; }
+  .ed-form { border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, .07); }
+}
+@media (max-width: 600px) {
+  .ed-form, .ed-members { padding-left: 16px; padding-right: 16px; }
+  .ed-grid { grid-template-columns: 1fr 1fr; }
+  .ed-grid label:last-child { grid-column: 1 / -1; }
+  .ed-roles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ed-switch { grid-template-columns: 1fr; }
+  .dv-modal-title-row .dv-logo { width: 56px; height: 56px; font-size: 22px; }
+}
