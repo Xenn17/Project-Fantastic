@@ -223,15 +223,14 @@
           password,
         });
         if (error) return msg(out, readable(error));
-        await saveDisplayUser(data.user);
+        const shown = await saveDisplayUser(data.user);
         msg(out, "Login berhasil. Mengarahkan...", true);
-        setTimeout(
-          () =>
-            (location.href =
-              new URLSearchParams(location.search).get("redirect") ||
-              "index.html"),
-          500,
-        );
+        const next = new URLSearchParams(location.search).get("redirect") || "index.html";
+        // incomplete profile → fill the 6 required fields first, then continue to where they were going
+        const target = shown?.profileComplete
+          ? next
+          : `profile.html?complete=1&redirect=${encodeURIComponent(next)}`;
+        setTimeout(() => (location.href = target), 500);
       } catch (error) {
         msg(out, readable(error));
       } finally {

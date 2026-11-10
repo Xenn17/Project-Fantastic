@@ -627,7 +627,12 @@
     setCooldown();
     const complete = updateCompletion(profile);
     if (complete) switchView();
-    else switchEdit();
+    else {
+      switchEdit();
+      const LABEL = { full_name: "nama lengkap", phone: "no. HP", ml_id: "ID ML", ml_server: "server ML", gender: "jenis kelamin", birth_date: "tanggal lahir" };
+      const missing = keys.filter((k) => !String(profile?.[k] ?? "").trim()).map((k) => LABEL[k] || k);
+      say(`Lengkapi profil dulu ya — masih kosong: ${missing.join(", ")}. Fitur Devisi, Posko & Join Team terbuka setelah profil lengkap.`);
+    }
     if ((profile.presence_mode || "auto") === "auto") {
       heartbeat();
       startHeartbeat();
@@ -697,15 +702,11 @@
       $("profileHandle").textContent = `@${data.username}`;
       say("Data diri berhasil disimpan.", true);
       switchView();
-      const redirectTarget = new URLSearchParams(location.search).get(
-        "redirect",
-      );
-      if (
-        redirectTarget === "pengaduan.html" ||
-        redirectTarget === "/pengaduan.html"
-      )
+      // continue to the page they were heading to (same-site relative paths only)
+      const redirectTarget = new URLSearchParams(location.search).get("redirect") || "";
+      if (redirectTarget && !/^([a-z]+:)?\/\//i.test(redirectTarget) && !/profile\.html/.test(redirectTarget))
         setTimeout(() => {
-          location.href = "pengaduan.html";
+          location.href = redirectTarget.replace(/^\/+/, "");
         }, 700);
       try {
         localStorage.setItem(

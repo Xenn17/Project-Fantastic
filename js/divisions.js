@@ -221,7 +221,7 @@
         const { data: { session } } = await db.auth.getSession();
         authUser = session?.user || null;
         if (authUser) {
-          const { data } = await db.from("profiles").select("role,roles").eq("id", authUser.id).maybeSingle();
+          const { data } = await db.from("profiles").select("role,roles,full_name,phone,ml_id,ml_server,gender,birth_date").eq("id", authUser.id).maybeSingle();
           profile = data || null;
           if (data) await loadData();
         }
@@ -230,6 +230,14 @@
       console.warn("Auth status unavailable", e);
     }
     const allowed = Boolean(authUser) && rolesList().some((r) => ["member", "leader_squad", "admin", "developer", "owner"].includes(r));
+    const REQUIRED = ["full_name", "phone", "ml_id", "ml_server", "gender", "birth_date"];
+    if (allowed && !REQUIRED.every((k) => String(profile?.[k] ?? "").trim())) {
+      $("divisionGrid").innerHTML = `<div class="directory-error"><h3>LENGKAPI PROFIL DULU</h3><p>Halaman Devisi terbuka setelah 6 data wajib di profil kamu terisi: nama lengkap, no. HP, jenis kelamin, tanggal lahir, ID ML, dan server ML.</p><a href="${ROOT}profile.html?complete=1&redirect=devisi/">LENGKAPI PROFIL</a></div>`;
+      document.querySelector(".directory-summary").hidden = true;
+      document.querySelector(".directory-toolbar").hidden = true;
+      document.querySelector(".member-search-wrap").hidden = true;
+      return false;
+    }
     if (!allowed) {
       $("divisionGrid").innerHTML = `<div class="directory-error"><h3>AKSES DIREKTORI DIBATASI</h3><p>Halaman ini hanya dapat diakses oleh Member F4NTASTIC atau role pengelola yang berwenang.</p><a href="${ROOT}login.html">MASUK KE AKUN</a></div>`;
       document.querySelector(".directory-summary").hidden = true;

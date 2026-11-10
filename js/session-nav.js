@@ -66,6 +66,7 @@
     return data;
   };
   function renderLoggedOut(link) {
+    document.getElementById("f4ProfileNag")?.remove();
     link.href = ROOT + "login.html";
     link.classList.remove("is-account-link");
     link.innerHTML =
@@ -76,6 +77,41 @@
       wrap.parentNode.insertBefore(link, wrap);
       wrap.remove();
     }
+  }
+  // ---- profile completeness: 6 required fields (same as profile.js) ----
+  const REQUIRED = ["full_name", "phone", "ml_id", "ml_server", "gender", "birth_date"];
+  const isComplete = (p) => Boolean(p) && REQUIRED.every((k) => String(p[k] ?? "").trim());
+  function showIncompleteBanner(show) {
+    let bar = document.getElementById("f4ProfileNag");
+    if (!show || /\/profile\.html$/.test(location.pathname)) {
+      bar?.remove();
+      return;
+    }
+    if (bar) return;
+    if (!document.getElementById("f4ProfileNagStyle")) {
+      const st = document.createElement("style");
+      st.id = "f4ProfileNagStyle";
+      st.textContent = `
+        #f4ProfileNag{position:fixed;left:50%;bottom:18px;z-index:900;transform:translateX(-50%);display:flex;align-items:center;gap:12px;
+          width:min(560px,calc(100vw - 28px));padding:12px 12px 12px 16px;border-radius:18px;color:#f5e9e6;font:600 13px/1.4 Manrope,system-ui,sans-serif;
+          background:linear-gradient(120deg,rgba(120,34,24,.96),rgba(40,14,10,.96));border:1px solid rgba(239,138,124,.55);box-shadow:0 20px 50px -20px #000;
+          animation:f4nag .6s cubic-bezier(.16,1,.3,1) both}
+        #f4ProfileNag i{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-style:normal;font-weight:900;color:#2a0b07;background:#ef8a7c}
+        #f4ProfileNag span{flex:1;min-width:0}#f4ProfileNag b{display:block;font-size:13px;color:#fff}
+        #f4ProfileNag a{flex:none;padding:9px 14px;border-radius:99px;font-size:11px;font-weight:800;letter-spacing:.1em;text-decoration:none;color:#2a0b07;background:#f6dd93}
+        #f4ProfileNag button{flex:none;width:28px;height:28px;border:0;border-radius:50%;cursor:pointer;color:#f5e9e6;background:rgba(255,255,255,.08);font-size:16px;line-height:1}
+        body.menu-open #f4ProfileNag{display:none}
+        @keyframes f4nag{from{opacity:0;transform:translate(-50%,20px)}}
+        @media(max-width:560px){#f4ProfileNag{bottom:calc(64px + env(safe-area-inset-bottom));font-size:12px}#f4ProfileNag small{display:none}}`;
+      document.head.appendChild(st);
+    }
+    const here = location.pathname.replace(/^\//, "") + location.search;
+    bar = document.createElement("div");
+    bar.id = "f4ProfileNag";
+    bar.setAttribute("role", "status");
+    bar.innerHTML = `<i aria-hidden="true">!</i><span><b>Profil kamu belum lengkap</b><small>Devisi, Posko & Join Team terbuka setelah 6 data wajib diisi.</small></span><a href="${ROOT}profile.html?complete=1&redirect=${encodeURIComponent(here)}">LENGKAPI</a><button type="button" aria-label="Sembunyikan">×</button>`;
+    bar.querySelector("button").onclick = () => bar.remove(); // hidden until the next page load
+    document.body.appendChild(bar);
   }
   function renderLoggedIn(link, user, profile) {
     const label = safeText(
@@ -135,8 +171,12 @@
       wrap.appendChild(link);
     }
     link.href = ROOT + "profile.html";
+    const complete = isComplete(profile);
+    window.f4ProfileStatus = { loggedIn: true, complete };
+    document.dispatchEvent(new CustomEvent("f4:profile-status", { detail: window.f4ProfileStatus }));
+    showIncompleteBanner(Boolean(profile) && !complete);
     link.classList.add("is-account-link");
-    link.innerHTML = `<span class="nav-avatar">${avatar ? `<img src="${avatar.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}" alt="" loading="lazy">` : `<span>${name.charAt(0).toUpperCase()}</span>`}</span><span class="nav-account-copy"><strong>${escapeHTML(label)}</strong><small>${role}</small></span>`;
+    link.innerHTML = `<span class="nav-avatar">${avatar ? `<img src="${avatar.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}" alt="" loading="lazy">` : `<span>${name.charAt(0).toUpperCase()}</span>`}</span><span class="nav-account-copy"><strong>${escapeHTML(label)}${profile && !isComplete(profile) ? ' <span class="profile-alert" title="Profil belum lengkap">●</span>' : ""}</strong><small>${role}</small></span>`;
     link.setAttribute("aria-label", `Buka profil ${name}`);
     // Akun membuka profil langsung; jangan sisipkan tombol chevron/dropdown.
     const oldToggle = wrap.querySelector(".nav-account-toggle");
