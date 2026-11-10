@@ -57,7 +57,7 @@
     <button type="button" class="mv-close" aria-label="Tutup">×</button>
     <button type="button" class="mv-prev" aria-label="Sebelumnya">‹</button>
     <button type="button" class="mv-next" aria-label="Berikutnya">›</button>
-    <div class="mv-bar"><span class="mv-label"></span><span class="mv-count"></span><a class="mv-open" target="_blank" rel="noopener">Buka asli ↗</a></div>`;
+    <div class="mv-bar"><span class="mv-label"></span><span class="mv-count"></span><a class="mv-open" target="_blank" rel="noopener">Buka asli ↗︎</a></div>`;
   document.body.append(box);
   const stage = box.querySelector(".mv-stage");
   let current = [], at = 0, lastFocus = null;

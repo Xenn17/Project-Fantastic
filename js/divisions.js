@@ -179,7 +179,7 @@
               free = Math.max(0, d.capacity - n),
               L = d.leader;
             const leader = L
-              ? `<button type="button" class="dv-leader dv-leader-link" data-profile="${esc(L.id)}" aria-label="Lihat akun leader ${esc(nameOf(L))}">${avatarHtml(L)}<div><small>LEADER</small><strong>${esc(nameOf(L))}</strong></div><em aria-hidden="true">↗</em></button>`
+              ? `<button type="button" class="dv-leader dv-leader-link" data-profile="${esc(L.id)}" aria-label="Lihat akun leader ${esc(nameOf(L))}">${avatarHtml(L)}<div><small>LEADER</small><strong>${esc(nameOf(L))}</strong></div><em aria-hidden="true">↗︎</em></button>`
               : `<div class="dv-leader is-empty">${avatarHtml(null)}<div><small>LEADER</small><strong>LEADER NEEDED</strong></div></div>`;
             return `<article class="division-card ${statusClass(s)}${isMine(d) ? " is-mine" : ""}" id="division-${d.number}" data-number="${d.number}">
           <div class="dv-card-top">
@@ -289,7 +289,7 @@
       <div><small>SQUAD ID</small><strong>${esc(d.squad_id || "—")}</strong></div>
       ${s === "RECRUITING" ? `<div class="dv-meta-needs"><small>MENCARI ROLE</small><strong>${(d.needs || []).length ? d.needs.map((r) => `<b class="role-badge ${GAME_CLASS[r] || "role-unknown"}">${esc(r)}</b>`).join("") : "SEMUA ROLE"}</strong></div>` : ""}
       ${canManageDiv(d.number) ? `<button type="button" class="dv-edit-open" data-edit-open="${d.number}">✎ EDIT DIVISI</button>` : ""}
-      ${wa ? `<a class="dv-wa" href="${wa}" target="_blank" rel="noopener">HUBUNGI VIA WA ↗</a>` : ""}`;
+      ${wa ? `<a class="dv-wa" href="${wa}" target="_blank" rel="noopener">HUBUNGI VIA WA ↗︎</a>` : ""}`;
     $("dvModalDesc").textContent = d.description || "";
     $("dvModalDesc").hidden = !d.description;
     const roles = [...new Set(d.members.map((m) => gameRole(m) || "ROLE ?"))].sort();

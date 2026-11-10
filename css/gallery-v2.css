@@ -65,7 +65,7 @@
   color: #120f08; background: var(--grad-gold);
 }
 .category-card:first-child .category-count { right: 30px; }
-.category-card::after { content: "↗"; position: absolute; top: 16px; right: 16px; z-index: 2; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--gold-bright); background: rgba(8, 8, 7, .65); border: 1px solid rgba(246, 221, 147, .3); opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .4s cubic-bezier(.16, 1, .3, 1); }
+.category-card::after { content: "↗︎"; position: absolute; top: 16px; right: 16px; z-index: 2; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--gold-bright); background: rgba(8, 8, 7, .65); border: 1px solid rgba(246, 221, 147, .3); opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .4s cubic-bezier(.16, 1, .3, 1); }
 .category-card:hover::after { opacity: 1; transform: none; }
 .category-edit-icon { z-index: 3; }
 
@@ -260,7 +260,7 @@ html.gallery-modal-open { overflow: hidden; }
 .upload-previews[hidden] { display: none; }
 .upload-preview-tile { position: relative; margin: 0; overflow: hidden; border-radius: 10px; border: 1px solid rgba(246, 221, 147, .3); background: #0a0a09; aspect-ratio: 1; }
 .upload-preview-tile img, .upload-preview-tile video { width: 100%; height: 100%; object-fit: cover; display: block; }
-.upload-preview-tile.is-video::after { content: "▶"; position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; font-size: 9px; color: #111; background: var(--gold-bright); }
+.upload-preview-tile.is-video::after { content: "▶︎"; position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; font-size: 9px; color: #111; background: var(--gold-bright); }
 .upload-preview-tile figcaption { position: absolute; inset: auto 0 0; display: grid; padding: 14px 7px 5px; background: linear-gradient(0deg, rgba(0, 0, 0, .9), transparent); }
 .upload-preview-tile figcaption span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 9px; font-weight: 700; color: #eee; }
 .upload-preview-tile figcaption small { font-size: 8px; color: #a9a49a; }

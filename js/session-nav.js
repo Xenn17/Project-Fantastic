@@ -69,7 +69,7 @@
     link.href = ROOT + "login.html";
     link.classList.remove("is-account-link");
     link.innerHTML =
-      '<span class="nav-login-icon" aria-hidden="true">↗</span><span>Masuk</span>';
+      '<span class="nav-login-icon" aria-hidden="true">↗︎</span><span>Masuk</span>';
     link.setAttribute("aria-label", "Masuk ke akun F4NTASTIC");
     const wrap = link.closest(".nav-account");
     if (wrap && wrap.parentNode) {

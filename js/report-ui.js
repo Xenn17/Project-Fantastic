@@ -13,7 +13,7 @@
   const select = $("#category");
   const chips = $("#categoryChips");
   // plain symbols present in standard fonts (colour emoji are missing on many Linux setups)
-  const ICONS = { bullying: "!", scam: "Rp", toxic: "☣", agreement: "§", internal: "⌂", rw: "◎", dk: "⌖", other: "✦" };
+  const ICONS = { bullying: "!", scam: "Rp", toxic: "☣︎", agreement: "§", internal: "⌂", rw: "◎", dk: "⌖", other: "✦" };
   const HINTS = {
     bullying: "Diolok, diserang, dikucilkan",
     scam: "Uang / akun / jual-beli",

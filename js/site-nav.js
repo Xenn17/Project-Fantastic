@@ -33,10 +33,9 @@
   });
 
   const services = nav.querySelector(".nav-services-mobile");
-  const laptop = window.matchMedia("(min-width: 781px)");
   const onOpened = () => {
     [...nav.children].forEach((el, i) => el.style.setProperty("--i", i));
-    if (services) services.open = laptop.matches;
+    if (services) services.open = true; // shown as an expanded "Layanan" card
   };
 
   if (toggle.dataset.navBound) {

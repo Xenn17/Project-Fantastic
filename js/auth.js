@@ -65,7 +65,7 @@
     const button = form.querySelector('button[type="submit"]');
     if (!button) return;
     button.disabled = state;
-    button.innerHTML = state ? "MEMPROSES..." : `${label} <span>↗</span>`;
+    button.innerHTML = state ? "MEMPROSES..." : `${label} <span>↗︎</span>`;
   };
   const saveDisplayUser = async (authUser) => {
     const { data: profile } = await db

@@ -492,10 +492,10 @@ function detail(a) {
   const igProof = a.instagram_proof || labelled("BUKTI FOLLOW IG");
   const ttProof = a.tiktok_proof || labelled("BUKTI FOLLOW TIKTOK");
   const handle = (base, h) =>
-    h ? `<a href="${esc(base + encodeURIComponent(h))}" target="_blank" rel="noopener">@${esc(h)} ↗</a>` : "— (tidak diisi)";
+    h ? `<a href="${esc(base + encodeURIComponent(h))}" target="_blank" rel="noopener">@${esc(h)} ↗︎</a>` : "— (tidak diisi)";
   const proof = (url, label) =>
     /^https?:\/\//i.test(url || "")
-      ? `<figure><a href="${esc(url)}" target="_blank" rel="noopener" title="Buka ukuran penuh"><img src="${esc(url)}" alt="${esc(label)}" loading="lazy" /></a><figcaption>${esc(label)} ↗</figcaption></figure>`
+      ? `<figure><a href="${esc(url)}" target="_blank" rel="noopener" title="Buka ukuran penuh"><img src="${esc(url)}" alt="${esc(label)}" loading="lazy" /></a><figcaption>${esc(label)} ↗︎</figcaption></figure>`
       : `<figure><span class="no-proof">Tidak ada bukti</span><figcaption>${esc(label)}</figcaption></figure>`;
   const followHtml = `<div class="follow-verify"><small>BUKTI FOLLOW — CEK SEBELUM TERIMA</small>
         ${
@@ -515,7 +515,7 @@ function detail(a) {
           const missing = [!/^https?:\/\//i.test(igProof || "") && "Instagram", !/^https?:\/\//i.test(ttProof || "") && "TikTok"].filter(Boolean);
           return (
             (window.F4Media ? F4Media.thumbs(items, { group: `proof-${a.id}` }) : `<div class="follow-proofs">${proof(igProof, "Bukti follow Instagram")}${proof(ttProof, "Bukti follow TikTok")}</div>`) +
-            (missing.length ? `<p class="proof-missing">⚠ Tidak ada bukti follow ${missing.join(" & ")}.</p>` : "")
+            (missing.length ? `<p class="proof-missing">⚠︎ Tidak ada bukti follow ${missing.join(" & ")}.</p>` : "")
           );
         })()}
         <p>Pastikan screenshot menampilkan daftar <b>Following</b> milik pendaftar (username mereka di atas) dan akun F4NTASTIC ada di daftar itu, lalu <b>TERIMA</b> atau <b>TOLAK</b>.</p>

@@ -57,7 +57,7 @@
     b.disabled = state;
     b.innerHTML = state
       ? "MEMPROSES…"
-      : 'SIMPAN DATA DIRI <span aria-hidden="true">↗</span>';
+      : 'SIMPAN DATA DIRI <span aria-hidden="true">↗︎</span>';
   }
   function showAvatar(url, name) {
     const avatar = $("avatar");
@@ -835,7 +835,7 @@
     if (error) {
       button.disabled = false;
       button.innerHTML =
-        'GAGAL KELUAR — COBA LAGI <span aria-hidden="true">↗</span>';
+        'GAGAL KELUAR — COBA LAGI <span aria-hidden="true">↗︎</span>';
       return;
     }
     try {
