@@ -720,13 +720,19 @@
       th: "เว้นว่างหากไม่ต้องการเพิ่มรูปภาพ",
     },
   };
+  // extra dictionary (js/i18n-dict.js, loaded before this file): { "Indonesian": { en, th } }
+  if (window.F4_I18N_EXTRA) Object.assign(translations, window.F4_I18N_EXTRA);
+  // patterns for text with numbers / names: [RegExp, { en, th }] — "$1" etc. are replaced by the
+  // captured groups (each group is itself translated when the dictionary knows it)
+  const patterns = (window.F4_I18N_PATTERNS || []).filter((p) => p && p[0] instanceof RegExp);
   const reverse = new Map();
   Object.entries(translations).forEach(([source, values]) =>
     Object.entries(values).forEach(([lang, value]) =>
       reverse.set(`${lang}\u0000${value}`, source),
     ),
   );
-  const originalText = new WeakMap();
+  const nodeState = new WeakMap(); // text node → { src, out }
+  const attrState = new WeakMap(); // element → { [attr]: { src, out } }
   const normalize = (value) =>
     String(value || "")
       .replace(/\s+/g, " ")
@@ -741,59 +747,121 @@
         ? "en"
         : "id";
   }
+  let current = "id";
   function sourceFor(value, lang) {
     const clean = normalize(value);
     if (!clean) return "";
     const known = reverse.get(`${lang}\u0000${clean}`);
     return known || clean;
   }
+  // Indonesian source → text in `lang` (unchanged when unknown)
+  function tr(source, lang = current, depth = 0) {
+    if (!source || lang === "id") return source;
+    const hit = translations[source]?.[lang];
+    if (hit) return hit;
+    if (depth > 2) return source;
+    for (const [re, out] of patterns) {
+      const m = source.match(re);
+      if (m && out[lang])
+        return out[lang].replace(/\$(\d)/g, (_, i) => {
+          const raw = m[+i] || "",
+            part = normalize(raw);
+          // keep the spacing of optional groups such as " (PENUH)"
+          return part ? raw.replace(part, tr(part, lang, depth + 1)) : raw;
+        });
+    }
+    // composite text: "lainnya · tanggal tidak diisi · 02 Jan 2026", or a list inside a pattern group
+    for (const sep of depth ? [" · ", ", ", " & "] : [" · "]) {
+      if (!source.includes(sep)) continue;
+      const parts = source.split(sep),
+        done = parts.map((p) => tr(p, lang, depth + 1));
+      if (done.some((p, i) => p !== parts[i])) return done.join(sep);
+    }
+    return source;
+  }
   function translateNode(node, lang) {
-    if (!originalText.has(node))
-      originalText.set(node, sourceFor(node.nodeValue, lang));
-    const source = originalText.get(node),
-      value = translations[source]?.[lang] || source;
-    if (node.nodeValue.trim())
-      node.nodeValue = node.nodeValue.replace(node.nodeValue.trim(), value);
+    const raw = node.nodeValue,
+      trimmed = raw.trim();
+    if (!trimmed) return;
+    let st = nodeState.get(node);
+    // text changed by the page's own script since we last touched it → new source
+    if (!st || trimmed !== st.out) {
+      st = { src: sourceFor(trimmed, current), out: trimmed };
+      nodeState.set(node, st);
+    }
+    const value = lang === "id" ? st.src : tr(st.src, lang);
+    if (value !== trimmed) node.nodeValue = raw.replace(trimmed, value);
+    st.out = value;
+  }
+  const ATTRS = ["title", "aria-label", "placeholder"];
+  function translateAttrs(element, lang) {
+    let map = attrState.get(element);
+    ATTRS.forEach((attribute) => {
+      const v = element.getAttribute(attribute);
+      if (v == null || !v.trim()) return;
+      if (!map) attrState.set(element, (map = {}));
+      let st = map[attribute];
+      if (!st || v !== st.out) st = map[attribute] = { src: sourceFor(v, current), out: v };
+      const value = lang === "id" ? st.src : tr(st.src, lang);
+      if (value !== v) element.setAttribute(attribute, value);
+      st.out = value;
+    });
+  }
+  const skip = (node) => node.parentElement?.closest("script,style,noscript,textarea,[contenteditable],[translate=no],.notranslate,.f4-language-switcher");
+  function translateTree(root, lang) {
+    if (root.nodeType === 3) {
+      if (!skip(root)) translateNode(root, lang);
+      return;
+    }
+    if (root.nodeType !== 1 || root.closest?.("script,style,noscript,textarea,[contenteditable],[translate=no],.notranslate,.f4-language-switcher")) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: (node) => (skip(node) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => translateNode(node, lang));
+    if (root.matches?.("[title],[aria-label],[placeholder]")) translateAttrs(root, lang);
+    root.querySelectorAll?.("[title],[aria-label],[placeholder]").forEach((el) => translateAttrs(el, lang));
   }
   function translate(lang) {
+    if (!supported.includes(lang)) lang = "id";
     document.documentElement.lang = lang === "th" ? "th" : lang;
     document.body.dataset.language = lang;
     document.querySelectorAll("[data-i18n]").forEach((element) => {
       const key = element.dataset.i18n;
-      if (translations[key]?.[lang])
-        element.textContent = translations[key][lang];
+      if (translations[key]?.[lang]) element.textContent = translations[key][lang];
     });
-    const walker = document.createTreeWalker(
-      document.body,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: (node) =>
-          node.parentElement?.closest(
-            "script,style,noscript,.f4-language-switcher",
-          )
-            ? NodeFilter.FILTER_REJECT
-            : NodeFilter.FILTER_ACCEPT,
-      },
-    );
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach((node) => translateNode(node, lang));
-    document
-      .querySelectorAll("[title],[aria-label],[placeholder]")
-      .forEach((element) =>
-        ["title", "aria-label", "placeholder"].forEach((attribute) => {
-          const source = sourceFor(element.getAttribute(attribute), lang);
-          if (translations[source]?.[lang])
-            element.setAttribute(attribute, translations[source][lang]);
-        }),
-      );
+    translateTree(document.body, lang);
+    const t = document.querySelector("title");
+    if (t) {
+      t.dataset.src ??= t.textContent;
+      t.textContent = lang === "id" ? t.dataset.src : tr(normalize(t.dataset.src), lang);
+    }
+    current = lang;
     document
       .querySelectorAll(".f4-language-option")
       .forEach((option) =>
         option.classList.toggle("is-active", option.dataset.language === lang),
       );
     localStorage.setItem(STORAGE_KEY, lang);
+    document.dispatchEvent(new CustomEvent("f4:language", { detail: { lang } }));
   }
+  // native dialogs: translate the message (multi-line messages are translated line by line)
+  const trMessage = (msg) =>
+    current === "id" || msg == null
+      ? msg
+      : String(msg)
+          .split("\n")
+          .map((line) => {
+            const clean = normalize(line);
+            return clean ? line.replace(line.trim(), tr(clean)) : line;
+          })
+          .join("\n");
+  ["alert", "confirm", "prompt"].forEach((name) => {
+    const original = window[name]?.bind(window);
+    if (!original) return;
+    window[name] = (message, ...rest) => original(trMessage(message), ...rest);
+  });
   function mountSwitcher() {
     if (document.querySelector(".f4-language-switcher")) return;
     const wrap = document.createElement("div");
@@ -829,21 +897,31 @@
   document.head.append(style);
   function boot() {
     mountSwitcher();
-    translate(language());
+    current = language();
+    translate(current);
     const observer = new MutationObserver((records) => {
-      if (
-        records.some((record) =>
-          [...record.addedNodes].some(
-            (node) => node.nodeType === 1 || node.nodeType === 3,
-          ),
-        )
-      )
-        translate(language());
+      if (current === "id") return;
+      observer.disconnect();
+      for (const record of records) {
+        if (record.type === "childList") record.addedNodes.forEach((node) => translateTree(node, current));
+        else if (record.type === "characterData") translateTree(record.target, current);
+        else if (record.type === "attributes" && record.target.nodeType === 1) translateAttrs(record.target, current);
+      }
+      observe();
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+    const observe = () =>
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ATTRS,
+      });
+    observe();
   }
   window.F4Translate = translate;
   window.F4Translations = translations;
+  window.F4T = (text, lang) => tr(normalize(text), lang || current); // for scripts: F4T("Indonesian text")
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", boot, { once: true });
   else boot();
