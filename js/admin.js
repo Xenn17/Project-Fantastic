@@ -95,7 +95,9 @@ async function requireDeveloper() {
       ["admin", "developer", "owner"].includes(role),
     );
     if (!isManager) {
-      redirectToLogin();
+      // Leader Squad only has access to Manage Devisi
+      if (/leader_squad/.test(JSON.stringify(profile || {}))) window.location.replace("manage-division.html");
+      else redirectToLogin();
       return false;
     }
     return true;

@@ -191,6 +191,11 @@
         ) &&
         !["admin", "developer", "owner"].includes(managerRole)
       ) {
+        // Leader Squad only has access to Manage Devisi
+        if (profileRoles.includes("leader_squad")) {
+          window.location.replace("manage-division.html");
+          return false;
+        }
         redirectToLogin();
         return false;
       }

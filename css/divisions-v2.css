@@ -244,3 +244,25 @@ html.dv-modal-open { overflow: hidden; }
   .pf-label { margin-left: 16px; }
   .pf-avatar { width: 80px; height: 80px; font-size: 32px; }
 }
+
+/* ---------- add / remove members (leaders + staff) ---------- */
+.dv-add { display: grid; gap: 8px; padding: 12px 26px; border-bottom: 1px solid rgba(255, 255, 255, .07); }
+.dv-add[hidden] { display: none; }
+.dv-add input { height: 42px; padding: 0 16px; border-radius: 99px; color: var(--text); font-size: 13px; background: #0a0a09; border: 1px dashed rgba(246, 221, 147, .4); outline: none; }
+.dv-add input:focus { border-style: solid; border-color: rgba(246, 221, 147, .7); box-shadow: 0 0 0 4px rgba(217, 180, 91, .12); }
+.dv-add-results { display: grid; gap: 6px; max-height: 220px; overflow: auto; }
+.dv-add-results:empty { display: none; }
+.dv-add-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: rgba(255, 255, 255, .03); border: 1px solid rgba(255, 255, 255, .08); }
+.dv-add-row .dv-avatar { width: 32px; height: 32px; font-size: 14px; }
+.dv-add-row > span:nth-child(2) { display: grid; min-width: 0; flex: 1; }
+.dv-add-row b { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dv-add-row small { color: #8c887f; font-size: 11px; }
+.dv-add-row button { flex: none; padding: 7px 12px; border-radius: 99px; cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #120f08; background: var(--grad-gold); border: 0; }
+.dv-add-empty { margin: 0; padding: 8px 4px; color: #8c887f; font-size: 12px; }
+.dv-add-empty.is-error { color: #ef8a7c; }
+.dv-remove {
+  margin-left: 4px; padding: 4px 10px; border-radius: 99px; cursor: pointer; font-size: 10px; font-weight: 800; letter-spacing: .08em;
+  color: #ef8a7c; background: none; border: 1px solid rgba(239, 138, 124, .45);
+}
+.dv-remove:hover { color: #fff; background: #c0503f; border-color: transparent; }
+@media (max-width: 600px) { .dv-add { padding-left: 16px; padding-right: 16px; } }

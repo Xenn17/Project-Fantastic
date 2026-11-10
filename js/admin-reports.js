@@ -67,7 +67,7 @@ async function requireDeveloper() {
       Promise.all([
         db
           .from("profiles")
-          .select("role")
+          .select("role,roles")
           .eq("id", session.user.id)
           .maybeSingle(),
         db
@@ -88,7 +88,9 @@ async function requireDeveloper() {
       ),
     );
     if (!isManager) {
-      redirectToLogin();
+      // Leader Squad only has access to Manage Devisi
+      if (/leader_squad/.test(JSON.stringify(profile || {}))) window.location.replace("manage-division.html");
+      else redirectToLogin();
       return false;
     }
     return true;

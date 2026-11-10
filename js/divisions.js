@@ -42,6 +42,19 @@
   const rolesList = () => profile?.roles?.length ? profile.roles : [profile?.role || "tamu"];
   const isStaff = () => rolesList().some((r) => ["admin", "developer", "owner"].includes(r));
   const nameOf = (m) => m.username || m.full_name || "Tanpa nama";
+  const myDivision = () => {
+    if (!authUser) return null;
+    for (const d of rows) if (d.members.some((m) => String(m.id) === String(authUser.id))) return d.number;
+    return null;
+  };
+  // Mirrors f4_can_manage_roster(): staff, the division's official leader, or a Leader Squad on its roster.
+  const canManageDiv = (n) => {
+    if (!authUser) return false;
+    if (isStaff()) return true;
+    const d = rows.find((x) => x.number === n);
+    if (d?.leader && String(d.leader.id) === String(authUser.id)) return true;
+    return rolesList().includes("leader_squad") && myDivision() === n;
+  };
   const gameRole = (m) => GAME_ROLE[String(m.game_role || "").toLowerCase()] || "";
 
   function statusOf(d) {
@@ -227,6 +240,8 @@
     modalHighlight = opts.highlight || null;
     $("dvMemberFilter").value = "";
     $("dvModalStatus").textContent = "";
+    $("dvAddSearch").value = "";
+    $("dvAddResults").innerHTML = "";
     if (modal.hidden) lastFocus = document.activeElement;
     renderModal();
     modal.hidden = false;
@@ -251,6 +266,7 @@
     const s = statusOf(d),
       n = countOf(d),
       manage = isStaff(),
+      lead = !manage && canManageDiv(d.number),
       wa = d.whatsapp ? `https://wa.me/${d.whatsapp.replace(/\D/g, "")}` : "";
     $("dvModalKicker").innerHTML = `<span></span> DIVISI ${pad(d.number)} · <b class="division-status ${statusClass(s)}">${s}</b>`;
     $("dvModalTitle").textContent = `F4NTASTIC DIV. ${pad(d.number)}`;
@@ -264,10 +280,13 @@
       .map((r) => `<button type="button" class="dv-chip${r === modalRole ? " is-active" : ""}" data-role="${esc(r)}">${r === "ALL" ? `SEMUA <b>${n}</b>` : esc(r)}</button>`)
       .join("");
     const note = $("dvManageNote");
-    note.hidden = !manage;
+    note.hidden = !manage && !lead;
     note.innerHTML = manage
-      ? `Tambah member atau pilih leader lewat <a href="${ROOT}manage-role.html">Manage Role → Divisi</a>. Pindahkan member lewat tombol ⇄ PINDAH.`
-      : "";
+      ? `Tambah member di kolom bawah atau lewat <a href="${ROOT}manage-role.html">Manage Role → Divisi</a> (untuk pilih leader). Pindahkan member lewat tombol ⇄ PINDAH.`
+      : lead
+        ? `Kamu pengelola DIV ${pad(d.number)}: bisa menambah member (akun Member yang belum punya divisi) dan mengeluarkan member — di sini atau di <a href="${ROOT}manage-division.html">Manage Devisi</a>.`
+        : "";
+    $("dvAdd").hidden = !manage && !lead;
     const q = $("dvMemberFilter").value.trim().toLowerCase();
     const options = rows
       .filter((x) => x.number !== d.number)
@@ -290,7 +309,7 @@
                   ${avatarHtml(m)}
                   <span class="dv-member-copy"><strong>${esc(nameOf(m))}</strong><small>${m.full_name && m.username ? esc(m.full_name) + " · " : ""}${m.is_leader ? "Leader divisi" : m.main_hero ? "Main " + esc(m.main_hero) : "Lihat akun"}</small></span>
                 </button>
-                <div class="member-role-list">${m.is_leader ? '<b class="role-badge role-leader">LEADER</b>' : ""}${gameBadge(m)}${manage ? `<button type="button" class="dv-move-toggle" data-toggle-move aria-expanded="false">⇄ PINDAH</button>` : ""}</div>
+                <div class="member-role-list">${m.is_leader ? '<b class="role-badge role-leader">LEADER</b>' : ""}${gameBadge(m)}${manage ? `<button type="button" class="dv-move-toggle" data-toggle-move aria-expanded="false">⇄ PINDAH</button>` : ""}${lead && !m.is_leader && String(m.id) !== String(authUser.id) ? `<button type="button" class="dv-remove" data-remove="${esc(m.id)}">KELUARKAN</button>` : ""}</div>
                 ${manage ? `<div class="dv-move"><select data-move-target aria-label="Pindahkan ${esc(nameOf(m))} ke divisi"><option value="">Pindah ke divisi…</option><option value="0">— Keluarkan dari divisi</option>${options}</select><button type="button" data-move="${esc(m.id)}">SIMPAN</button></div>` : ""}
               </article>`;
           })
@@ -329,6 +348,82 @@
       say(/permission|row-level|Hanya admin/i.test(msg) ? "Hanya admin, developer, atau owner yang bisa memindahkan member." : `Gagal: ${msg}`, "is-error");
     }
   }
+
+  /* ================= add / remove (staff + leaders of this division) ================= */
+  const modalSay = (text, kind = "") => {
+    $("dvModalStatus").textContent = text;
+    $("dvModalStatus").className = `dv-modal-status ${kind}`;
+  };
+  const friendly = (err) => {
+    const msg = String(err?.message || err || "");
+    if (/42501|permission|row-level|izin/i.test(msg) && !/sudah|hanya/i.test(msg)) return "Kamu tidak punya izin mengelola divisi ini.";
+    if (/function .* does not exist|Could not find the function/i.test(msg)) return "Fitur ini belum aktif — admin perlu menjalankan supabase-division-leader-manage.sql.";
+    return msg || "Terjadi kesalahan. Coba lagi.";
+  };
+  async function refreshAll() {
+    await loadData();
+    renderSummary();
+    render();
+    renderModal();
+  }
+  let addTimer = 0,
+    addSeq = 0;
+  async function searchCandidates() {
+    const q = $("dvAddSearch").value.trim().replace(/^@/, ""),
+      box = $("dvAddResults"),
+      seq = ++addSeq;
+    if (q.length < 2) {
+      box.innerHTML = q ? '<p class="dv-add-empty">Ketik minimal 2 huruf.</p>' : "";
+      return;
+    }
+    box.innerHTML = '<p class="dv-add-empty">Mencari akun…</p>';
+    const { data, error } = await db.rpc("f4_division_candidates", { p_division: modalNumber, p_query: q });
+    if (seq !== addSeq) return;
+    if (error) {
+      box.innerHTML = `<p class="dv-add-empty is-error">${esc(friendly(error))}</p>`;
+      return;
+    }
+    box.innerHTML = (data || []).length
+      ? data
+          .map(
+            (a) =>
+              `<div class="dv-add-row">${avatarHtml(a)}<span><b>${esc(nameOf(a))}</b><small>${a.full_name && a.username ? esc(a.full_name) : "Belum punya divisi"}</small></span><button type="button" data-add="${esc(a.id)}" data-name="${esc(nameOf(a))}">+ TAMBAH</button></div>`,
+          )
+          .join("")
+      : '<p class="dv-add-empty">Tidak ada akun Member tanpa divisi yang cocok. Akun yang sudah di divisi lain hanya bisa dipindah admin.</p>';
+  }
+  async function addMember(pid, name) {
+    const d = rows.find((x) => x.number === modalNumber);
+    if (!d) return;
+    if (countOf(d) >= d.capacity) return modalSay(`DIV ${pad(d.number)} sudah penuh (${countOf(d)}/${d.capacity}).`, "is-error");
+    if (!confirm(`Tambahkan ${name} ke DIV ${pad(d.number)}?`)) return;
+    modalSay("Menambahkan…");
+    const { error } = await db.rpc("f4_division_add_member", { p_division: d.number, p_target_id: pid });
+    if (error) return modalSay(friendly(error), "is-error");
+    $("dvAddSearch").value = "";
+    $("dvAddResults").innerHTML = "";
+    await refreshAll();
+    modalSay(`✓ ${name} masuk ke DIV ${pad(d.number)}.`, "is-success");
+  }
+  async function removeMember(pid) {
+    const d = rows.find((x) => x.number === modalNumber);
+    const m = d?.members.find((x) => String(x.id) === String(pid));
+    if (!m) return;
+    if (!confirm(`Keluarkan ${nameOf(m)} dari DIV ${pad(d.number)}?`)) return;
+    modalSay("Menyimpan…");
+    const { error } = await db.rpc("f4_division_remove_member", { p_division: d.number, p_target_id: m.id });
+    if (error) return modalSay(friendly(error), "is-error");
+    await refreshAll();
+    modalSay(`✓ ${nameOf(m)} dikeluarkan dari DIV ${pad(d.number)}.`, "is-success");
+  }
+  $("dvAddSearch")?.addEventListener("input", () => {
+    clearTimeout(addTimer);
+    addTimer = setTimeout(searchCandidates, 250);
+  });
+  $("dvAddResults")?.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-add]");
+    if (b) addMember(b.dataset.add, b.dataset.name);
+  });
 
   /* ================= account preview popup ================= */
   const pf = $("dvProfile");
@@ -395,6 +490,8 @@
     if (e.target.closest("[data-dv-close]")) return closeModal();
     const open = e.target.closest("[data-profile]");
     if (open) return openProfile(open.dataset.profile);
+    const rm = e.target.closest("[data-remove]");
+    if (rm) return removeMember(rm.dataset.remove);
     const chip = e.target.closest("[data-role]");
     if (chip) {
       modalRole = chip.dataset.role;
