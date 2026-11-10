@@ -12,7 +12,7 @@
 create or replace function public.f4_role_rank(p_role text)
 returns int language sql immutable set search_path = public, pg_temp as $$
   select case lower(p_role)
-    when 'tamu' then 0 when 'calon_member' then 1 when 'member' then 2
+    when 'tamu' then 0 when 'ex_member' then 0 when 'calon_member' then 1 when 'member' then 2
     when 'leader_squad' then 3 when 'admin' then 4 when 'developer' then 5
     when 'owner' then 6 else -1 end;
 
@@ -29,7 +29,7 @@ where roles is null or cardinality(roles) = 0 or roles = array['tamu']::text[];
 
 alter table public.profiles drop constraint if exists profiles_roles_check;
 alter table public.profiles add constraint profiles_roles_check check (
-  roles <@ array['tamu','calon_member','member','leader_squad','admin','developer','owner']::text[]
+  roles <@ array['tamu','ex_member','calon_member','member','leader_squad','admin','developer','owner']::text[]
   and cardinality(roles) > 0
 );
 
@@ -52,11 +52,11 @@ begin
     from unnest(coalesce(p_roles, array[]::text[])) x
     where trim(x) <> '';
   if v is null or cardinality(v) = 0
-     or not (v <@ array['tamu','calon_member','member','leader_squad','admin','developer','owner']::text[]) then
+     or not (v <@ array['tamu','ex_member','calon_member','member','leader_squad','admin','developer','owner']::text[]) then
     return null;
   end if;
   if v && array['calon_member','member','leader_squad','admin','developer','owner']::text[] then
-    v := array(select x from unnest(v) x where x <> 'tamu');
+    v := array(select x from unnest(v) x where x not in ('tamu', 'ex_member'));
   end if;
   if v && array['member','leader_squad','admin','developer','owner']::text[] then
     v := array(select x from unnest(v) x where x <> 'calon_member');

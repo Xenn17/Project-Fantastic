@@ -55,6 +55,12 @@
       rank: 0,
       desc: "Akun baru / belum menjadi member.",
     },
+    {
+      key: "ex_member",
+      label: "Ex Member",
+      rank: 0,
+      desc: "Pernah dikeluarkan dari F4NTASTIC.",
+    },
   ];
   const TIER = ["member", "calon_member", "tamu"],
     EXTRAS = ["owner", "developer", "admin", "leader_squad"];
@@ -217,6 +223,64 @@
       return false;
     }
   }
+  // latest expulsion per account (f4_account_actions, staff only)
+  let expelled = new Map();
+  async function loadExpulsions() {
+    const { data, error } = await db
+      .from("f4_account_actions")
+      .select("target_id,created_at,reason,actor_username,member_division,led_divisions")
+      .eq("action", "expel")
+      .order("created_at", { ascending: false });
+    expelled = new Map();
+    if (error) return console.warn("f4_account_actions belum ada — jalankan supabase-account-actions.sql", error);
+    (data || []).forEach((r) => expelled.has(String(r.target_id)) || expelled.set(String(r.target_id), r));
+  }
+  const fmtDateTime = (v) =>
+    v ? new Date(v).toLocaleString("id-ID", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—";
+  // server rule mirrored: staff, not yourself, and only accounts ranked BELOW your highest role
+  const canManageAccount = (profile) =>
+    Boolean(actor) && String(actor.id) !== String(profile.id) && maxRank(rolesOf(profile)) < actorMaxRank;
+  const canExpel = (profile) =>
+    canManageAccount(profile) &&
+    (rolesOf(profile).some((r) => ["calon_member", "member", "leader_squad", "admin", "developer"].includes(r)) ||
+      Boolean(divisionOf(profile)) ||
+      ledBy(profile).length > 0);
+  const nameOfProfile = (p) => p.full_name || p.username || "akun ini";
+  async function expelAccount(profile) {
+    const name = nameOfProfile(profile);
+    const reason = prompt(`Keluarkan ${name} dari F4NTASTIC?\n\nAlasan (opsional, maks. 300 karakter):`, "");
+    if (reason === null) return;
+    if (
+      !confirm(
+        `Yakin keluarkan ${name}?\n\n• Dikeluarkan dari semua divisi (anggota & leader)\n• Role jadi Tamu + Ex Member\n• Tanggal dikeluarkan dicatat`,
+      )
+    )
+      return;
+    const { data, error } = await db.rpc("f4_expel_member", { p_target_id: profile.id, p_reason: reason.trim() || null });
+    if (error) return say(actionError(error));
+    closeAccountDetail();
+    await load();
+    say(`${name} dikeluarkan · ${fmtDateTime(data)}.`, true);
+  }
+  async function deleteAccount(profile) {
+    const name = nameOfProfile(profile),
+      handle = profile.username || "";
+    if (!confirm(`HAPUS AKUN ${name} secara permanen?\n\nAkun login, profil, divisi, dan foto profilnya tidak bisa dikembalikan.`)) return;
+    const typed = prompt(`Ketik username "${handle}" untuk konfirmasi:`, "");
+    if (typed === null) return;
+    if (typed.trim().replace(/^@/, "").toLowerCase() !== handle.toLowerCase()) return say("Username tidak cocok — akun tidak dihapus.");
+    const { error } = await db.rpc("f4_delete_account", { p_target_id: profile.id, p_reason: null });
+    if (error) return say(actionError(error));
+    closeAccountDetail();
+    await load();
+    say(`Akun @${handle} sudah dihapus.`, true);
+  }
+  const actionError = (error) => {
+    const msg = String(error?.message || error || "");
+    if (/Could not find the function|does not exist|schema cache/i.test(msg))
+      return "Fitur ini belum aktif — jalankan supabase-account-actions.sql di Supabase SQL Editor.";
+    return msg || "Terjadi kesalahan. Coba lagi.";
+  };
   async function load() {
     $("roleGroups").innerHTML = '<p class="empty">Mengambil data akun...</p>';
     const [{ data, error }] = await Promise.all([
@@ -227,6 +291,7 @@
       )
       .order("created_at", { ascending: false }),
       loadRoster().catch((e) => console.warn(e)),
+      loadExpulsions().catch((e) => console.warn(e)),
     ]);
     if (error) {
       $("roleGroups").innerHTML =
@@ -290,7 +355,10 @@
       const body = document.createElement("tbody");
       members.forEach((profile) => body.append(buildRow(profile)));
       table.append(body);
-      group.append(table);
+      const scroller = document.createElement("div");
+      scroller.className = "role-table-scroll";
+      scroller.append(table);
+      group.append(scroller);
       wrap.append(group);
     });
   }
@@ -304,7 +372,7 @@
     const avatarHtml = profile.avatar_url
       ? `<img class="role-avatar-img" src="${esc(profile.avatar_url)}" alt="" loading="lazy">`
       : `<span class="role-avatar-letter">${esc(initial)}</span>`;
-    tr.innerHTML = `<td><div class="role-account" tabindex="0" role="button" aria-label="Lihat data ${esc(profile.full_name || profile.username || "akun")}"><span class="role-avatar">${avatarHtml}</span><div><strong class="candidate-name">${esc(profile.full_name || profile.username || "Tanpa nama")}</strong><span class="ign">@ ${esc(profile.username || "—")}${isSelf ? " · KAMU" : ""}</span></div></div></td><td>${esc(profile.email || "—")}</td><td><div class="role-chip-list">${roles.map(chipHtml).join("")}</div></td><td>${divisionChip(profile)}</td><td>${profile.created_at ? new Date(profile.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" }) : "—"}</td><td>${isSelf ? '<button class="save-role role-edit-button" type="button">ATUR DIVISI</button>' : '<button class="save-role role-edit-button" type="button">ATUR ROLE</button>'}</td>`;
+    tr.innerHTML = `<td><div class="role-account" tabindex="0" role="button" aria-label="Lihat data ${esc(profile.full_name || profile.username || "akun")}"><span class="role-avatar">${avatarHtml}</span><div><strong class="candidate-name">${esc(profile.full_name || profile.username || "Tanpa nama")}</strong><span class="ign">@ ${esc(profile.username || "—")}${isSelf ? " · KAMU" : ""}</span></div></div></td><td>${esc(profile.email || "—")}</td><td><div class="role-chip-list">${roles.map(chipHtml).join("")}</div></td><td>${divisionChip(profile)}</td><td>${profile.created_at ? new Date(profile.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" }) : "—"}</td><td><div class="role-row-actions">${isSelf ? '<button class="save-role role-edit-button" type="button">ATUR DIVISI</button>' : '<button class="save-role role-edit-button" type="button">ATUR ROLE</button>'}${canExpel(profile) ? '<button class="role-danger role-expel-button" type="button">KELUARKAN</button>' : ""}${canManageAccount(profile) ? '<button class="role-danger is-solid role-delete-button" type="button" title="Hapus akun permanen">HAPUS AKUN</button>' : ""}</div>${expelled.has(String(profile.id)) && rolesOf(profile).includes("ex_member") ? `<small class="role-expelled-note">Dikeluarkan ${esc(fmtDateTime(expelled.get(String(profile.id)).created_at))}</small>` : ""}</td>`;
     const accountButton = tr.querySelector(".role-account");
     accountButton.addEventListener("click", () => openAccountDetail(profile));
     accountButton.addEventListener("keydown", (event) => {
@@ -326,6 +394,8 @@
     tr.querySelector(".role-edit-button")?.addEventListener("click", () =>
       openEditor(profile),
     );
+    tr.querySelector(".role-expel-button")?.addEventListener("click", () => expelAccount(profile));
+    tr.querySelector(".role-delete-button")?.addEventListener("click", () => deleteAccount(profile));
     return tr;
   }
   function openAccountDetail(profile) {
@@ -373,6 +443,16 @@
           .filter(Boolean)
           .join(" · "),
       ],
+      ...(expelled.has(String(profile.id))
+        ? (() => {
+            const x = expelled.get(String(profile.id));
+            return [
+              ["DIKELUARKAN", `${fmtDateTime(x.created_at)}${x.actor_username ? ` · oleh @${x.actor_username}` : ""}`],
+              ["ALASAN DIKELUARKAN", x.reason || "—"],
+              ["DIVISI SEBELUMNYA", [x.member_division ? `Anggota DIV ${pad2(x.member_division)}` : "", (x.led_divisions || []).length ? `Leader DIV ${x.led_divisions.map(pad2).join(", ")}` : ""].filter(Boolean).join(" · ") || "—"],
+            ];
+          })()
+        : []),
       ["GENDER", profile.gender || "—"],
       [
         "TANGGAL LAHIR",
@@ -441,6 +521,8 @@
         link.append(image);
         showcase.append(link);
       });
+    $("accountExpel").hidden = !canExpel(profile);
+    $("accountDelete").hidden = !canManageAccount(profile);
     $("accountEditRole").hidden = false;
     $("accountEditRole").textContent = isSelf ? "ATUR DIVISI" : "ATUR ROLE & DIVISI";
     $("accountOverlay").hidden = false;
@@ -576,6 +658,7 @@
     const target = activeProfile;
     const selected = [
       selectedTier,
+      ...(selectedTier === "tamu" && rolesOf(target).includes("ex_member") ? ["ex_member"] : []),
       ...[...$("roleExtra").querySelectorAll("input:checked")].map(
         (input) => input.value,
       ),
@@ -676,6 +759,8 @@
   $("accountOverlay").onclick = (event) => {
     if (event.target.id === "accountOverlay") closeAccountDetail();
   };
+  $("accountExpel").onclick = () => activeDetail && expelAccount(activeDetail);
+  $("accountDelete").onclick = () => activeDetail && deleteAccount(activeDetail);
   $("accountEditRole").onclick = () => {
     closeAccountDetail();
     if (activeDetail) openEditor(activeDetail);

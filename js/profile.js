@@ -291,11 +291,11 @@
     const name = profile.full_name || label;
     const gameRoles = { jungler: "JUNGLER", gold: "GOLD", exp: "EXP", roam: "ROAM", mid: "MID" };
     const ranks = {
-      tamu: "TAMU", calon_member: "CALON MEMBER", member: "MEMBER", leader_squad: "LEADER SQUAD",
+      tamu: "TAMU", ex_member: "EX MEMBER", calon_member: "CALON MEMBER", member: "MEMBER", leader_squad: "LEADER SQUAD",
       admin: "ADMIN", developer: "DEVELOPER", owner: "OWNER",
     };
     set("cardName", name);
-    set("cardRank", ranks[profile.role] || "TAMU");
+    set("cardRank", ranks[(profile.roles || []).includes("ex_member") ? "ex_member" : profile.role] || "TAMU");
     set("cardHero", profile.main_hero || "—");
     set("cardGameRole", gameRoles[profile.game_role] || "—");
     set("sHero", profile.main_hero || "—");
@@ -633,6 +633,7 @@
     $("profileHandle").textContent = `@${label}`;
     const roleNames = {
       tamu: "TAMU F4NTASTIC",
+      ex_member: "EX MEMBER F4NTASTIC",
       calon_member: "CALON MEMBER F4NTASTIC",
       member: "MEMBER F4NTASTIC",
       leader_squad: "LEADER SQUAD F4NTASTIC",
@@ -640,7 +641,7 @@
       developer: "DEVELOPER F4NTASTIC",
       owner: "OWNER F4NTASTIC",
     };
-    const role = roleNames[profile.role] || "TAMU F4NTASTIC";
+    const role = roleNames[(profile.roles || []).includes("ex_member") ? "ex_member" : profile.role] || "TAMU F4NTASTIC";
     $("profileRole").textContent = role;
     $("profileRole").classList.toggle(
       "is-developer",

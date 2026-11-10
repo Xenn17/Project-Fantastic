@@ -441,3 +441,34 @@ td button:disabled { opacity: .55; cursor: wait; }
   .md-recruit-switch { grid-template-columns: 1fr; }
   .md-role-picks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* ---------- Manage Role: horizontal scroll per role section ---------- */
+.role-table-scroll {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; scrollbar-color: rgba(217, 180, 91, .6) rgba(255, 255, 255, .04);
+}
+.role-table-scroll::-webkit-scrollbar { height: 10px; }
+.role-table-scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, .04); }
+.role-table-scroll::-webkit-scrollbar-thumb { background: rgba(217, 180, 91, .55); border-radius: 99px; border: 2px solid transparent; background-clip: padding-box; }
+.role-table-scroll::-webkit-scrollbar-thumb:hover { background: rgba(246, 221, 147, .9); background-clip: padding-box; }
+.role-table-scroll table { min-width: 1020px; width: 100%; }
+
+/* ---------- expel / delete ---------- */
+.role-row-actions { display: flex; gap: 6px; align-items: center; flex-wrap: nowrap; }
+.role-danger {
+  padding: 8px 10px; border-radius: 99px; cursor: pointer; white-space: nowrap;
+  font-size: 9px; font-weight: 800; letter-spacing: .08em;
+  color: #ef8a7c; background: none; border: 1px solid rgba(239, 138, 124, .5);
+}
+.role-danger:hover { color: #fff; background: #c0503f; border-color: transparent; }
+.role-danger.is-solid { color: #fff; background: #8f2f24; border-color: transparent; }
+.role-danger.is-solid:hover { background: #c0503f; }
+.role-modal-actions .role-danger { min-height: 44px; padding: 11px 16px; font-size: 11px; }
+.role-modal-actions .role-danger[hidden] { display: none; }
+.role-expelled-note { display: block; margin-top: 6px; color: #ef8a7c; font-size: 9px; letter-spacing: .04em; }
+.role-chip-ex_member { border-color: rgba(239, 138, 124, .55) !important; color: #ef8a7c !important; background: rgba(192, 80, 63, .1) !important; }
+.role-ex_member .role-group-head { background: linear-gradient(90deg, rgba(192, 80, 63, .14), transparent) !important; }
+@media (max-width: 560px) {
+  .role-modal-actions { flex-wrap: wrap; }
+  .role-modal-actions .role-danger { width: 100%; }
+}
