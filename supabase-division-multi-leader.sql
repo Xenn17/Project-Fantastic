@@ -27,7 +27,8 @@ begin
   if p_division is null then return; end if;
   update public.f4_divisions d set
     member_count = least(25, public.f4_division_headcount(p_division)),
-    leader_name = (select coalesce(nullif(p.username, ''), p.full_name)
+    -- 1 atau 2 leader → "leader1 & leader2" (aman setelah supabase-division-two-leaders.sql)
+    leader_name = (select string_agg(coalesce(nullif(p.username, ''), p.full_name), ' & ' order by l.assigned_at, p.username)
                    from public.f4_division_leaders l join public.profiles p on p.id = l.profile_id
                    where l.division_id = p_division),
     version = d.version + 1,
@@ -77,7 +78,7 @@ begin
     if coalesce(p_is_leader, false) then
       insert into public.f4_division_leaders (division_id, profile_id, assigned_by)
       values (p_division_id, p_target_id, auth.uid())
-      on conflict (division_id) do update set profile_id = excluded.profile_id, assigned_by = excluded.assigned_by, assigned_at = now();
+      on conflict do nothing; -- kunci tabel bisa (division_id) atau (division_id, profile_id) setelah two-leaders
     end if;
   end if;
 
@@ -127,7 +128,7 @@ begin
     end if;
     insert into public.f4_division_leaders (division_id, profile_id, assigned_by)
     values (p_division, p_profile_id, auth.uid())
-    on conflict (division_id) do update set profile_id = excluded.profile_id, assigned_by = excluded.assigned_by, assigned_at = now();
+    on conflict do nothing; -- kunci tabel bisa (division_id) atau (division_id, profile_id) setelah two-leaders
   end if;
   perform public.f4_division_sync(p_division);
   insert into public.f4_division_audit (division_id, actor_id, action, before_data, after_data)
@@ -138,7 +139,9 @@ revoke all on function public.f4_set_division_leader(smallint, uuid) from public
 grant execute on function public.f4_set_division_leader(smallint, uuid) to authenticated;
 
 -- ---------- tambah member (leader/admin): kapasitas = roster ∪ leader ----------
-create or replace function public.f4_division_add_member(p_division smallint, p_target_id uuid)
+-- versi lebih baru (supabase-division-requests.sql) punya tipe hasil lain → hapus dulu
+drop function if exists public.f4_division_add_member(smallint, uuid);
+create function public.f4_division_add_member(p_division smallint, p_target_id uuid)
 returns void language plpgsql security definer set search_path = public, pg_temp as $$
 #variable_conflict use_column
 declare v_cap smallint; v_count int;
@@ -164,6 +167,8 @@ begin
   values (p_division, auth.uid(), 'ROSTER_ADD', null, jsonb_build_object('profile_id', p_target_id));
 end;
 $$;
+revoke all on function public.f4_division_add_member(smallint, uuid) from public;
+grant execute on function public.f4_division_add_member(smallint, uuid) to authenticated;
 
 -- ---------- keluarkan: hanya dari divisi ini (kepemimpinan di divisi lain tetap) ----------
 create or replace function public.f4_division_remove_member(p_division smallint, p_target_id uuid)

@@ -36,7 +36,9 @@ $$;
 revoke all on function public.f4_profile_is_member(uuid) from public;
 
 -- ---------- cari akun yang bisa ditambahkan (belum punya divisi) ----------
-create or replace function public.f4_division_candidates(p_division smallint, p_query text)
+-- versi lebih baru (supabase-division-requests.sql) punya tipe hasil lain → hapus dulu
+drop function if exists public.f4_division_candidates(smallint, text);
+create function public.f4_division_candidates(p_division smallint, p_query text)
 returns table (id uuid, username text, full_name text, avatar_url text)
 language plpgsql stable security definer set search_path = public, pg_temp as $$
 #variable_conflict use_column
@@ -60,7 +62,9 @@ revoke all on function public.f4_division_candidates(smallint, text) from public
 grant execute on function public.f4_division_candidates(smallint, text) to authenticated;
 
 -- ---------- tambah member ----------
-create or replace function public.f4_division_add_member(p_division smallint, p_target_id uuid)
+-- versi lebih baru (supabase-division-requests.sql) punya tipe hasil lain → hapus dulu
+drop function if exists public.f4_division_add_member(smallint, uuid);
+create function public.f4_division_add_member(p_division smallint, p_target_id uuid)
 returns void language plpgsql security definer set search_path = public, pg_temp as $$
 #variable_conflict use_column
 declare v_cap smallint; v_count int;

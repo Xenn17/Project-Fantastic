@@ -46,6 +46,7 @@ update public.f4_divisions set leader_name = null, member_count = 0;
 insert into public.f4_division_roster (profile_id, division_id, assigned_by)
 select distinct on (l.profile_id) l.profile_id, l.division_id, l.assigned_by
 from public.f4_division_leaders l
+where not exists (select 1 from public.f4_division_roster) -- hanya saat pertama kali (roster masih kosong)
 order by l.profile_id, l.assigned_at desc
 on conflict (profile_id) do nothing;
 -- (leader boleh memimpin lebih dari satu divisi — lihat supabase-division-multi-leader.sql)
@@ -67,7 +68,8 @@ begin
   if p_division is null then return; end if;
   update public.f4_divisions d set
     member_count = least(25, public.f4_division_headcount(p_division)),
-    leader_name = (select coalesce(nullif(p.username, ''), p.full_name)
+    -- 1 atau 2 leader → "leader1 & leader2" (aman setelah supabase-division-two-leaders.sql)
+    leader_name = (select string_agg(coalesce(nullif(p.username, ''), p.full_name), ' & ' order by l.assigned_at, p.username)
                    from public.f4_division_leaders l join public.profiles p on p.id = l.profile_id
                    where l.division_id = p_division),
     version = d.version + 1,
@@ -121,7 +123,7 @@ begin
     if coalesce(p_is_leader, false) then
       insert into public.f4_division_leaders (division_id, profile_id, assigned_by)
       values (p_division_id, p_target_id, auth.uid())
-      on conflict (division_id) do update set profile_id = excluded.profile_id, assigned_by = excluded.assigned_by, assigned_at = now();
+      on conflict do nothing; -- kunci tabel bisa (division_id) atau (division_id, profile_id) setelah two-leaders
     end if;
   end if;
 
