@@ -358,3 +358,8 @@ html.dv-modal-open { overflow: hidden; }
   .ed-switch { grid-template-columns: 1fr; }
   .dv-modal-title-row .dv-logo { width: 56px; height: 56px; font-size: 22px; }
 }
+
+/* add by ML ID */
+.dv-add-row.is-ml { border-color: rgba(127, 220, 149, .4); background: rgba(127, 220, 149, .05); }
+.dv-add-row.is-ml small { color: #7fdc95; }
+.dv-add-note { flex: none; font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #ef8a7c; }

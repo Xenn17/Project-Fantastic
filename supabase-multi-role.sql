@@ -138,7 +138,12 @@ begin
       new.roles := old.roles;
       new.username := old.username;
       new.email := old.email;
-    elsif new.role is distinct from old.role or new.roles is distinct from old.roles then
+    elsif (new.role is distinct from old.role or new.roles is distinct from old.roles)
+      -- single exception: f4_division_add_member_by_ml() may promote Tamu / Calon Member to plain Member
+      -- (flag is transaction-local and keyed to the target id, so it cannot be set from the API)
+      and not (coalesce(current_setting('f4.promote_member', true), '') = new.id::text
+               and highest_role = 'member'
+               and public.f4_role_rank(old.role) < public.f4_role_rank('member')) then
       if actor_roles is null or not (actor_roles && array['admin','developer','owner']::text[]) then
         raise exception 'Role cannot be changed by this account';
       end if;

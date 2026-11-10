@@ -475,6 +475,9 @@
       return;
     }
     box.innerHTML = '<p class="dv-add-empty">Mencari akun…</p>';
+    // digits only (spaces allowed) → exact Mobile Legends ID lookup
+    const ml = q.replace(/\s+/g, "");
+    if (/^\d{5,}$/.test(ml)) return searchByMl(ml, box, seq);
     const { data, error } = await db.rpc("f4_division_candidates", { p_division: edNumber, p_query: q });
     if (seq !== addSeq) return;
     if (error) {
@@ -489,6 +492,50 @@
           )
           .join("")
       : '<p class="dv-add-empty">Tidak ada akun Member tanpa divisi yang cocok. Akun yang sudah di divisi lain hanya bisa dipindah admin.</p>';
+  }
+  const ROLE_NAME = { tamu: "Tamu", calon_member: "Calon Member", member: "Member", leader_squad: "Leader Squad", admin: "Admin", developer: "Developer", owner: "Owner" };
+  async function searchByMl(ml, box, seq) {
+    const { data, error } = await db.rpc("f4_division_find_by_ml", { p_division: edNumber, p_ml_id: ml });
+    if (seq !== addSeq) return;
+    if (error) {
+      box.innerHTML = `<p class="dv-add-empty is-error">${esc(friendly(error))}</p>`;
+      return;
+    }
+    const list = data || [];
+    if (!list.length) {
+      box.innerHTML = '<p class="dv-add-empty">Tidak ada akun dengan ID ML itu. Pastikan pemiliknya sudah daftar di website &amp; mengisi ID ML di profilnya.</p>';
+      return;
+    }
+    if (list.length > 1) {
+      box.innerHTML = '<p class="dv-add-empty is-error">ID ML ini dipakai lebih dari satu akun. Minta admin untuk mengecek.</p>';
+      return;
+    }
+    const a = list[0];
+    const role = String(a.role || "tamu").toLowerCase();
+    const promote = ["tamu", "calon_member"].includes(role);
+    const other = a.in_division ? Number(a.in_division) : null;
+    box.innerHTML = `<div class="dv-add-row is-ml">${avatarHtml(a)}<span><b>${esc(nameOf(a))}</b><small>ID ML cocok · ${esc(ROLE_NAME[role] || role)}${promote ? " → akan jadi Member" : ""}</small></span>${
+      other
+        ? `<em class="dv-add-note">Sudah di DIV ${pad(other)}</em>`
+        : `<button type="button" data-add-ml="${esc(ml)}" data-name="${esc(nameOf(a))}" data-promote="${promote ? 1 : ""}">${promote ? "+ JADIKAN MEMBER" : "+ TAMBAH"}</button>`
+    }</div>`;
+  }
+  async function addMemberByMl(ml, name, promote) {
+    const d = rows.find((x) => x.number === edNumber);
+    if (!d) return;
+    if (countOf(d) >= d.capacity) return edSay(`DIV ${pad(d.number)} sudah penuh (${countOf(d)}/${d.capacity}).`, "is-error");
+    const msg = promote
+      ? `${name} masih belum Member.\n\nJadikan ${name} MEMBER F4NTASTIC dan masukkan ke DIV ${pad(d.number)}?`
+      : `Tambahkan ${name} ke DIV ${pad(d.number)}?`;
+    if (!confirm(msg)) return;
+    edSay("Menambahkan…");
+    const { data, error } = await db.rpc("f4_division_add_member_by_ml", { p_division: d.number, p_ml_id: ml });
+    if (error) return edSay(/Could not find the function/i.test(String(error.message)) ? "Fitur ID ML belum aktif — admin perlu menjalankan supabase-division-add-by-ml.sql." : friendly(error), "is-error");
+    const row = Array.isArray(data) ? data[0] : data;
+    $("edAddSearch").value = "";
+    $("edAddResults").innerHTML = "";
+    await refreshAll();
+    edSay(`✓ ${name}${row?.promoted ? " sekarang Member dan" : ""} masuk ke DIV ${pad(d.number)}.`, "is-success");
   }
   async function addMember(pid, name) {
     const d = rows.find((x) => x.number === edNumber);
@@ -550,6 +597,8 @@
       }
       const add = e.target.closest("[data-add]");
       if (add) return addMember(add.dataset.add, add.dataset.name);
+      const addMl = e.target.closest("[data-add-ml]");
+      if (addMl) return addMemberByMl(addMl.dataset.addMl, addMl.dataset.name, Boolean(addMl.dataset.promote));
       const rm = e.target.closest("[data-remove]");
       if (rm) return removeMember(rm.dataset.remove);
     });
