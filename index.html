@@ -2,6 +2,9 @@
 <html lang="id">
   <head>
     <meta charset="utf-8" />
+    <!-- Member+ opening the site fresh (typed URL / external link) goes straight to the member dashboard.
+         Internal navigation (Home, #about, Join Team…), ?site=1 and the "Website" link from the dashboard stay here. -->
+    <script>try{(function(){var q=location.search,ss=sessionStorage;if(/[?&]site=1(&|$)/.test(q))ss.setItem("f4-site","1");if(location.hash||ss.getItem("f4-site"))return;var ref=document.referrer;if(ref){try{if(new URL(ref).origin===location.origin)return}catch(e){}}var tok=false;for(var i=0;i<localStorage.length;i++){if(/^sb-.+-auth-token$/.test(localStorage.key(i))){tok=true;break}}if(!tok)return;var u=JSON.parse(localStorage.getItem("f4ntastic-user")||"null");if(!u)return;var rs=[].concat(u.roles||[],u.role||[]),ok=["member","leader_squad","admin","developer","owner"];for(var j=0;j<rs.length;j++){if(ok.indexOf(String(rs[j]).toLowerCase())>-1){location.replace("dashboard.html");return}}})()}catch(e){}</script>
     <script>if(location.hash)document.documentElement.classList.add("cv-ready")</script>
     <!-- page-transition cover: must run before first paint (see css/tokens.css) -->
     <script>try{if(sessionStorage.getItem("f4-curtain")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var r=document.documentElement,d=0;r.classList.add("f4-arriving");sessionStorage.removeItem("f4-curtain");var done=function(){r.classList.remove("f4-arriving","f4-revealing")};var go=function(){if(d)return;d=1;requestAnimationFrame(function(){try{r.animate({transform:["translateX(0)","translateX(calc(100% + 80px))"]},{duration:550,easing:"cubic-bezier(.65,0,.35,1)",fill:"forwards",pseudoElement:"::before"}).finished.then(done,done)}catch(e){r.classList.add("f4-revealing");setTimeout(done,600)}})};document.addEventListener("DOMContentLoaded",function(){var ric=window.requestIdleCallback||function(f){return setTimeout(f,50)};ric(function(){requestAnimationFrame(go)},{timeout:200})});setTimeout(go,matchMedia("(pointer: coarse)").matches?900:450)}}catch(e){}</script>
@@ -819,7 +822,7 @@
       </section>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/session-nav.js?v=20261110-dash"></script>
+    <script src="js/session-nav.js?v=20261110-dash2"></script>
     <script src="js/i18n.js?v=20261109-perf"></script>
   </body>
 </html>

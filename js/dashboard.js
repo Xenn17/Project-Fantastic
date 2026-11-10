@@ -97,7 +97,15 @@
       .maybeSingle();
     const roles = [...new Set([...(Array.isArray(p?.roles) ? p.roles : []), p?.role].map((r) => String(r || "").toLowerCase()).filter(Boolean))];
     // dashboard is for Member and above only
-    if (!roles.some((r) => MEMBER_UP.includes(r))) return location.replace("index.html");
+    if (!roles.some((r) => MEMBER_UP.includes(r))) {
+      // keep index.html from bouncing us back here with a stale cached role
+      try {
+        sessionStorage.setItem("f4-site", "1");
+        const cached = JSON.parse(localStorage.getItem("f4ntastic-user") || "null");
+        if (cached) localStorage.setItem("f4ntastic-user", JSON.stringify({ ...cached, role: p?.role || "tamu", roles }));
+      } catch {}
+      return location.replace("index.html");
+    }
 
     const ctx = {
       isAdmin: roles.some((r) => ["admin", "developer", "owner"].includes(r)),

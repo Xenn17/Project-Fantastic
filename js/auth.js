@@ -81,7 +81,7 @@
     const { data: profile } = await db
       .from("profiles")
       .select(
-        "username,full_name,role,avatar_url,phone,ml_id,ml_server,gender,birth_date",
+        "username,full_name,role,roles,avatar_url,phone,ml_id,ml_server,gender,birth_date",
       )
       .eq("id", authUser.id)
       .maybeSingle();
@@ -95,6 +95,7 @@
         authUser.email?.split("@")[0] ||
         "member",
       role: profile?.role || "tamu",
+      roles: Array.isArray(profile?.roles) ? profile.roles : [],
       avatar_url: profile?.avatar_url || null,
       profileComplete: Boolean(
         profile?.full_name &&
