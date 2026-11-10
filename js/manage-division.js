@@ -53,11 +53,17 @@
 
   async function loadRoster() {
     const [{ data: ds }, { data: rs, error }] = await Promise.all([
-      db.from("f4_divisions").select("id,squad_id,capacity").order("id"),
+      db.from("f4_divisions").select("id,squad_id,capacity,recruitment_status,role_needs").order("id"),
       db.rpc("f4_division_roster"),
     ]);
     if (error) throw error;
-    divisions = (ds || []).map((d) => ({ id: Number(d.id), squad_id: d.squad_id || "", capacity: Number(d.capacity) || 25 }));
+    divisions = (ds || []).map((d) => ({
+      id: Number(d.id),
+      squad_id: d.squad_id || "",
+      capacity: Number(d.capacity) || 25,
+      status: d.recruitment_status === "RECRUITING" ? "RECRUITING" : "CLOSED",
+      needs: Array.isArray(d.role_needs) ? d.role_needs.map(String) : [],
+    }));
     roster = (rs || []).map((r) => ({ ...r, division_id: Number(r.division_id) }));
   }
 
@@ -122,6 +128,7 @@
     $("statCount").textContent = `${list.length}/${d.capacity}`;
     $("statSlots").textContent = list.length >= d.capacity ? "DIVISI PENUH" : `${d.capacity - list.length} SLOT TERSISA`;
     $("statLeader").textContent = leader ? nameOf(leader) : "BELUM ADA";
+    renderRecruit(false);
     $("addTitle").textContent = `TAMBAH KE DIV ${pad(current)}`;
     $("rosterNote").textContent = staff
       ? "Admin bisa mengeluarkan siapa pun, termasuk leader."
@@ -144,6 +151,77 @@
       )
       .join("")}</tbody></table>`;
   }
+
+  /* ---------- recruitment: open/closed + roles needed ---------- */
+  const NEED_ROLES = [
+    ["EXP", "EXP Lane"],
+    ["JUNG", "Jungler"],
+    ["GOLD", "Gold Lane"],
+    ["MID", "Mid Lane"],
+    ["ROAM", "Roamer"],
+  ];
+  let draft = null; // { status, needs:Set } being edited for the current division
+  function renderRecruit(reset = true) {
+    const d = divisions.find((x) => x.id === current);
+    if (!d) return;
+    // keep unsaved choices while the roster re-renders; reset when switching division or after saving
+    if (reset || !draft || draft.div !== current) draft = { div: current, status: d.status, needs: new Set(d.needs) };
+    const open = draft.status === "RECRUITING",
+      full = membersOf(current).length >= d.capacity;
+    $("recruitTitle").textContent = `REKRUTMEN DIV ${pad(current)}`;
+    const badge = $("recruitBadge");
+    badge.textContent = d.status === "RECRUITING" ? (full ? "OPEN · PENUH" : "OPEN RECRUITMENT") : "CLOSED";
+    badge.className = `md-recruit-badge ${d.status === "RECRUITING" ? "is-open" : ""}`;
+    document.querySelectorAll(".md-recruit-switch [data-status]").forEach((b) => {
+      const on = b.dataset.status === draft.status;
+      b.classList.toggle("is-on", on);
+      b.setAttribute("aria-checked", String(on));
+    });
+    $("rolePicks").innerHTML = NEED_ROLES.map(
+      ([k, label]) =>
+        `<button type="button" class="md-role-pick${draft.needs.has(k) ? " is-on" : ""}" data-need="${k}" aria-pressed="${draft.needs.has(k)}"${open ? "" : " disabled"}><b>${k}</b><small>${label}</small></button>`,
+    ).join("");
+    const changed = draft.status !== d.status || [...draft.needs].sort().join() !== [...d.needs].sort().join();
+    $("recruitSave").disabled = !changed;
+    $("recruitNote").textContent = !open
+      ? "Role yang dicari hanya tampil saat rekrutmen dibuka."
+      : full
+        ? "Divisi sedang penuh (25/25) — di halaman Devisi tetap tampil FULL sampai ada slot kosong."
+        : draft.needs.size
+          ? `Di halaman Devisi akan tampil: mencari ${[...draft.needs].join(", ")}.`
+          : "Belum pilih role — akan tampil sebagai \"semua role\".";
+  }
+  document.querySelector(".md-recruit-switch").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-status]");
+    if (!b || !draft) return;
+    draft.status = b.dataset.status;
+    renderRecruit(false);
+  });
+  $("rolePicks").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-need]");
+    if (!b || !draft || b.disabled) return;
+    if (draft.needs.has(b.dataset.need)) draft.needs.delete(b.dataset.need);
+    else draft.needs.add(b.dataset.need);
+    renderRecruit(false);
+  });
+  $("recruitSave").addEventListener("click", async () => {
+    if (!draft) return;
+    const btn = $("recruitSave");
+    btn.disabled = true;
+    say("Menyimpan rekrutmen…", true);
+    const roles = draft.status === "RECRUITING" ? NEED_ROLES.map(([k]) => k).filter((k) => draft.needs.has(k)) : [];
+    const { data, error } = await db.rpc("f4_set_division_recruitment", { p_division: current, p_status: draft.status, p_roles: roles });
+    if (error) {
+      btn.disabled = false;
+      return say(/Could not find the function|does not exist/i.test(String(error.message)) ? "Fitur rekrutmen belum aktif — admin perlu menjalankan supabase-division-recruitment.sql." : friendly(error));
+    }
+    const d = divisions.find((x) => x.id === current);
+    const row = Array.isArray(data) ? data[0] : data;
+    d.status = row?.recruitment_status || draft.status;
+    d.needs = Array.isArray(row?.role_needs) ? row.role_needs : roles;
+    renderRecruit();
+    say(d.status === "RECRUITING" ? `✓ Rekrutmen DIV ${pad(current)} dibuka${d.needs.length ? ` · mencari ${d.needs.join(", ")}` : ""}.` : `✓ Rekrutmen DIV ${pad(current)} ditutup.`, true);
+  });
 
   let timer = 0,
     seq = 0;

@@ -266,3 +266,9 @@ html.dv-modal-open { overflow: hidden; }
 }
 .dv-remove:hover { color: #fff; background: #c0503f; border-color: transparent; }
 @media (max-width: 600px) { .dv-add { padding-left: 16px; padding-right: 16px; } }
+
+/* ---------- recruitment: roles wanted ---------- */
+.dv-needs { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; padding: 9px 11px; border-radius: 12px; background: rgba(127, 220, 149, .05); border: 1px dashed rgba(127, 220, 149, .35); }
+.dv-needs small { margin-right: 4px; color: #7fdc95; font-size: 9px; font-weight: 800; letter-spacing: .2em; }
+.dv-needs .role-badge, .dv-meta-needs .role-badge { border-radius: 99px !important; padding: 3px 9px !important; font-size: 10px !important; }
+.dv-modal-meta .dv-meta-needs strong { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }

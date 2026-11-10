@@ -92,6 +92,7 @@
       rows = ds.map((x) => ({
         ...blankDivision({ number: x.id, squad_id: x.squad_id, whatsapp: x.whatsapp, capacity: x.capacity }),
         status: x.recruitment_status,
+        needs: Array.isArray(x.role_needs) ? x.role_needs.map(String) : [],
         description: x.description || "",
         announcement: x.announcement || "",
         spotlight: x.spotlight,
@@ -138,6 +139,14 @@
       ? `Roster akun · diperbarui ${new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} WIB`
       : "Roster belum tersedia";
   }
+  // "looking for" strip on a card: only while recruitment is open and there is still room
+  function needsHtml(d) {
+    if (statusOf(d) !== "RECRUITING") return "";
+    const needs = d.needs || [];
+    return `<div class="dv-needs"><small>MENCARI</small>${
+      needs.length ? needs.map((r) => `<b class="role-badge ${GAME_CLASS[r] || "role-unknown"}">${esc(r)}</b>`).join("") : '<b class="role-badge role-unknown">SEMUA ROLE</b>'
+    }</div>`;
+  }
   function render() {
     const filter = $("divisionFilter").value,
       sort = $("divisionSort").value,
@@ -176,6 +185,7 @@
             <div class="dv-capacity-head"><small>KAPASITAS</small><b>${n}/${d.capacity}</b><em>${free ? `${free} slot` : "penuh"}</em></div>
             <div class="dv-bar"><i style="width:${fill}%"></i></div>
           </div>
+          ${needsHtml(d)}
           <dl class="dv-facts"><div><dt>SQUAD ID</dt><dd>${esc(d.squad_id || "—")}</dd></div><div><dt>MEMBER</dt><dd>${n}</dd></div></dl>
           <div class="division-actions">
             <button class="dv-primary" data-members="${d.number}">LIHAT MEMBER</button>
@@ -275,6 +285,7 @@
       <div><small>LEADER</small><strong>${esc(d.leader ? nameOf(d.leader) : "LEADER NEEDED")}</strong></div>
       <div><small>KAPASITAS</small><strong>${n}/${d.capacity}</strong></div>
       <div><small>SQUAD ID</small><strong>${esc(d.squad_id || "—")}</strong></div>
+      ${s === "RECRUITING" ? `<div class="dv-meta-needs"><small>MENCARI ROLE</small><strong>${(d.needs || []).length ? d.needs.map((r) => `<b class="role-badge ${GAME_CLASS[r] || "role-unknown"}">${esc(r)}</b>`).join("") : "SEMUA ROLE"}</strong></div>` : ""}
       ${wa ? `<a class="dv-wa" href="${wa}" target="_blank" rel="noopener">HUBUNGI VIA WA ↗</a>` : ""}`;
     const roles = [...new Set(d.members.map((m) => gameRole(m) || "ROLE ?"))].sort();
     $("dvRoleChips").innerHTML = ["ALL", ...roles]

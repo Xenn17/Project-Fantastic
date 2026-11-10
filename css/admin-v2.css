@@ -408,3 +408,37 @@ td button:disabled { opacity: .55; cursor: wait; }
 .role-leader-pill.has-other { color: #8c887f; border-style: dashed; }
 .role-leader-pill.is-on { color: #120f08; background: linear-gradient(135deg, #f6dd93, #c99a3e); border: 1px solid transparent; }
 .role-leader-pill:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ---------- Manage Devisi: recruitment ---------- */
+.md-recruit-badge { align-self: center; padding: 7px 14px; border-radius: 99px; font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #8c887f; border: 1px solid rgba(255, 255, 255, .14); }
+.md-recruit-badge.is-open { color: #7fdc95; border-color: rgba(127, 220, 149, .45); background: rgba(127, 220, 149, .08); }
+.md-recruit-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.md-recruit-switch button {
+  display: grid; gap: 4px; padding: 14px 16px; text-align: left; border-radius: 14px; cursor: pointer; color: #c4bfb4;
+  background: #0b0b0a; border: 1px solid rgba(255, 255, 255, .12); transition: border-color .2s, background .2s;
+}
+.md-recruit-switch b { font-size: 13px; letter-spacing: .12em; }
+.md-recruit-switch small { color: #8c887f; font-size: 12px; }
+.md-recruit-switch button:hover { border-color: rgba(246, 221, 147, .45); }
+.md-recruit-switch button[data-status="RECRUITING"].is-on { color: #7fdc95; background: rgba(127, 220, 149, .07); border-color: rgba(127, 220, 149, .55); }
+.md-recruit-switch button[data-status="CLOSED"].is-on { color: #ef8a7c; background: rgba(239, 138, 124, .06); border-color: rgba(239, 138, 124, .5); }
+.md-recruit-label { margin: 18px 0 8px; font-size: 11px; font-weight: 800; letter-spacing: .16em; color: #e9cf8f; }
+.md-recruit-label small { display: block; margin-top: 3px; font-weight: 600; letter-spacing: 0; color: #77736b; }
+.md-role-picks { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.md-role-pick {
+  display: grid; gap: 2px; padding: 12px 8px; border-radius: 12px; cursor: pointer; text-align: center; color: #c4bfb4;
+  background: #0b0b0a; border: 1px solid rgba(255, 255, 255, .12);
+}
+.md-role-pick b { font-size: 15px; letter-spacing: .08em; }
+.md-role-pick small { color: #77736b; font-size: 10px; }
+.md-role-pick.is-on { color: #120f08; background: linear-gradient(135deg, #f6dd93, #c99a3e); border-color: transparent; }
+.md-role-pick.is-on small { color: #3b2f12; }
+.md-role-pick:disabled { opacity: .35; cursor: not-allowed; }
+.md-recruit-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 18px; }
+.md-save { padding: 12px 20px; border-radius: 99px; cursor: pointer; font-size: 11px; font-weight: 800; letter-spacing: .14em; color: #120f08; background: linear-gradient(135deg, #f6dd93, #c99a3e); border: 0; }
+.md-save:disabled { opacity: .4; cursor: not-allowed; }
+.md-recruit-note { color: #8c887f; font-size: 13px; }
+@media (max-width: 640px) {
+  .md-recruit-switch { grid-template-columns: 1fr; }
+  .md-role-picks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
