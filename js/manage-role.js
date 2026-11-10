@@ -84,17 +84,20 @@
   // Division data: membership (1 division per account) + leaderships (an account may lead several divisions)
   let divisions = [],
     membership = new Map(), // profile_id → division_id
-    leaderBy = new Map(), // division_id → profile_id
+    leaderBy = new Map(), // division_id → [profile_id, …] (max 2 leaders per division)
     rosterOk = false;
   const pad2 = (n) => String(n).padStart(2, "0");
   const divisionOf = (profile) => (membership.has(String(profile.id)) ? { division_id: membership.get(String(profile.id)) } : null);
-  const ledBy = (profile) => [...leaderBy].filter(([, pid]) => pid === String(profile.id)).map(([d]) => d).sort((a, b) => a - b);
+  const MAX_LEADERS = 2;
+  const leadersIds = (id) => leaderBy.get(id) || [];
+  const ledBy = (profile) => [...leaderBy].filter(([, ids]) => ids.includes(String(profile.id))).map(([d]) => d).sort((a, b) => a - b);
   const divisionCount = (id) => {
     const set = new Set([...membership].filter(([, d]) => d === id).map(([pid]) => pid));
-    if (leaderBy.has(id)) set.add(leaderBy.get(id));
+    leadersIds(id).forEach((pid) => set.add(pid));
     return set.size;
   };
-  const leaderOf = (id) => (leaderBy.has(id) ? profiles.find((p) => String(p.id) === leaderBy.get(id)) || { id: leaderBy.get(id), username: "?" } : null);
+  const leadersOf = (id) => leadersIds(id).map((pid) => profiles.find((p) => String(p.id) === pid) || { id: pid, username: "?" });
+  const handle = (p) => `@${p.username || p.full_name || "?"}`;
   const divisionChip = (profile) => {
     const r = divisionOf(profile),
       led = ledBy(profile);
@@ -112,7 +115,11 @@
     rosterOk = !r.error;
     if (r.error) console.warn("f4_division_roster belum ada — jalankan supabase-division-roster.sql", r.error);
     membership = new Map((r.data || []).map((x) => [String(x.profile_id), Number(x.division_id)]));
-    leaderBy = new Map((l.data || []).map((x) => [Number(x.division_id), String(x.profile_id)]));
+    leaderBy = new Map();
+    (l.data || []).forEach((x) => {
+      const k = Number(x.division_id);
+      leaderBy.set(k, [...(leaderBy.get(k) || []), String(x.profile_id)]);
+    });
   }
   const redirectToLogin = () =>
     window.location.replace("login.html?redirect=manage-role.html");
@@ -446,11 +453,11 @@
     sel.replaceChildren(new Option("— Tidak di divisi mana pun", ""));
     divisions.forEach((d) => {
       const n = divisionCount(d.id),
-        mine = cur?.division_id === d.id || leaderBy.get(d.id) === String(profile.id),
+        mine = cur?.division_id === d.id || leadersIds(d.id).includes(String(profile.id)),
         full = !mine && n >= d.capacity,
-        lead = leaderOf(d.id);
+        leads = leadersOf(d.id);
       const opt = new Option(
-        `DIV ${pad2(d.id)} · ${n}/${d.capacity}${lead ? ` · Leader @${lead.username || lead.full_name || "?"}` : " · belum ada leader"}${full ? " (PENUH)" : ""}`,
+        `DIV ${pad2(d.id)} · ${n}/${d.capacity}${leads.length ? ` · Leader ${leads.map(handle).join(" & ")}` : " · belum ada leader"}${full ? " (PENUH)" : ""}`,
         String(d.id),
       );
       opt.disabled = full;
@@ -462,15 +469,19 @@
       grid.replaceChildren(
         ...divisions.map((d) => {
           const b = document.createElement("button"),
-            lead = leaderOf(d.id),
+            others = leadersOf(d.id).filter((p) => String(p.id) !== String(profile.id)),
             on = pickedLeads.has(d.id),
-            other = lead && String(lead.id) !== String(profile.id);
+            slotsFull = others.length >= MAX_LEADERS;
           b.type = "button";
-          b.className = `role-leader-pill${on ? " is-on" : ""}${other ? " has-other" : ""}`;
+          b.className = `role-leader-pill${on ? " is-on" : ""}${others.length ? " has-other" : ""}${slotsFull && !on ? " is-full" : ""}`;
           b.textContent = pad2(d.id);
-          b.disabled = !rosterOk;
+          b.disabled = !rosterOk || (slotsFull && !on);
           b.setAttribute("aria-pressed", String(on));
-          b.title = other ? `DIV ${pad2(d.id)} — leader sekarang @${lead.username || lead.full_name}` : `DIV ${pad2(d.id)} — belum ada leader`;
+          b.title = slotsFull
+            ? `DIV ${pad2(d.id)} — sudah 2 leader (${others.map(handle).join(" & ")}). Lepas salah satu dulu.`
+            : others.length
+              ? `DIV ${pad2(d.id)} — leader sekarang ${others.map(handle).join(" & ")} (masih bisa 1 lagi)`
+              : `DIV ${pad2(d.id)} — belum ada leader`;
           b.onclick = () => {
             if (pickedLeads.has(d.id)) pickedLeads.delete(d.id);
             else pickedLeads.add(d.id);
@@ -482,17 +493,14 @@
       );
     };
     const sync = () => {
-      const replaced = [...pickedLeads].filter((n) => {
-        const l = leaderOf(n);
-        return l && String(l.id) !== String(profile.id);
-      });
+      const shared = [...pickedLeads].filter((n) => leadersOf(n).some((p) => String(p.id) !== String(profile.id)));
       $("roleDivisionHint").textContent = !rosterOk
         ? "Fitur divisi belum aktif. Jalankan supabase-division-roster.sql di Supabase SQL Editor dulu."
-        : replaced.length
-          ? `Menggantikan leader lama di ${replaced.map((n) => `DIV ${pad2(n)} (@${leaderOf(n).username || leaderOf(n).full_name})`).join(", ")}.`
+        : shared.length
+          ? `Leader bersama: ${shared.map((n) => `DIV ${pad2(n)} (dengan ${leadersOf(n).filter((p) => String(p.id) !== String(profile.id)).map(handle).join(" & ")})`).join(", ")}. Maks. 2 leader per divisi.`
           : (sel.value || pickedLeads.size) && !["member", "calon_member"].some((r) => rolesOf(profile).includes(r)) && !rolesOf(profile).some((r) => ["leader_squad", "admin", "developer", "owner"].includes(r))
             ? "Akun ini masih Tamu — ubah status jadi Member supaya bisa membuka halaman /devisi."
-            : "Anggota: satu divisi saja. Leader: boleh memimpin beberapa divisi (otomatis tampil di tiap divisi yang dipimpin).";
+            : "Anggota: satu divisi saja. Leader: boleh memimpin beberapa divisi, dan 1 divisi boleh punya 2 leader.";
     };
     sel.disabled = !rosterOk;
     sel.onchange = sync;
@@ -614,7 +622,7 @@
           if (error) throw error;
         }
         for (const n of dropLeads) {
-          const { error } = await db.rpc("f4_set_division_leader", { p_division: n, p_profile_id: null });
+          const { error } = await db.rpc("f4_remove_division_leader", { p_division: n, p_profile_id: target.id });
           if (error) throw error;
         }
         for (const n of addLeads) {
@@ -631,8 +639,8 @@
       const msg = String(error?.message || error || "");
       editorSay(
         /Could not find the function|does not exist/i.test(msg)
-          ? "Jalankan supabase-division-multi-leader.sql di Supabase dulu."
-          : /penuh|tidak ditemukan|tidak ada|harus akun/i.test(msg)
+          ? "Jalankan supabase-division-two-leaders.sql di Supabase dulu."
+          : /penuh|tidak ditemukan|tidak ada|harus akun|2 leader/i.test(msg)
             ? msg
             : prettyError(error),
       );

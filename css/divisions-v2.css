@@ -363,3 +363,11 @@ html.dv-modal-open { overflow: hidden; }
 .dv-add-row.is-ml { border-color: rgba(127, 220, 149, .4); background: rgba(127, 220, 149, .05); }
 .dv-add-row.is-ml small { color: #7fdc95; }
 .dv-add-note { flex: none; font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #ef8a7c; }
+
+/* two leaders in one division: side by side, compact */
+.dv-leaders { display: grid; gap: 6px; }
+.dv-leaders.is-duo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.dv-leaders.is-duo .dv-leader { gap: 8px; padding: 7px; }
+.dv-leaders.is-duo .dv-leader strong { font-size: 13px; }
+.dv-leaders.is-duo .dv-leader em { display: none; }
+.dv-leaders.is-duo .dv-avatar { width: 30px; height: 30px; flex: 0 0 30px; font-size: 12px; }

@@ -30,7 +30,8 @@
     description: "",
     announcement: "",
     members: [],
-    leader: null,
+    leaders: [], // up to 2
+    leader: null, // = leaders[0]
   });
   let rows = (window.F4_DIVISION_SEED || []).map(blankDivision);
   let db = null,
@@ -53,7 +54,7 @@
     if (!authUser) return false;
     if (isStaff()) return true;
     const d = rows.find((x) => x.number === n);
-    if (d?.leader && String(d.leader.id) === String(authUser.id)) return true;
+    if (d?.leaders.some((L) => String(L.id) === String(authUser.id))) return true;
     return rolesList().includes("leader_squad") && myDivision() === n;
   };
   const gameRole = (m) => GAME_ROLE[String(m.game_role || "").toLowerCase()] || "";
@@ -111,6 +112,7 @@
     if (error) console.warn("Roster belum tersedia — jalankan supabase-division-roster.sql", error);
     rows.forEach((d) => {
       d.members = [];
+      d.leaders = [];
       d.leader = null;
     });
     (roster || []).forEach((r) => {
@@ -118,8 +120,9 @@
       if (!d) return;
       const m = { ...r, id: r.profile_id, division: d.number };
       d.members.push(m);
-      if (r.is_leader) d.leader = m;
+      if (r.is_leader) d.leaders.push(m);
     });
+    rows.forEach((d) => (d.leader = d.leaders[0] || null));
     rows.forEach((d) => d.members.sort((a, b) => (b.is_leader - a.is_leader) || nameOf(a).localeCompare(nameOf(b), "id")));
   }
 
@@ -177,9 +180,12 @@
               wa = d.whatsapp ? `https://wa.me/${d.whatsapp.replace(/\D/g, "")}` : "",
               fill = Math.min(100, Math.round((n / (d.capacity || 1)) * 100)),
               free = Math.max(0, d.capacity - n),
-              L = d.leader;
-            const leader = L
-              ? `<button type="button" class="dv-leader dv-leader-link" data-profile="${esc(L.id)}" aria-label="Lihat akun leader ${esc(nameOf(L))}">${avatarHtml(L)}<div><small>LEADER</small><strong>${esc(nameOf(L))}</strong></div><em aria-hidden="true">↗︎</em></button>`
+              Ls = d.leaders;
+            const leader = Ls.length
+              ? `<div class="dv-leaders${Ls.length > 1 ? " is-duo" : ""}">${Ls.map(
+                  (L) =>
+                    `<button type="button" class="dv-leader dv-leader-link" data-profile="${esc(L.id)}" aria-label="Lihat akun leader ${esc(nameOf(L))}">${avatarHtml(L)}<div><small>LEADER</small><strong>${esc(nameOf(L))}</strong></div><em aria-hidden="true">↗︎</em></button>`,
+                ).join("")}</div>`
               : `<div class="dv-leader is-empty">${avatarHtml(null)}<div><small>LEADER</small><strong>LEADER NEEDED</strong></div></div>`;
             return `<article class="division-card ${statusClass(s)}${isMine(d) ? " is-mine" : ""}" id="division-${d.number}" data-number="${d.number}">
           <div class="dv-card-top">
@@ -207,7 +213,7 @@
       : '<p class="activity-empty">Tidak ada divisi dengan status ini.</p>';
     $("quickDivision").innerHTML =
       '<option value="">BUKA DIVISI…</option>' +
-      rows.map((d) => `<option value="${d.number}">DIV ${pad(d.number)}${d.leader ? ` — ${esc(nameOf(d.leader))}` : ""}</option>`).join("");
+      rows.map((d) => `<option value="${d.number}">DIV ${pad(d.number)}${d.leaders.length ? ` — ${esc(d.leaders.map(nameOf).join(" & "))}` : ""}</option>`).join("");
     applyEditPermissions();
   }
   // pencil: admin+ on every division, Leader Squad / official leader only on the divisions they manage
@@ -292,7 +298,7 @@
     $("dvModalTitle").textContent = `F4NTASTIC DIV. ${pad(d.number)}`;
     $("dvModalLogo").innerHTML = logoHtml(d);
     $("dvModalMeta").innerHTML = `
-      <div><small>LEADER</small><strong>${esc(d.leader ? nameOf(d.leader) : "LEADER NEEDED")}</strong></div>
+      <div><small>${d.leaders.length > 1 ? "LEADER (2)" : "LEADER"}</small><strong>${esc(d.leaders.length ? d.leaders.map(nameOf).join(" & ") : "LEADER NEEDED")}</strong></div>
       <div><small>KAPASITAS</small><strong>${n}/${d.capacity}</strong></div>
       <div><small>SQUAD ID</small><strong>${esc(d.squad_id || "—")}</strong></div>
       ${s === "RECRUITING" ? `<div class="dv-meta-needs"><small>MENCARI ROLE</small><strong>${(d.needs || []).length ? d.needs.map((r) => `<b class="role-badge ${GAME_CLASS[r] || "role-unknown"}">${esc(r)}</b>`).join("") : "SEMUA ROLE"}</strong></div>` : ""}
