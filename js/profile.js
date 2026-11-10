@@ -77,8 +77,9 @@
     return keys.every((key) => String(data?.[key] ?? "").trim());
   }
   function setCooldown() {
-    const target = $("avatarCooldown"),
-      changedAt = profile?.avatar_updated_at
+    const target = $("avatarCooldown");
+    if (!target) return; // cooldown removed — photos can be changed any time
+    const changedAt = profile?.avatar_updated_at
         ? new Date(profile.avatar_updated_at).getTime()
         : 0,
       remaining = changedAt + 86400000 - Date.now();
@@ -737,8 +738,8 @@
       $("avatarFile").value = "";
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      say("Ukuran foto maksimal 5 MB.");
+    if (file.size > 20 * 1024 * 1024) {
+      say("Ukuran foto maksimal 20 MB.");
       $("avatarFile").value = "";
       return;
     }
@@ -747,30 +748,25 @@
       return say(
         "Simpan DATA DIRI terlebih dahulu agar foto dapat ditautkan ke akun.",
       );
-    const changedAt = profile?.avatar_updated_at
-      ? new Date(profile.avatar_updated_at).getTime()
-      : 0;
-    if (changedAt && Date.now() < changedAt + 86400000) {
-      setCooldown();
-      return say("Foto profil masih dalam masa cooldown 24 jam.");
+    // crop & edit first (js/avatar-cropper.js) → 512×512 JPEG
+    const fileInput = $("avatarFile");
+    const edited = window.F4AvatarCropper ? await window.F4AvatarCropper.open(file) : file;
+    if (!edited) {
+      fileInput.value = "";
+      return;
     }
     busy = true;
-    const fileInput = $("avatarFile");
     $("saveProfile").disabled = true;
     say("Mengganti foto profil…");
     try {
-      const extension =
-        file.type === "image/png"
-          ? "png"
-          : file.type === "image/webp"
-            ? "webp"
-            : "jpg";
+      const type = edited.type || "image/jpeg";
+      const extension = type === "image/png" ? "png" : type === "image/webp" ? "webp" : "jpg";
       const path = `${user.id}/avatar-${Date.now()}.${extension}`;
       const { error: uploadError } = await db.storage
         .from("f4ntastic-avatars")
-        .upload(path, file, {
+        .upload(path, edited, {
           upsert: false,
-          contentType: file.type,
+          contentType: type,
           cacheControl: "3600",
         });
       if (uploadError) throw uploadError;

@@ -20,6 +20,8 @@
     "Join Team": { en: "Join Team", th: "เข้าร่วมทีม" },
     Posko: { en: "Support", th: "ศูนย์ช่วยเหลือ" },
     Devisi: { en: "Divisions", th: "ดิวิชัน" },
+    "Ikuti saluran F4NTASTIC STORE": { en: "Follow the F4NTASTIC STORE channel", th: "ติดตามช่อง F4NTASTIC STORE" },
+    "Ikuti saluran ||•F4NTASTIC STORE PAID EDIT•||": { en: "Follow the ||•F4NTASTIC STORE PAID EDIT•|| channel", th: "ติดตามช่อง ||•F4NTASTIC STORE PAID EDIT•||" },
     "Halaman utama F4NTASTIC": { en: "F4NTASTIC home page", th: "หน้าแรก F4NTASTIC" },
     "Cerita, visi & para pendiri": { en: "Story, vision & founders", th: "เรื่องราว วิสัยทัศน์ และผู้ก่อตั้ง" },
     "Momen & album komunitas": { en: "Community moments & albums", th: "โมเมนต์และอัลบั้มของคอมมูนิตี้" },

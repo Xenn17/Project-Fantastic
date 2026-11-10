@@ -93,7 +93,7 @@ begin
   end loop;
 end $$;
 
--- Prevent self-assigned roles and enforce the avatar 24-hour cooldown in the database.
+-- Prevent self-assigned roles. (Avatar cooldown removed: photos can be changed any time.)
 create or replace function public.f4_guard_profile_changes()
 returns trigger language plpgsql security definer set search_path = public, pg_temp as $$
 begin
@@ -119,9 +119,6 @@ begin
     raise exception 'Account identity fields are managed by the authentication system';
   end if;
   if new.avatar_url is distinct from old.avatar_url then
-    if auth.uid() is not null and old.avatar_updated_at is not null and now() < old.avatar_updated_at + interval '24 hours' then
-      raise exception 'Avatar can only be changed once every 24 hours';
-    end if;
     new.avatar_updated_at := now();
   else
     new.avatar_updated_at := old.avatar_updated_at;

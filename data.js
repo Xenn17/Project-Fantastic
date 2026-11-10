@@ -429,5 +429,17 @@ window.F4NTASTIC_DATA = {
       handle: "Join our server",
       url: "https://discord.gg/tUr7tMkVn",
     },
+    {
+      label: "WhatsApp Store",
+      icon: "WhatsApp",
+      handle: "Ikuti saluran F4NTASTIC STORE",
+      url: "https://whatsapp.com/channel/0029VbDTIENCsU9K0rX7Jx3I",
+    },
+    {
+      label: "WhatsApp Paid Edit",
+      icon: "WhatsApp",
+      handle: "Ikuti saluran ||•F4NTASTIC STORE PAID EDIT•||",
+      url: "https://whatsapp.com/channel/0029VbCmz0j2kNFy8yoCH01n",
+    },
   ],
 };

@@ -162,7 +162,6 @@ begin
   end if;
 
   if new.avatar_url is distinct from old.avatar_url then
-    if auth.uid() is not null and old.avatar_updated_at is not null and now() < old.avatar_updated_at + interval '24 hours' then raise exception 'Avatar can only be changed once every 24 hours'; end if;
     new.avatar_updated_at := now();
   else new.avatar_updated_at := old.avatar_updated_at;
   end if;

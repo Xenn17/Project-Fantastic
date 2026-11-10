@@ -25,7 +25,7 @@
   function createBrandIcon(label) {
     const icon = create(
       "span",
-      "social-mark social-mark-" + label.toLowerCase(),
+      "social-mark social-mark-" + label.toLowerCase().replace(/\s+/g, "-"),
       "",
     );
     icon.setAttribute("aria-hidden", "true");
@@ -36,6 +36,8 @@
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.1a4.2 4.2 0 1 1-3.2-4.1v3.1a1.4 1.4 0 1 0 1.4 1.4V4h2.8c.3 1.4 1.1 2.4 2.6 2.9v2.8A6.2 6.2 0 0 1 14 8.3"></path></svg>',
       Discord:
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 6.8A15 15 0 0 1 9.6 5.5l.6 1.1a12 12 0 0 1 3.6 0l.6-1.1a15 15 0 0 1 3.4 1.3c1.5 2.3 2.1 4.7 1.9 7.2a14 14 0 0 1-4.2 2.1l-1-1.4a8 8 0 0 0 1.6-.8l-.4-.3a10 10 0 0 1-8.3 0l-.4.3a8 8 0 0 0 1.6.8l-1 1.4a14 14 0 0 1-4.2-2.1c-.2-2.5.4-4.9 1.9-7.2Zm3.4 5.7c.6 0 1.1-.6 1.1-1.3s-.5-1.3-1.1-1.3-1.1.6-1.1 1.3.5 1.3 1.1 1.3Zm4.8 0c.6 0 1.1-.6 1.1-1.3s-.5-1.3-1.1-1.3-1.1.6-1.1 1.3.5 1.3 1.1 1.3Z"></path></svg>',
+      WhatsApp:
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Zm0 16a7.2 7.2 0 0 1-3.7-1l-.3-.2-2.6.7.7-2.6-.2-.3A7.2 7.2 0 1 1 12 19.2Zm4-5.4c-.2-.1-1.3-.7-1.5-.7s-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6 6 0 0 1-2.9-2.5c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.4 2.4 0 0 0-.8 1.8 4.2 4.2 0 0 0 .9 2.2 9.5 9.5 0 0 0 3.6 3.2c1.4.6 1.9.6 2.6.5a2.2 2.2 0 0 0 1.4-1c.2-.5.2-.9.1-1-.1-.1-.2-.1-.4-.3Z"></path></svg>',
       YouTube:
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 7.2a2.5 2.5 0 0 0-1.8-1.8C17 5 12 5 12 5s-5 0-6.6.4a2.5 2.5 0 0 0-1.8 1.8C3.2 8.8 3.2 12 3.2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8c1.6.4 6.6.4 6.6.4s5 0 6.6-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10 15.4V8.6l5.2 3.4L10 15.4Z"></path></svg>',
     };
@@ -55,7 +57,7 @@
     if (!compact && item.handle)
       link.append(create("span", "social-handle", item.handle));
     link.append(create("span", "social-arrow", ""));
-    if (!compact) link.prepend(createBrandIcon(item.label));
+    if (!compact) link.prepend(createBrandIcon(item.icon || item.label));
     link.setAttribute("aria-label", `${item.label} — buka tautan eksternal`);
     return link;
   }
@@ -136,7 +138,7 @@
         const link = socialLink(item, true);
         if (link) {
           link.classList.add("footer-social-chip");
-          link.prepend(createBrandIcon(item.label));
+          link.prepend(createBrandIcon(item.icon || item.label));
           footerSocials.append(link);
         }
       });
@@ -196,7 +198,7 @@
   data.founder.socials.forEach((item) => {
     const link = socialLink(item, true);
     if (link) {
-      link.prepend(createBrandIcon(item.label));
+      link.prepend(createBrandIcon(item.icon || item.label));
       founderSocials.append(link);
     }
   });
@@ -243,7 +245,7 @@
     (admin.socials || []).forEach((item) => {
       const link = socialLink(item, true);
       if (link) {
-        link.prepend(createBrandIcon(item.label));
+        link.prepend(createBrandIcon(item.icon || item.label));
         socials.append(link);
       }
     });
@@ -365,7 +367,7 @@
     const footerLink = socialLink(item, true);
     if (footerLink) {
       footerLink.classList.add("footer-social-chip");
-      footerLink.prepend(createBrandIcon(item.label));
+      footerLink.prepend(createBrandIcon(item.icon || item.label));
       footerSocials.append(footerLink);
     }
   });
