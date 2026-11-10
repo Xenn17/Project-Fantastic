@@ -34,6 +34,9 @@
     leader: null, // = leaders[0]
   });
   let rows = (window.F4_DIVISION_SEED || []).map(blankDivision);
+  let myRequest = null, // my pending join request { id, division_id, created_at }
+    requestsReady = false,
+    reqCounts = new Map(); // division → pending requests (only divisions I manage)
   let db = null,
     profile = null,
     authUser = null,
@@ -124,7 +127,23 @@
     });
     rows.forEach((d) => (d.leader = d.leaders[0] || null));
     rows.forEach((d) => d.members.sort((a, b) => (b.is_leader - a.is_leader) || nameOf(a).localeCompare(nameOf(b), "id")));
+    await loadRequests();
   }
+  async function loadRequests() {
+    myRequest = null;
+    reqCounts = new Map();
+    if (!authUser) return;
+    const [mine, counts] = await Promise.all([
+      db.from("f4_division_requests").select("id,division_id,created_at").eq("profile_id", authUser.id).eq("status", "pending").maybeSingle(),
+      db.rpc("f4_division_request_counts"),
+    ]);
+    requestsReady = !mine.error;
+    if (mine.error) console.warn("Permintaan divisi belum aktif — jalankan supabase-division-requests.sql", mine.error);
+    myRequest = mine.data || null;
+    (counts.data || []).forEach((r) => reqCounts.set(Number(r.division_id), Number(r.pending) || 0));
+  }
+  // can I ask to join a division? (logged in, no membership division yet)
+  const canRequest = () => Boolean(authUser) && requestsReady && !isStaff() && myDivision() == null;
 
   /* ================= page ================= */
   function renderSummary() {
@@ -192,7 +211,8 @@
             ${safeUrl(d.logo_url) ? logoHtml(d, "dv-card-logo") : `<span class="dv-number">${pad(d.number)}</span>`}
             <span class="division-status ${statusClass(s)}">${s}</span>
             ${isMine(d) ? '<span class="dv-mine">DIVISIMU</span>' : ""}
-            <button class="division-edit" data-edit="${d.number}" title="Edit divisi" aria-label="Edit divisi ${d.number}">✎</button>
+            ${myRequest && Number(myRequest.division_id) === d.number ? '<span class="dv-requested">DIAJUKAN</span>' : ""}
+            <button class="division-edit" data-edit="${d.number}" title="Edit divisi" aria-label="Edit divisi ${d.number}">✎${reqCounts.get(d.number) ? `<i class="dv-req-badge" title="Permintaan masuk">${reqCounts.get(d.number)}</i>` : ""}</button>
           </div>
           <h3>F4NTASTIC DIV. ${pad(d.number)}</h3>
           ${leader}
@@ -235,7 +255,7 @@
     } catch (e) {
       console.warn("Auth status unavailable", e);
     }
-    const allowed = Boolean(authUser) && rolesList().some((r) => ["member", "leader_squad", "admin", "developer", "owner"].includes(r));
+    const allowed = Boolean(authUser) && rolesList().some((r) => ["calon_member", "member", "leader_squad", "admin", "developer", "owner"].includes(r));
     const REQUIRED = ["full_name", "phone", "ml_id", "ml_server", "gender", "birth_date"];
     if (allowed && !REQUIRED.every((k) => String(profile?.[k] ?? "").trim())) {
       $("divisionGrid").innerHTML = `<div class="directory-error"><h3>LENGKAPI PROFIL DULU</h3><p>Halaman Devisi terbuka setelah 6 data wajib di profil kamu terisi: nama lengkap, no. HP, jenis kelamin, tanggal lahir, ID ML, dan server ML.</p><a href="${ROOT}profile.html?complete=1&redirect=devisi/">LENGKAPI PROFIL</a></div>`;
@@ -245,7 +265,7 @@
       return false;
     }
     if (!allowed) {
-      $("divisionGrid").innerHTML = `<div class="directory-error"><h3>AKSES DIREKTORI DIBATASI</h3><p>Halaman ini hanya dapat diakses oleh Member F4NTASTIC atau role pengelola yang berwenang.</p><a href="${ROOT}login.html">MASUK KE AKUN</a></div>`;
+      $("divisionGrid").innerHTML = `<div class="directory-error"><h3>AKSES DIREKTORI DIBATASI</h3><p>Halaman ini hanya dapat diakses oleh Calon Member, Member F4NTASTIC, atau role pengelola yang berwenang.</p><a href="${ROOT}login.html">MASUK KE AKUN</a></div>`;
       document.querySelector(".directory-summary").hidden = true;
       document.querySelector(".directory-toolbar").hidden = true;
       document.querySelector(".member-search-wrap").hidden = true;
@@ -288,6 +308,50 @@
     history.replaceState(null, "", location.pathname);
     lastFocus?.focus?.();
   }
+  // "request to join" box inside the view popup (only for accounts without a division)
+  function renderJoinBox(d) {
+    const box = $("dvJoin");
+    if (!box) return;
+    if (!canRequest()) {
+      box.hidden = true;
+      box.innerHTML = "";
+      return;
+    }
+    box.hidden = false;
+    const mineHere = myRequest && Number(myRequest.division_id) === d.number;
+    if (mineHere) {
+      box.className = "dv-join is-pending";
+      box.innerHTML = `<div><b>⏳ Permintaan kamu sedang ditinjau</b><small>Leader DIV ${pad(d.number)} akan menerima atau menolak permintaanmu.</small></div><button type="button" class="dv-join-cancel" data-join-cancel>BATALKAN</button>`;
+    } else if (myRequest) {
+      box.className = "dv-join is-other";
+      box.innerHTML = `<div><b>Kamu sudah mengajukan ke DIV ${pad(Number(myRequest.division_id))}</b><small>Satu permintaan aktif per akun. Batalkan dulu kalau mau pindah tujuan.</small></div><button type="button" class="dv-join-cancel" data-join-open="${Number(myRequest.division_id)}">LIHAT</button>`;
+    } else if (countOf(d) >= d.capacity) {
+      box.className = "dv-join is-full";
+      box.innerHTML = `<div><b>Divisi ini sedang penuh</b><small>Pilih divisi lain yang masih punya slot.</small></div>`;
+    } else {
+      box.className = "dv-join";
+      box.innerHTML = `<div><b>Belum punya divisi?</b><small>Ajukan masuk ke DIV ${pad(d.number)}. Leader divisi akan meninjau permintaanmu.</small></div>
+        <textarea id="dvJoinMsg" maxlength="300" rows="2" placeholder="Pesan untuk leader (opsional): role, jam main, dll."></textarea>
+        <button type="button" class="dv-primary" data-join="${d.number}">AJUKAN MASUK DIVISI</button>`;
+    }
+  }
+  async function requestJoin(n, btn) {
+    const d = rows.find((x) => x.number === n);
+    if (!d) return;
+    if (!confirm(`Ajukan masuk ke DIV ${pad(n)}?`)) return;
+    btn.disabled = true;
+    const { error } = await db.rpc("f4_division_request_join", { p_division: n, p_message: $("dvJoinMsg")?.value || "" });
+    btn.disabled = false;
+    if (error) return alert(friendly(error));
+    await refreshAll();
+    alert(`Permintaan masuk DIV ${pad(n)} terkirim. Tunggu leader divisi meninjau.`);
+  }
+  async function cancelJoin() {
+    if (!myRequest || !confirm(`Batalkan permintaan masuk DIV ${pad(Number(myRequest.division_id))}?`)) return;
+    const { error } = await db.rpc("f4_division_request_cancel");
+    if (error) return alert(friendly(error));
+    await refreshAll();
+  }
   function renderModal() {
     const d = rows.find((x) => x.number === modalNumber);
     if (!d) return;
@@ -302,8 +366,9 @@
       <div><small>KAPASITAS</small><strong>${n}/${d.capacity}</strong></div>
       <div><small>SQUAD ID</small><strong>${esc(d.squad_id || "—")}</strong></div>
       ${s === "RECRUITING" ? `<div class="dv-meta-needs"><small>MENCARI ROLE</small><strong>${(d.needs || []).length ? d.needs.map((r) => `<b class="role-badge ${GAME_CLASS[r] || "role-unknown"}">${esc(r)}</b>`).join("") : "SEMUA ROLE"}</strong></div>` : ""}
-      ${canManageDiv(d.number) ? `<button type="button" class="dv-edit-open" data-edit-open="${d.number}">✎ EDIT DIVISI</button>` : ""}
+      ${canManageDiv(d.number) ? `<button type="button" class="dv-edit-open" data-edit-open="${d.number}">✎ EDIT DIVISI${reqCounts.get(d.number) ? ` · ${reqCounts.get(d.number)} PERMINTAAN` : ""}</button>` : ""}
       ${wa ? `<a class="dv-wa" href="${wa}" target="_blank" rel="noopener">HUBUNGI VIA WA ↗︎</a>` : ""}`;
+    renderJoinBox(d);
     $("dvModalDesc").textContent = d.description || "";
     $("dvModalDesc").hidden = !d.description;
     const roles = [...new Set(d.members.map((m) => gameRole(m) || "ROLE ?"))].sort();
@@ -336,6 +401,7 @@
   const editor = $("dvEditor");
   const NEED_ROLES = [["EXP", "EXP Lane"], ["JUNG", "Jungler"], ["GOLD", "Gold Lane"], ["MID", "Mid Lane"], ["ROAM", "Roamer"]];
   const LOGO_BUCKET = "f4ntastic-division-logos";
+  let edRequests = [];
   let edNumber = null,
     edDraft = null,
     edLastFocus = null;
@@ -345,6 +411,7 @@
   };
   const friendly = (err) => {
     const msg = String(err?.message || err || "");
+    if (/f4_division_request|f4_division_requests/i.test(msg) && /Could not find|does not exist|schema cache/i.test(msg)) return "Fitur permintaan divisi belum aktif — admin perlu menjalankan supabase-division-requests.sql di Supabase.";
     if (/Could not find the function|does not exist|schema cache/i.test(msg)) return "Fitur ini belum aktif — admin perlu menjalankan supabase-division-edit.sql di Supabase.";
     if (/Bucket not found/i.test(msg)) return "Penyimpanan foto belum aktif — admin perlu menjalankan supabase-division-edit.sql.";
     if (/42501|permission|row-level|izin|Unauthorized/i.test(msg) && !/sudah|hanya|Kapasitas/i.test(msg)) return "Kamu tidak punya izin mengedit divisi ini.";
@@ -365,7 +432,9 @@
     $("edAddSearch").value = "";
     $("edAddResults").innerHTML = "";
     edSay("");
+    edRequests = [];
     renderEditor();
+    loadEditorRequests();
     if (editor.hidden) edLastFocus = document.activeElement;
     editor.hidden = false;
     document.documentElement.classList.add("dv-modal-open");
@@ -425,6 +494,58 @@
           )
           .join("")
       : '<p class="dv-empty">Belum ada anggota. Tambahkan lewat kolom di atas.</p>';
+  }
+  async function loadEditorRequests() {
+    const n = edNumber;
+    const box = $("edRequests");
+    if (!box) return;
+    const { data, error } = await db.rpc("f4_division_requests_pending", { p_division: n });
+    if (n !== edNumber) return;
+    edRequests = error ? [] : data || [];
+    if (error) console.warn("Permintaan divisi belum aktif", error);
+    renderEditorRequests();
+  }
+  function renderEditorRequests() {
+    const wrap = $("edRequestsWrap"),
+      box = $("edRequests");
+    if (!wrap || !box) return;
+    wrap.hidden = !edRequests.length;
+    $("edReqCount").textContent = edRequests.length ? String(edRequests.length) : "";
+    box.innerHTML = edRequests
+      .map((r) => {
+        const role = String(r.role || "tamu").toLowerCase(),
+          promote = ["tamu", "calon_member"].includes(role),
+          when = r.created_at ? new Date(r.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" }) : "";
+        return `<div class="ed-request" data-req="${esc(r.id)}">
+          <div class="ed-request-who">${avatarHtml(r)}<span><b>${esc(nameOf(r))}</b><small>${esc(ROLE_NAME[role] || role)}${promote ? " → akan jadi Member" : ""}${gameRole(r) ? " · " + gameRole(r) : ""}${when ? " · " + when : ""}</small></span></div>
+          ${r.message ? `<p class="ed-request-msg">“${esc(r.message)}”</p>` : ""}
+          <span class="ed-request-actions"><button type="button" class="dv-remove" data-req-reject="${esc(r.id)}">TOLAK</button><button type="button" class="ed-accept" data-req-accept="${esc(r.id)}">TERIMA</button></span>
+        </div>`;
+      })
+      .join("");
+  }
+  async function decideRequest(id, approve) {
+    const d = rows.find((x) => x.number === edNumber);
+    const r = edRequests.find((x) => String(x.id) === String(id));
+    if (!d || !r) return;
+    const name = nameOf(r);
+    if (approve && countOf(d) >= d.capacity) return edSay(`DIV ${pad(d.number)} sudah penuh (${countOf(d)}/${d.capacity}).`, "is-error");
+    const promote = ["tamu", "calon_member"].includes(String(r.role || "").toLowerCase());
+    const msg = approve
+      ? promote
+        ? `${name} masih belum Member.\n\nJadikan ${name} MEMBER F4NTASTIC dan masukkan ke DIV ${pad(d.number)}?`
+        : `Terima ${name} masuk ke DIV ${pad(d.number)}?`
+      : `Tolak permintaan ${name}?`;
+    if (!confirm(msg)) return;
+    edSay("Menyimpan…");
+    const { data, error } = await db.rpc("f4_division_request_decide", { p_request: Number(id), p_approve: approve });
+    if (error) {
+      edSay(friendly(error), "is-error");
+      return loadEditorRequests();
+    }
+    await refreshAll();
+    await loadEditorRequests();
+    edSay(approve ? `✓ ${name}${data ? " sekarang Member dan" : ""} masuk ke DIV ${pad(d.number)}.` : `Permintaan ${name} ditolak.`, "is-success");
   }
   async function refreshAll() {
     await loadData();
@@ -502,10 +623,14 @@
       ? data
           .map(
             (a) =>
-              `<div class="dv-add-row">${avatarHtml(a)}<span><b>${esc(nameOf(a))}</b><small>${a.full_name && a.username ? esc(a.full_name) : "Belum punya divisi"}</small></span><button type="button" data-add="${esc(a.id)}" data-name="${esc(nameOf(a))}">+ TAMBAH</button></div>`,
+              (() => {
+                const role = String(a.role || "tamu").toLowerCase(),
+                  promote = ["tamu", "calon_member"].includes(role);
+                return `<div class="dv-add-row">${avatarHtml(a)}<span><b>${esc(nameOf(a))}</b><small>${a.full_name && a.username ? esc(a.full_name) + " · " : ""}${esc(ROLE_NAME[role] || role)}${promote ? " → akan jadi Member" : ""}</small></span><button type="button" data-add="${esc(a.id)}" data-name="${esc(nameOf(a))}" data-promote="${promote ? 1 : ""}">${promote ? "+ JADIKAN MEMBER" : "+ TAMBAH"}</button></div>`;
+              })(),
           )
           .join("")
-      : '<p class="dv-add-empty">Tidak ada akun Member tanpa divisi yang cocok. Akun yang sudah di divisi lain hanya bisa dipindah admin.</p>';
+      : '<p class="dv-add-empty">Tidak ada akun tanpa divisi yang cocok. Akun yang sudah di divisi lain hanya bisa dipindah admin.</p>';
   }
   const ROLE_NAME = { tamu: "Tamu", calon_member: "Calon Member", member: "Member", leader_squad: "Leader Squad", admin: "Admin", developer: "Developer", owner: "Owner" };
   async function searchByMl(ml, box, seq) {
@@ -551,18 +676,22 @@
     await refreshAll();
     edSay(`✓ ${name}${row?.promoted ? " sekarang Member dan" : ""} masuk ke DIV ${pad(d.number)}.`, "is-success");
   }
-  async function addMember(pid, name) {
+  async function addMember(pid, name, promote) {
     const d = rows.find((x) => x.number === edNumber);
     if (!d) return;
     if (countOf(d) >= d.capacity) return edSay(`DIV ${pad(d.number)} sudah penuh (${countOf(d)}/${d.capacity}).`, "is-error");
-    if (!confirm(`Tambahkan ${name} ke DIV ${pad(d.number)}?`)) return;
+    const msg = promote
+      ? `${name} masih belum Member.\n\nJadikan ${name} MEMBER F4NTASTIC dan masukkan ke DIV ${pad(d.number)}?`
+      : `Tambahkan ${name} ke DIV ${pad(d.number)}?`;
+    if (!confirm(msg)) return;
     edSay("Menambahkan…");
-    const { error } = await db.rpc("f4_division_add_member", { p_division: d.number, p_target_id: pid });
+    const { data, error } = await db.rpc("f4_division_add_member", { p_division: d.number, p_target_id: pid });
     if (error) return edSay(friendly(error), "is-error");
     $("edAddSearch").value = "";
     $("edAddResults").innerHTML = "";
     await refreshAll();
-    edSay(`✓ ${name} masuk ke DIV ${pad(d.number)}.`, "is-success");
+    await loadEditorRequests();
+    edSay(`✓ ${name}${data === true ? " sekarang Member dan" : ""} masuk ke DIV ${pad(d.number)}.`, "is-success");
   }
   async function removeMember(pid) {
     const d = rows.find((x) => x.number === edNumber);
@@ -610,7 +739,11 @@
         return renderEditor();
       }
       const add = e.target.closest("[data-add]");
-      if (add) return addMember(add.dataset.add, add.dataset.name);
+      if (add) return addMember(add.dataset.add, add.dataset.name, Boolean(add.dataset.promote));
+      const ra = e.target.closest("[data-req-accept]");
+      if (ra) return decideRequest(ra.dataset.reqAccept, true);
+      const rr = e.target.closest("[data-req-reject]");
+      if (rr) return decideRequest(rr.dataset.reqReject, false);
       const addMl = e.target.closest("[data-add-ml]");
       if (addMl) return addMemberByMl(addMl.dataset.addMl, addMl.dataset.name, Boolean(addMl.dataset.promote));
       const rm = e.target.closest("[data-remove]");
@@ -709,6 +842,11 @@
     if (open) return openProfile(open.dataset.profile);
     const eo = e.target.closest("[data-edit-open]");
     if (eo) return openEditor(Number(eo.dataset.editOpen));
+    const jn = e.target.closest("[data-join]");
+    if (jn) return requestJoin(Number(jn.dataset.join), jn);
+    if (e.target.closest("[data-join-cancel]")) return cancelJoin();
+    const jo = e.target.closest("[data-join-open]");
+    if (jo) return openModal(Number(jo.dataset.joinOpen));
     const chip = e.target.closest("[data-role]");
     if (chip) {
       modalRole = chip.dataset.role;

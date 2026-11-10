@@ -1,6 +1,27 @@
 /* F4NTASTIC i18n — extra dictionary (Indonesian → en / th) for every page. Loaded before js/i18n.js. */
 (() => {
   const D = {
+    "DIAJUKAN": ["REQUESTED", "ส่งคำขอแล้ว"],
+    "Permintaan masuk": ["Join requests", "คำขอเข้าร่วม"],
+    "PERMINTAAN MASUK": ["JOIN REQUESTS", "คำขอเข้าร่วม"],
+    "⏳ Permintaan kamu sedang ditinjau": ["⏳ Your request is being reviewed", "⏳ คำขอของคุณกำลังได้รับการพิจารณา"],
+    "BATALKAN": ["CANCEL", "ยกเลิก"],
+    "LIHAT": ["VIEW", "ดู"],
+    "Satu permintaan aktif per akun. Batalkan dulu kalau mau pindah tujuan.": ["One active request per account. Cancel it first if you want a different division.", "หนึ่งบัญชีมีคำขอที่รอได้หนึ่งรายการ ยกเลิกก่อนหากต้องการเปลี่ยนดิวิชัน"],
+    "Divisi ini sedang penuh": ["This division is full", "ดิวิชันนี้เต็มแล้ว"],
+    "Pilih divisi lain yang masih punya slot.": ["Pick another division that still has room.", "เลือกดิวิชันอื่นที่ยังมีที่ว่าง"],
+    "Belum punya divisi?": ["No division yet?", "ยังไม่มีดิวิชัน?"],
+    "Pesan untuk leader (opsional): role, jam main, dll.": ["Message for the leader (optional): role, play hours, etc.", "ข้อความถึงหัวหน้า (ไม่บังคับ): บทบาท เวลาเล่น ฯลฯ"],
+    "AJUKAN MASUK DIVISI": ["REQUEST TO JOIN", "ขอเข้าร่วมดิวิชัน"],
+    "Halaman ini hanya dapat diakses oleh Calon Member, Member F4NTASTIC, atau role pengelola yang berwenang.": ["This page is only available to Prospective Members, F4NTASTIC Members or authorised manager roles.", "หน้านี้เข้าถึงได้เฉพาะผู้สมัครสมาชิก สมาชิก F4NTASTIC หรือผู้ดูแลที่ได้รับอนุญาต"],
+    "Tidak ada akun tanpa divisi yang cocok. Akun yang sudah di divisi lain hanya bisa dipindah admin.": ["No matching accounts without a division. Accounts already in another division can only be moved by an admin.", "ไม่พบบัญชีที่ไม่มีดิวิชันที่ตรงกัน บัญชีที่อยู่ดิวิชันอื่นแล้วย้ายได้โดยแอดมินเท่านั้น"],
+    "Fitur permintaan divisi belum aktif — admin perlu menjalankan supabase-division-requests.sql di Supabase.": ["Division requests aren't active yet — an admin needs to run supabase-division-requests.sql in Supabase.", "ฟีเจอร์คำขอเข้าดิวิชันยังไม่เปิดใช้ — แอดมินต้องรัน supabase-division-requests.sql ใน Supabase"],
+    "Hanya Calon Member ke atas yang bisa mengajukan masuk divisi.": ["Only Prospective Members and above can request to join a division.", "เฉพาะผู้สมัครสมาชิกขึ้นไปที่ขอเข้าดิวิชันได้"],
+    "Lengkapi profil kamu dulu sebelum mengajukan masuk divisi.": ["Complete your profile before requesting to join a division.", "กรอกโปรไฟล์ให้ครบก่อนขอเข้าดิวิชัน"],
+    "Kamu sudah terdaftar di sebuah divisi.": ["You're already in a division.", "คุณอยู่ในดิวิชันแล้ว"],
+    "Kamu masih punya permintaan yang menunggu. Batalkan dulu kalau mau pindah tujuan.": ["You still have a pending request. Cancel it first if you want a different division.", "คุณยังมีคำขอที่รออยู่ ยกเลิกก่อนหากต้องการเปลี่ยนดิวิชัน"],
+    "Permintaan ini sudah tidak aktif.": ["This request is no longer active.", "คำขอนี้ไม่มีผลแล้ว"],
+    "Akun ini sudah masuk divisi lain.": ["This account has already joined another division.", "บัญชีนี้เข้าดิวิชันอื่นแล้ว"],
     "RECRUITING": ["RECRUITING", "เปิดรับสมัคร"],
     "FULL": ["FULL", "เต็ม"],
     "CLOSED": ["CLOSED", "ปิดรับ"],
@@ -1003,6 +1024,17 @@
 
 /* patterns: [RegExp, { en, th }] — $1… = captured text, itself translated when known */
 window.F4_I18N_PATTERNS = [
+  [/^Leader DIV (\d+) akan menerima atau menolak permintaanmu\.$/, { en: "The DIV $1 leader will accept or decline your request.", th: "หัวหน้า DIV $1 จะรับหรือปฏิเสธคำขอของคุณ" }],
+  [/^Kamu sudah mengajukan ke DIV (\d+)$/, { en: "You've already requested DIV $1", th: "คุณส่งคำขอไป DIV $1 แล้ว" }],
+  [/^Ajukan masuk ke DIV (\d+)\. Leader divisi akan meninjau permintaanmu\.$/, { en: "Request to join DIV $1. The division leader will review it.", th: "ขอเข้าร่วม DIV $1 หัวหน้าดิวิชันจะพิจารณาคำขอ" }],
+  [/^Ajukan masuk ke DIV (\d+)\?$/, { en: "Request to join DIV $1?", th: "ขอเข้าร่วม DIV $1?" }],
+  [/^Permintaan masuk DIV (\d+) terkirim\. Tunggu leader divisi meninjau\.$/, { en: "Request to join DIV $1 sent. Wait for the division leader to review it.", th: "ส่งคำขอเข้าร่วม DIV $1 แล้ว รอหัวหน้าดิวิชันพิจารณา" }],
+  [/^Batalkan permintaan masuk DIV (\d+)\?$/, { en: "Cancel your request to join DIV $1?", th: "ยกเลิกคำขอเข้าร่วม DIV $1?" }],
+  [/^Terima (.+) masuk ke DIV (\d+)\?$/, { en: "Accept $1 into DIV $2?", th: "รับ $1 เข้า DIV $2?" }],
+  [/^Tolak permintaan (.+)\?$/, { en: "Decline $1's request?", th: "ปฏิเสธคำขอของ $1?" }],
+  [/^Permintaan (.+) ditolak\.$/, { en: "$1's request was declined.", th: "ปฏิเสธคำขอของ $1 แล้ว" }],
+  [/^✎ EDIT DIVISI · (\d+) PERMINTAAN$/, { en: "✎ EDIT DIVISION · $1 REQUESTS", th: "✎ แก้ไขดิวิชัน · $1 คำขอ" }],
+  [/^Divisi (\d+) sudah penuh\.$/, { en: "Division $1 is full.", th: "ดิวิชัน $1 เต็มแล้ว" }],
   // dates (id-ID short month)
   [/^(\d{1,2}) (Jan|Feb|Mar|Apr|Mei|Jun|Jul|Agu|Sep|Okt|Nov|Des) (\d{4})$/, { en: "$1 $2 $3", th: "$1 $2 $3" }],
   [/^(Jan|Feb|Mar|Apr|Mei|Jun|Jul|Agu|Sep|Okt|Nov|Des) (\d{4})$/, { en: "$1 $2", th: "$1 $2" }],
