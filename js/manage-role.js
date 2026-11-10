@@ -79,7 +79,42 @@
     activeProfile = null,
     activeDetail = null,
     selectedTier = "member",
-    saving = false;
+    saving = false,
+    editorSelf = false;
+  // Division roster (supabase-division-roster.sql): profile_id → { division_id, is_leader }
+  let divisions = [],
+    roster = new Map(),
+    rosterOk = false;
+  const pad2 = (n) => String(n).padStart(2, "0");
+  const divisionOf = (profile) => roster.get(String(profile.id)) || null;
+  const divisionCount = (id) => [...roster.values()].filter((r) => r.division_id === id).length;
+  const leaderOf = (id) => {
+    for (const [pid, r] of roster) if (r.division_id === id && r.is_leader) return profiles.find((p) => String(p.id) === pid) || null;
+    return null;
+  };
+  const divisionChip = (profile) => {
+    const r = divisionOf(profile);
+    if (!r) return '<span class="role-division-none">—</span>';
+    return `<span class="role-division-chip${r.is_leader ? " is-leader" : ""}">${r.is_leader ? "★ LEADER " : ""}DIV ${pad2(r.division_id)}</span>`;
+  };
+  async function loadRoster() {
+    const [d, r, l] = await Promise.all([
+      db.from("f4_divisions").select("id,capacity").order("id"),
+      db.from("f4_division_roster").select("profile_id,division_id"),
+      db.from("f4_division_leaders").select("division_id,profile_id"),
+    ]);
+    divisions = (d.data || []).map((x) => ({ id: Number(x.id), capacity: Number(x.capacity) || 25 }));
+    if (!divisions.length) divisions = Array.from({ length: 41 }, (_, i) => ({ id: i + 1, capacity: 25 }));
+    rosterOk = !r.error;
+    if (r.error) console.warn("f4_division_roster belum ada — jalankan supabase-division-roster.sql", r.error);
+    const leaders = new Set((l.data || []).map((x) => `${x.division_id}:${x.profile_id}`));
+    roster = new Map(
+      (r.data || []).map((x) => [
+        String(x.profile_id),
+        { division_id: Number(x.division_id), is_leader: leaders.has(`${x.division_id}:${x.profile_id}`) },
+      ]),
+    );
+  }
   const redirectToLogin = () =>
     window.location.replace("login.html?redirect=manage-role.html");
   const watchdog = setTimeout(() => {
@@ -173,12 +208,15 @@
   }
   async function load() {
     $("roleGroups").innerHTML = '<p class="empty">Mengambil data akun...</p>';
-    const { data, error } = await db
+    const [{ data, error }] = await Promise.all([
+      db
       .from("profiles")
       .select(
         "id,username,full_name,email,role,roles,avatar_url,phone,ml_id,ml_server,gender,birth_date,main_hero,game_role,profile_gallery,created_at,last_seen",
       )
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false }),
+      loadRoster().catch((e) => console.warn(e)),
+    ]);
     if (error) {
       $("roleGroups").innerHTML =
         `<p class="empty">Gagal memuat akun: ${esc(prettyError(error))}</p>`;
@@ -207,7 +245,7 @@
     const filtered = profiles.filter(
       (profile) =>
         (!filter || rolesOf(profile).includes(filter)) &&
-        [profile.username, profile.full_name, profile.email].some((value) =>
+        [profile.username, profile.full_name, profile.email, divisionOf(profile) ? `div ${pad2(divisionOf(profile).division_id)}` : ""].some((value) =>
           String(value || "")
             .toLowerCase()
             .includes(query),
@@ -237,7 +275,7 @@
       group.append(head);
       const table = document.createElement("table");
       table.innerHTML =
-        "<thead><tr><th>AKUN</th><th>EMAIL</th><th>ROLE</th><th>BERGABUNG</th><th>AKSI</th></tr></thead>";
+        "<thead><tr><th>AKUN</th><th>EMAIL</th><th>ROLE</th><th>DIVISI</th><th>BERGABUNG</th><th>AKSI</th></tr></thead>";
       const body = document.createElement("tbody");
       members.forEach((profile) => body.append(buildRow(profile)));
       table.append(body);
@@ -255,7 +293,7 @@
     const avatarHtml = profile.avatar_url
       ? `<img class="role-avatar-img" src="${esc(profile.avatar_url)}" alt="" loading="lazy">`
       : `<span class="role-avatar-letter">${esc(initial)}</span>`;
-    tr.innerHTML = `<td><div class="role-account" tabindex="0" role="button" aria-label="Lihat data ${esc(profile.full_name || profile.username || "akun")}"><span class="role-avatar">${avatarHtml}</span><div><strong class="candidate-name">${esc(profile.full_name || profile.username || "Tanpa nama")}</strong><span class="ign">@ ${esc(profile.username || "—")}${isSelf ? " · KAMU" : ""}</span></div></div></td><td>${esc(profile.email || "—")}</td><td><div class="role-chip-list">${roles.map(chipHtml).join("")}</div></td><td>${profile.created_at ? new Date(profile.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" }) : "—"}</td><td>${isSelf ? '<span class="pill">KAMU</span>' : '<button class="save-role role-edit-button" type="button">ATUR ROLE</button>'}</td>`;
+    tr.innerHTML = `<td><div class="role-account" tabindex="0" role="button" aria-label="Lihat data ${esc(profile.full_name || profile.username || "akun")}"><span class="role-avatar">${avatarHtml}</span><div><strong class="candidate-name">${esc(profile.full_name || profile.username || "Tanpa nama")}</strong><span class="ign">@ ${esc(profile.username || "—")}${isSelf ? " · KAMU" : ""}</span></div></div></td><td>${esc(profile.email || "—")}</td><td><div class="role-chip-list">${roles.map(chipHtml).join("")}</div></td><td>${divisionChip(profile)}</td><td>${profile.created_at ? new Date(profile.created_at).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" }) : "—"}</td><td>${isSelf ? '<button class="save-role role-edit-button" type="button">ATUR DIVISI</button>' : '<button class="save-role role-edit-button" type="button">ATUR ROLE</button>'}</td>`;
     const accountButton = tr.querySelector(".role-account");
     accountButton.addEventListener("click", () => openAccountDetail(profile));
     accountButton.addEventListener("keydown", (event) => {
@@ -315,6 +353,12 @@
         profile.ml_id ? `${profile.ml_id} (${profile.ml_server || "—"})` : "—",
       ],
       ["MAIN HERO", profile.main_hero || "—"],
+      [
+        "DIVISI",
+        divisionOf(profile)
+          ? `DIV ${pad2(divisionOf(profile).division_id)}${divisionOf(profile).is_leader ? " · LEADER" : ""}`
+          : "Belum di divisi",
+      ],
       ["GENDER", profile.gender || "—"],
       [
         "TANGGAL LAHIR",
@@ -383,18 +427,56 @@
         link.append(image);
         showcase.append(link);
       });
-    $("accountEditRole").hidden = isSelf;
+    $("accountEditRole").hidden = false;
+    $("accountEditRole").textContent = isSelf ? "ATUR DIVISI" : "ATUR ROLE & DIVISI";
     $("accountOverlay").hidden = false;
+  }
+  function renderDivisionPicker(profile) {
+    const cur = divisionOf(profile),
+      sel = $("roleDivision"),
+      leader = $("roleDivisionLeader");
+    sel.replaceChildren(new Option("— Tidak di divisi mana pun", ""));
+    divisions.forEach((d) => {
+      const n = divisionCount(d.id),
+        mine = cur?.division_id === d.id,
+        full = !mine && n >= d.capacity,
+        lead = leaderOf(d.id);
+      const opt = new Option(
+        `DIV ${pad2(d.id)} · ${n}/${d.capacity}${lead ? ` · Leader @${lead.username || lead.full_name || "?"}` : " · belum ada leader"}${full ? " (PENUH)" : ""}`,
+        String(d.id),
+      );
+      opt.disabled = full;
+      sel.append(opt);
+    });
+    sel.value = cur ? String(cur.division_id) : "";
+    leader.checked = Boolean(cur?.is_leader);
+    const sync = () => {
+      leader.disabled = !sel.value || !rosterOk;
+      if (!sel.value) leader.checked = false;
+      const lead = sel.value ? leaderOf(Number(sel.value)) : null;
+      $("roleDivisionHint").textContent = !rosterOk
+        ? "Fitur divisi belum aktif. Jalankan supabase-division-roster.sql di Supabase SQL Editor dulu."
+        : leader.checked && lead && String(lead.id) !== String(profile.id)
+          ? `@${lead.username || lead.full_name} saat ini leader DIV ${pad2(sel.value)} dan akan jadi member biasa.`
+          : sel.value && !["member", "calon_member"].some((r) => rolesOf(profile).includes(r)) && !rolesOf(profile).some((r) => ["leader_squad", "admin", "developer", "owner"].includes(r))
+            ? "Akun ini masih Tamu — ubah status jadi Member supaya bisa membuka halaman /devisi."
+            : "Satu akun hanya bisa berada di satu divisi.";
+    };
+    sel.disabled = !rosterOk;
+    sel.onchange = sync;
+    leader.onchange = sync;
+    sync();
   }
   function openEditor(profile) {
     activeProfile = profile;
+    editorSelf = Boolean(actor && String(actor.id) === String(profile.id));
     const roles = rolesOf(profile);
     selectedTier = roles.includes("member")
       ? "member"
       : roles.includes("calon_member")
         ? "calon_member"
         : "tamu";
-    $("roleEditorTitle").textContent = "ATUR ROLE";
+    $("roleEditorTitle").textContent = editorSelf ? "ATUR DIVISI" : "ATUR ROLE & DIVISI";
     $("roleEditorMeta").textContent =
       `@${profile.username || "akun"} · ${profile.full_name || profile.email || ""}`;
     editorSay("");
@@ -406,13 +488,16 @@
       button.className = "role-tier-option";
       button.dataset.role = key;
       button.innerHTML = `<strong>${esc(ROLE_BY_KEY[key].label)}</strong><small>${esc(ROLE_BY_KEY[key].desc)}</small>`;
+      button.disabled = editorSelf;
       button.addEventListener("click", () => {
+        if (editorSelf) return;
         selectedTier = key;
         renderEditorOptions();
       });
       tierWrap.append(button);
     });
     renderEditorOptions();
+    renderDivisionPicker(profile);
     $("roleOverlay").hidden = false;
   }
   function renderEditorOptions() {
@@ -434,56 +519,71 @@
       input.type = "checkbox";
       input.value = key;
       input.checked = selectedTier === "member" && roles.includes(key);
-      input.disabled = selectedTier !== "member" || role.rank > actorMaxRank;
+      input.disabled = editorSelf || selectedTier !== "member" || role.rank > actorMaxRank;
       const copy = document.createElement("span");
       copy.innerHTML = `<strong>${role.label}</strong><small>${role.desc}</small>`;
       label.append(input, copy);
       extra.append(label);
     });
-    $("roleEditorHint").textContent =
-      selectedTier === "member"
+    $("roleEditorHint").textContent = editorSelf
+      ? "Kamu tidak bisa mengubah role akunmu sendiri — hanya divisinya."
+      : selectedTier === "member"
         ? "Peran tambahan boleh lebih dari satu. Semuanya otomatis tetap dihitung sebagai Member."
         : "Peran tambahan hanya tersedia setelah status keanggotaan menjadi Member.";
   }
   async function saveEditor() {
     if (!activeProfile || saving) return;
+    const target = activeProfile;
     const selected = [
       selectedTier,
       ...[...$("roleExtra").querySelectorAll("input:checked")].map(
         (input) => input.value,
       ),
     ];
-    const oldRoles = roleList(rolesOf(activeProfile)),
-      newRoles = roleList(selected);
-    if (oldRoles.join(",") === newRoles.join(",")) {
+    const oldRoles = roleList(rolesOf(target)),
+      newRoles = roleList(selected),
+      rolesChanged = !editorSelf && oldRoles.join(",") !== newRoles.join(",");
+    const cur = divisionOf(target),
+      nextDiv = rosterOk && $("roleDivision").value ? Number($("roleDivision").value) : null,
+      nextLeader = Boolean(nextDiv) && $("roleDivisionLeader").checked,
+      divChanged = rosterOk && ((cur?.division_id || null) !== nextDiv || Boolean(cur?.is_leader) !== nextLeader);
+    if (!rolesChanged && !divChanged) {
       closeEditor();
       return;
     }
-    if (
-      !confirm(
-        `Simpan role @${activeProfile.username || activeProfile.full_name}?\n\n${newRoles.map((key) => ROLE_BY_KEY[key].label).join(" + ")}`,
-      )
-    )
-      return;
+    const lines = [];
+    if (rolesChanged) lines.push(`Role: ${newRoles.map((key) => ROLE_BY_KEY[key].label).join(" + ")}`);
+    if (divChanged) lines.push(`Divisi: ${nextDiv ? `DIV ${pad2(nextDiv)}${nextLeader ? " (LEADER)" : ""}` : "tidak di divisi"}`);
+    if (!confirm(`Simpan perubahan @${target.username || target.full_name}?\n\n${lines.join("\n")}`)) return;
     saving = true;
     $("roleSave").disabled = true;
     editorSay("Menyimpan perubahan...");
     try {
-      const { data, error } = await db.rpc("f4_set_profile_roles", {
-        p_target_id: activeProfile.id,
-        p_roles: selected,
-      });
-      if (error) throw error;
-      activeProfile.roles = data?.roles || selected;
-      activeProfile.role = data?.role || activeProfile.role;
+      if (rolesChanged) {
+        const { data, error } = await db.rpc("f4_set_profile_roles", {
+          p_target_id: target.id,
+          p_roles: selected,
+        });
+        if (error) throw error;
+        target.roles = data?.roles || selected;
+        target.role = data?.role || target.role;
+      }
+      if (divChanged) {
+        const { error } = await db.rpc("f4_set_profile_division", {
+          p_target_id: target.id,
+          p_division_id: nextDiv,
+          p_is_leader: nextLeader,
+        });
+        if (error) throw error;
+        await loadRoster();
+      }
       closeEditor();
-      say(
-        `Role @${activeProfile.username || activeProfile.full_name} berhasil diperbarui.`,
-        true,
-      );
+      say(`@${target.username || target.full_name} berhasil diperbarui · ${lines.join(" · ")}.`, true);
       render();
     } catch (error) {
-      editorSay(prettyError(error));
+      const msg = String(error?.message || error || "");
+      editorSay(/penuh|tidak ditemukan|tidak ada/i.test(msg) ? msg : prettyError(error));
+      if (rolesChanged) render();
     } finally {
       saving = false;
       $("roleSave").disabled = false;

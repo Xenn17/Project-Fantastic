@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/divisions.css" />
     <link rel="stylesheet" href="../css/tokens.css?v=20261109-mobile" />
     <link rel="stylesheet" href="../css/components.css?v=20261109-nav" />
-    <link rel="stylesheet" href="../css/divisions-v2.css?v=20261109-dv2" />
+    <link rel="stylesheet" href="../css/divisions-v2.css?v=20261110-roster" />
   </head>
   <body class="division-page">
     <header class="site-header">
@@ -48,7 +48,7 @@
         </p>
         <label class="division-search"
           ><span aria-hidden="true">⌕</span
-          ><input id="heroSearch" type="search" placeholder="Cari nickname atau ID Mobile Legends di semua divisi…"
+          ><input id="heroSearch" type="search" placeholder="Cari nama atau @username member di semua divisi…"
         /></label>
       </section>
 
@@ -75,7 +75,7 @@
 
       <section class="member-search-wrap" id="member-search">
         <p class="division-kicker"><span></span> CARI MEMBER</p>
-        <input id="memberSearch" type="search" placeholder="Cari nickname atau ID ML di seluruh divisi" />
+        <input id="memberSearch" type="search" placeholder="Cari nama atau @username di seluruh divisi" />
         <div id="memberResults" aria-live="polite"></div>
       </section>
 
@@ -127,6 +127,29 @@
         <p class="dv-modal-status" id="dvModalStatus" role="status" aria-live="polite"></p>
       </section>
     </div>
+    <!-- Account preview (public info only — no email / phone / birth date / ML ID) -->
+    <div class="dv-modal dv-profile" id="dvProfile" hidden>
+      <div class="dv-modal-backdrop" data-pf-close></div>
+      <section class="dv-modal-card dv-profile-card" role="dialog" aria-modal="true" aria-labelledby="pfName">
+        <button type="button" class="dv-modal-close" data-pf-close aria-label="Tutup">×</button>
+        <div class="pf-banner" aria-hidden="true"></div>
+        <div class="pf-head">
+          <span class="pf-avatar" id="pfAvatar"></span>
+          <div>
+            <p class="division-kicker" id="pfKicker"><span></span> MEMBER</p>
+            <h2 id="pfName">—</h2>
+            <p class="pf-handle" id="pfHandle">@—</p>
+          </div>
+        </div>
+        <div class="pf-roles" id="pfRoles"></div>
+        <dl class="pf-facts" id="pfFacts"></dl>
+        <p class="pf-label">SHOWCASE</p>
+        <div class="pf-showcase" id="pfShowcase"></div>
+        <div class="pf-actions">
+          <button type="button" class="dv-primary" id="pfBack">← KEMBALI KE DIVISI</button>
+        </div>
+      </section>
+    </div>
     <button id="backTop" class="back-top" aria-label="Kembali ke atas">
       ↑
     </button>
@@ -137,9 +160,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/gallery-supabase-config.js"></script>
     <script src="../js/session-nav.js?v=20261109-root"></script>
-    <script src="../data/divisions.js"></script>
-    <script src="../data/division-members.js"></script>
-    <script src="../js/divisions.js?v=20261109-dv2"></script>
+    <script src="../data/divisions.js?v=20261110-roster"></script>
+    <script src="../js/divisions.js?v=20261110-roster"></script>
       <script src="../js/fx/ui.js?v=20261109-mobile2" defer></script>
       <script src="../js/fx/nav.js?v=20261109-arrive2" defer></script>
   </body>

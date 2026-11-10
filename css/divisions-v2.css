@@ -181,3 +181,66 @@ html.dv-modal-open { overflow: hidden; }
 }
 .dv-move-toggle:hover, .dv-move-toggle[aria-expanded="true"] { background: var(--gold); color: #111; }
 .dv-member .member-role-list { align-items: center; }
+
+/* ---------- account-based roster (v2026-11-10) ---------- */
+.dv-avatar { overflow: hidden; }
+.dv-avatar img, .pf-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dv-leader-link {
+  width: 100%; margin: 0; padding: 8px 10px 8px 8px; text-align: left; cursor: pointer; font: inherit; color: inherit;
+  border-radius: 14px; background: rgba(255, 255, 255, .02); border: 1px solid rgba(255, 255, 255, .06);
+  transition: border-color .2s, background .2s;
+}
+.dv-leader-link:hover, .dv-leader-link:focus-visible { border-color: rgba(246, 221, 147, .45); background: rgba(217, 180, 91, .06); outline: none; }
+.dv-leader-link em { margin-left: auto; font-style: normal; color: var(--gold-bright); opacity: .6; }
+.dv-leader.is-empty { padding: 8px; }
+.dv-leader.is-empty .dv-avatar { background: rgba(255, 255, 255, .06); color: #77736b; }
+.dv-leader.is-empty strong { color: #8c887f; }
+.dv-member { grid-template-columns: minmax(0, 1fr) auto; }
+.dv-member-open {
+  display: flex; align-items: center; gap: 12px; min-width: 0; padding: 0; margin: 0; text-align: left; cursor: pointer;
+  font: inherit; color: inherit; background: none; border: 0;
+}
+.dv-member-open:hover .dv-member-copy strong, .dv-member-open:focus-visible .dv-member-copy strong { color: var(--gold-bright); text-decoration: underline; text-underline-offset: 3px; }
+.dv-member-open:focus-visible { outline: 2px solid rgba(246, 221, 147, .6); outline-offset: 4px; border-radius: 10px; }
+.dv-manage-note a { color: var(--gold-bright); font-weight: 800; }
+@media (max-width: 600px) {
+  .dv-member { grid-template-columns: minmax(0, 1fr); }
+  .dv-member .member-role-list { grid-column: 1; padding-left: 50px; }
+}
+
+/* ---------- account preview popup ---------- */
+.dv-profile { z-index: 1300; }
+.dv-profile-card { width: min(520px, 100%); overflow: auto; }
+.pf-banner { height: 92px; flex: none; background: radial-gradient(120% 140% at 20% 0%, rgba(246, 221, 147, .35), transparent 60%), linear-gradient(120deg, #2a2214, #0d0c0a); border-bottom: 1px solid rgba(246, 221, 147, .18); }
+.pf-head { display: flex; align-items: flex-end; gap: 16px; padding: 0 26px; margin-top: -40px; }
+.pf-head > div { min-width: 0; padding-bottom: 4px; }
+.pf-avatar {
+  flex: none; width: 96px; height: 96px; display: grid; place-items: center; overflow: hidden; border-radius: 50%;
+  font: 900 40px/1 var(--font-display); color: #120f08; background: var(--grad-gold); border: 4px solid #14120d; box-shadow: 0 10px 30px -10px #000;
+}
+.pf-head h2 { margin: 6px 0 2px; font: 900 clamp(28px, 6vw, 38px)/.95 var(--font-display); overflow-wrap: anywhere; }
+.pf-handle { margin: 0; color: #a39e93; font-size: 13px; font-weight: 700; }
+.pf-roles { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 26px 0; }
+.pf-roles .role-badge { border-radius: 99px !important; padding: 4px 10px !important; font-size: 10px !important; }
+.pf-site-role { padding: 4px 10px; border-radius: 99px; font-size: 10px; font-weight: 800; letter-spacing: .1em; color: #d8d3c7; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .14); }
+.pf-role-owner, .pf-role-developer { color: #120f08; background: var(--grad-gold); border-color: transparent; }
+.pf-role-admin { color: var(--gold-bright); border-color: rgba(246, 221, 147, .45); }
+.pf-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 16px 26px 0; }
+.pf-facts div { padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, .03); border: 1px solid rgba(255, 255, 255, .07); }
+.pf-facts div:first-child { grid-column: 1 / -1; }
+.pf-facts dt { color: #77736b; font-size: 9px; font-weight: 800; letter-spacing: .2em; }
+.pf-facts dd { margin: 3px 0 0; font-size: 14px; font-weight: 700; }
+.pf-label { margin: 18px 26px 8px; color: #77736b; font-size: 9px; font-weight: 800; letter-spacing: .2em; }
+.pf-showcase { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 0 26px; }
+.pf-showcase a { aspect-ratio: 3 / 4; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .08); }
+.pf-showcase img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+.pf-showcase a:hover img { transform: scale(1.05); }
+.pf-empty { grid-column: 1 / -1; margin: 0; padding: 18px; text-align: center; color: #77736b; font-size: 12px; border-radius: 12px; border: 1px dashed rgba(255, 255, 255, .1); }
+.pf-actions { display: flex; justify-content: flex-end; padding: 18px 26px 24px; }
+.pf-actions .dv-primary { padding: 12px 18px; border-radius: 99px; cursor: pointer; font-size: 11px; font-weight: 800; letter-spacing: .12em; color: #120f08; background: var(--grad-gold); border: 0; }
+.pf-actions .dv-primary[hidden] { display: none; }
+@media (max-width: 600px) {
+  .pf-head, .pf-roles, .pf-facts, .pf-showcase, .pf-actions { padding-left: 16px; padding-right: 16px; }
+  .pf-label { margin-left: 16px; }
+  .pf-avatar { width: 80px; height: 80px; font-size: 32px; }
+}

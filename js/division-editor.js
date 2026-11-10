@@ -2,14 +2,13 @@
   "use strict";
   const $ = (id) => document.getElementById(id),
     id = Number(new URLSearchParams(location.search).get("id"));
-  const roles = ["ROAM", "ROAM SUP", "EXP", "GOLD", "JUNG", "MM", "MID"];
+  const GAME_ROLE = { jungler: "JUNG", gold: "GOLD", exp: "EXP", roam: "ROAM", mid: "MID" };
   let db,
     user,
     profile,
     division,
     members = [],
-    canEdit = false,
-    canMembers = false;
+    canEdit = false;
   const say = (msg, error = false) => {
     $("editorNotice").textContent = msg;
     $("editorNotice").className = "editor-notice" + (error ? " error" : "");
@@ -26,31 +25,25 @@
           "'": "&#39;",
         })[c],
     );
-  function fillRoles() {
-    ["memberRole1", "memberRole2"].forEach(
-      (key, i) =>
-        ($(key).innerHTML =
-          (i
-            ? '<option value="">—</option>'
-            : '<option value="">Pilih role</option>') +
-          roles.map((r) => `<option>${r}</option>`).join("")),
-    );
-  }
   function preview() {
     $("previewCard").innerHTML =
-      `<div class="preview-line"><img src="assets/logo-default.png"><div><strong>F4NTASTIC DIV. ${String(id).padStart(2, "0")} · ${esc($("leaderName").value)}</strong><small>${esc($("recruitment").value)} · ${members.length + 1}/${$("capacity").value}</small></div></div>`;
+      `<div class="preview-line"><img src="assets/logo-default.png"><div><strong>F4NTASTIC DIV. ${String(id).padStart(2, "0")} · ${esc(leaderName())}</strong><small>${esc($("recruitment").value)} · ${members.length}/${$("capacity").value}</small></div></div>`;
   }
+  const nameOf = (m) => m.username || m.full_name || "Tanpa nama";
+  const leaderName = () => {
+    const l = members.find((m) => m.is_leader);
+    return l ? nameOf(l) : "LEADER NEEDED";
+  };
   function drawMembers() {
-    $("memberCount").textContent =
-      `${members.length + 1}/${division.capacity} termasuk Leader`;
+    $("memberCount").textContent = `${members.length}/${division.capacity} termasuk Leader`;
     $("memberRows").innerHTML = members.length
       ? members
           .map(
             (m) =>
-              `<tr><td>${esc(m.nickname)}</td><td>${esc(m.ml_id)}</td><td>${esc((m.roles || []).join(" / "))}</td><td>${canMembers ? `<button data-delete="${m.id}">HAPUS</button>` : "—"}</td></tr>`,
+              `<tr><td><strong>${esc(nameOf(m))}</strong>${m.full_name && m.username ? `<br><small>${esc(m.full_name)}</small>` : ""}</td><td>${esc(GAME_ROLE[m.game_role] || "—")}</td><td>${m.is_leader ? "LEADER" : "MEMBER"}</td></tr>`,
           )
           .join("")
-      : '<tr><td colspan="4" class="editor-empty">BELUM ADA DATA ANGGOTA</td></tr>';
+      : '<tr><td colspan="3" class="editor-empty">BELUM ADA ANGGOTA · TAMBAHKAN LEWAT MANAGE ROLE</td></tr>';
   }
   async function boot() {
     if (!Number.isInteger(id) || id < 1 || id > 41)
@@ -93,7 +86,6 @@
           .maybeSingle()
       : { data: null };
     canEdit = dev || !!leader || !!ap?.can_edit_divisions;
-    canMembers = dev || !!leader || !!ap?.can_manage_members;
     if (!canEdit) {
       say(
         "AKSES DITOLAK. Akun ini tidak memiliki izin mengelola divisi ini.",
@@ -114,18 +106,9 @@
       return;
     }
     division = d;
-    let { data: ms, error: me } = await db
-      .from("f4_division_members")
-      .select("*")
-      .eq("division_id", id)
-      .order("nickname");
-    if (me) {
-      say(
-        "Data divisi terbaca, tetapi data anggota gagal dimuat: " + me.message,
-        true,
-      );
-      return;
-    }
+    let { data: ms, error: me } = await db.rpc("f4_division_roster");
+    if (me) console.warn("Roster belum tersedia — jalankan supabase-division-roster.sql", me);
+    ms = (ms || []).filter((m) => Number(m.division_id) === id);
     members = ms || [];
     $("editorTitle").textContent =
       `KELOLA DIVISI ${String(id).padStart(2, "0")}`;
@@ -134,7 +117,6 @@
       : leader
         ? "AKSES LEADER · DIVISI SENDIRI"
         : "AKSES ADMIN · SESUAI IZIN";
-    $("leaderName").value = d.leader_name || "";
     $("squadId").value = d.squad_id || "";
     $("whatsapp").value = d.whatsapp || "";
     $("capacity").value = d.capacity;
@@ -142,10 +124,8 @@
     $("spotlight").value = String(!!d.spotlight);
     $("description").value = d.description || "";
     $("announcement").value = d.announcement || "";
-    if (!canMembers) $("memberForm").hidden = true;
     $("divisionForm").hidden = false;
     $("membersPanel").hidden = false;
-    fillRoles();
     drawMembers();
     preview();
     say(
@@ -157,14 +137,13 @@
     e.preventDefault();
     if (!canEdit) return;
     let cap = Number($("capacity").value),
-      count = members.length + 1;
+      count = members.length;
     if (cap < 1 || cap > 25 || count > cap)
       return say(
         "Kapasitas tidak valid atau lebih kecil dari jumlah anggota.",
         true,
       );
     let payload = {
-      leader_name: $("leaderName").value.trim(),
       squad_id: $("squadId").value.trim() || null,
       whatsapp: $("whatsapp").value.replace(/[^0-9+]/g, ""),
       capacity: cap,
@@ -172,7 +151,6 @@
       spotlight: $("spotlight").value === "true",
       description: $("description").value.trim(),
       announcement: $("announcement").value.trim(),
-      member_count: count,
       version: division.version,
     };
     let { data: current } = await db
@@ -214,88 +192,6 @@
     division = data;
     say("PERUBAHAN BERHASIL DISIMPAN.");
     preview();
-  });
-  $("memberForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!canMembers) return;
-    let nick = $("memberNick").value.trim(),
-      ml = $("memberId").value.trim(),
-      r1 = $("memberRole1").value,
-      r2 = $("memberRole2").value;
-    if (!nick || !/^[0-9]{1,25}$/.test(ml) || !r1 || r1 === r2)
-      return say("Periksa nickname, ID ML, dan role.", true);
-    if (members.length + 1 >= division.capacity)
-      return say("KAPASITAS DIVISI SUDAH PENUH.", true);
-    let { error } = await db
-      .from("f4_division_members")
-      .insert({
-        division_id: id,
-        nickname: nick,
-        ml_id: ml,
-        roles: [r1, ...(r2 ? [r2] : [])],
-      });
-    if (error) return say("GAGAL MENAMBAH MEMBER: " + error.message, true);
-    $("memberForm").reset();
-    let { data } = await db
-      .from("f4_division_members")
-      .select("*")
-      .eq("division_id", id)
-      .order("nickname");
-    members = data || [];
-    let { data: upd, error: ue } = await db
-      .from("f4_divisions")
-      .update({
-        member_count: members.length + 1,
-        version: division.version + 1,
-      })
-      .eq("id", id)
-      .eq("version", division.version)
-      .select()
-      .single();
-    if (ue)
-      return say(
-        "Member tersimpan, tetapi sinkronisasi kapasitas gagal. Hubungi Developer.",
-        true,
-      );
-    division = upd;
-    drawMembers();
-    preview();
-    say("MEMBER BERHASIL DITAMBAHKAN.");
-  });
-  $("memberRows").addEventListener("click", async (e) => {
-    let b = e.target.closest("[data-delete]");
-    if (!b || !canMembers) return;
-    if (!confirm("Hapus data anggota ini secara permanen?")) return;
-    let { error } = await db
-      .from("f4_division_members")
-      .delete()
-      .eq("id", b.dataset.delete);
-    if (error) return say("GAGAL MENGHAPUS: " + error.message, true);
-    let { data } = await db
-      .from("f4_division_members")
-      .select("*")
-      .eq("division_id", id)
-      .order("nickname");
-    members = data || [];
-    let { data: upd, error: ue } = await db
-      .from("f4_divisions")
-      .update({
-        member_count: members.length + 1,
-        version: division.version + 1,
-      })
-      .eq("id", id)
-      .eq("version", division.version)
-      .select()
-      .single();
-    if (ue)
-      return say(
-        "Anggota terhapus, tetapi kapasitas belum tersinkron. Hubungi Developer.",
-        true,
-      );
-    division = upd;
-    drawMembers();
-    preview();
-    say("ANGGOTA BERHASIL DIHAPUS.");
   });
   boot().catch((e) => say("GAGAL MEMUAT EDITOR: " + e.message, true));
 })();

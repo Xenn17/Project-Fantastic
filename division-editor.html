@@ -32,9 +32,7 @@
       <form id="divisionForm" class="editor-panel" hidden>
         <h2>Informasi Divisi</h2>
         <div class="editor-grid">
-          <label
-            >Nama Leader<input id="leaderName" maxlength="50" required /></label
-          ><label>Squad ID<input id="squadId" maxlength="30" /></label
+          <label>Squad ID<input id="squadId" maxlength="30" /></label
           ><label>WhatsApp<input id="whatsapp" maxlength="25" /></label
           ><label
             >Kapasitas Maksimum<input
@@ -73,33 +71,20 @@
       </form>
       <section id="membersPanel" class="editor-panel" hidden>
         <div class="panel-heading">
-          <h2>Data Anggota</h2>
+          <h2>Anggota Divisi</h2>
           <span id="memberCount"></span>
         </div>
-        <form id="memberForm" class="member-form">
-          <label
-            >Nickname<input id="memberNick" maxlength="30" required /></label
-          ><label
-            >ID Mobile Legends<input
-              id="memberId"
-              inputmode="numeric"
-              maxlength="25"
-              pattern="[0-9]{1,25}"
-              required /></label
-          ><label>Role 1<select id="memberRole1" required></select></label
-          ><label>Role 2 (opsional)<select id="memberRole2"></select></label
-          ><button class="division-btn primary" type="submit">
-            TAMBAH MEMBER
-          </button>
-        </form>
+        <p class="editor-note">
+          Member &amp; leader sekarang berbasis akun. Tambah, pindah, atau pilih
+          leader lewat <a href="manage-role.html">Manage Role → Divisi</a>.
+        </p>
         <div class="table-scroll">
           <table>
             <thead>
               <tr>
-                <th>NICK</th>
-                <th>ID ML</th>
-                <th>ROLE</th>
-                <th>AKSI</th>
+                <th>AKUN</th>
+                <th>ROLE IN-GAME</th>
+                <th>STATUS</th>
               </tr>
             </thead>
             <tbody id="memberRows"></tbody>
@@ -110,6 +95,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/gallery-supabase-config.js"></script>
     <script src="js/session-nav.js?v=20261109-root"></script>
-    <script src="js/division-editor.js"></script>
+    <script src="js/division-editor.js?v=20261110-roster"></script>
   </body>
 </html>

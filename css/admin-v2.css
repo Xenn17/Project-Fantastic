@@ -356,3 +356,21 @@ td button:disabled { opacity: .55; cursor: wait; }
 .drawer-status.status-accepted { color: var(--ok); }
 .drawer-status.status-rejected { color: var(--bad); }
 @media (max-width: 640px) { .drawer-actions { margin: 18px -18px -34px; padding: 14px 18px 18px; } }
+
+/* ---------- Manage Role → Divisi (v2026-11-10) ---------- */
+.role-division { margin-top: 6px; }
+.role-division-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 10px; align-items: stretch; }
+.role-division-row select {
+  min-height: 52px; padding: 0 14px; border-radius: 12px; font: 700 13px/1.2 var(--body, inherit); color: #f2eee5;
+  background: #0b0b0a; border: 1px solid rgba(255, 255, 255, .14);
+}
+.role-division-row select:focus { outline: none; border-color: rgba(246, 221, 147, .6); }
+.role-division-leader { margin: 0 !important; }
+.role-division-leader:has(input:disabled) { opacity: .45; }
+.role-division-chip {
+  display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 99px; white-space: nowrap;
+  font-size: 10px; font-weight: 800; letter-spacing: .08em; color: #e9cf8f; background: rgba(217, 180, 91, .08); border: 1px solid rgba(246, 221, 147, .3);
+}
+.role-division-chip.is-leader { color: #120f08; background: linear-gradient(135deg, #f6dd93, #c99a3e); border-color: transparent; }
+.role-division-none { color: #6f6b63; font-size: 12px; }
+@media (max-width: 640px) { .role-division-row { grid-template-columns: 1fr; } }

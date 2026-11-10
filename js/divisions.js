@@ -1,3 +1,7 @@
+/* /devisi — 41 divisions, rosters built from website accounts.
+   Who is in which division (and who leads it) is set by admins in Manage Role → Divisi
+   (RPC f4_set_profile_division). This page reads the roster through RPC f4_division_roster(), which only
+   returns public account info: no email, phone, birth date or ML ID. */
 (() => {
   "use strict";
   // Site root from this script's URL (/js/divisions.js → /): the page lives at /devisi/.
@@ -5,98 +9,103 @@
     try { return new URL("../", document.currentScript.src).href; } catch { return ""; }
   })();
   const pad = (n) => String(n).padStart(2, "0");
-  const seed = window.F4_DIVISION_SEED || [],
-    $ = (id) => document.getElementById(id),
-    esc = (s) =>
-      String(s ?? "").replace(
-        /[&<>"']/g,
-        (c) =>
-          ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;",
-          })[c],
-      );
-  let memberSeed = window.F4_DIVISION_MEMBER_SEED || {};
-  let rows = seed.map((x) => ({
-    ...x,
-    status: x.reported_members >= x.capacity ? "FULL" : "CLOSED",
-    members: (memberSeed[String(x.number)] || []).map((m, i) => ({
-      id: "seed-" + x.number + "-" + i,
-      nick: m.nickname,
-      ml_id: m.ml_id || "BELUM DIISI",
-      role: m.role || "BELUM DIKONFIRMASI",
-    })),
-    description:
-      "Informasi divisi akan dilengkapi oleh Leader setelah data resmi dikonfirmasi.",
-    announcement:
-      "Informasi rekrutmen akan diumumkan melalui pengelola divisi.",
-  }));
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) =>
+    String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const safeUrl = (u) => (/^https?:\/\//i.test(String(u || "")) ? String(u) : "");
+  const fmtDate = (v, long) =>
+    v ? new Date(v).toLocaleDateString("id-ID", { day: "2-digit", month: long ? "long" : "short", year: "numeric" }) : "—";
+
+  const SITE_ROLES = { owner: "OWNER", developer: "DEVELOPER", admin: "ADMIN", leader_squad: "LEADER SQUAD", member: "MEMBER", calon_member: "CALON MEMBER", tamu: "TAMU" };
+  const SITE_RANK = ["owner", "developer", "admin", "leader_squad", "member", "calon_member", "tamu"];
+  const GAME_ROLE = { jungler: "JUNG", gold: "GOLD", exp: "EXP", roam: "ROAM", mid: "MID" };
+  const GAME_CLASS = { JUNG: "role-jung", GOLD: "role-gold", EXP: "role-exp", ROAM: "role-roam", MID: "role-mid" };
+
+  const blankDivision = (x) => ({
+    number: x.number,
+    squad_id: x.squad_id || "",
+    whatsapp: x.whatsapp || "",
+    capacity: Number(x.capacity) || 25,
+    status: "CLOSED",
+    description: "",
+    announcement: "",
+    members: [],
+    leader: null,
+  });
+  let rows = (window.F4_DIVISION_SEED || []).map(blankDivision);
   let db = null,
     profile = null,
     authUser = null,
-    leaderDivisions = [],
-    adminPerm = null;
+    rosterReady = false;
+
+  const countOf = (d) => d.members.length;
+  const rolesList = () => profile?.roles?.length ? profile.roles : [profile?.role || "tamu"];
+  const isStaff = () => rolesList().some((r) => ["admin", "developer", "owner"].includes(r));
+  const nameOf = (m) => m.username || m.full_name || "Tanpa nama";
+  const gameRole = (m) => GAME_ROLE[String(m.game_role || "").toLowerCase()] || "";
+
   function statusOf(d) {
     if (!d.leader) return "LEADER NEEDED";
-    if (Number(d.reported_members) >= Number(d.capacity)) return "FULL";
+    if (countOf(d) >= d.capacity) return "FULL";
     return d.status === "RECRUITING" ? "RECRUITING" : "CLOSED";
   }
-  function statusClass(s) {
-    return s === "RECRUITING"
-      ? "status-recruiting"
-      : s === "FULL"
-        ? "status-full"
-        : s === "CLOSED"
-          ? "status-closed"
-          : "status-leader-needed";
+  const statusClass = (s) =>
+    s === "RECRUITING" ? "status-recruiting" : s === "FULL" ? "status-full" : s === "CLOSED" ? "status-closed" : "status-leader-needed";
+
+  function avatarHtml(m, cls = "dv-avatar") {
+    const initial = esc(String(m ? nameOf(m) : "?").charAt(0).toUpperCase());
+    const url = m && safeUrl(m.avatar_url);
+    return `<span class="${cls}">${url ? `<img src="${esc(url)}" alt="" loading="lazy" data-fallback="${initial}">` : initial}</span>`;
   }
-  function roleBadges(value) {
-    const raw = String(value ?? "BELUM DIKONFIRMASI").trim();
-    if (!raw)
-      return '<b class="role-badge role-unknown">BELUM DIKONFIRMASI</b>';
-    return raw
-      .split("/")
-      .map((part) => part.trim())
-      .filter(Boolean)
-      .map((part) => {
-        const key = part.toUpperCase().replace(/\s+/g, " ").trim();
-        const known = {
-          EXP: "role-exp",
-          JUNG: "role-jung",
-          GOLD: "role-gold",
-          MID: "role-mid",
-          ROAM: "role-roam",
-          "ROAM SUP": "role-roam-sup",
-          "ROAM SUPP": "role-roam-sup",
-          "ROAM SUPPORT": "role-roam-sup",
-          MM: "role-mm",
-          MAGE: "role-mage",
-          FLEX: "role-flex",
-          ALLROLE: "role-allrole",
-          "ALL ROLE FINAL": "role-allrole",
-          ROSM: "role-unknown",
-        };
-        const cls = known[key] || "role-unknown";
-        const label = ["ROAM SUPPORT", "ROAM SUPP"].includes(key)
-          ? "ROAM SUP"
-          : part;
-        return `<b class="role-badge ${cls}">${esc(label)}</b>`;
-      })
-      .join("");
-  }
-  function renderSummary() {
-    let counts = {
-      total: rows.reduce((n, d) => n + d.reported_members, 0),
-      recruiting: 0,
-      full: 0,
-      closed: 0,
-      noLeader: 0,
-    };
+  // broken avatar URLs → fall back to the initial (error events don't bubble, so listen in capture phase)
+  document.addEventListener(
+    "error",
+    (e) => {
+      const img = e.target;
+      if (img instanceof HTMLImageElement && img.dataset.fallback !== undefined) img.replaceWith(document.createTextNode(img.dataset.fallback));
+    },
+    true,
+  );
+  const gameBadge = (m) => {
+    const g = gameRole(m);
+    return g ? `<b class="role-badge ${GAME_CLASS[g]}">${g}</b>` : '<b class="role-badge role-unknown">ROLE ?</b>';
+  };
+
+  /* ================= data ================= */
+  async function loadData() {
+    const { data: ds } = await db.from("f4_divisions").select("*").order("id");
+    if (ds?.length)
+      rows = ds.map((x) => ({
+        ...blankDivision({ number: x.id, squad_id: x.squad_id, whatsapp: x.whatsapp, capacity: x.capacity }),
+        status: x.recruitment_status,
+        description: x.description || "",
+        announcement: x.announcement || "",
+        spotlight: x.spotlight,
+        version: x.version,
+      }));
+    const { data: roster, error } = await db.rpc("f4_division_roster");
+    rosterReady = !error;
+    if (error) console.warn("Roster belum tersedia — jalankan supabase-division-roster.sql", error);
     rows.forEach((d) => {
-      let s = statusOf(d);
+      d.members = [];
+      d.leader = null;
+    });
+    (roster || []).forEach((r) => {
+      const d = rows.find((x) => x.number === Number(r.division_id));
+      if (!d) return;
+      const m = { ...r, id: r.profile_id, division: d.number };
+      d.members.push(m);
+      if (r.is_leader) d.leader = m;
+    });
+    rows.forEach((d) => d.members.sort((a, b) => (b.is_leader - a.is_leader) || nameOf(a).localeCompare(nameOf(b), "id")));
+  }
+
+  /* ================= page ================= */
+  function renderSummary() {
+    const counts = { total: 0, recruiting: 0, full: 0, closed: 0, noLeader: 0 };
+    rows.forEach((d) => {
+      counts.total += countOf(d);
+      const s = statusOf(d);
       if (s === "RECRUITING") counts.recruiting++;
       if (s === "FULL") counts.full++;
       if (s === "CLOSED") counts.closed++;
@@ -109,198 +118,107 @@
       ["CLOSED", counts.closed],
       ["TANPA LEADER", counts.noLeader],
     ]
-      .map(
-        ([l, v]) =>
-          `<div class="summary-item"><strong>${v}</strong><span>${l}</span></div>`,
-      )
+      .map(([l, v]) => `<div class="summary-item"><strong>${v}</strong><span>${l}</span></div>`)
       .join("");
-    $("lastUpdated").textContent = "Snapshot roster awal · WIB";
+    $("lastUpdated").textContent = rosterReady
+      ? `Roster akun · diperbarui ${new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })} WIB`
+      : "Roster belum tersedia";
   }
   function render() {
-    let filter = $("divisionFilter").value,
+    const filter = $("divisionFilter").value,
       sort = $("divisionSort").value,
       list = rows.filter((d) => filter === "ALL" || statusOf(d) === filter);
+    const slots = (d) => d.capacity - countOf(d);
     list.sort((a, b) => {
       let delta = 0;
-      if (sort === "MOST_MEMBERS")
-        delta = b.reported_members - a.reported_members;
-      else if (sort === "LEAST_MEMBERS")
-        delta = a.reported_members - b.reported_members;
-      else if (sort === "MOST_SLOTS")
-        delta =
-          b.capacity - b.reported_members - (a.capacity - a.reported_members);
-      else if (sort === "FEWEST_SLOTS")
-        delta =
-          a.capacity - a.reported_members - (b.capacity - b.reported_members);
-      else if (sort === "RECRUITING_FIRST")
-        delta =
-          (statusOf(a) === "RECRUITING" ? -1 : 0) -
-          (statusOf(b) === "RECRUITING" ? -1 : 0);
+      if (sort === "MOST_MEMBERS") delta = countOf(b) - countOf(a);
+      else if (sort === "LEAST_MEMBERS") delta = countOf(a) - countOf(b);
+      else if (sort === "MOST_SLOTS") delta = slots(b) - slots(a);
+      else if (sort === "FEWEST_SLOTS") delta = slots(a) - slots(b);
+      else if (sort === "RECRUITING_FIRST") delta = (statusOf(a) === "RECRUITING" ? -1 : 0) - (statusOf(b) === "RECRUITING" ? -1 : 0);
       return delta || a.number - b.number;
     });
-    $("divisionGrid").innerHTML = list
-      .map((d) => {
-        let s = statusOf(d),
-          wa = d.whatsapp
-            ? `https://wa.me/${d.whatsapp.replace(/\D/g, "")}`
-            : "";
-        const fill = Math.min(100, Math.round((Number(d.reported_members) / Number(d.capacity || 1)) * 100));
-        const slots = Math.max(0, Number(d.capacity) - Number(d.reported_members));
-        return `<article class="division-card ${statusClass(s)}" id="division-${d.number}" data-number="${d.number}">
+    $("divisionGrid").innerHTML = list.length
+      ? list
+          .map((d) => {
+            const s = statusOf(d),
+              n = countOf(d),
+              wa = d.whatsapp ? `https://wa.me/${d.whatsapp.replace(/\D/g, "")}` : "",
+              fill = Math.min(100, Math.round((n / (d.capacity || 1)) * 100)),
+              free = Math.max(0, d.capacity - n),
+              L = d.leader;
+            const leader = L
+              ? `<button type="button" class="dv-leader dv-leader-link" data-profile="${esc(L.id)}" aria-label="Lihat akun leader ${esc(nameOf(L))}">${avatarHtml(L)}<div><small>LEADER</small><strong>${esc(nameOf(L))}</strong></div><em aria-hidden="true">↗</em></button>`
+              : `<div class="dv-leader is-empty">${avatarHtml(null)}<div><small>LEADER</small><strong>LEADER NEEDED</strong></div></div>`;
+            return `<article class="division-card ${statusClass(s)}" id="division-${d.number}" data-number="${d.number}">
           <div class="dv-card-top">
             <span class="dv-number">${pad(d.number)}</span>
             <span class="division-status ${statusClass(s)}">${s}</span>
             <button class="division-edit" data-edit="${d.number}" title="Edit divisi" aria-label="Edit divisi ${d.number}">✎</button>
           </div>
           <h3>F4NTASTIC DIV. ${pad(d.number)}</h3>
-          <div class="dv-leader"><span class="dv-avatar">${esc((d.leader || "?").charAt(0).toUpperCase())}</span><div><small>LEADER</small><strong>${esc(d.leader || "LEADER NEEDED")}</strong></div></div>
+          ${leader}
           <div class="dv-capacity">
-            <div class="dv-capacity-head"><small>KAPASITAS</small><b>${d.reported_members}/${d.capacity}</b><em>${slots ? `${slots} slot` : "penuh"}</em></div>
+            <div class="dv-capacity-head"><small>KAPASITAS</small><b>${n}/${d.capacity}</b><em>${free ? `${free} slot` : "penuh"}</em></div>
             <div class="dv-bar"><i style="width:${fill}%"></i></div>
           </div>
-          <dl class="dv-facts"><div><dt>SQUAD ID</dt><dd>${esc(d.squad_id || "—")}</dd></div><div><dt>MEMBER TERDATA</dt><dd>${d.members.length}</dd></div></dl>
+          <dl class="dv-facts"><div><dt>SQUAD ID</dt><dd>${esc(d.squad_id || "—")}</dd></div><div><dt>MEMBER</dt><dd>${n}</dd></div></dl>
           <div class="division-actions">
             <button class="dv-primary" data-members="${d.number}">LIHAT MEMBER</button>
-            <a class="wa" href="${wa || "#"}" ${wa ? 'target="_blank" rel="noopener"' : 'aria-disabled="true"'} title="Hubungi leader">WA</a>
+            <a class="wa" href="${wa || "#"}" ${wa ? 'target="_blank" rel="noopener"' : 'aria-disabled="true"'} title="Hubungi divisi via WhatsApp">WA</a>
             <button data-share="${d.number}" title="Salin link divisi" aria-label="Salin link divisi ${d.number}">⧉</button>
           </div>
         </article>`;
-      })
-      .join("");
+          })
+          .join("")
+      : '<p class="activity-empty">Tidak ada divisi dengan status ini.</p>';
     $("quickDivision").innerHTML =
       '<option value="">BUKA DIVISI…</option>' +
-      rows
-        .map(
-          (d) =>
-            `<option value="${d.number}">DIV ${pad(d.number)} — ${esc(d.leader || "")}</option>`,
-        )
-        .join("");
+      rows.map((d) => `<option value="${d.number}">DIV ${pad(d.number)}${d.leader ? ` — ${esc(nameOf(d.leader))}` : ""}</option>`).join("");
     applyEditPermissions();
   }
   function applyEditPermissions() {
-    let roles = profile?.roles || [profile?.role || "tamu"];
-    let canAll = roles.some((r) => ["developer", "owner"].includes(r));
-    let canAdmin = roles.includes("admin");
+    const roles = rolesList();
+    const canAll = roles.some((r) => ["developer", "owner", "admin"].includes(r));
     document.querySelectorAll("[data-edit]").forEach((b) => {
-      let n = Number(b.dataset.edit),
-        d = rows.find((x) => x.number === n);
-      let own = leaderDivisions.includes(n);
-      b.classList.toggle("visible", canAll || canAdmin || own);
+      const d = rows.find((x) => x.number === Number(b.dataset.edit));
+      b.classList.toggle("visible", canAll || (authUser && d?.leader?.id === authUser.id));
     });
   }
   async function init() {
     try {
       if (window.getF4GalleryClient) {
         db = window.getF4GalleryClient();
-        let {
-          data: { session },
-        } = await db.auth.getSession();
+        const { data: { session } } = await db.auth.getSession();
         authUser = session?.user || null;
         if (authUser) {
-          let { data } = await db
-            .from("profiles")
-            .select("role,roles")
-            .eq("id", authUser.id)
-            .maybeSingle();
+          const { data } = await db.from("profiles").select("role,roles").eq("id", authUser.id).maybeSingle();
           profile = data || null;
-          let { data: ld } = await db
-            .from("f4_division_leaders")
-            .select("division_id")
-            .eq("profile_id", authUser.id);
-          leaderDivisions = (ld || []).map((x) => Number(x.division_id));
-          let { data: perm } = await db
-            .from("f4_division_admin_permissions")
-            .select("can_manage_members,can_edit_divisions")
-            .eq("profile_id", authUser.id)
-            .maybeSingle();
-          adminPerm = perm || null;
-          let { data: ds } = await db
-            .from("f4_divisions")
-            .select("*")
-            .order("id");
-          if (ds?.length) {
-            rows = ds.map((x) => ({
-              number: x.id,
-              leader: x.leader_name,
-              squad_id: x.squad_id,
-              whatsapp: x.whatsapp || "",
-              reported_members: x.member_count,
-              capacity: x.capacity,
-              status: x.recruitment_status,
-              description: x.description || "",
-              announcement: x.announcement || "",
-              spotlight: x.spotlight,
-              version: x.version,
-              members: (memberSeed[String(x.id)] || []).map((m, i) => ({
-                id: "seed-" + x.id + "-" + i,
-                nick: m.nickname,
-                ml_id: m.ml_id || "BELUM DIISI",
-                role: m.role || "BELUM DIKONFIRMASI",
-              })),
-            }));
-            let { data: mem } = await db
-              .from("f4_division_members")
-              .select("*")
-              .order("nickname");
-            // The database is the source of truth: a DB row replaces the seed entry with the same ML ID
-            // (wherever it was), which is what makes "pindah divisi" work for seed members too.
-            const dbMl = new Set((mem || []).map((m) => String(m.ml_id)));
-            rows.forEach((d) => {
-              d.members = d.members.filter((x) => !dbMl.has(String(x.ml_id)));
-            });
-            (mem || []).forEach((m) => {
-              let d = rows.find((x) => x.number === m.division_id);
-              if (d)
-                d.members.push({
-                  id: m.id,
-                  nick: m.nickname,
-                  ml_id: m.ml_id,
-                  role: (m.roles || []).join("/"),
-                  fromDb: true,
-                });
-            });
-          }
+          if (data) await loadData();
         }
       }
     } catch (e) {
       console.warn("Auth status unavailable", e);
     }
-    let roles = profile?.roles || [profile?.role || "tamu"];
-    let allowed =
-      Boolean(authUser) &&
-      roles.some((r) =>
-        ["member", "leader_squad", "admin", "developer", "owner"].includes(r),
-      );
+    const allowed = Boolean(authUser) && rolesList().some((r) => ["member", "leader_squad", "admin", "developer", "owner"].includes(r));
     if (!allowed) {
-      $("divisionGrid").innerHTML =
-        `<div class="directory-error"><h3>AKSES DIREKTORI DIBATASI</h3><p>Halaman ini hanya dapat diakses oleh Member F4NTASTIC atau role pengelola yang berwenang.</p><a href="${ROOT}login.html">MASUK KE AKUN</a></div>`;
+      $("divisionGrid").innerHTML = `<div class="directory-error"><h3>AKSES DIREKTORI DIBATASI</h3><p>Halaman ini hanya dapat diakses oleh Member F4NTASTIC atau role pengelola yang berwenang.</p><a href="${ROOT}login.html">MASUK KE AKUN</a></div>`;
       document.querySelector(".directory-summary").hidden = true;
       document.querySelector(".directory-toolbar").hidden = true;
       document.querySelector(".member-search-wrap").hidden = true;
-      return;
+      return false;
     }
     renderSummary();
     render();
+    return true;
   }
-  /* ================= Member popup + move member to another division ================= */
+
+  /* ================= division popup ================= */
   const modal = $("divisionModal");
   let modalNumber = null,
     modalRole = "ALL",
     modalHighlight = null,
     lastFocus = null;
-  const rolesList = () => profile?.roles || [profile?.role || "tamu"];
-  const isDeveloper = () => rolesList().some((r) => ["developer", "owner"].includes(r));
-  // Mirrors f4_directory_can_manage_members(): developer/owner, the division's leader, or an admin with
-  // can_manage_members. RLS enforces the same rule server-side; this only decides what to show.
-  const canManage = (n) => Boolean(authUser) && (isDeveloper() || leaderDivisions.includes(n) || Boolean(adminPerm?.can_manage_members));
-  const roleKey = (r) => String(r || "").split("/")[0].trim().toUpperCase() || "BELUM";
-  function parseRoles(value) {
-    const parts = String(value || "")
-      .split("/")
-      .map((x) => x.trim().toUpperCase())
-      .filter((x) => x && !/BELUM/.test(x));
-    return parts.length ? parts.slice(0, 2) : ["FLEX"];
-  }
   function openModal(n, opts = {}) {
     const d = rows.find((x) => x.number === n);
     if (!d || !modal) return;
@@ -309,7 +227,7 @@
     modalHighlight = opts.highlight || null;
     $("dvMemberFilter").value = "";
     $("dvModalStatus").textContent = "";
-    lastFocus = document.activeElement;
+    if (modal.hidden) lastFocus = document.activeElement;
     renderModal();
     modal.hidden = false;
     document.documentElement.classList.add("dv-modal-open");
@@ -323,148 +241,196 @@
   function closeModal() {
     if (!modal || modal.hidden) return;
     modal.hidden = true;
-    document.documentElement.classList.remove("dv-modal-open");
+    if (pf.hidden) document.documentElement.classList.remove("dv-modal-open");
     history.replaceState(null, "", location.pathname);
     lastFocus?.focus?.();
   }
   function renderModal() {
     const d = rows.find((x) => x.number === modalNumber);
     if (!d) return;
-    const s = statusOf(d);
-    const manage = canManage(d.number);
-    const wa = d.whatsapp ? `https://wa.me/${d.whatsapp.replace(/\D/g, "")}` : "";
+    const s = statusOf(d),
+      n = countOf(d),
+      manage = isStaff(),
+      wa = d.whatsapp ? `https://wa.me/${d.whatsapp.replace(/\D/g, "")}` : "";
     $("dvModalKicker").innerHTML = `<span></span> DIVISI ${pad(d.number)} · <b class="division-status ${statusClass(s)}">${s}</b>`;
     $("dvModalTitle").textContent = `F4NTASTIC DIV. ${pad(d.number)}`;
     $("dvModalMeta").innerHTML = `
-      <div><small>LEADER</small><strong>${esc(d.leader || "LEADER NEEDED")}</strong></div>
-      <div><small>KAPASITAS</small><strong>${d.reported_members}/${d.capacity}</strong></div>
+      <div><small>LEADER</small><strong>${esc(d.leader ? nameOf(d.leader) : "LEADER NEEDED")}</strong></div>
+      <div><small>KAPASITAS</small><strong>${n}/${d.capacity}</strong></div>
       <div><small>SQUAD ID</small><strong>${esc(d.squad_id || "—")}</strong></div>
-      ${wa ? `<a class="dv-wa" href="${wa}" target="_blank" rel="noopener">HUBUNGI LEADER ↗</a>` : ""}`;
-    const roles = [...new Set(d.members.map((m) => roleKey(m.role)))].sort();
+      ${wa ? `<a class="dv-wa" href="${wa}" target="_blank" rel="noopener">HUBUNGI VIA WA ↗</a>` : ""}`;
+    const roles = [...new Set(d.members.map((m) => gameRole(m) || "ROLE ?"))].sort();
     $("dvRoleChips").innerHTML = ["ALL", ...roles]
-      .map((r) => `<button type="button" class="dv-chip${r === modalRole ? " is-active" : ""}" data-role="${esc(r)}">${r === "ALL" ? `SEMUA <b>${d.members.length}</b>` : esc(r)}</button>`)
+      .map((r) => `<button type="button" class="dv-chip${r === modalRole ? " is-active" : ""}" data-role="${esc(r)}">${r === "ALL" ? `SEMUA <b>${n}</b>` : esc(r)}</button>`)
       .join("");
     const note = $("dvManageNote");
     note.hidden = !manage;
-    note.textContent = manage ? "Kamu bisa memindahkan member dari divisi ini ke divisi lain lewat tombol PINDAH di tiap baris." : "";
+    note.innerHTML = manage
+      ? `Tambah member atau pilih leader lewat <a href="${ROOT}manage-role.html">Manage Role → Divisi</a>. Pindahkan member lewat tombol ⇄ PINDAH.`
+      : "";
     const q = $("dvMemberFilter").value.trim().toLowerCase();
     const options = rows
       .filter((x) => x.number !== d.number)
       .map((x) => {
-        const full = Number(x.reported_members) >= Number(x.capacity);
-        return `<option value="${x.number}"${full ? " disabled" : ""}>DIV ${pad(x.number)} · ${esc(x.leader || "")} · ${x.reported_members}/${x.capacity}${full ? " (PENUH)" : ""}</option>`;
+        const full = countOf(x) >= x.capacity;
+        return `<option value="${x.number}"${full ? " disabled" : ""}>DIV ${pad(x.number)} · ${countOf(x)}/${x.capacity}${full ? " (PENUH)" : ""}</option>`;
       })
       .join("");
-    const list = d.members
-      .slice()
-      .sort((a, b) => a.nick.localeCompare(b.nick, "id"))
-      .filter((m) => (modalRole === "ALL" || roleKey(m.role) === modalRole) && (!q || m.nick.toLowerCase().includes(q) || String(m.ml_id).includes(q)));
-    const leaderRow = `<article class="dv-member is-leader"><span class="dv-avatar">${esc((d.leader || "?").charAt(0).toUpperCase())}</span><div class="dv-member-copy"><strong>${esc(d.leader || "LEADER NEEDED")}</strong><small>Leader divisi</small></div><div class="member-role-list"><b class="role-badge role-leader">LEADER</b></div></article>`;
-    $("dvMemberList").innerHTML =
-      (modalRole === "ALL" && !q ? leaderRow : "") +
-      (list.length
-        ? list
-            .map((m) => {
-              const idx = d.members.indexOf(m);
-              const hl = modalHighlight && String(m.ml_id) === String(modalHighlight);
-              return `<article class="dv-member${hl ? " is-highlight" : ""}" data-idx="${idx}">
-                <span class="dv-avatar">${esc(m.nick.charAt(0).toUpperCase())}</span>
-                <div class="dv-member-copy"><strong>${esc(m.nick)}</strong><small>ID ML · ${esc(m.ml_id)}</small></div>
-                <div class="member-role-list">${roleBadges(m.role)}${manage ? `<button type="button" class="dv-move-toggle" data-toggle-move aria-expanded="false">⇄ PINDAH</button>` : ""}</div>
-                ${manage ? `<div class="dv-move"><select data-move-target aria-label="Pindahkan ${esc(m.nick)} ke divisi"><option value="">Pindah ke divisi…</option>${options}</select><button type="button" data-move="${idx}">PINDAH</button></div>` : ""}
+    const list = d.members.filter(
+      (m) =>
+        (modalRole === "ALL" || (gameRole(m) || "ROLE ?") === modalRole) &&
+        (!q || [m.username, m.full_name].some((v) => String(v || "").toLowerCase().includes(q))),
+    );
+    $("dvMemberList").innerHTML = list.length
+      ? list
+          .map((m) => {
+            const hl = modalHighlight && String(m.id) === String(modalHighlight);
+            return `<article class="dv-member${m.is_leader ? " is-leader" : ""}${hl ? " is-highlight" : ""}" data-pid="${esc(m.id)}">
+                <button type="button" class="dv-member-open" data-profile="${esc(m.id)}" aria-label="Lihat akun ${esc(nameOf(m))}">
+                  ${avatarHtml(m)}
+                  <span class="dv-member-copy"><strong>${esc(nameOf(m))}</strong><small>${m.full_name && m.username ? esc(m.full_name) + " · " : ""}${m.is_leader ? "Leader divisi" : m.main_hero ? "Main " + esc(m.main_hero) : "Lihat akun"}</small></span>
+                </button>
+                <div class="member-role-list">${m.is_leader ? '<b class="role-badge role-leader">LEADER</b>' : ""}${gameBadge(m)}${manage ? `<button type="button" class="dv-move-toggle" data-toggle-move aria-expanded="false">⇄ PINDAH</button>` : ""}</div>
+                ${manage ? `<div class="dv-move"><select data-move-target aria-label="Pindahkan ${esc(nameOf(m))} ke divisi"><option value="">Pindah ke divisi…</option><option value="0">— Keluarkan dari divisi</option>${options}</select><button type="button" data-move="${esc(m.id)}">SIMPAN</button></div>` : ""}
               </article>`;
-            })
-            .join("")
-        : `<p class="dv-empty">${d.members.length ? "Tidak ada member yang cocok." : "Belum ada member terdata di divisi ini."}</p>`);
+          })
+          .join("")
+      : `<p class="dv-empty">${
+          d.members.length
+            ? "Tidak ada member yang cocok."
+            : rosterReady
+              ? "Belum ada member di divisi ini. Admin bisa menambahkan lewat Manage Role."
+              : "Roster divisi belum aktif."
+        }</p>`;
   }
-  async function bumpCount(d, delta) {
-    const next = Math.max(1, Math.min(Number(d.capacity), Number(d.reported_members) + delta));
-    let q = db.from("f4_divisions").update({ member_count: next, ...(d.version ? { version: d.version + 1 } : {}) }).eq("id", d.number);
-    if (d.version) q = q.eq("version", d.version);
-    const { data, error } = await q.select().maybeSingle();
-    if (error || !data) return false;
-    d.reported_members = data.member_count ?? next;
-    d.version = data.version ?? d.version;
-    return true;
-  }
-  async function moveMember(fromNumber, idx, toNumber) {
+  async function moveMember(fromNumber, pid, toNumber) {
     const from = rows.find((x) => x.number === fromNumber);
-    const to = rows.find((x) => x.number === toNumber);
-    const m = from?.members[idx];
-    if (!from || !to || !m) return;
+    const to = toNumber ? rows.find((x) => x.number === toNumber) : null;
+    const m = from?.members.find((x) => String(x.id) === String(pid));
+    if (!from || !m || (toNumber && !to)) return;
     const say = (text, kind = "") => {
       $("dvModalStatus").textContent = text;
       $("dvModalStatus").className = `dv-modal-status ${kind}`;
     };
-    if (Number(to.reported_members) >= Number(to.capacity)) return say(`DIV ${pad(to.number)} sudah penuh (${to.reported_members}/${to.capacity}).`, "is-error");
-    if (!/^[0-9]{1,25}$/.test(String(m.ml_id))) return say(`${m.nick} belum punya ID ML yang valid, jadi belum bisa dipindah. Lengkapi lewat editor divisi.`, "is-error");
-    if (!confirm(`Pindahkan ${m.nick} dari DIV ${pad(from.number)} ke DIV ${pad(to.number)} (${to.leader})?`)) return;
-    say("Memindahkan member…");
+    if (to && countOf(to) >= to.capacity) return say(`DIV ${pad(to.number)} sudah penuh (${countOf(to)}/${to.capacity}).`, "is-error");
+    const what = to ? `ke DIV ${pad(to.number)}` : "keluar dari divisi";
+    if (!confirm(`Pindahkan ${nameOf(m)} dari DIV ${pad(from.number)} ${what}?${m.is_leader ? "\n\nDia adalah LEADER divisi ini — status leadernya akan dilepas." : ""}`)) return;
+    say("Menyimpan…");
     try {
-      let res;
-      if (m.fromDb)
-        res = await db.from("f4_division_members").update({ division_id: to.number, updated_at: new Date().toISOString() }).eq("id", m.id).select().maybeSingle();
-      else
-        // seed-only member → create the DB row in the target division (the DB row now overrides the seed entry)
-        res = await db.from("f4_division_members").insert({ division_id: to.number, nickname: m.nick.slice(0, 30), ml_id: String(m.ml_id), roles: parseRoles(m.role) }).select().maybeSingle();
-      if (res.error) throw res.error;
-      from.members.splice(idx, 1);
-      to.members.push({ ...m, id: res.data?.id || m.id, fromDb: true });
-      const okFrom = await bumpCount(from, -1);
-      const okTo = await bumpCount(to, +1);
+      const { error } = await db.rpc("f4_set_profile_division", { p_target_id: m.id, p_division_id: to ? to.number : null, p_is_leader: false });
+      if (error) throw error;
+      await loadData();
       renderSummary();
       render();
       renderModal();
-      say(
-        okFrom && okTo
-          ? `✓ ${m.nick} dipindah ke DIV ${pad(to.number)}.`
-          : `✓ ${m.nick} dipindah ke DIV ${pad(to.number)}, tapi angka kapasitas belum tersinkron (butuh izin edit divisi).`,
-        okFrom && okTo ? "is-success" : "is-warn",
-      );
+      say(`✓ ${nameOf(m)} ${to ? `dipindah ke DIV ${pad(to.number)}` : "dikeluarkan dari divisi"}.`, "is-success");
     } catch (err) {
       const msg = String(err?.message || err);
-      say(/row-level security|permission/i.test(msg) ? "Kamu tidak punya izin mengelola member di divisi ini atau divisi tujuan." : `Gagal memindah: ${msg}`, "is-error");
+      say(/permission|row-level|Hanya admin/i.test(msg) ? "Hanya admin, developer, atau owner yang bisa memindahkan member." : `Gagal: ${msg}`, "is-error");
     }
   }
-  if (modal) {
-    modal.addEventListener("click", (e) => {
-      if (e.target.closest("[data-dv-close]")) return closeModal();
-      const chip = e.target.closest("[data-role]");
-      if (chip) {
-        modalRole = chip.dataset.role;
-        renderModal();
-        return;
-      }
-      const tg = e.target.closest("[data-toggle-move]");
-      if (tg) {
-        const row = tg.closest(".dv-member");
-        const open = !row.classList.contains("is-moving");
-        $("dvMemberList").querySelectorAll(".dv-member.is-moving").forEach((r) => {
-          r.classList.remove("is-moving");
-          r.querySelector("[data-toggle-move]")?.setAttribute("aria-expanded", "false");
-        });
-        row.classList.toggle("is-moving", open);
-        tg.setAttribute("aria-expanded", String(open));
-        if (open) row.querySelector("[data-move-target]")?.focus();
-        return;
-      }
-      const mv = e.target.closest("[data-move]");
-      if (mv) {
-        const sel = mv.parentElement.querySelector("[data-move-target]");
-        if (!sel.value) {
-          sel.focus();
-          $("dvModalStatus").textContent = "Pilih divisi tujuan dulu.";
-          $("dvModalStatus").className = "dv-modal-status is-error";
-          return;
-        }
-        moveMember(modalNumber, Number(mv.dataset.move), Number(sel.value));
-      }
-    });
-    $("dvMemberFilter").addEventListener("input", renderModal);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !modal.hidden) closeModal();
-    });
+
+  /* ================= account preview popup ================= */
+  const pf = $("dvProfile");
+  let pfMember = null,
+    pfLastFocus = null;
+  const findMember = (pid) => {
+    for (const d of rows) {
+      const m = d.members.find((x) => String(x.id) === String(pid));
+      if (m) return m;
+    }
+    return null;
+  };
+  function openProfile(pid) {
+    const m = findMember(pid);
+    if (!m || !pf) return;
+    pfMember = m;
+    if (pf.hidden) pfLastFocus = document.activeElement;
+    $("pfAvatar").outerHTML = avatarHtml(m, "pf-avatar").replace('class="pf-avatar"', 'class="pf-avatar" id="pfAvatar"');
+    $("pfKicker").innerHTML = `<span></span> DIV. ${pad(m.division)} · ${m.is_leader ? "LEADER" : "MEMBER"}`;
+    $("pfName").textContent = m.full_name || m.username || "Tanpa nama";
+    $("pfHandle").textContent = m.username ? "@" + m.username : "";
+    const siteRoles = SITE_RANK.filter((r) => (m.roles || []).map((x) => String(x).toLowerCase()).includes(r));
+    $("pfRoles").innerHTML =
+      (m.is_leader ? `<b class="role-badge role-leader">LEADER DIV. ${pad(m.division)}</b>` : "") +
+      siteRoles.map((r) => `<b class="pf-site-role pf-role-${r}">${SITE_ROLES[r]}</b>`).join("") +
+      (gameRole(m) ? gameBadge(m) : "");
+    const facts = [
+      ["DIVISI", `F4NTASTIC DIV. ${pad(m.division)}`],
+      ["ROLE IN-GAME", gameRole(m) || "Belum diisi"],
+      ["MAIN HERO", m.main_hero || "Belum diisi"],
+      ["MASUK DIVISI", fmtDate(m.assigned_at)],
+      ["MEMBER SEJAK", fmtDate(m.member_since)],
+    ];
+    $("pfFacts").innerHTML = facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("");
+    const shots = (m.profile_gallery || []).map(safeUrl).filter(Boolean).slice(0, 3);
+    $("pfShowcase").innerHTML = shots.length
+      ? shots.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="Buka showcase ${i + 1}"><img src="${esc(u)}" alt="Showcase ${i + 1}" loading="lazy"></a>`).join("")
+      : '<p class="pf-empty">Belum ada foto showcase.</p>';
+    $("pfShowcase").querySelectorAll("img").forEach((img) => img.addEventListener("error", () => img.parentElement.remove()));
+    $("pfBack").hidden = !modal.hidden && modalNumber === m.division;
+    $("pfBack").textContent = `LIHAT DIV. ${pad(m.division)} →`;
+    pf.hidden = false;
+    document.documentElement.classList.add("dv-modal-open");
+    setTimeout(() => pf.querySelector(".dv-modal-close")?.focus({ preventScroll: true }), 40);
   }
+  function closeProfile() {
+    if (!pf || pf.hidden) return;
+    pf.hidden = true;
+    if (modal.hidden) document.documentElement.classList.remove("dv-modal-open");
+    pfLastFocus?.focus?.({ preventScroll: true });
+  }
+
+  /* ================= events ================= */
+  pf?.addEventListener("click", (e) => {
+    if (e.target.closest("[data-pf-close]")) return closeProfile();
+    if (e.target.closest("#pfBack") && pfMember) {
+      const n = pfMember.division,
+        id = pfMember.id;
+      pf.hidden = true;
+      openModal(n, { highlight: id });
+    }
+  });
+  modal?.addEventListener("click", (e) => {
+    if (e.target.closest("[data-dv-close]")) return closeModal();
+    const open = e.target.closest("[data-profile]");
+    if (open) return openProfile(open.dataset.profile);
+    const chip = e.target.closest("[data-role]");
+    if (chip) {
+      modalRole = chip.dataset.role;
+      return renderModal();
+    }
+    const tg = e.target.closest("[data-toggle-move]");
+    if (tg) {
+      const row = tg.closest(".dv-member");
+      const willOpen = !row.classList.contains("is-moving");
+      $("dvMemberList").querySelectorAll(".dv-member.is-moving").forEach((r) => {
+        r.classList.remove("is-moving");
+        r.querySelector("[data-toggle-move]")?.setAttribute("aria-expanded", "false");
+      });
+      row.classList.toggle("is-moving", willOpen);
+      tg.setAttribute("aria-expanded", String(willOpen));
+      if (willOpen) row.querySelector("[data-move-target]")?.focus();
+      return;
+    }
+    const mv = e.target.closest("[data-move]");
+    if (mv) {
+      const sel = mv.parentElement.querySelector("[data-move-target]");
+      if (sel.value === "") {
+        sel.focus();
+        $("dvModalStatus").textContent = "Pilih divisi tujuan dulu.";
+        $("dvModalStatus").className = "dv-modal-status is-error";
+        return;
+      }
+      moveMember(modalNumber, mv.dataset.move, Number(sel.value));
+    }
+  });
+  $("dvMemberFilter")?.addEventListener("input", renderModal);
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    if (pf && !pf.hidden) closeProfile();
+    else if (modal && !modal.hidden) closeModal();
+  });
 
   $("divisionFilter").addEventListener("change", render);
   $("divisionSort").addEventListener("change", render);
@@ -475,12 +441,14 @@
     }
   });
   $("divisionGrid").addEventListener("click", async (e) => {
-    let m = e.target.closest("[data-members]"),
+    const p = e.target.closest("[data-profile]"),
+      m = e.target.closest("[data-members]"),
       sh = e.target.closest("[data-share]"),
       ed = e.target.closest("[data-edit]");
+    if (p) return openProfile(p.dataset.profile);
     if (m) openModal(Number(m.dataset.members));
     if (sh) {
-      let url = `${location.origin}${location.pathname}?id=${String(sh.dataset.share).padStart(2, "0")}`;
+      const url = `${location.origin}${location.pathname}?id=${pad(sh.dataset.share)}`;
       try {
         await navigator.clipboard.writeText(url);
         alert("LINK DIVISI BERHASIL DISALIN!");
@@ -488,31 +456,24 @@
         prompt("Salin link divisi ini:", url);
       }
     }
-    if (ed) {
-      location.href = `${ROOT}division-editor.html?id=${pad(ed.dataset.edit)}`;
-    }
+    if (ed) location.href = `${ROOT}division-editor.html?id=${pad(ed.dataset.edit)}`;
   });
   function search(q) {
-    q = q.trim().toLowerCase();
+    q = q.trim().toLowerCase().replace(/^@/, "");
     if (!q) {
       $("memberResults").innerHTML = "";
       return;
     }
-    let matches = [];
-    rows.forEach((d) =>
-      d.members.forEach((m) => {
-        if (m.nick.toLowerCase().includes(q) || m.ml_id.includes(q))
-          matches.push({ ...m, division: d.number });
-      }),
-    );
+    const matches = rows.flatMap((d) => d.members.filter((m) => [m.username, m.full_name].some((v) => String(v || "").toLowerCase().includes(q))));
     $("memberResults").innerHTML = matches.length
       ? matches
+          .slice(0, 30)
           .map(
             (m) =>
-              `<button type="button" class="member-result" data-go="${m.division}" data-ml="${esc(m.ml_id)}"><span class="dv-avatar">${esc(m.nick.charAt(0).toUpperCase())}</span><span><b>${esc(m.nick)}</b><small>ID ${esc(m.ml_id)} · ${esc(m.role)}</small></span><em>DIV ${pad(m.division)} →</em></button>`,
+              `<button type="button" class="member-result" data-profile="${esc(m.id)}">${avatarHtml(m)}<span><b>${esc(nameOf(m))}</b><small>${m.full_name && m.username ? esc(m.full_name) + " · " : ""}${m.is_leader ? "LEADER" : gameRole(m) || "MEMBER"}</small></span><em>DIV ${pad(m.division)} →</em></button>`,
           )
           .join("")
-      : '<p class="activity-empty">MEMBER TIDAK DITEMUKAN · Periksa kembali nickname atau ID ML.</p>';
+      : '<p class="activity-empty">MEMBER TIDAK DITEMUKAN · Periksa kembali nama atau username.</p>';
   }
   $("memberSearch").addEventListener("input", (e) => search(e.target.value));
   $("heroSearch").addEventListener("input", (e) => {
@@ -521,17 +482,15 @@
     $("member-search").scrollIntoView({ behavior: "smooth", block: "center" });
   });
   $("memberResults").addEventListener("click", (e) => {
-    let x = e.target.closest("[data-go]");
-    if (x) openModal(Number(x.dataset.go), { highlight: x.dataset.ml });
+    const x = e.target.closest("[data-profile]");
+    if (x) openProfile(x.dataset.profile);
   });
   $("yearNow").textContent = new Date().getFullYear();
-  let top = $("backTop");
-  window.addEventListener("scroll", () =>
-    top.classList.toggle("show", scrollY > 450),
-  );
+  const top = $("backTop");
+  window.addEventListener("scroll", () => top.classList.toggle("show", scrollY > 450), { passive: true });
   top.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
-  let id = Number(new URLSearchParams(location.search).get("id"));
-  init().then(() => {
-    if (id >= 1 && id <= 41) openModal(id);
+  const id = Number(new URLSearchParams(location.search).get("id"));
+  init().then((ok) => {
+    if (ok && id >= 1 && id <= 41) openModal(id);
   });
 })();
