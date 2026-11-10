@@ -295,9 +295,9 @@
       ? new Date(profile.created_at).toLocaleDateString("id-ID", { month: "short", year: "numeric" })
       : "—";
     set("cardSince", since);
-    const showcaseCount = (Array.isArray(profile.profile_gallery) ? profile.profile_gallery.filter(Boolean) : []).length;
-    set("cardShowcase", `${showcaseCount} / 3`);
-    set("sShowcase", `${showcaseCount} / 3`);
+    // "Devisi" tile + card cell (filled by loadDivision)
+    set("cardShowcase", divisionLabel);
+    set("sShowcase", divisionLabel);
     // Stable short card number derived from the user id.
     const id = String(profile.id || user?.id || "");
     let h = 0;
@@ -573,6 +573,22 @@
     fillForm();
   }
 
+  // my division(s): member of one division, may lead several (RPC from supabase-division-roster.sql)
+  let divisionLabel = "—";
+  async function loadDivision() {
+    try {
+      const { data, error } = await db.rpc("f4_division_roster");
+      if (error) return;
+      const mine = (data || []).filter((r) => String(r.profile_id) === String(user?.id));
+      const pad = (n) => String(n).padStart(2, "0");
+      const home = mine.find((r) => r.in_roster !== false);
+      const led = mine.filter((r) => r.is_leader).map((r) => Number(r.division_id)).sort((a, b) => a - b);
+      const nums = [...new Set([...(home ? [Number(home.division_id)] : []), ...led])].sort((a, b) => a - b);
+      // e.g. "DIV 12", or "★ DIV 05, 07" when they lead (★ = leader)
+      divisionLabel = nums.length ? `${led.length ? "★ " : ""}DIV ${nums.map(pad).join(", ")}` : "Belum ada";
+      syncCard();
+    } catch {}
+  }
   async function loadProfile() {
     const {
       data: { session },
@@ -842,7 +858,7 @@
     location.replace("index.html?logout=" + Date.now());
   });
 
-  loadProfile().catch((error) =>
-    say(`Profil gagal dimuat: ${prettyError(error)}`),
-  );
+  loadProfile()
+    .then(loadDivision)
+    .catch((error) => say(`Profil gagal dimuat: ${prettyError(error)}`));
 })();
