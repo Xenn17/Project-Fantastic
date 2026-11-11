@@ -1,0 +1,45 @@
+/* bintang redup di sign-off */
+.orn-star{cursor:pointer;display:inline-block;opacity:.38;animation:orn-breathe 4.2s ease-in-out infinite;transition:opacity .4s,text-shadow .4s}
+.orn-star:hover,.orn-star:focus-visible{opacity:1;text-shadow:0 0 14px #e8a3b8;outline:none}
+@keyframes orn-breathe{0%,100%{opacity:.22}50%{opacity:.6}}
+
+/* surat */
+.orn-veil{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at 50% 40%,rgba(74,18,40,.92),rgba(8,3,8,.97));opacity:0;transition:opacity .6s}
+.orn-veil.is-on{opacity:1}
+.orn-veil[hidden]{display:none}
+.orn-letter{position:relative;width:min(560px,100%);max-height:92vh;overflow:auto;padding:38px 34px 30px;border:1px solid rgba(243,217,164,.45);border-radius:6px;background:linear-gradient(160deg,#2a0d1c,#12060e);box-shadow:0 0 60px rgba(139,30,63,.55),inset 0 0 40px rgba(0,0,0,.5);color:#f4e4e8;font-family:"Cormorant Garamond","FreeSerif",Georgia,serif;font-style:italic;font-size:1.22rem;line-height:1.75;text-align:center}
+.orn-letter::before,.orn-letter::after{content:"❀";position:absolute;color:#8b1e3f;font-size:1.5rem;font-style:normal}
+.orn-letter::before{top:10px;left:16px}.orn-letter::after{bottom:10px;right:16px}
+.orn-letter p{margin:0 0 .9em;animation:orn-in 1.2s both}
+.orn-letter p:nth-child(2){animation-delay:.5s}.orn-letter p:nth-child(3){animation-delay:1s}.orn-letter p:nth-child(4){animation-delay:1.5s}
+@keyframes orn-in{from{opacity:0;transform:translateY(8px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+.orn-letter h2{margin:0 0 .6em;font:400 2rem/1.1 "Pinyon Script","FreeSerif",cursive;color:#f3d9a4;text-shadow:0 0 18px rgba(232,163,184,.5)}
+.orn-letter img{display:block;width:100%;margin:6px 0 18px;border-radius:4px;border:1px solid rgba(243,217,164,.35)}
+.orn-form{display:flex;gap:8px;margin-top:18px}
+.orn-form input{flex:1;min-width:0;padding:11px 14px;border:1px solid rgba(243,217,164,.4);border-radius:3px;background:rgba(0,0,0,.35);color:#fff;font:inherit;font-style:normal;font-size:1.05rem;text-align:center;letter-spacing:.06em}
+.orn-form input:focus{outline:none;border-color:#e8a3b8;box-shadow:0 0 14px rgba(232,163,184,.35)}
+.orn-form button,.orn-x{padding:11px 18px;border:1px solid #b8863f;border-radius:3px;background:linear-gradient(135deg,#8b1e3f,#5c1229);color:#f3d9a4;font:inherit;font-style:normal;font-size:.95rem;letter-spacing:.12em;cursor:pointer}
+.orn-form button:hover{filter:brightness(1.2)}
+.orn-x{position:absolute;top:8px;right:10px;padding:2px 10px;border:0;background:none;font-size:1.5rem}
+.orn-msg{min-height:1.6em;margin-top:12px;color:#e8a3b8;font-size:1rem}
+.orn-form.is-no{animation:orn-shake .45s}
+@keyframes orn-shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.orn-link{color:#f3d9a4;text-decoration:underline;text-underline-offset:4px}
+
+/* atelier (gerbang akhir) */
+.atl{min-height:100vh;margin:0;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 30%,#4a1228,#0d0610 70%);color:#f4e4e8;font-family:"Cormorant Garamond","FreeSerif",Georgia,serif;font-style:italic;overflow:hidden}
+.atl-petals{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.atl-petals i{position:absolute;top:-30px;width:14px;height:8px;border-radius:70% 30% 70% 30%;background:#8b1e3f;opacity:.7;animation:atl-fall linear infinite}
+@keyframes atl-fall{to{transform:translate(60px,110vh) rotate(540deg)}}
+.atl-mirror{position:relative;width:min(520px,100%);padding:46px 34px 38px;text-align:center;border:5px solid transparent;border-radius:50% / 38%;background:linear-gradient(#170812,#170812) padding-box,linear-gradient(135deg,#f3d9a4,#b8863f 50%,#f3d9a4) border-box;box-shadow:0 0 80px rgba(139,30,63,.6)}
+.atl-candle{width:14px;height:54px;margin:0 auto 14px;border-radius:3px;background:linear-gradient(#fff4dc,#d9b98a);position:relative}
+.atl-candle::before{content:"";position:absolute;left:50%;top:-24px;width:14px;height:24px;margin-left:-7px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(#fff,#ffd27a 55%,transparent 72%);filter:drop-shadow(0 0 12px #ffb347);animation:atl-flick 1.3s ease-in-out infinite}
+.atl-candle.is-out::before{animation:atl-out 1.6s forwards}
+@keyframes atl-flick{0%,100%{transform:scale(1,1) rotate(-2deg)}50%{transform:scale(.92,1.1) rotate(2deg)}}
+@keyframes atl-out{to{opacity:0;transform:scale(.2)}}
+.atl h1{margin:0 0 .3em;font:400 2.6rem/1.1 "Pinyon Script","FreeSerif",cursive;color:#f3d9a4;text-shadow:0 0 20px rgba(232,163,184,.5)}
+.atl p{margin:0 0 .8em;font-size:1.2rem;line-height:1.7;animation:orn-in 1.2s both}
+.atl .orn-form{flex-direction:column}
+.atl-mirror.is-clear{box-shadow:0 0 120px rgba(243,217,164,.45)}
+@media (max-width:480px){.orn-letter{padding:34px 18px 24px;font-size:1.1rem}.atl h1{font-size:2.1rem}.atl-mirror{border-radius:40px;padding:36px 20px 30px}}
+@media (prefers-reduced-motion:reduce){.orn-star,.atl-petals i,.atl-candle::before{animation:none}.orn-letter p,.atl p{animation:none}}
