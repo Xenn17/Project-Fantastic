@@ -598,10 +598,11 @@
       let logo = edDraft.logoUrl || "";
       if (edDraft.logoFile) {
         edSay("Mengunggah foto divisi…");
-        const f = edDraft.logoFile;
+        // logos are shown small: max 512px + WebP (keeps transparency); originals were 1–3 MB
+        const f = window.F4Img ? await window.F4Img.compress(edDraft.logoFile, { max: 512, quality: 0.85 }) : edDraft.logoFile;
         const ext = ({ "image/png": "png", "image/webp": "webp" })[f.type] || "jpg";
         const path = `${d.number}/logo-${Date.now()}.${ext}`;
-        const up = await db.storage.from(LOGO_BUCKET).upload(path, f, { contentType: f.type, upsert: false });
+        const up = await db.storage.from(LOGO_BUCKET).upload(path, f, { contentType: f.type, upsert: false, cacheControl: "31536000" });
         if (up.error) throw up.error;
         logo = db.storage.from(LOGO_BUCKET).getPublicUrl(path).data.publicUrl;
       }

@@ -248,6 +248,8 @@
       say("Ukuran foto maksimal 10 MB.");
       return;
     }
+    // resize to max 1600px + WebP before upload (raw phone photos were 1–10 MB each)
+    if (window.F4Img) file = await window.F4Img.compress(file, { max: 1600, quality: 0.8 });
     const ext =
       file.type === "image/png"
         ? "png"
@@ -260,7 +262,8 @@
       .upload(path, file, {
         upsert: false,
         contentType: file.type,
-        cacheControl: "3600",
+        // unique file name per upload → safe to cache for a year
+        cacheControl: "31536000",
       });
     if (upErr) {
       say("Gagal mengunggah foto: " + prettyError(upErr));
@@ -791,6 +794,8 @@
     $("saveProfile").disabled = true;
     say("Mengganti foto profil…");
     try {
+      // safety net: the cropper falls back to the original file if canvas export fails — never upload a multi-MB avatar
+      if (window.F4Img && edited.size > 300 * 1024) edited = await window.F4Img.compress(edited, { max: 512, quality: 0.82 });
       const type = edited.type || "image/jpeg";
       const extension = type === "image/png" ? "png" : type === "image/webp" ? "webp" : "jpg";
       const path = `${user.id}/avatar-${Date.now()}.${extension}`;
@@ -799,7 +804,8 @@
         .upload(path, edited, {
           upsert: false,
           contentType: type,
-          cacheControl: "3600",
+          // file name is unique per upload (timestamp), so it can be cached for a year
+          cacheControl: "31536000",
         });
       if (uploadError) throw uploadError;
       const { data: urlData } = db.storage

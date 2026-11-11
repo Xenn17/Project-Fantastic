@@ -1,7 +1,7 @@
 /* Avatar crop & edit popup (profile.html).
    window.F4AvatarCropper.open(file) → Promise<Blob | null>  (null = cancelled; rejects if the image can't be read)
    Drag / pinch / wheel to position, zoom slider, rotate 90°, mirror, brightness / contrast / saturation.
-   Output: 512×512 JPEG. No external libraries. */
+   Output: 512×512 WebP (JPEG fallback). No external libraries. */
 (() => {
   "use strict";
   const OUT = 512;
@@ -127,7 +127,10 @@
           }
           g.putImageData(data, 0, 0);
         }
-        return new Promise((res) => out.toBlob((b) => res(b), "image/jpeg", 0.9));
+        // WebP ≈ 25–35 KB at 512×512 (JPEG q0.9 was ~200 KB); fall back to JPEG where WebP export is unsupported
+        return new Promise((res) =>
+          out.toBlob((b) => (b && b.type === "image/webp" ? res(b) : out.toBlob((j) => res(j), "image/jpeg", 0.85)), "image/webp", 0.82)
+        );
       }
       function finish(result) {
         if (done) return;
