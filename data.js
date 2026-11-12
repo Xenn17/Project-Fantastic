@@ -20,7 +20,7 @@ window.F4NTASTIC_DATA = {
     slogan: "WE ARE F4NTASTIC, WE ARE FAMILY.",
     year: "2024",
     historyTitle: "SEJARAH BERDIRINYA F4NTASTIC",
-    historyPhoto: "assets/galeri/BuktiKebersamaan.jpg",
+    historyPhoto: "assets/galeri/BuktiKebersamaan.webp",
     history: [
       "F4NTASTIC berdiri sejak tahun 2024, tepatnya pada Season 33, yang didirikan oleh Keff / BEIVONG.",
       "Awal mula F4NTASTIC berawal dari lima orang yang memiliki kebiasaan bermain bersama dalam satu tim atau mabar berlima di Mobile Legends. Berawal dari kebersamaan dan kesamaan tujuan, mereka membentuk sebuah tim dengan ambisi untuk mengejar Global No. 1 Hero.",

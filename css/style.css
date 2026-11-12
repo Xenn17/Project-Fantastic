@@ -1127,7 +1127,7 @@ body::after { opacity: .34; }
 @media(max-width:650px){.button{gap:10px}.social-mark{width:19px;height:19px}.social-mark svg{width:11px;height:11px}}
 .lightbox-arrow .icon-arrow{display:none}
 .official-social-card>.social-mark{position:absolute;top:16px;left:18px}.official-social-card>.social-label{padding-left:28px;padding-right:28px}.official-social-card>.social-handle{padding-left:28px;padding-right:24px}
-.about-aside.has-photo{background-image:linear-gradient(145deg,rgba(9,9,9,.18),rgba(9,9,9,.78)),url("../assets/galeri/BuktiKebersamaan.jpg");background-size:cover;background-position:center;}
+.about-aside.has-photo{background-image:linear-gradient(145deg,rgba(9,9,9,.18),rgba(9,9,9,.78)),url("../assets/galeri/BuktiKebersamaan.webp");background-size:cover;background-position:center;}
 .about-aside::before,.about-aside.has-photo::before{content:none;}
 .about-aside.has-photo .about-stamp{background:rgba(8,8,8,.62);backdrop-filter:blur(3px);}
 .brand-lockup{display:inline-flex;align-items:center;gap:8px;line-height:1}.brand-logo{width:27px;height:27px;object-fit:contain;display:block;filter:drop-shadow(0 0 8px rgba(216,180,90,.18))}.site-footer .brand-logo{width:23px;height:23px}.brand-lockup .brand-mark{display:inline-block}

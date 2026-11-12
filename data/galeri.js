@@ -344,7 +344,7 @@ window.GALERI_DATA = [
     judul: "CARMILLA",
     deskripsi: "BUFF BIRUMU SEMANGATKU",
     gambar:
-      "assets/galeri/team-global-1-155-whatsapp-image-2026-10-18-at-21-23-16.jpeg",
+      "assets/galeri/team-global-1-155-whatsapp-image-2026-10-18-at-21-23-16.webp",
     tanggal: "",
   },
 
@@ -395,7 +395,7 @@ window.GALERI_DATA = [
     nickname: "Onezz x F4N'T",
     judul: "JOHNSON",
     deskripsi: "Lepas Johnson gua bantai 😂",
-    gambar: "assets/galeri/WhatsApp a2026-10-22 at 11.12.20 .jpeg",
+    gambar: "assets/galeri/WhatsApp a2026-10-22 at 11.12.20 .webp",
     tanggal: "",
   },
 
@@ -577,7 +577,7 @@ window.GALERI_DATA = [
     nickname: "Dinii x F4N'T",
     judul: "Nama Hero",
     deskripsi: "Kemana pun aku pergi rasa sakit sirna",
-    gambar: "assets/galeri/team-global-1-153-img-3748.png",
+    gambar: "assets/galeri/team-global-1-153-img-3748.webp",
     tanggal: "",
   },
   {
@@ -587,7 +587,7 @@ window.GALERI_DATA = [
     judul: "AULUS",
     deskripsi: "kalo gk aulus jadi nyawit",
     gambar:
-      "assets/galeri/team-global-1-154-whatsapp-image-2026-10-18-at-20-53-58.jpeg",
+      "assets/galeri/team-global-1-154-whatsapp-image-2026-10-18-at-20-53-58.webp",
     tanggal: "",
   },
   {
@@ -596,7 +596,7 @@ window.GALERI_DATA = [
     nickname: "Sara x F4N'T",
     judul: "BELERICK",
     deskripsi: "Princess global belerick pertama di fant",
-    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.18.49.jpeg",
+    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.18.49.webp",
     tanggal: "",
   },
 
@@ -607,7 +607,7 @@ window.GALERI_DATA = [
     judul: "VALENTINA",
     deskripsi:
       "Player hebat bukan yang memaksakan suatu gameplay ke dalam tim, tetapi yang mampu menyesuaikan gameplay demi kemenangan tim.",
-    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.30.14.jpeg",
+    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.30.14.webp",
     tanggal: "",
   },
 
@@ -617,7 +617,7 @@ window.GALERI_DATA = [
     nickname: "Ryuzen Worst x F4N'T",
     judul: "SELENA",
     deskripsi: "Global Selena pertama di fant",
-    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.33.10.jpeg",
+    gambar: "assets/galeri/WhatsApp Image 2026-10-19 at 15.33.10.webp",
     tanggal: "",
   },
 
@@ -627,7 +627,7 @@ window.GALERI_DATA = [
     nickname: "Pran x F4N'T",
     judul: "ARGUS",
     deskripsi: "Dewa Argus",
-    gambar: "assets/galeri/WhatsApp Image 2026-10-22 at 11.33.15.jpeg",
+    gambar: "assets/galeri/WhatsApp Image 2026-10-22 at 11.33.15.webp",
     tanggal: "",
   },
 
@@ -637,7 +637,7 @@ window.GALERI_DATA = [
     nickname: "Edith istriku x F4N'T",
     judul: "EDITH",
     deskripsi: "Edith is my bini gwegh",
-    gambar: "assets/galeri/edith Image 2026-10-22 at 20.46.01.jpeg",
+    gambar: "assets/galeri/edith Image 2026-10-22 at 20.46.01.webp",
     tanggal: "",
   },
 
@@ -702,7 +702,7 @@ window.GALERI_DATA = [
     judul: "FANT NV",
     deskripsi: "ISI DESKRIPSI DI SINI",
     tanggal: "",
-    gambar: "assets/galeri/fant nv Image 2026-10-23 at 15.00.03.jpeg",
+    gambar: "assets/galeri/fant nv Image 2026-10-23 at 15.00.03.webp",
     tipe: "gambar",
   },
 
@@ -714,7 +714,7 @@ window.GALERI_DATA = [
       "Dokumentasi kebersamaan dan perjalanan WE ARE FANTASTIC di kegiatan offline.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-offline-001-whatsapp-image-2026-10-18-at-17-21-29.jpeg",
+      "assets/galeri/team-achievement-offline-001-whatsapp-image-2026-10-18-at-17-21-29.webp",
     tipe: "gambar",
   },
   {
@@ -724,7 +724,7 @@ window.GALERI_DATA = [
       "Dokumentasi kebersamaan dan perjalanan WE ARE FANTASTIC di kegiatan offline.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-offline-002-whatsapp-image-2026-10-18-at-17-38-02.jpeg",
+      "assets/galeri/team-achievement-offline-002-whatsapp-image-2026-10-18-at-17-38-02.webp",
     tipe: "gambar",
   },
   {
@@ -736,7 +736,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-005-0070c626-907b-48b6-99be-9fd06150c8bb.png",
+      "assets/galeri/team-achievement-online-005-0070c626-907b-48b6-99be-9fd06150c8bb.webp",
     tipe: "gambar",
   },
 
@@ -746,7 +746,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-007-20260504-083552.jpg",
+    gambar: "assets/galeri/team-achievement-online-007-20260504-083552.webp",
     tipe: "gambar",
   },
 
@@ -757,7 +757,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-011-2026-02-13-17-11-34-img-7125.jpg",
+      "assets/galeri/team-achievement-online-011-2026-02-13-17-11-34-img-7125.webp",
     tipe: "gambar",
   },
   {
@@ -766,7 +766,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-013-2nd.png",
+    gambar: "assets/galeri/team-achievement-online-013-2nd.webp",
     tipe: "gambar",
   },
   {
@@ -776,7 +776,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-014-358410a4-f57d-408f-a28d-e9bec4f7ff3f.jpg",
+      "assets/galeri/team-achievement-online-014-358410a4-f57d-408f-a28d-e9bec4f7ff3f.webp",
     tipe: "gambar",
   },
   {
@@ -786,7 +786,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-015-3a959a5e-b687-4eed-83fb-fff445fe688d.jpg",
+      "assets/galeri/team-achievement-online-015-3a959a5e-b687-4eed-83fb-fff445fe688d.webp",
     tipe: "gambar",
   },
   {
@@ -796,7 +796,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-016-3f3756b0-ee13-4c87-a990-02bfc63fa641.jpg",
+      "assets/galeri/team-achievement-online-016-3f3756b0-ee13-4c87-a990-02bfc63fa641.webp",
     tipe: "gambar",
   },
   {
@@ -806,7 +806,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-017-416234e9-723b-45ec-86eb-2d854dbdfe40.jpg",
+      "assets/galeri/team-achievement-online-017-416234e9-723b-45ec-86eb-2d854dbdfe40.webp",
     tipe: "gambar",
   },
   {
@@ -816,7 +816,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-018-51d73034-2b3a-4537-be88-3a66a484bea1.jpg",
+      "assets/galeri/team-achievement-online-018-51d73034-2b3a-4537-be88-3a66a484bea1.webp",
     tipe: "gambar",
   },
   {
@@ -826,7 +826,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-019-6247157f-d47d-4249-bc0e-d61239865269.png",
+      "assets/galeri/team-achievement-online-019-6247157f-d47d-4249-bc0e-d61239865269.webp",
     tipe: "gambar",
   },
   {
@@ -836,7 +836,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-021-7949f7f1-1277-4a9f-a4b2-e3949c5d9678.jpg",
+      "assets/galeri/team-achievement-online-021-7949f7f1-1277-4a9f-a4b2-e3949c5d9678.webp",
     tipe: "gambar",
   },
   {
@@ -846,7 +846,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-022-826a76da-5d53-4cb2-94d6-e321b3e3b1d4.jpg",
+      "assets/galeri/team-achievement-online-022-826a76da-5d53-4cb2-94d6-e321b3e3b1d4.webp",
     tipe: "gambar",
   },
   {
@@ -856,7 +856,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-023-87d0fb75-bdb8-4206-9a45-60d4f2acce1a.jpg",
+      "assets/galeri/team-achievement-online-023-87d0fb75-bdb8-4206-9a45-60d4f2acce1a.webp",
     tipe: "gambar",
   },
   {
@@ -866,7 +866,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-024-8fb3672b-c1de-4739-a24a-1d9f9180c4a3.jpg",
+      "assets/galeri/team-achievement-online-024-8fb3672b-c1de-4739-a24a-1d9f9180c4a3.webp",
     tipe: "gambar",
   },
   {
@@ -876,7 +876,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-025-97be80d3-f7c3-4adf-bdd0-ed4edd5fad9b.jpg",
+      "assets/galeri/team-achievement-online-025-97be80d3-f7c3-4adf-bdd0-ed4edd5fad9b.webp",
     tipe: "gambar",
   },
   {
@@ -886,7 +886,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-026-9d15bc3d-5317-4340-b0b6-5b492bb3a8e2.jpg",
+      "assets/galeri/team-achievement-online-026-9d15bc3d-5317-4340-b0b6-5b492bb3a8e2.webp",
     tipe: "gambar",
   },
   {
@@ -896,7 +896,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-027-b5a9b617-0c84-4185-a38b-9b6d9ad9ad67.jpg",
+      "assets/galeri/team-achievement-online-027-b5a9b617-0c84-4185-a38b-9b6d9ad9ad67.webp",
     tipe: "gambar",
   },
   {
@@ -906,7 +906,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-029-d76bdb2e-dc41-419a-9a26-abd7e05f39ec.jpg",
+      "assets/galeri/team-achievement-online-029-d76bdb2e-dc41-419a-9a26-abd7e05f39ec.webp",
     tipe: "gambar",
   },
   {
@@ -916,7 +916,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-030-ddbe9263-1eb2-4006-9809-2d935ea72dd1.jpg",
+      "assets/galeri/team-achievement-online-030-ddbe9263-1eb2-4006-9809-2d935ea72dd1.webp",
     tipe: "gambar",
   },
   {
@@ -926,7 +926,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-031-e-certificate-fantastic-wow-meat-v2-juara-3-s19-3.png",
+      "assets/galeri/team-achievement-online-031-e-certificate-fantastic-wow-meat-v2-juara-3-s19-3.webp",
     tipe: "gambar",
   },
   {
@@ -936,7 +936,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-032-e26335ee-8b9b-4a3a-94a0-9e199d8107b9.jpg",
+      "assets/galeri/team-achievement-online-032-e26335ee-8b9b-4a3a-94a0-9e199d8107b9.webp",
     tipe: "gambar",
   },
   {
@@ -946,7 +946,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-033-e9614e75-ed68-4105-b3b9-675ae012e659.jpg",
+      "assets/galeri/team-achievement-online-033-e9614e75-ed68-4105-b3b9-675ae012e659.webp",
     tipe: "gambar",
   },
   {
@@ -955,7 +955,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-035-fantastic-kami.png",
+    gambar: "assets/galeri/team-achievement-online-035-fantastic-kami.webp",
     tipe: "gambar",
   },
   {
@@ -973,7 +973,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-038-img-20260107-wa0514.jpg",
+    gambar: "assets/galeri/team-achievement-online-038-img-20260107-wa0514.webp",
     tipe: "gambar",
   },
   {
@@ -982,7 +982,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-039-img-20260114-wa0024.jpg",
+    gambar: "assets/galeri/team-achievement-online-039-img-20260114-wa0024.webp",
     tipe: "gambar",
   },
   {
@@ -991,7 +991,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-040-img-20260206-wa0002.jpg",
+    gambar: "assets/galeri/team-achievement-online-040-img-20260206-wa0002.webp",
     tipe: "gambar",
   },
   {
@@ -1000,7 +1000,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-041-img-20260223-wa0003.jpg",
+    gambar: "assets/galeri/team-achievement-online-041-img-20260223-wa0003.webp",
     tipe: "gambar",
   },
   {
@@ -1009,7 +1009,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-044-img-20260330-wa0028.jpg",
+    gambar: "assets/galeri/team-achievement-online-044-img-20260330-wa0028.webp",
     tipe: "gambar",
   },
   {
@@ -1018,7 +1018,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-045-img-20260401-wa0038.jpg",
+    gambar: "assets/galeri/team-achievement-online-045-img-20260401-wa0038.webp",
     tipe: "gambar",
   },
   {
@@ -1028,7 +1028,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-046-img-20260403-wa03323.jpg",
+      "assets/galeri/team-achievement-online-046-img-20260403-wa03323.webp",
     tipe: "gambar",
   },
   {
@@ -1037,7 +1037,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-047-img-20260404-wa0071.jpg",
+    gambar: "assets/galeri/team-achievement-online-047-img-20260404-wa0071.webp",
     tipe: "gambar",
   },
   {
@@ -1047,7 +1047,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-048-img-20260406-wa00492.jpg",
+      "assets/galeri/team-achievement-online-048-img-20260406-wa00492.webp",
     tipe: "gambar",
   },
   {
@@ -1056,7 +1056,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-049-img-20260406-wa0083.jpg",
+    gambar: "assets/galeri/team-achievement-online-049-img-20260406-wa0083.webp",
     tipe: "gambar",
   },
   {
@@ -1065,7 +1065,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-050-img-20260412-wa0278.jpg",
+    gambar: "assets/galeri/team-achievement-online-050-img-20260412-wa0278.webp",
     tipe: "gambar",
   },
   {
@@ -1074,7 +1074,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-051-img-20260413-wa0029.jpg",
+    gambar: "assets/galeri/team-achievement-online-051-img-20260413-wa0029.webp",
     tipe: "gambar",
   },
   {
@@ -1083,7 +1083,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-052-img-20260416-wa0040.jpg",
+    gambar: "assets/galeri/team-achievement-online-052-img-20260416-wa0040.webp",
     tipe: "gambar",
   },
   {
@@ -1092,7 +1092,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-053-img-20260417-wa0018.jpg",
+    gambar: "assets/galeri/team-achievement-online-053-img-20260417-wa0018.webp",
     tipe: "gambar",
   },
   {
@@ -1101,7 +1101,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-054-img-20260421-wa0353.jpg",
+    gambar: "assets/galeri/team-achievement-online-054-img-20260421-wa0353.webp",
     tipe: "gambar",
   },
   {
@@ -1110,7 +1110,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-057-img-20260503-wa0033.jpg",
+    gambar: "assets/galeri/team-achievement-online-057-img-20260503-wa0033.webp",
     tipe: "gambar",
   },
   {
@@ -1119,7 +1119,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-058-img-20260506-wa0022.jpg",
+    gambar: "assets/galeri/team-achievement-online-058-img-20260506-wa0022.webp",
     tipe: "gambar",
   },
   {
@@ -1128,7 +1128,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-059-img-20260507-wa0263.jpg",
+    gambar: "assets/galeri/team-achievement-online-059-img-20260507-wa0263.webp",
     tipe: "gambar",
   },
   {
@@ -1137,7 +1137,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-060-img-20260508-wa0319.jpg",
+    gambar: "assets/galeri/team-achievement-online-060-img-20260508-wa0319.webp",
     tipe: "gambar",
   },
   {
@@ -1146,7 +1146,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-062-img-20260512-wa0010.jpg",
+    gambar: "assets/galeri/team-achievement-online-062-img-20260512-wa0010.webp",
     tipe: "gambar",
   },
   {
@@ -1155,7 +1155,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-063-img-20260513-wa0079.jpg",
+    gambar: "assets/galeri/team-achievement-online-063-img-20260513-wa0079.webp",
     tipe: "gambar",
   },
   {
@@ -1164,7 +1164,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-064-img-20260514-wa0019.jpg",
+    gambar: "assets/galeri/team-achievement-online-064-img-20260514-wa0019.webp",
     tipe: "gambar",
   },
   {
@@ -1173,7 +1173,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-065-img-20260515-wa0041.jpg",
+    gambar: "assets/galeri/team-achievement-online-065-img-20260515-wa0041.webp",
     tipe: "gambar",
   },
   {
@@ -1182,7 +1182,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-066-img-20260515-wa0148.jpg",
+    gambar: "assets/galeri/team-achievement-online-066-img-20260515-wa0148.webp",
     tipe: "gambar",
   },
   {
@@ -1191,7 +1191,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-067-img-20260517-wa0387.jpg",
+    gambar: "assets/galeri/team-achievement-online-067-img-20260517-wa0387.webp",
     tipe: "gambar",
   },
   {
@@ -1200,7 +1200,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-068-img-20260518-wa0078.jpg",
+    gambar: "assets/galeri/team-achievement-online-068-img-20260518-wa0078.webp",
     tipe: "gambar",
   },
   {
@@ -1209,7 +1209,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-069-img-20260520-wa0020.jpg",
+    gambar: "assets/galeri/team-achievement-online-069-img-20260520-wa0020.webp",
     tipe: "gambar",
   },
   {
@@ -1218,7 +1218,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-071-img-20260522-wa0042.jpg",
+    gambar: "assets/galeri/team-achievement-online-071-img-20260522-wa0042.webp",
     tipe: "gambar",
   },
   {
@@ -1227,7 +1227,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-072-img-20260525-wa0037.jpg",
+    gambar: "assets/galeri/team-achievement-online-072-img-20260525-wa0037.webp",
     tipe: "gambar",
   },
   {
@@ -1236,7 +1236,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-073-img-20260525-wa0330.jpg",
+    gambar: "assets/galeri/team-achievement-online-073-img-20260525-wa0330.webp",
     tipe: "gambar",
   },
   {
@@ -1245,7 +1245,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-076-img-20260527-wa0007.jpg",
+    gambar: "assets/galeri/team-achievement-online-076-img-20260527-wa0007.webp",
     tipe: "gambar",
   },
   {
@@ -1254,7 +1254,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-077-img-20260528-wa0025.jpg",
+    gambar: "assets/galeri/team-achievement-online-077-img-20260528-wa0025.webp",
     tipe: "gambar",
   },
   {
@@ -1263,7 +1263,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-078-img-20260528-wa0461.jpg",
+    gambar: "assets/galeri/team-achievement-online-078-img-20260528-wa0461.webp",
     tipe: "gambar",
   },
   {
@@ -1272,7 +1272,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-079-img-20260528-wa0485.jpg",
+    gambar: "assets/galeri/team-achievement-online-079-img-20260528-wa0485.webp",
     tipe: "gambar",
   },
   {
@@ -1281,7 +1281,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-081-img-20260607-wa0039.jpg",
+    gambar: "assets/galeri/team-achievement-online-081-img-20260607-wa0039.webp",
     tipe: "gambar",
   },
   {
@@ -1290,7 +1290,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-085-img-20260703-wa0072.jpg",
+    gambar: "assets/galeri/team-achievement-online-085-img-20260703-wa0072.webp",
     tipe: "gambar",
   },
   {
@@ -1300,7 +1300,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-086-img-20260709-wa00811.jpg",
+      "assets/galeri/team-achievement-online-086-img-20260709-wa00811.webp",
     tipe: "gambar",
   },
   {
@@ -1309,7 +1309,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-087-img-20260714-wa0004.jpg",
+    gambar: "assets/galeri/team-achievement-online-087-img-20260714-wa0004.webp",
     tipe: "gambar",
   },
   {
@@ -1318,7 +1318,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-088-img-20260717-wa0026.jpg",
+    gambar: "assets/galeri/team-achievement-online-088-img-20260717-wa0026.webp",
     tipe: "gambar",
   },
   {
@@ -1327,7 +1327,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-089-img-20260729-wa0004.jpg",
+    gambar: "assets/galeri/team-achievement-online-089-img-20260729-wa0004.webp",
     tipe: "gambar",
   },
   {
@@ -1336,7 +1336,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-090-img-20260729-wa0013.jpg",
+    gambar: "assets/galeri/team-achievement-online-090-img-20260729-wa0013.webp",
     tipe: "gambar",
   },
   {
@@ -1345,7 +1345,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-091-img-20260808-wa0058.jpg",
+    gambar: "assets/galeri/team-achievement-online-091-img-20260808-wa0058.webp",
     tipe: "gambar",
   },
   {
@@ -1354,7 +1354,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-092-img-20260809-wa0018.jpg",
+    gambar: "assets/galeri/team-achievement-online-092-img-20260809-wa0018.webp",
     tipe: "gambar",
   },
   {
@@ -1363,7 +1363,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-093-img-20260904-wa0025.jpg",
+    gambar: "assets/galeri/team-achievement-online-093-img-20260904-wa0025.webp",
     tipe: "gambar",
   },
   {
@@ -1372,7 +1372,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-094-img-20260907-wa0433.jpg",
+    gambar: "assets/galeri/team-achievement-online-094-img-20260907-wa0433.webp",
     tipe: "gambar",
   },
   {
@@ -1381,7 +1381,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-095-img-20260908-wa0012.jpg",
+    gambar: "assets/galeri/team-achievement-online-095-img-20260908-wa0012.webp",
     tipe: "gambar",
   },
   {
@@ -1390,7 +1390,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-097-img-20260909-wa0008.jpg",
+    gambar: "assets/galeri/team-achievement-online-097-img-20260909-wa0008.webp",
     tipe: "gambar",
   },
   {
@@ -1399,7 +1399,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-099-img-20260914-wa0003.jpg",
+    gambar: "assets/galeri/team-achievement-online-099-img-20260914-wa0003.webp",
     tipe: "gambar",
   },
   {
@@ -1408,7 +1408,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-100-img-20260916-wa0106.jpg",
+    gambar: "assets/galeri/team-achievement-online-100-img-20260916-wa0106.webp",
     tipe: "gambar",
   },
   {
@@ -1417,7 +1417,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-101-img-20260917-wa0390.jpg",
+    gambar: "assets/galeri/team-achievement-online-101-img-20260917-wa0390.webp",
     tipe: "gambar",
   },
   {
@@ -1426,7 +1426,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-102-img-20260917-wa0411.jpg",
+    gambar: "assets/galeri/team-achievement-online-102-img-20260917-wa0411.webp",
     tipe: "gambar",
   },
   {
@@ -1435,7 +1435,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-104-img-20260919-wa0016.jpg",
+    gambar: "assets/galeri/team-achievement-online-104-img-20260919-wa0016.webp",
     tipe: "gambar",
   },
   {
@@ -1444,7 +1444,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-105-img-20260922-wa0013.jpg",
+    gambar: "assets/galeri/team-achievement-online-105-img-20260922-wa0013.webp",
     tipe: "gambar",
   },
   {
@@ -1453,7 +1453,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-109-img-20261016-wa0006.jpg",
+    gambar: "assets/galeri/team-achievement-online-109-img-20261016-wa0006.webp",
     tipe: "gambar",
   },
   {
@@ -1463,7 +1463,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-110-img1790610953912123244100000.png",
+      "assets/galeri/team-achievement-online-110-img1790610953912123244100000.webp",
     tipe: "gambar",
   },
   {
@@ -1472,7 +1472,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-111-img-0138.png",
+    gambar: "assets/galeri/team-achievement-online-111-img-0138.webp",
     tipe: "gambar",
   },
   {
@@ -1481,7 +1481,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-114-img-1779847590347.jpg",
+    gambar: "assets/galeri/team-achievement-online-114-img-1779847590347.webp",
     tipe: "gambar",
   },
   {
@@ -1490,7 +1490,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-115-img-20260524-173216.jpg",
+    gambar: "assets/galeri/team-achievement-online-115-img-20260524-173216.webp",
     tipe: "gambar",
   },
   {
@@ -1499,7 +1499,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-116-img-20260809-175632.jpg",
+    gambar: "assets/galeri/team-achievement-online-116-img-20260809-175632.webp",
     tipe: "gambar",
   },
   {
@@ -1508,7 +1508,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-118-img-4526.png",
+    gambar: "assets/galeri/team-achievement-online-118-img-4526.webp",
     tipe: "gambar",
   },
   {
@@ -1517,7 +1517,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-119-img-4539.png",
+    gambar: "assets/galeri/team-achievement-online-119-img-4539.webp",
     tipe: "gambar",
   },
   {
@@ -1526,7 +1526,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-120-img-5317.png",
+    gambar: "assets/galeri/team-achievement-online-120-img-5317.webp",
     tipe: "gambar",
   },
   {
@@ -1535,7 +1535,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/team-achievement-online-121-img-5379.png",
+    gambar: "assets/galeri/team-achievement-online-121-img-5379.webp",
     tipe: "gambar",
   },
   {
@@ -1545,7 +1545,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-124-picsart-26-05-06-08-10-19-297.jpg",
+      "assets/galeri/team-achievement-online-124-picsart-26-05-06-08-10-19-297.webp",
     tipe: "gambar",
   },
   {
@@ -1555,7 +1555,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-125-quality-restoration-20260428233435354.jpg",
+      "assets/galeri/team-achievement-online-125-quality-restoration-20260428233435354.webp",
     tipe: "gambar",
   },
   {
@@ -1565,7 +1565,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-127-save-20260706-111441.jpg",
+      "assets/galeri/team-achievement-online-127-save-20260706-111441.webp",
     tipe: "gambar",
   },
   {
@@ -1575,7 +1575,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-128-save-20260706-131616.jpg",
+      "assets/galeri/team-achievement-online-128-save-20260706-131616.webp",
     tipe: "gambar",
   },
   {
@@ -1585,7 +1585,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-130-screenshot-20260421-150823.jpg",
+      "assets/galeri/team-achievement-online-130-screenshot-20260421-150823.webp",
     tipe: "gambar",
   },
   {
@@ -1595,7 +1595,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-131-screenshot-20260512-103113.jpg",
+      "assets/galeri/team-achievement-online-131-screenshot-20260512-103113.webp",
     tipe: "gambar",
   },
   {
@@ -1605,7 +1605,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-132-screenshot-20261018-003609-chrome1.jpg",
+      "assets/galeri/team-achievement-online-132-screenshot-20261018-003609-chrome1.webp",
     tipe: "gambar",
   },
   {
@@ -1615,7 +1615,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-133-sertifikat-20260718-001142-0000.png",
+      "assets/galeri/team-achievement-online-133-sertifikat-20260718-001142-0000.webp",
     tipe: "gambar",
   },
   {
@@ -1625,7 +1625,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-135-whatsapp-image-2026-03-13-at-06-57-30.jpeg",
+      "assets/galeri/team-achievement-online-135-whatsapp-image-2026-03-13-at-06-57-30.webp",
     tipe: "gambar",
   },
   {
@@ -1635,7 +1635,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-136-whatsapp-image-2026-03-13-at-06-57-31.jpeg",
+      "assets/galeri/team-achievement-online-136-whatsapp-image-2026-03-13-at-06-57-31.webp",
     tipe: "gambar",
   },
   {
@@ -1645,7 +1645,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-137-whatsapp-image-2026-03-13-at-06-57-31-1.jpeg",
+      "assets/galeri/team-achievement-online-137-whatsapp-image-2026-03-13-at-06-57-31-1.webp",
     tipe: "gambar",
   },
   {
@@ -1655,7 +1655,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-138-whatsapp-image-2026-03-13-at-06-57-31-2.jpeg",
+      "assets/galeri/team-achievement-online-138-whatsapp-image-2026-03-13-at-06-57-31-2.webp",
     tipe: "gambar",
   },
   {
@@ -1665,7 +1665,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-141-whatsapp-image-2026-03-13-at-06-57-32-2.jpeg",
+      "assets/galeri/team-achievement-online-141-whatsapp-image-2026-03-13-at-06-57-32-2.webp",
     tipe: "gambar",
   },
   {
@@ -1675,7 +1675,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-142-whatsapp-image-2026-03-13-at-06-57-33-1.jpeg",
+      "assets/galeri/team-achievement-online-142-whatsapp-image-2026-03-13-at-06-57-33-1.webp",
     tipe: "gambar",
   },
   {
@@ -1685,7 +1685,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-146-whatsapp-image-2026-08-11-at-12-39-34.jpeg",
+      "assets/galeri/team-achievement-online-146-whatsapp-image-2026-08-11-at-12-39-34.webp",
     tipe: "gambar",
   },
   {
@@ -1694,7 +1694,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/fant four apre.png",
+    gambar: "assets/galeri/fant four apre.webp",
     tipe: "gambar",
   },
   {
@@ -1703,7 +1703,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/fant four baik 2026-10-24 at 12.17.36.jpeg",
+    gambar: "assets/galeri/fant four baik 2026-10-24 at 12.17.36.webp",
     tipe: "gambar",
   },
   {
@@ -1712,7 +1712,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/fant gv 2026-10-24 at 12.12.46.jpeg",
+    gambar: "assets/galeri/fant gv 2026-10-24 at 12.12.46.webp",
     tipe: "gambar",
   },
   {
@@ -1721,7 +1721,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/fant hore 2026-10-24 at 12.12.46.jpeg",
+    gambar: "assets/galeri/fant hore 2026-10-24 at 12.12.46.webp",
     tipe: "gambar",
   },
   {
@@ -1730,7 +1730,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
-    gambar: "assets/galeri/Fant hore 608.jpg",
+    gambar: "assets/galeri/Fant hore 608.webp",
     tipe: "gambar",
   },
   {
@@ -1740,7 +1740,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-148-whatsapp-image-2026-08-19-at-11-51-02.jpeg",
+      "assets/galeri/team-achievement-online-148-whatsapp-image-2026-08-19-at-11-51-02.webp",
     tipe: "gambar",
   },
   {
@@ -1750,7 +1750,7 @@ window.GALERI_DATA = [
       "Dokumentasi perjalanan dan pencapaian WE ARE FANTASTIC di arena online.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-online-149-whatsapp-image-2026-08-19-at-11-51-03.jpeg",
+      "assets/galeri/team-achievement-online-149-whatsapp-image-2026-08-19-at-11-51-03.webp",
     tipe: "gambar",
   },
   {
@@ -1759,7 +1759,7 @@ window.GALERI_DATA = [
     deskripsi: "Kenangan dan momen kebersamaan keluarga WE ARE FANTASTIC.",
     tanggal: "",
     gambar:
-      "assets/galeri/team-memory-156-whatsapp-image-2026-10-18-at-17-00-01.jpeg",
+      "assets/galeri/team-memory-156-whatsapp-image-2026-10-18-at-17-00-01.webp",
     tipe: "gambar",
   },
 
@@ -1770,7 +1770,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-001.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-001.webp",
     tipe: "gambar",
   },
   {
@@ -1779,7 +1779,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-002.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-002.webp",
     tipe: "gambar",
   },
   {
@@ -1788,7 +1788,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-003.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-003.webp",
     tipe: "gambar",
   },
   {
@@ -1797,7 +1797,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-004.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-004.webp",
     tipe: "gambar",
   },
   {
@@ -1806,7 +1806,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-005.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-005.webp",
     tipe: "gambar",
   },
   {
@@ -1815,7 +1815,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-006.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-006.webp",
     tipe: "gambar",
   },
   {
@@ -1824,7 +1824,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-007.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-007.webp",
     tipe: "gambar",
   },
   {
@@ -1833,7 +1833,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-008.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-008.webp",
     tipe: "gambar",
   },
   {
@@ -1842,7 +1842,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-009.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-009.webp",
     tipe: "gambar",
   },
   {
@@ -1851,7 +1851,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-010.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-010.webp",
     tipe: "gambar",
   },
   {
@@ -1860,7 +1860,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-011.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-011.webp",
     tipe: "gambar",
   },
   {
@@ -1869,7 +1869,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-012.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-012.webp",
     tipe: "gambar",
   },
   {
@@ -1878,7 +1878,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-013.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-013.webp",
     tipe: "gambar",
   },
   {
@@ -1887,7 +1887,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-014.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-014.webp",
     tipe: "gambar",
   },
   {
@@ -1896,7 +1896,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-015.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-015.webp",
     tipe: "gambar",
   },
   {
@@ -1905,7 +1905,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-017.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-017.webp",
     tipe: "gambar",
   },
   {
@@ -1914,7 +1914,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-018.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-018.webp",
     tipe: "gambar",
   },
   {
@@ -1923,7 +1923,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-019.png",
+    gambar: "assets/galeri/1000-stars/1000-star-019.webp",
     tipe: "gambar",
   },
   {
@@ -1932,7 +1932,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-020.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-020.webp",
     tipe: "gambar",
   },
   {
@@ -1941,7 +1941,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-021.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-021.webp",
     tipe: "gambar",
   },
   {
@@ -1950,7 +1950,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-022.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-022.webp",
     tipe: "gambar",
   },
   {
@@ -1959,7 +1959,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-023.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-023.webp",
     tipe: "gambar",
   },
   {
@@ -1968,7 +1968,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-024.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-024.webp",
     tipe: "gambar",
   },
   {
@@ -1977,7 +1977,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-025.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-025.webp",
     tipe: "gambar",
   },
   {
@@ -1986,7 +1986,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-026.png",
+    gambar: "assets/galeri/1000-stars/1000-star-026.webp",
     tipe: "gambar",
   },
   {
@@ -1995,7 +1995,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-027.png",
+    gambar: "assets/galeri/1000-stars/1000-star-027.webp",
     tipe: "gambar",
   },
   {
@@ -2004,7 +2004,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-028.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-028.webp",
     tipe: "gambar",
   },
   {
@@ -2013,7 +2013,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-029.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-029.webp",
     tipe: "gambar",
   },
   {
@@ -2022,7 +2022,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-030.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-030.webp",
     tipe: "gambar",
   },
   {
@@ -2031,7 +2031,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-031.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-031.webp",
     tipe: "gambar",
   },
   {
@@ -2040,7 +2040,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-032.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-032.webp",
     tipe: "gambar",
   },
   {
@@ -2049,7 +2049,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-034.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-034.webp",
     tipe: "gambar",
   },
   {
@@ -2058,7 +2058,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-035.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-035.webp",
     tipe: "gambar",
   },
   {
@@ -2067,7 +2067,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-036.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-036.webp",
     tipe: "gambar",
   },
   {
@@ -2076,7 +2076,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-037.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-037.webp",
     tipe: "gambar",
   },
   {
@@ -2085,7 +2085,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-038.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-038.webp",
     tipe: "gambar",
   },
   {
@@ -2094,7 +2094,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-039.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-039.webp",
     tipe: "gambar",
   },
   {
@@ -2103,7 +2103,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-040.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-040.webp",
     tipe: "gambar",
   },
   {
@@ -2112,7 +2112,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-041.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-041.webp",
     tipe: "gambar",
   },
   {
@@ -2121,7 +2121,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-042.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-042.webp",
     tipe: "gambar",
   },
   {
@@ -2130,7 +2130,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-043.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-043.webp",
     tipe: "gambar",
   },
   {
@@ -2139,7 +2139,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-044.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-044.webp",
     tipe: "gambar",
   },
   {
@@ -2148,7 +2148,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-045.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-045.webp",
     tipe: "gambar",
   },
   {
@@ -2157,7 +2157,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-046.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-046.webp",
     tipe: "gambar",
   },
   {
@@ -2166,7 +2166,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-047.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-047.webp",
     tipe: "gambar",
   },
   {
@@ -2175,7 +2175,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-048.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-048.webp",
     tipe: "gambar",
   },
   {
@@ -2184,7 +2184,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-049.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-049.webp",
     tipe: "gambar",
   },
   {
@@ -2193,7 +2193,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-050.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-050.webp",
     tipe: "gambar",
   },
   {
@@ -2202,7 +2202,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-051.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-051.webp",
     tipe: "gambar",
   },
   {
@@ -2211,7 +2211,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-052.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-052.webp",
     tipe: "gambar",
   },
   {
@@ -2220,7 +2220,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-053.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-053.webp",
     tipe: "gambar",
   },
   {
@@ -2229,7 +2229,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-054.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-054.webp",
     tipe: "gambar",
   },
   {
@@ -2238,7 +2238,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-055.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-055.webp",
     tipe: "gambar",
   },
   {
@@ -2247,7 +2247,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-056.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-056.webp",
     tipe: "gambar",
   },
   {
@@ -2256,7 +2256,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-057.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-057.webp",
     tipe: "gambar",
   },
   {
@@ -2265,7 +2265,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-058.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-058.webp",
     tipe: "gambar",
   },
   {
@@ -2274,7 +2274,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-059.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-059.webp",
     tipe: "gambar",
   },
   {
@@ -2283,7 +2283,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-060.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-060.webp",
     tipe: "gambar",
   },
   {
@@ -2292,7 +2292,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-062.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-062.webp",
     tipe: "gambar",
   },
   {
@@ -2301,7 +2301,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-063.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-063.webp",
     tipe: "gambar",
   },
   {
@@ -2310,7 +2310,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-064.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-064.webp",
     tipe: "gambar",
   },
   {
@@ -2319,7 +2319,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-065.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-065.webp",
     tipe: "gambar",
   },
   {
@@ -2328,7 +2328,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-066.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-066.webp",
     tipe: "gambar",
   },
   {
@@ -2337,7 +2337,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-067.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-067.webp",
     tipe: "gambar",
   },
   {
@@ -2346,7 +2346,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-068.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-068.webp",
     tipe: "gambar",
   },
   {
@@ -2355,7 +2355,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-069.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-069.webp",
     tipe: "gambar",
   },
   {
@@ -2364,7 +2364,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-070.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-070.webp",
     tipe: "gambar",
   },
   {
@@ -2373,7 +2373,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-071.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-071.webp",
     tipe: "gambar",
   },
   {
@@ -2382,7 +2382,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-072.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-072.webp",
     tipe: "gambar",
   },
   {
@@ -2391,7 +2391,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-073.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-073.webp",
     tipe: "gambar",
   },
   {
@@ -2400,7 +2400,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-074.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-074.webp",
     tipe: "gambar",
   },
   {
@@ -2409,7 +2409,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-075.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-075.webp",
     tipe: "gambar",
   },
   {
@@ -2418,7 +2418,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-076.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-076.webp",
     tipe: "gambar",
   },
   {
@@ -2427,7 +2427,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-077.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-077.webp",
     tipe: "gambar",
   },
   {
@@ -2436,7 +2436,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-078.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-078.webp",
     tipe: "gambar",
   },
   {
@@ -2445,7 +2445,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-079.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-079.webp",
     tipe: "gambar",
   },
   {
@@ -2454,7 +2454,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-080.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-080.webp",
     tipe: "gambar",
   },
   {
@@ -2463,7 +2463,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-081.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-081.webp",
     tipe: "gambar",
   },
   {
@@ -2472,7 +2472,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-082.png",
+    gambar: "assets/galeri/1000-stars/1000-star-082.webp",
     tipe: "gambar",
   },
 
@@ -2483,7 +2483,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-083.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-083.webp",
     tipe: "gambar",
   },
   {
@@ -2492,7 +2492,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-084.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-084.webp",
     tipe: "gambar",
   },
   {
@@ -2501,7 +2501,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-085.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-085.webp",
     tipe: "gambar",
   },
   {
@@ -2510,7 +2510,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-086.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-086.webp",
     tipe: "gambar",
   },
   {
@@ -2519,7 +2519,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-087.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-087.webp",
     tipe: "gambar",
   },
   {
@@ -2528,7 +2528,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-088.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-088.webp",
     tipe: "gambar",
   },
   {
@@ -2537,7 +2537,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-089.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-089.webp",
     tipe: "gambar",
   },
   {
@@ -2546,7 +2546,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-090.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-090.webp",
     tipe: "gambar",
   },
   {
@@ -2555,7 +2555,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-091.png",
+    gambar: "assets/galeri/1000-stars/1000-star-091.webp",
     tipe: "gambar",
   },
   {
@@ -2564,7 +2564,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-092.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-092.webp",
     tipe: "gambar",
   },
   {
@@ -2573,7 +2573,7 @@ window.GALERI_DATA = [
     deskripsi:
       "Seribu bintang, ribuan usaha, satu pencapaian yang layak dikenang. Sebuah bukti bahwa dedikasi mampu meninggalkan jejak dalam perjalanan F4NTASTIC.",
     tanggal: "",
-    gambar: "assets/galeri/1000-stars/1000-star-093.jpg",
+    gambar: "assets/galeri/1000-stars/1000-star-093.webp",
     tipe: "gambar",
   },
   {
@@ -2588,7 +2588,7 @@ window.GALERI_DATA = [
       gold: "Macaaawy x F4N'T",
     },
     tanggal: "",
-    gambar: "assets/galeri/fantastic-compe-newbie-x-papah-jahat.jpg",
+    gambar: "assets/galeri/fantastic-compe-newbie-x-papah-jahat.webp",
     tipe: "gambar",
   },
   {
@@ -2604,7 +2604,7 @@ window.GALERI_DATA = [
     },
     tanggal: "",
     gambar:
-      "assets/galeri/team-achievement-offline-004-whatsapp-image-2026-10-18-at-21-19-15.jpeg",
+      "assets/galeri/team-achievement-offline-004-whatsapp-image-2026-10-18-at-21-19-15.webp",
     tipe: "gambar",
   },
   {
@@ -2619,7 +2619,7 @@ window.GALERI_DATA = [
       gold: "Achantha x F4N'T",
     },
     tanggal: "",
-    gambar: "assets/galeri/Fantastic Fancancy Rev.png",
+    gambar: "assets/galeri/Fantastic Fancancy Rev.webp",
     tipe: "gambar",
   },
   {
@@ -2634,7 +2634,7 @@ window.GALERI_DATA = [
       gold: "Yamhz x F4N'T",
     },
     tanggal: "",
-    gambar: "assets/galeri/fant four Image 2026-10-23 at 12.48.26.jpeg",
+    gambar: "assets/galeri/fant four Image 2026-10-23 at 12.48.26.webp",
     tipe: "gambar",
   },
   {
@@ -2649,7 +2649,7 @@ window.GALERI_DATA = [
       gold: "Bila x F4N'T",
     },
     tanggal: "",
-    gambar: "assets/galeri/ath old Image 2026-10-25 at 15.00.19.jpeg",
+    gambar: "assets/galeri/ath old Image 2026-10-25 at 15.00.19.webp",
     tipe: "gambar",
   },
   {
@@ -2664,7 +2664,7 @@ window.GALERI_DATA = [
       gold: "cinday x F4N'T",
     },
     tanggal: "",
-    gambar: "assets/galeri/ath Image 2026-10-25 at 15.00.44.jpeg",
+    gambar: "assets/galeri/ath Image 2026-10-25 at 15.00.44.webp",
     tipe: "gambar",
   },
   {
@@ -2679,7 +2679,7 @@ window.GALERI_DATA = [
       gold: "RyougiSzy 신비한 x F4N'T",
     },
     tanggal: "",
-    gambar: "assets/galeri/smanell.jpg",
+    gambar: "assets/galeri/smanell.webp",
     tipe: "gambar",
   },
 ];
